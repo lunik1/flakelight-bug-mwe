@@ -232,8 +232,7 @@
 
       # Python
       pipenv
-      python37Packages.python-language-server
-      python37Packages.pyls-isort
+      python-language-server
 
       # Clojure
       joker
