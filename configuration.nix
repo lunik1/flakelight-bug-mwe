@@ -94,8 +94,6 @@
   time.timeZone = "Europe/London";
 
   ## Security
-  # TODO: Disable? Is krngd enough?
-  security.rngd.enable = true;
 
   ## Nix
   nix = {
