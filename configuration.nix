@@ -110,21 +110,6 @@
     allowUnfree = true;
     # Package overrides
     packageOverrides = pkgs: {
-      iosevka-fixed-extended = pkgs.iosevka.override {
-        set = "fixed-extended";
-        privateBuildPlan = {
-          family = "Iosevka Fixed";
-          design = [ "sp-fixed" "sans" "ss03" "v-l-italic" "v-brace-curly" ];
-          italic = [ "v-k-cursive" ];
-          widths = {
-            extended = {
-              shape = 576;
-              menu = 7;
-              css = "normal";
-            };
-          };
-        };
-      };
       # chromium = pkgs.chromium.override { useVaapi = true; };  # takes ages to build
       neovim = pkgs.neovim.override {
         vimAlias = true;
@@ -293,8 +278,6 @@
       emacs-all-the-icons-fonts
       sarasa-gothic
       font-awesome
-      iosevka-fixed-extended
-      # iosevka-sparkle
       montserrat
       noto-fonts
       noto-fonts-cjk
@@ -307,7 +290,7 @@
     enableDefaultFonts = true;
     fontconfig = {
       defaultFonts.monospace =
-        [ "Iosevka Fixed Extended" "Sarasa Fixed CL" "Julia Mono" ];
+        [ "Source Code Pro" "Sarasa Fixed CL" "Julia Mono" ];
       hinting.enable = false; # > 200dpi
     };
   };
