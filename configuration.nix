@@ -131,8 +131,6 @@
         viAlias = true;
       };
       youtube-dl = pkgs.youtube-dl.override { phantomjsSupport = true; };
-      zathura =
-        pkgs.zathura.override { useMupdf = false; }; # TODO go back to Mupdf
     };
   };
 
