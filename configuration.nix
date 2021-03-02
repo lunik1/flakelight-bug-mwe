@@ -302,6 +302,24 @@
         "Font Awesome 5 Free"
         "Font Awesome 5 Brands"
       ];
+      defaultFonts.serif = [
+        "Source Serif Pro"
+        "Font Awesome 5 Free"
+        "Font Awesome 5 Brands"
+        "Material Icons"
+      ];
+      defaultFonts.sansSerif = [
+        "Source Sans Pro"
+        "Font Awesome 5 Free"
+        "Font Awesome 5 Brands"
+        "Material Icons"
+      ];
+      defaultFonts.emoji = [
+        "Noto Color Emoji"
+        "Font Awesome 5 Free"
+        "Font Awesome 5 Brands"
+        "Material Icons"
+      ];
       hinting.enable = false; # > 200dpi
     };
   };
