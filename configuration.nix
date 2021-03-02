@@ -147,6 +147,7 @@
       cmake
       cmst
       discord
+      element-desktop
       fd
       feh
       firefox-wayland
