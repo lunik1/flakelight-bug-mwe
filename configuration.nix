@@ -276,21 +276,31 @@
   fonts = {
     fonts = with pkgs; [
       emacs-all-the-icons-fonts
-      sarasa-gothic
       font-awesome
       montserrat
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
+      sarasa-gothic
       source-code-pro
       source-sans-pro
       source-serif-pro
+      # TODO: iosevka
       # julia-mono
     ];
     enableDefaultFonts = true;
     fontconfig = {
-      defaultFonts.monospace =
-        [ "Source Code Pro" "Sarasa Fixed CL" "Julia Mono" ];
+      defaultFonts.monospace = [
+        "Source Code Pro"
+        "Sarasa Fixed CL"
+        "Sarasa Fixed HC"
+        "Sarasa Fixed TC"
+        "Sarasa Fixed J"
+        "Sarasa Fixed K"
+        # "Julia Mono"
+        "Font Awesome 5 Free"
+        "Font Awesome 5 Brands"
+      ];
       hinting.enable = false; # > 200dpi
     };
   };
