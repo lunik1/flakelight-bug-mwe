@@ -276,7 +276,8 @@
   fonts = {
     fonts = with pkgs; [
       emacs-all-the-icons-fonts
-      font-awesome
+      font-awesome-ttf
+      material-design-icons
       montserrat
       noto-fonts
       noto-fonts-cjk
