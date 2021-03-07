@@ -151,7 +151,6 @@
       fd
       feh
       firefox-wayland
-      flashplayer
       fzf
       git
       git-lfs
