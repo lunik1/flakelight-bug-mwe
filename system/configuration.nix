@@ -185,6 +185,7 @@
       skypeforlinux
       system-config-printer
       tealdeer
+      teams
       texlive.combined.scheme-full
       thunderbird
       wget
