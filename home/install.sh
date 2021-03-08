@@ -2,9 +2,14 @@
 
 set -Eeuo pipefail
 
-mkdir -p $HOME/.config
-ln --symbolic --no-dereference --force $(pwd) $HOME/.config
-nix-shell -p nixUnstable --command "nix build --experimental-features 'nix-command flakes' '.#$1'"
-# nixos-rebuild switch --flake ".#$1"
+# dir of this script
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
-. result/activate
+# Build ennvironment
+mkdir -p ${HOME}/.config
+ln --symbolic --no-dereference --force ${DIR} ${HOME}/.config
+nix-shell -p nixFlakes --command \
+  "nix build -o ${DIR}/result --experimental-features 'nix-command flakes' '${DIR}#$1'"
+
+# Activate new environment
+. ${DIR}/result/activate

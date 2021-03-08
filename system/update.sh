@@ -2,4 +2,7 @@
 
 set -Eeuo pipefail
 
-nix flake update --recreate-lock-file --commit-lock-file
+# dir of this script
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
+nix flake update ${DIR} --recreate-lock-file --commit-lock-file
