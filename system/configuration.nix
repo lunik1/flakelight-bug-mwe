@@ -134,107 +134,28 @@
       # TODO make sqlite3 available to emacs only
       sqlite.bin
 
-      aria2
-      aspell
-      aspellDicts.en
-      aspellDicts.en-computers
-      aspellDicts.en-science
-      bat
-      bitwarden
-      borgbackup
-      bpytop
-      chezmoi
-      cmake
-      cmst
-      discord
-      element-desktop
-      fd
-      feh
-      firefox-wayland
+      # TODO add these to home-manager
       fzf
       git
       git-lfs
       gitAndTools.delta
-      gnome3.simple-scan
       gnupg
-      hplip
       htop
       kitty
-      libarchive
-      libreoffice-fresh
-      magic-wormhole
-      megasync
       mpv-with-scripts
-      ncdu
       neovim
       nix-zsh-completions
       nodejs
-      ntfs3g
-      opera
-      parted
-      pavucontrol
-      plex-media-player
-      powertop
-      psmisc
-      qdirstat
-      ranger
-      ripgrep
-      ripgrep-all
-      rsync
-      skanlite
-      skypeforlinux
-      system-config-printer
-      tealdeer
-      teams
       texlive.combined.scheme-full
-      thunderbird
-      wget
-      yarn
       youtube-dl
-      zathura
       zsh-completions
 
-      # Games
-      crawl
-      crawlTiles
-      # dwarf-fortress-packages.dwarf-fortress-full
-      # freeciv
-      # freeciv_gtk
-      # freeciv_qt qt5.qtwayland
-      openrct2
-      wesnoth
-
-      # Dev
-      # C/C++
-      ccls
-      clang
-      clang-tools
-      gcc
-
-      # Nix
-      nixFlakes
-      nixfmt
-      nixpkgs-fmt
-
-      # Python
-      pipenv
-      python-language-server
-
-      # Clojure
-      joker
-      leiningen
-
-      # Misc
-      nodePackages.bash-language-server
-      nodePackages.dockerfile-language-server-nodejs
-
-      # Linters
-      nixpkgs-fmt
-      nodePackages.write-good
-      proselint
-      python37Packages.yamllint
-      vale
-      vim-vint
+      libarchive
+      ntfs3g
+      parted
+      powertop
+      psmisc
+      wget
     ];
   };
 
