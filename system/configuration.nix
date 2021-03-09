@@ -115,7 +115,6 @@
         vimAlias = true;
         viAlias = true;
       };
-      youtube-dl = pkgs.youtube-dl.override { phantomjsSupport = true; };
     };
   };
 
@@ -128,31 +127,18 @@
     };
 
     systemPackages = with pkgs; [
-      # emacs with vterm
-      ((emacsPackagesNgGen emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]))
-
-      # TODO make sqlite3 available to emacs only
-      sqlite.bin
-
       # TODO add these to home-manager
-      fzf
       git
       git-lfs
       gitAndTools.delta
-      gnupg
-      htop
-      kitty
-      mpv-with-scripts
       neovim
       nix-zsh-completions
-      nodejs
-      texlive.combined.scheme-full
-      youtube-dl
       zsh-completions
 
+      htop
       libarchive
+      kitty.terminfo
       ntfs3g
-      parted
       powertop
       psmisc
       wget
@@ -172,12 +158,9 @@
     iotop.enable = true;
     iftop.enable = true;
     ssh.startAgent = true;
-    gnupg.agent = {
-      enable = true;
-      pinentryFlavor = "gtk2";
-    };
     sway = {
       enable = true;
+
       wrapperFeatures.gtk = true;
       extraPackages = with pkgs; [
         grim
