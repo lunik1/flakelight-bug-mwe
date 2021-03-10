@@ -270,7 +270,6 @@
     # random-background
     # syncthing
     # udiskie
-    # mega user service
     gpg-agent = {
       enable = true;
       defaultCacheTtl = 86400;
