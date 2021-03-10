@@ -128,6 +128,20 @@
       python37Packages.yamllint
       vale
       vim-vint
+
+      # Fonts
+      emacs-all-the-icons-fonts
+      font-awesome-ttf
+      julia-mono
+      material-design-icons
+      montserrat
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      sarasa-gothic
+      source-code-pro
+      source-sans-pro
+      source-serif-pro
     ];
     sessionPath = [ "~/bin" ];
     sessionVariables = {
