@@ -31,6 +31,7 @@
     time
     util-linux
     which
+    xfce.thunar
     zstd
 
     aspell
@@ -127,9 +128,6 @@
     vale
     vim-vint
   ];
-
-  # TODO expand
-  fonts.fontconfig.enable = true;
 
   programs = {
     aria2.enable = true;
@@ -244,6 +242,25 @@
       '';
     };
     # random-background.enable = true;
+  };
+
+  # TODO expand
+  fonts.fontconfig.enable = true;
+
+  gtk = {
+    enable = true;
+    font = {
+      package = null;
+      name = "Iosevka Aile 14";
+    };
+    iconTheme = {
+      package = pkgs.arc-theme;
+      name = "Arc";
+    };
+    theme = {
+      package = pkgs.arc-theme;
+      name = "Arc";
+    };
   };
 
   home.stateVersion = "20.09";
