@@ -309,10 +309,7 @@
         };
         Install.WantedBy = [ "graphical-session.target" ];
         Service = {
-          Environment = [
-            "HOME=${config.home.homeDirectory}"
-            "DISPLAY=:1"
-          ];
+          Environment = [ "HOME=${config.home.homeDirectory}" "DISPLAY=:1" ];
           ExecStart = "${pkgs.megasync}/bin/megasync";
           Type = "forking";
           Restart = "on-failure";

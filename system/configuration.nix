@@ -51,6 +51,9 @@
       "vsyscall=none"
       "kernel.kptr_restrict=2"
       "kernel.kexec_load_disabled=1"
+
+      # https://redd.it/ihdozd
+      "intel_pstate=active"
     ];
   };
 
