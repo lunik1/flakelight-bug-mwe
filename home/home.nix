@@ -45,7 +45,6 @@
       bpytop
       chezmoi
       cmake
-      cmst
       discord
       duf
       element-desktop
@@ -273,7 +272,6 @@
     # syncthing
     # udiskie
     # mega user service
-    # cmst user service
     gpg-agent = {
       enable = true;
       defaultCacheTtl = 86400;
@@ -284,6 +282,29 @@
       '';
     };
     # random-background.enable = true;
+  };
+
+  systemd.user = {
+    startServices = "sd-switch";
+    services = {
+      cmst = {
+        Unit = {
+          Description = "Connman systray icon";
+          PartOf = "graphical-session.target";
+          After = "graphical-session-pre.target";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          Environment = "DISPLAY=:1";
+          ExecStart = "${pkgs.cmst}/bin/cmst -m";
+          Restart = "on-failure";
+          PrivateTmp = true;
+          ProtectSystem = "full";
+        };
+      };
+        };
+      };
+    };
   };
 
   # TODO expand
