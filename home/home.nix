@@ -247,6 +247,7 @@
   };
 
   services = {
+    blueman-applet.enable = true;
     # emacs.enable = true;
     gpg-agent = {
       enable = true;
