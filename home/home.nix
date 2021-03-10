@@ -282,7 +282,7 @@
     enable = true;
     font = {
       package = null;
-      name = "Iosevka Aile 14";
+      name = "Iosevka Aile 11";
     };
     iconTheme = {
       package = pkgs.arc-theme;
