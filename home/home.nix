@@ -1,133 +1,142 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    # Core utils (installed by defult on NixOS)
-    acl
-    bashInteractive
-    bzip2
-    coreutils-full
-    cpio
-    curl
-    diffutils
-    findutils
-    gawk
-    getent
-    getconf
-    gnugrep
-    gnupatch
-    gnused
-    gnutar
-    gzip
-    xz
-    less
-    libcap
-    nano
-    # ncurses
-    netcat
-    mkpasswd
-    procps
-    su
-    time
-    util-linux
-    which
-    xfce.thunar
-    zstd
+  home = {
+    packages = with pkgs; [
+      # Core utils (installed by defult on NixOS)
+      acl
+      bashInteractive
+      bzip2
+      coreutils-full
+      cpio
+      curl
+      diffutils
+      findutils
+      gawk
+      getent
+      getconf
+      gnugrep
+      gnupatch
+      gnused
+      gnutar
+      gzip
+      xz
+      less
+      libcap
+      nano
+      # ncurses
+      netcat
+      mkpasswd
+      procps
+      su
+      time
+      util-linux
+      which
+      xfce.thunar
+      zstd
 
-    aspell
-    aspellDicts.en
-    aspellDicts.en-computers
-    aspellDicts.en-science
-    bat-extras.batgrep
-    bitwarden
-    borgbackup
-    bpytop
-    chezmoi
-    cmake
-    cmst
-    discord
-    duf
-    element-desktop
-    ffmpeg-full
-    fd
-    gnome3.simple-scan
-    hplip
-    libarchive
-    libreoffice-fresh
-    lrzip
-    kitty # TODO: move to programs and configure
-    magic-wormhole
-    megasync
-    ncdu
-    nodejs
-    opera
-    p7zip
-    pavucontrol
-    parted
-    plex-media-player
-    psmisc
-    qdirstat
-    ranger
-    ripgrep
-    ripgrep-all
-    rsync
-    shfmt
-    skypeforlinux
-    system-config-printer
-    tealdeer
-    teams
-    thunderbird
-    unrar
-    unzip
-    wget
-    yarn
-    youtube-dl
+      aspell
+      aspellDicts.en
+      aspellDicts.en-computers
+      aspellDicts.en-science
+      bat-extras.batgrep
+      bitwarden
+      borgbackup
+      bpytop
+      chezmoi
+      cmake
+      cmst
+      discord
+      duf
+      element-desktop
+      ffmpeg-full
+      fd
+      gnome3.simple-scan
+      hplip
+      libarchive
+      libreoffice-fresh
+      lrzip
+      kitty # TODO: move to programs and configure
+      magic-wormhole
+      megasync
+      ncdu
+      nodejs
+      opera
+      p7zip
+      pavucontrol
+      parted
+      plex-media-player
+      psmisc
+      qdirstat
+      ranger
+      ripgrep
+      ripgrep-all
+      rsync
+      shfmt
+      skypeforlinux
+      system-config-printer
+      tealdeer
+      teams
+      thunderbird
+      unrar
+      unzip
+      wget
+      yarn
+      youtube-dl
 
-    # Emacs
-    sqlite.bin
+      # Emacs
+      sqlite.bin
 
-    # Games
-    crawl
-    crawlTiles
-    # dwarf-fortress-packages.dwarf-fortress-full
-    # freeciv
-    # freeciv_gtk
-    # freeciv_qt qt5.qtwayland
-    openrct2
-    # wesnoth
+      # Games
+      crawl
+      crawlTiles
+      # dwarf-fortress-packages.dwarf-fortress-full
+      # freeciv
+      # freeciv_gtk
+      # freeciv_qt qt5.qtwayland
+      openrct2
+      # wesnoth
 
-    # Dev
-    # C/C++
-    ccls
-    # clang # collides with gcc
-    clang-tools
-    gcc
+      # Dev
+      # C/C++
+      ccls
+      # clang # collides with gcc
+      clang-tools
+      gcc
 
-    # Nix
-    nixFlakes
-    nixfmt
-    nixpkgs-fmt
+      # Nix
+      nixFlakes
+      nixfmt
+      nixpkgs-fmt
 
-    # Python
-    poetry
-    python-language-server
+      # Python
+      poetry
+      python-language-server
 
-    # Clojure
-    joker
-    leiningen
+      # Clojure
+      joker
+      leiningen
 
-    # Misc
-    nodePackages.bash-language-server
-    nodePackages.dockerfile-language-server-nodejs
+      # Misc
+      nodePackages.bash-language-server
+      nodePackages.dockerfile-language-server-nodejs
 
-    # Linters
-    nixpkgs-fmt
-    nodePackages.write-good
-    proselint
-    python37Packages.yamllint
-    vale
-    vim-vint
-  ];
+      # Linters
+      nixpkgs-fmt
+      nodePackages.write-good
+      proselint
+      python37Packages.yamllint
+      vale
+      vim-vint
+    ];
+    sessionPath = [ "~/bin" ];
+    sessionVariables = {
+      EDITOR = "nvim";
+      LIBVA_DRIVER_NAME = "iHD";
+      MOZ_WEBRENDER = "1";
+      XDG_CONFIG_HOME = "~/.config";
+    };
+  };
 
   programs = {
     aria2.enable = true;
@@ -229,6 +238,8 @@
     };
     zathura.enable = true;
   };
+
+  pam.sessionVariables = { EDITOR = "nvim"; };
 
   services = {
     # emacs.enable = true;

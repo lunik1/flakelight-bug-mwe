@@ -122,8 +122,6 @@
   environment = {
     variables = {
       EDITOR = "nvim";
-      LIBVA_DRIVER_NAME = "iHD";
-      MOZ_WEBRENDER = "1";
     };
 
     systemPackages = with pkgs; [
