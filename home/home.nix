@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   home = {
@@ -57,7 +57,6 @@
       lrzip
       kitty # TODO: move to programs and configure
       magic-wormhole
-      megasync
       ncdu
       nodejs
       opera
@@ -302,6 +301,24 @@
           ProtectSystem = "full";
         };
       };
+      megasync = {
+        Unit = {
+          Description = "MEGA syncing service";
+          PartOf = "graphical-session.target";
+          After = "graphical-session-pre.target";
+          Nice = 10;
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          Environment = [
+            "HOME=${config.home.homeDirectory}"
+            "DISPLAY=:1"
+          ];
+          ExecStart = "${pkgs.megasync}/bin/megasync";
+          Type = "forking";
+          Restart = "on-failure";
+          PrivateTmp = true;
+          ProtectSystem = "full";
         };
       };
     };
