@@ -241,6 +241,11 @@
 
   pam.sessionVariables = { EDITOR = "nvim"; };
 
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+  };
+
   services = {
     # emacs.enable = true;
     gpg-agent = {
