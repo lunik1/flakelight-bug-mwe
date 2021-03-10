@@ -262,7 +262,18 @@
 
   services = {
     blueman-applet.enable = true;
+    # TODO:
+    # caffeine.enable = true;  # TODO find alternative that works with sway
     # emacs.enable = true;
+    # gnome-keyring
+    # kanshi
+    # mpd + mdpis
+    # waybar
+    # random-background
+    # syncthing
+    # udiskie
+    # mega user service
+    # cmst user service
     gpg-agent = {
       enable = true;
       defaultCacheTtl = 86400;
