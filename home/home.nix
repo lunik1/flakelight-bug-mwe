@@ -111,6 +111,9 @@
       clang-tools
       gcc
 
+      # LaTeX
+      texlab
+
       # Json
       jq
       nodePackages.vscode-json-languageserver-bin
