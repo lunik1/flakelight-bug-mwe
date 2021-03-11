@@ -63,6 +63,7 @@
       opera
       p7zip
       pavucontrol
+      pandoc
       parted
       plex-media-player
       psmisc
@@ -83,8 +84,13 @@
       yarn
       youtube-dl
 
-      # Emacs
+      # (Doom) Emacs
       sqlite.bin
+      graphviz
+      glslang
+      jq
+      shellcheck
+      sqlite-interactive.bin
 
       # Games
       crawl
@@ -109,6 +115,7 @@
       nixpkgs-fmt
 
       # Python
+      black
       poetry
       python-language-server
 
@@ -159,7 +166,7 @@
     };
     emacs = {
       enable = true;
-      extraPackages = epkgs: [ epkgs.vterm pkgs.sqlite.bin ];
+      extraPackages = epkgs: [ epkgs.vterm ];
     };
     feh.enable = true;
     firefox = {
