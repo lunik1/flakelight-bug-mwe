@@ -85,9 +85,8 @@
       youtube-dl
 
       # (Doom) Emacs
-      sqlite.bin
-      graphviz
       glslang
+      graphviz
       jq
       shellcheck
       sqlite-interactive.bin
@@ -123,6 +122,9 @@
       # Clojure
       joker
       leiningen
+
+      # Julia
+      julia
 
       # Misc
       nodePackages.bash-language-server
