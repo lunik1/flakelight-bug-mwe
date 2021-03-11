@@ -13,26 +13,25 @@
       diffutils
       findutils
       gawk
-      getent
       getconf
+      getent
       gnugrep
       gnupatch
       gnused
       gnutar
       gzip
-      xz
       less
       libcap
-      nano
-      # ncurses
-      netcat
       mkpasswd
+      nano
+      netcat
       procps
       su
       time
       util-linux
       which
       xfce.thunar
+      xz
       zstd
 
       aspell
@@ -48,29 +47,33 @@
       discord
       duf
       element-desktop
+      eternal-terminal
       fast-cli
-      ffmpeg-full
       fd
+      ffmpeg-full
       gnome3.simple-scan
       hplip
+      imagemagick
+      kitty # TODO: move to programs and configure
       libarchive
       libreoffice-fresh
       lrzip
-      kitty # TODO: move to programs and configure
       magic-wormhole
       ncdu
       nodejs
       opera
       p7zip
-      pavucontrol
       pandoc
+      parallel
       parted
+      pavucontrol
       plex-media-player
       psmisc
       qdirstat
       ranger
       ripgrep
       ripgrep-all
+      rmlint
       rsync
       shfmt
       skypeforlinux
@@ -86,6 +89,7 @@
 
       # (Doom) Emacs
       glslang
+      gnuplot
       graphviz
       jq
       shellcheck
@@ -124,6 +128,7 @@
       rust-analyzer
 
       # Clojure
+      babashka
       joker
       leiningen
 
@@ -133,8 +138,10 @@
       # Misc
       nodePackages.bash-language-server
       nodePackages.dockerfile-language-server-nodejs
+      nodePackages.yaml-language-server
 
       # Linters
+      languagetool
       nixpkgs-fmt
       nodePackages.write-good
       proselint
