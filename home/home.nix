@@ -48,6 +48,7 @@
       discord
       duf
       element-desktop
+      fast-cli
       ffmpeg-full
       fd
       gnome3.simple-scan
