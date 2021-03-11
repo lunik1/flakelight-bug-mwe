@@ -119,6 +119,10 @@
       python-language-server
       python
 
+      # Rust
+      rustup
+      rust-analyzer
+
       # Clojure
       joker
       leiningen
