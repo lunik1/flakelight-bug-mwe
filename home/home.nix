@@ -91,7 +91,6 @@
       glslang
       gnuplot
       graphviz
-      jq
       shellcheck
       sqlite-interactive.bin
 
@@ -111,6 +110,10 @@
       # clang # collides with gcc
       clang-tools
       gcc
+
+      # Json
+      jq
+      nodePackages.vscode-json-languageserver-bin
 
       # Nix
       nixFlakes
