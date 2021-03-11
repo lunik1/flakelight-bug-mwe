@@ -118,6 +118,7 @@
       black
       poetry
       python-language-server
+      python
 
       # Clojure
       joker
