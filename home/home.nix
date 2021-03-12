@@ -281,6 +281,117 @@
       enable = true;
       extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
     };
+    waybar = {
+      enable = true;
+      package = pkgs.waybar.override {
+        pulseSupport = true;
+        withMediaPlayer = true;
+      };
+      settings = [{
+        layer = "bottom";
+        position = "bottom";
+        # output = [ "eDP-1" ];
+        height = 30;
+        modules-left = [ "sway/workspaces" "sway/mode" "idle_inhibitor" ];
+        modules-right = [
+          "pulseaudio"
+          "backlight"
+          "memory"
+          "cpu"
+          "temperature"
+          "disk"
+          "battery"
+          "clock"
+          "tray"
+        ];
+        modules = {
+          "sway/workspaces".numeric-first = true;
+          pulseaudio = {
+            on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+            on-click-right =
+              "${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
+            format-icons = {
+              car = "󰄋";
+              hands-free = "󰋎";
+              hdmi = "󰡁";
+              headphone = "󰋋";
+              # headphone-muted = "󰟎";
+              headset = "󰋎";
+              hifi = "󰗜";
+              phone = "󰏶";
+              portable = "󰏶";
+              default = [ "󰕿" "󰖀" "󰕾" ];
+            };
+            format = "{icon}{volume}%";
+            format-bluetooth = "{icon}󰂯{volume:3}%";
+            format-muted = "󰝟 {volume}%";
+          };
+          backlight = {
+            format = "{icon}{percent:3}%";
+            format-icons = [ "󰌵" "󱉕" "󱉓" ];
+            on-scroll-up = "${pkgs.light}/bin/light -A 1";
+            on-scroll-down = "${pkgs.light}/bin/light -U 1";
+            on-click-right = "${pkgs.light}/bin/light -S 100";
+            on-click-middle = "${pkgs.light}/bin/light -S 0";
+          };
+          memory = {
+            format = "󰩾 {used:0.2f}GiB";
+            interval = 5;
+          };
+          cpu = {
+            # TODO When 0.9.6 is released use format-state
+            # https://github.com/Alexays/Waybar/pull/881
+            format = "󰊚{usage:3}%";
+            interval = 1;
+          };
+          temperature = {
+            format = "{icon}{temperatureC}°C";
+            format-critical = "󰸁  {temperatureC}°C";
+            format-icons = [ "󱃃" "󰔏" "󱃂" ];
+            interval = 1;
+            critical_threshold = 90;
+          };
+          disk = {
+            format = "󰋊{percentage_used:3}%";
+            interval = 60;
+          };
+          battery = {
+            format = "{icon}";
+            # TODO set different icons when charging (currently broken?)
+            format-icons = [ "󱃍" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            states = {
+              critical = 10;
+              warning = 30;
+            };
+          };
+          idle_inhibitor = {
+            format = "{icon}";
+            format-icons = {
+              activated = "󰅶";
+              deactivated = "󰾪";
+            };
+          };
+          clock = {
+            interval = 1;
+            format = "󰅐 {:%T}";
+            tooltip-format = "{:%F}";
+          };
+        };
+      }];
+      # TODO use gruvbox colours
+      style = (builtins.readFile (builtins.toPath
+        "${config.programs.waybar.package}/etc/xdg/waybar/style.css")) + ''
+          * {
+            font-family: monospace;
+            font-size: 20px;
+          }
+
+          #disk {
+            padding: 0 10px;
+            margin: 0 4px;
+            background-color: #458588
+          }'';
+    };
     zathura.enable = true;
   };
 
