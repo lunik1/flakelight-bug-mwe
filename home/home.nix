@@ -67,6 +67,7 @@
       parallel
       parted
       pavucontrol
+      playerctl
       plex-media-player
       psmisc
       qdirstat
@@ -272,6 +273,10 @@
       updateProcessNames = true;
       vimMode = true;
     };
+    ncmpcpp = {
+      enable = true;
+      package = pkgs.ncmpcpp.override { visualizerSupport = true; };
+    };
     texlive = {
       enable = true;
       extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
@@ -293,7 +298,6 @@
     # emacs.enable = true;
     # gnome-keyring
     # kanshi
-    # mpd + mdpis
     # waybar
     # random-background
     # udiskie
@@ -306,6 +310,24 @@
         allow-loopback-pinentry
       '';
     };
+    mpd = {
+      enable = true;
+      network.startWhenNeeded = true;
+      extraConfig = ''
+        audio_output {
+          type            "pulse"
+          name            "pulse audio"
+        }
+
+        audio_output {
+          type            "fifo"
+          name            "my_fifo"
+          path            "/tmp/mpd.fifo"
+          format          "44100:16:2"
+        }'';
+    };
+    mpdris2.enable = true; # TODO: use mpd-mpris instead?
+    playerctld.enable = true;
     syncthing = {
       enable = true;
       tray = false; # does not work on wayland
