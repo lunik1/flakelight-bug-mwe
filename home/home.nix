@@ -296,7 +296,6 @@
     # mpd + mdpis
     # waybar
     # random-background
-    # syncthing
     # udiskie
     gpg-agent = {
       enable = true;
@@ -307,7 +306,10 @@
         allow-loopback-pinentry
       '';
     };
-    # random-background.enable = true;
+    syncthing = {
+      enable = true;
+      tray = false; # does not work on wayland
+    };
   };
 
   systemd.user = {
