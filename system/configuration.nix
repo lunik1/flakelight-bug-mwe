@@ -212,26 +212,33 @@
         "Sarasa Fixed J"
         "Sarasa Fixed K"
         # "Julia Mono"
+        "all-the-icons"
+        "file-icons"
+        "Material Icons"
         "Font Awesome 5 Free"
         "Font Awesome 5 Brands"
       ];
       defaultFonts.serif = [
         "Source Serif Pro"
+        "all-the-icons"
+        "file-icons"
+        "Material Icons"
         "Font Awesome 5 Free"
         "Font Awesome 5 Brands"
-        "Material Icons"
       ];
       defaultFonts.sansSerif = [
         "Source Sans Pro"
+        "all-the-icons"
+        "file-icons"
+        "Material Icons"
         "Font Awesome 5 Free"
         "Font Awesome 5 Brands"
-        "Material Icons"
       ];
       defaultFonts.emoji = [
         "Noto Color Emoji"
+        "Material Icons"
         "Font Awesome 5 Free"
         "Font Awesome 5 Brands"
-        "Material Icons"
       ];
       hinting.enable = false; # > 200dpi
     };
