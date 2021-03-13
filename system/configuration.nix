@@ -130,9 +130,7 @@
 
   ## Environment & Programs
   environment = {
-    variables = {
-      EDITOR = "nvim";
-    };
+    variables = { EDITOR = "nvim"; };
 
     systemPackages = with pkgs; [
       # TODO add these to home-manager
