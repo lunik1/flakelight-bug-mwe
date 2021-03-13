@@ -385,6 +385,7 @@
           };
           battery = {
             format = "{icon}";
+            rotate = 270;
             # TODO set different icons when charging (currently broken?)
             format-icons = [ "󱃍" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
             states = {
