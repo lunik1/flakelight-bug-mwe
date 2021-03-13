@@ -285,10 +285,7 @@
     };
     waybar = {
       enable = true;
-      package = pkgs.waybar.override {
-        pulseSupport = true;
-        withMediaPlayer = true;
-      };
+      package = pkgs.waybar.override { pulseSupport = true; };
       settings = [{
         layer = "bottom";
         position = "bottom";
