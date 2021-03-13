@@ -40,6 +40,7 @@
       aspellDicts.en-science
       bat-extras.batgrep
       bitwarden
+      blueman
       borgbackup
       bpytop
       chezmoi
@@ -300,6 +301,7 @@
           "temperature"
           "disk"
           "network"
+          "bluetooth"
           "battery"
           "clock"
           "tray"
@@ -394,6 +396,14 @@
             tooltip-format =
               "󰩟{ipaddr} 󰀂{essid} {frequency} {icon}{signalStrength} 󰕒{bandwidthUpBits} 󰇚{bandwidthDownBits}";
           };
+          bluetooth = {
+            format-icons = {
+              disabled = "󰂲";
+              enabled = "󰂯";
+            };
+            on-click = "${pkgs.blueman}/bin/blueman-manager";
+            # TODO rfkill to disable/enable on right click
+          };
           battery = {
             format = "{icon}";
             rotate = 270;
@@ -426,10 +436,19 @@
             font-size: 20px;
           }
 
-          #disk {
+          #disk,
+          #bluetooth {
             padding: 0 10px;
             margin: 0 4px;
-            background-color: #458588
+          }
+
+          #disk
+          {
+            background-color: #7c6f64
+          }
+
+          #bluetooth {
+            background-color: #2980b9
           }
 
           #mpd.stopped {
