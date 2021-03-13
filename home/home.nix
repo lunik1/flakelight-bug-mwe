@@ -470,7 +470,6 @@
   };
 
   services = {
-    blueman-applet.enable = true;
     # TODO:
     # caffeine.enable = true;  # TODO find alternative that works with sway
     # emacs.enable = true;
@@ -515,22 +514,6 @@
   systemd.user = {
     startServices = "sd-switch";
     services = {
-      # megasync = {
-      #   Unit = {
-      #     Description = "MEGA syncing service";
-      #     PartOf = "graphical-session.target";
-      #     After = "graphical-session-pre.target";
-      #     Nice = 10;
-      #   };
-      #   Install.WantedBy = [ "graphical-session.target" ];
-      #   Service = {
-      #     Environment = [ "HOME=${config.home.homeDirectory}" "DISPLAY=:1" ];
-      #     ExecStart = "${pkgs.megasync}/bin/megasync";
-      #     Restart = "on-failure";
-      #     PrivateTmp = true;
-      #     ProtectSystem = "full";
-      #   };
-      # };
       mega-cmd-server = {
         Unit = {
           Description = "MEGAcmd server";
