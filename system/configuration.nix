@@ -97,6 +97,13 @@
   time.timeZone = "Europe/London";
 
   ## Security
+  security.sudo.extraRules = [{
+    groups = [ "wheel" ];
+    commands = [{
+      command = "/run/current-system/sw/bin/rfkill";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
 
   ## Nix
   nix = {
