@@ -304,7 +304,7 @@
           "bluetooth"
           "battery"
           "clock"
-          "tray"
+          # "tray"
         ];
         modules = {
           "sway/workspaces".numeric-first = true;
