@@ -44,6 +44,7 @@
       bpytop
       chezmoi
       cmake
+      connman-gtk
       discord
       duf
       element-desktop
@@ -300,6 +301,7 @@
           "cpu"
           "temperature"
           "disk"
+          "network"
           "battery"
           "clock"
           "tray"
@@ -382,6 +384,17 @@
           disk = {
             format = "󰋊{percentage_used:3}%";
             interval = 60;
+          };
+          network = {
+            format-wifi = "{icon}";
+            interval = 20;
+            format-ethernet = "󰈀";
+            format-linked = "󰌷";
+            format-icons = [ "󰤫" "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
+            format-disconnected = "󰤮";
+            on-click = "${pkgs.connman-gtk}/bin/connman-gtk";
+            tooltip-format =
+              "󰩟{ipaddr} 󰀂{essid} {frequency} {icon}{signalStrength} 󰕒{bandwidthUpBits} 󰇚{bandwidthDownBits}";
           };
           battery = {
             format = "{icon}";
@@ -485,21 +498,6 @@
   systemd.user = {
     startServices = "sd-switch";
     services = {
-      cmst = {
-        Unit = {
-          Description = "Connman systray icon";
-          PartOf = "graphical-session.target";
-          After = "graphical-session-pre.target";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-        Service = {
-          Environment = "DISPLAY=:1";
-          ExecStart = "${pkgs.cmst}/bin/cmst -m";
-          Restart = "on-failure";
-          PrivateTmp = true;
-          ProtectSystem = "full";
-        };
-      };
       megasync = {
         Unit = {
           Description = "MEGA syncing service";
