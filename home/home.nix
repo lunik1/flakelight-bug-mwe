@@ -60,6 +60,7 @@
       libreoffice-fresh
       lrzip
       magic-wormhole
+      megacmd
       ncdu
       nodejs
       opera
@@ -498,21 +499,37 @@
   systemd.user = {
     startServices = "sd-switch";
     services = {
-      megasync = {
+      # megasync = {
+      #   Unit = {
+      #     Description = "MEGA syncing service";
+      #     PartOf = "graphical-session.target";
+      #     After = "graphical-session-pre.target";
+      #     Nice = 10;
+      #   };
+      #   Install.WantedBy = [ "graphical-session.target" ];
+      #   Service = {
+      #     Environment = [ "HOME=${config.home.homeDirectory}" "DISPLAY=:1" ];
+      #     ExecStart = "${pkgs.megasync}/bin/megasync";
+      #     Restart = "on-failure";
+      #     PrivateTmp = true;
+      #     ProtectSystem = "full";
+      #   };
+      # };
+      mega-cmd-server = {
         Unit = {
-          Description = "MEGA syncing service";
-          PartOf = "graphical-session.target";
-          After = "graphical-session-pre.target";
-          Nice = 10;
+          Description = "MEGAcmd server";
+          After = "network.target";
         };
-        Install.WantedBy = [ "graphical-session.target" ];
+        Install.WantedBy = [ "default.target" ];
         Service = {
-          Environment = [ "HOME=${config.home.homeDirectory}" "DISPLAY=:1" ];
-          ExecStart = "${pkgs.megasync}/bin/megasync";
-          Type = "forking";
+          Environment = [ "HOME=${config.home.homeDirectory}" ];
+          ExecStart = "${pkgs.megacmd}/bin/mega-cmd-server";
           Restart = "on-failure";
           PrivateTmp = true;
           ProtectSystem = "full";
+          Nice = 10;
+          IOSchedulingClass = "best-effort";
+          IOSchedulingPriority = 5;
         };
       };
     };
