@@ -471,11 +471,9 @@
 
   services = {
     # TODO:
-    # caffeine.enable = true;  # TODO find alternative that works with sway
     # emacs.enable = true;
     # gnome-keyring
     # kanshi
-    # waybar
     # random-background
     # udiskie
     gpg-agent = {
