@@ -204,6 +204,28 @@
       defaultCommand = "fd -H -E '.git' --type file";
       fileWidgetCommand = defaultCommand;
     };
+    git = {
+      enable = true;
+      package = pkgs.gitSVN;
+      delta = {
+        enable = true;
+        options.syntax-theme = "gruvbox";
+      };
+      # TODO ignores
+      lfs.enable = true;
+      signing = {
+        key = "BA3A5886AE6D526E20B457D66A37DF9483188492";
+        signByDefault = true;
+      };
+      userEmail = "ch.gpg@themaw.xyz";
+      userName = "lunik1";
+      extraConfig = {
+        push.default = "matching";
+        diff.algorithm = "histogram";
+        github.user = "lunik1";
+        gitlab.user = "lunik1";
+      };
+    };
     gpg.enable = true;
     # kitty = {
     #     enable = true;
