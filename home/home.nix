@@ -292,7 +292,7 @@
         position = "bottom";
         # output = [ "eDP-1" ];
         height = 30;
-        modules-left = [ "sway/workspaces" "sway/mode" "idle_inhibitor" ];
+        modules-left = [ "sway/workspaces" "sway/mode" "idle_inhibitor" "mpd" ];
         modules-right = [
           "pulseaudio"
           "backlight"
@@ -306,6 +306,34 @@
         ];
         modules = {
           "sway/workspaces".numeric-first = true;
+          mpd = {
+            format =
+              "{stateIcon}{repeatIcon}{randomIcon}{singleIcon}{consumeIcon} {title} – {artist}";
+            format-stopped = "";
+            format-disconnected = "";
+            interval = 5;
+            max-length = 40;
+            state-icons = {
+              playing = "󰐊";
+              paused = "󰏤";
+            };
+            consume-icons = {
+              on = "󰮯";
+              off = "";
+            };
+            random-icons = {
+              on = "󰒟";
+              off = "";
+            };
+            repeat-icons = {
+              on = "󰑖";
+              off = "";
+            };
+            single-icons = {
+              on = "󰎤";
+              off = "";
+            };
+          };
           pulseaudio = {
             on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
             on-click-right =
@@ -390,6 +418,14 @@
             padding: 0 10px;
             margin: 0 4px;
             background-color: #458588
+          }
+
+          #mpd.stopped {
+            background: rgba(0, 0, 0, 0)
+          }
+
+          #mpd.disconnected {
+            background: rgba(0, 0, 0, 0)
           }'';
     };
     zathura.enable = true;
