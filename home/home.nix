@@ -1,5 +1,8 @@
 { pkgs, config, ... }:
 
+let
+  gruvbox = import ./resources/gruvbox.nix;
+in
 {
   home = {
     packages = with pkgs; [
@@ -289,7 +292,7 @@
       enable = true;
       # TODO: package customised Iosevka
       font.name = "Myosevka";
-      settings = {
+      settings = rec {
         font_size = "13.0";
         cursor_blink_interval = "0.5";
         cursor_stop_blinking_after = 15;
@@ -304,28 +307,28 @@
         input_delay = 1;
 
         # Colors
-        foreground = "#ebdbb2";
-        background = "#1d2021";
-        color0 = "#282828";
-        color1 = "#cc241d";
-        color2 = "#98971a";
-        color3 = "#d79921";
-        color4 = "#458588";
-        color5 = "#b16286";
-        color6 = "#689d6a";
-        color7 = "#a89984";
-        color8 = "#928374";
-        color9 = "#fb4934";
-        color10 = "#b8bb26";
-        color11 = "#fabd2f";
-        color12 = "#83a598";
-        color13 = "#d3869b";
-        color14 = "#8ec07c";
-        color15 = "#ebdbb2";
-        selection_foreground = "#1d2021";
-        selection_background = "#ebdbb2";
-        url_color = "#ebdbb2";
-        cursor = "#ebdbb2";
+        foreground = gruvbox.dark.fg;
+        background = gruvbox.dark.bg;
+        color0 = gruvbox.dark.black.normal;
+        color1 = gruvbox.dark.red.normal;
+        color2 = gruvbox.dark.green.normal;
+        color3 = gruvbox.dark.yellow.normal;
+        color4 = gruvbox.dark.blue.normal;
+        color5 = gruvbox.dark.purple.normal;
+        color6 = gruvbox.dark.cyan.normal;
+        color7 = gruvbox.dark.white.normal;
+        color8 = gruvbox.dark.black.bright;
+        color9 = gruvbox.dark.red.bright;
+        color10 = gruvbox.dark.green.bright;
+        color11 = gruvbox.dark.yellow.bright;
+        color12 = gruvbox.dark.blue.bright;
+        color13 = gruvbox.dark.purple.bright;
+        color14 = gruvbox.dark.cyan.bright;
+        color15 = gruvbox.dark.white.bright;
+        selection_foreground = background;
+        selection_background = foreground;
+        url_color = gruvbox.dark.orange.normal;
+        cursor = foreground;
       };
       keybindings = {
         # Clipboard
