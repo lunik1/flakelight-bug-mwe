@@ -56,7 +56,6 @@
       gnome3.simple-scan
       hplip
       imagemagick
-      kitty # TODO: move to programs and configure
       libarchive
       libreoffice-fresh
       lrzip
@@ -286,10 +285,101 @@
       };
     };
     gpg.enable = true;
-    # kitty = {
-    #     enable = true;
-    #     # TODO: config
-    # };
+    kitty = {
+      enable = true;
+      # TODO: package customised Iosevka
+      font.name = "Myosevka";
+      settings = {
+        font_size = "13.0";
+        cursor_blink_interval = "0.5";
+        cursor_stop_blinking_after = 15;
+        focus_follows_mouse = true;
+        enable_audio_bell = false;
+        remember_window_size = false;
+        force_ltr = "true";
+        disable_ligatures = "always";
+        symbol_map = "U+F0000-U+F0000 Material Design Icons";
+        touch_scroll_multiplier = 3;
+        mouse_hide_wait = 0;
+        input_delay = 1;
+
+        # Colors
+        foreground = "#ebdbb2";
+        background = "#1d2021";
+        color0 = "#282828";
+        color1 = "#cc241d";
+        color2 = "#98971a";
+        color3 = "#d79921";
+        color4 = "#458588";
+        color5 = "#b16286";
+        color6 = "#689d6a";
+        color7 = "#a89984";
+        color8 = "#928374";
+        color9 = "#fb4934";
+        color10 = "#b8bb26";
+        color11 = "#fabd2f";
+        color12 = "#83a598";
+        color13 = "#d3869b";
+        color14 = "#8ec07c";
+        color15 = "#ebdbb2";
+        selection_foreground = "#1d2021";
+        selection_background = "#ebdbb2";
+        url_color = "#ebdbb2";
+        cursor = "#ebdbb2";
+      };
+      keybindings = {
+        # Clipboard
+        "kitty_mod+v" = "paste_from_clipboard";
+        "kitty_mod+s" = "paste_from_selection";
+        "kitty_mod+c" = "copy_to_clipboard";
+        "shift+insert" = "paste_from_selection";
+        "kitty_mod+o" = "pass_selection_to_program";
+        # Scrolling
+        "kitty_mod+up" = "scroll_line_up";
+        "kitty_mod+down" = "scroll_line_down";
+        "kitty_mod+k" = "scroll_line_up";
+        "kitty_mod+j" = "scroll_line_down";
+        "ctrl+s whift+page_up" = "scroll_page_up";
+        "kitty_mod+page_down" = "scroll_page_down";
+        "kitty_mod+home" = "scroll_home";
+        "kitty_mod+end" = "scroll_end";
+        "kitty_mod+h" = "show_scrollback";
+        # Window management (diabled)
+        "kitty_mod+enter" = "no_op";
+        "kitty_mod+n" = "new_os_window";
+        "kitty_mod+w" = "no_op";
+        "kitty_mod+]" = "no_op";
+        "kitty_mod+[" = "no_op";
+        "kitty_mod+f" = "no_op";
+        "kitty_mod+b" = "no_op";
+        "kitty_mod+`" = "no_op";
+        "kitty_mod+1" = "no_op";
+        "kitty_mod+2" = "no_op";
+        "kitty_mod+3" = "no_op";
+        "kitty_mod+4" = "no_op";
+        "kitty_mod+5" = "no_op";
+        "kitty_mod+6" = "no_op";
+        "kitty_mod+7" = "no_op";
+        "kitty_mod+8" = "no_op";
+        "kitty_mod+9" = "no_op";
+        "kitty_mod+0" = "no_op";
+        # Tab management (disabled)
+        "kitty_mod+right" = "no_op";
+        "kitty_mod+left" = "no_op";
+        "kitty_mod+t" = "no_op";
+        "kitty_mod+q" = "no_op";
+        "kitty_mod+l" = "no_op";
+        "kitty_mod+." = "no_op";
+        "kitty_mod+," = "no_op";
+        # Misc.
+        "kitty_mod+equal" = "change_font_size all +0.5";
+        "kitty_mod+minus" = "change_font_size all -0.5";
+        "kitty_mod+backspace" = "change_font_size all 0";
+        "kitty_mod+f11" = "no_op";
+        "kitty_mod+f10" = "no_op";
+        "kitty_mod+u" = "input_unicode_character";
+      };
+    };
     mpv = {
       enable = true;
       # TODO: scripts
