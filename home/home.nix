@@ -513,11 +513,11 @@ in {
             on-click-right =
               "${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
             format-icons = {
+              # TODO bluetooth + muted icons? (needs support upstream?)
               car = "󰄋";
               hands-free = "󰋎";
               hdmi = "󰡁";
               headphone = "󰋋";
-              # headphone-muted = "󰟎";
               headset = "󰋎";
               hifi = "󰗜";
               phone = "󰏶";
@@ -585,6 +585,7 @@ in {
               critical = 10;
               warning = 30;
             };
+            # TODO % capacity in tooltip
           };
           idle_inhibitor = {
             format = "{icon}";
