@@ -1,9 +1,7 @@
 { pkgs, config, ... }:
 
-let
-  gruvbox = import ./resources/gruvbox.nix;
-in
-{
+let gruvbox = import ./resources/gruvbox.nix;
+in {
   home = {
     packages = with pkgs; [
       # Core utils (installed by defult on NixOS)
