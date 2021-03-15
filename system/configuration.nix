@@ -34,7 +34,7 @@
     };
     cleanTmpDir = true;
     blacklistedKernelModules = [ "ax25" "iTCO_wdt" "netrom" "rose" ];
-    tmpOnTmpfs = true; # can break builds that need a lot of space
+    # tmpOnTmpfs = false; # can break builds that need a lot of space
     kernelPackages = pkgs.linuxPackages_zen;
     kernel.sysctl = {
       "vm.swappiness" = 100;
