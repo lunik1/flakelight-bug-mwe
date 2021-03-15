@@ -54,6 +54,7 @@ in {
       fast-cli
       fd
       ffmpeg-full
+      gnome3.gucharmap
       gnome3.simple-scan
       hplip
       imagemagick
