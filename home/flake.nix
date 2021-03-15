@@ -28,6 +28,7 @@
           configuration = { pkgs, ... }: {
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = overlays;
+            home.stateVersion = "20.09";
             imports = [ ./home.nix ];
           };
         };
