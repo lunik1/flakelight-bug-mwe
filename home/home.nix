@@ -723,6 +723,10 @@ in
       package = pkgs.arc-theme;
       name = "Arc";
     };
+    gtk2.extraConfig = ''
+      gtk-error-bell = 0
+    '';
+    gtk3.extraConfig.gtk-error-bell = 0;
   };
 
   home.stateVersion = "20.09";
