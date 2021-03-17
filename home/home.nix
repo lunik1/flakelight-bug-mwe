@@ -89,6 +89,7 @@ in {
       thunderbird
       unrar
       unzip
+      wev
       wget
       yarn
       youtube-dl
