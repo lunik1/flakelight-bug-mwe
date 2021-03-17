@@ -130,7 +130,10 @@
 
   ## Environment & Programs
   environment = {
-    variables = { EDITOR = "nvim"; };
+    variables = {
+      EDITOR = "nvim";
+      GTK_IM_MODULE = "xim";
+    };
 
     systemPackages = with pkgs; [
       # TODO add these to home-manager
