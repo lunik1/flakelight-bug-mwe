@@ -728,4 +728,313 @@ in {
     '';
     gtk3.extraConfig.gtk-error-bell = 0;
   };
+
+  xdg = {
+    enable = true;
+    mime.enable = true;
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "text/html" = [ "opera.desktop" ];
+        "text/xhtml_xml" = [ "opera.desktop" ];
+        "application/x-opera-download" = [ "opera.desktop" ];
+        "x-scheme-handler/about" = [ "opera.desktop" ];
+        "x-scheme-handler/http" = [ "opera.desktop" ];
+        "x-scheme-handler/https" = [ "opera.desktop" ];
+        "x-scheme-handler/unknown" = [ "opera.desktop" ];
+
+        "x-scheme-handler/msteams" = [ "teams.desktop" ];
+
+        "x-scheme-handler/skype" = [ "skypeforlinux.desktop" ];
+
+        "inode/directory" = [ "thunar.desktop" ];
+
+        "message/rfc822" = [ "thunderbird.desktop" ];
+        "x-scheme-handler/mailto" = [ "thunderbird.desktop" ];
+        "x-scheme-handler/news" = [ "thunderbird.desktop" ];
+        "x-scheme-handler/nntp" = [ "thunderbird.desktop" ];
+        "x-scheme-handler/snews" = [ "thunderbird.desktop" ];
+
+        "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+        "appliction/oxps" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+        "application/x-fictionbook" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+        "application/epub+zip" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+        "application/x-cbr" = [ "org.pwmt.zathura-cb.desktop" ];
+        "application/x-cb7" = [ "org.pwmt.zathura-cb.desktop" ];
+        "application/x-cbt" = [ "org.pwmt.zathura-cb.desktop" ];
+        "image/vnd.djvu" = [ "org.pwmt.zathura-djvu.desktop" ];
+        "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-djvu.desktop" ];
+        "application/postscript" = [ "org.pwmt.zathura-ps.desktop" ];
+        "application/eps" = [ "org.pwmt.zathura-ps.desktop" ];
+        "application/x-eps" = [ "org.pwmt.zathura-ps.desktop" ];
+        "image/eps" = [ "org.pwmt.zathura-ps.desktop" ];
+        "image/x-eps" = [ "org.pwmt.zathura-ps.desktop" ];
+
+        "application/ogg" = [ "mpv.desktop" ];
+        "application/x-ogg" = [ "mpv.desktop" ];
+        "application/mxf" = [ "mpv.desktop" ];
+        "application/sdp" = [ "mpv.desktop" ];
+        "application/smil" = [ "mpv.desktop" ];
+        "application/x-smil" = [ "mpv.desktop" ];
+        "application/streamingmedia" = [ "mpv.desktop" ];
+        "application/x-streamingmedia" = [ "mpv.desktop" ];
+        "application/vnd.rn-realmedia" = [ "mpv.desktop" ];
+        "application/vnd.rn-realmedia-vbr" = [ "mpv.desktop" ];
+        "audio/aac" = [ "mpv.desktop" ];
+        "audio/x-aac" = [ "mpv.desktop" ];
+        "audio/vnd.dolby.heaac.1" = [ "mpv.desktop" ];
+        "audio/vnd.dolby.heaac.2" = [ "mpv.desktop" ];
+        "audio/aiff" = [ "mpv.desktop" ];
+        "audio/x-aiff" = [ "mpv.desktop" ];
+        "audio/m4a" = [ "mpv.desktop" ];
+        "audio/x-m4a" = [ "mpv.desktop" ];
+        "application/x-extension-m4a" = [ "mpv.desktop" ];
+        "audio/mp1" = [ "mpv.desktop" ];
+        "audio/x-mp1" = [ "mpv.desktop" ];
+        "audio/mp2" = [ "mpv.desktop" ];
+        "audio/x-mp2" = [ "mpv.desktop" ];
+        "audio/mp3" = [ "mpv.desktop" ];
+        "audio/x-mp3" = [ "mpv.desktop" ];
+        "audio/mpeg" = [ "mpv.desktop" ];
+        "audio/mpeg2" = [ "mpv.desktop" ];
+        "audio/mpeg3" = [ "mpv.desktop" ];
+        "audio/mpegurl" = [ "mpv.desktop" ];
+        "audio/x-mpegurl" = [ "mpv.desktop" ];
+        "audio/mpg" = [ "mpv.desktop" ];
+        "audio/x-mpg" = [ "mpv.desktop" ];
+        "audio/rn-mpeg" = [ "mpv.desktop" ];
+        "audio/musepack" = [ "mpv.desktop" ];
+        "audio/x-musepack" = [ "mpv.desktop" ];
+        "audio/ogg" = [ "mpv.desktop" ];
+        "audio/scpls" = [ "mpv.desktop" ];
+        "audio/x-scpls" = [ "mpv.desktop" ];
+        "audio/vnd.rn-realaudio" = [ "mpv.desktop" ];
+        "audio/wav" = [ "mpv.desktop" ];
+        "audio/x-pn-wav" = [ "mpv.desktop" ];
+        "audio/x-pn-windows-pcm" = [ "mpv.desktop" ];
+        "audio/x-realaudio" = [ "mpv.desktop" ];
+        "audio/x-pn-realaudio" = [ "mpv.desktop" ];
+        "audio/x-ms-wma" = [ "mpv.desktop" ];
+        "audio/x-pls" = [ "mpv.desktop" ];
+        "audio/x-wav" = [ "mpv.desktop" ];
+        "video/mpeg" = [ "mpv.desktop" ];
+        "video/x-mpeg2" = [ "mpv.desktop" ];
+        "video/x-mpeg3" = [ "mpv.desktop" ];
+        "video/mp4v-es" = [ "mpv.desktop" ];
+        "video/x-m4v" = [ "mpv.desktop" ];
+        "video/mp4" = [ "mpv.desktop" ];
+        "application/x-extension-mp4" = [ "mpv.desktop" ];
+        "video/divx" = [ "mpv.desktop" ];
+        "video/vnd.divx" = [ "mpv.desktop" ];
+        "video/msvideo" = [ "mpv.desktop" ];
+        "video/x-msvideo" = [ "mpv.desktop" ];
+        "video/ogg" = [ "mpv.desktop" ];
+        "video/quicktime" = [ "mpv.desktop" ];
+        "video/vnd.rn-realvideo" = [ "mpv.desktop" ];
+        "video/x-ms-afs" = [ "mpv.desktop" ];
+        "video/x-ms-asf" = [ "mpv.desktop" ];
+        "audio/x-ms-asf" = [ "mpv.desktop" ];
+        "application/vnd.ms-asf" = [ "mpv.desktop" ];
+        "video/x-ms-wmv" = [ "mpv.desktop" ];
+        "video/x-ms-wmx" = [ "mpv.desktop" ];
+        "video/x-ms-wvxvideo" = [ "mpv.desktop" ];
+        "video/x-avi" = [ "mpv.desktop" ];
+        "video/avi" = [ "mpv.desktop" ];
+        "video/x-flic" = [ "mpv.desktop" ];
+        "video/fli" = [ "mpv.desktop" ];
+        "video/x-flc" = [ "mpv.desktop" ];
+        "video/flv" = [ "mpv.desktop" ];
+        "video/x-flv" = [ "mpv.desktop" ];
+        "video/x-theora" = [ "mpv.desktop" ];
+        "video/x-theora+ogg" = [ "mpv.desktop" ];
+        "video/x-matroska" = [ "mpv.desktop" ];
+        "video/mkv" = [ "mpv.desktop" ];
+        "audio/x-matroska" = [ "mpv.desktop" ];
+        "application/x-matroska" = [ "mpv.desktop" ];
+        "video/webm" = [ "mpv.desktop" ];
+        "audio/webm" = [ "mpv.desktop" ];
+        "audio/vorbis" = [ "mpv.desktop" ];
+        "audio/x-vorbis" = [ "mpv.desktop" ];
+        "audio/x-vorbis+ogg" = [ "mpv.desktop" ];
+        "video/x-ogm" = [ "mpv.desktop" ];
+        "video/x-ogm+ogg" = [ "mpv.desktop" ];
+        "application/x-ogm" = [ "mpv.desktop" ];
+        "application/x-ogm-audio" = [ "mpv.desktop" ];
+        "application/x-ogm-video" = [ "mpv.desktop" ];
+        "application/x-shorten" = [ "mpv.desktop" ];
+        "audio/x-shorten" = [ "mpv.desktop" ];
+        "audio/x-ape" = [ "mpv.desktop" ];
+        "audio/x-wavpack" = [ "mpv.desktop" ];
+        "audio/x-tta" = [ "mpv.desktop" ];
+        "audio/AMR" = [ "mpv.desktop" ];
+        "audio/ac3" = [ "mpv.desktop" ];
+        "audio/eac3" = [ "mpv.desktop" ];
+        "audio/amr-wb" = [ "mpv.desktop" ];
+        "video/mp2t" = [ "mpv.desktop" ];
+        "audio/flac" = [ "mpv.desktop" ];
+        "audio/mp4" = [ "mpv.desktop" ];
+        "application/x-mpegurl" = [ "mpv.desktop" ];
+        "video/vnd.mpegurl" = [ "mpv.desktop" ];
+        "application/vnd.apple.mpegurl" = [ "mpv.desktop" ];
+        "audio/x-pn-au" = [ "mpv.desktop" ];
+        "video/3gp" = [ "mpv.desktop" ];
+        "video/3gpp" = [ "mpv.desktop" ];
+        "video/3gpp2" = [ "mpv.desktop" ];
+        "audio/3gpp" = [ "mpv.desktop" ];
+        "audio/3gpp2" = [ "mpv.desktop" ];
+        "video/dv" = [ "mpv.desktop" ];
+        "audio/dv" = [ "mpv.desktop" ];
+        "audio/opus" = [ "mpv.desktop" ];
+        "audio/vnd.dts" = [ "mpv.desktop" ];
+        "audio/vnd.dts.hd" = [ "mpv.desktop" ];
+        "audio/x-adpcm" = [ "mpv.desktop" ];
+        "application/x-cue" = [ "mpv.desktop" ];
+        "audio/m3u" = [ "mpv.desktop" ];
+
+        # Libreoffice
+        "application/vnd.openofficeorg.extension" = [ "startcenter.desktop" ];
+        "x-scheme-handler/vnd.libreoffice.cmis" = [ "startcenter.desktop" ];
+
+        "application/vnd.oasis.opendocument.spreadsheet" = [ "calc.desktop" ];
+        "application/vnd.oasis.opendocument.spreadsheet-template" =
+          [ "calc.desktop" ];
+        "application/vnd.sun.xml.calc" = [ "calc.desktop" ];
+        "application/vnd.sun.xml.calc.template" = [ "calc.desktop" ];
+        "application/msexcel" = [ "calc.desktop" ];
+        "application/vnd.ms-excel" = [ "calc.desktop" ];
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" =
+          [ "calc.desktop" ];
+        "application/vnd.ms-excel.sheet.macroEnabled.12" = [ "calc.desktop" ];
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.template" =
+          [ "calc.desktop" ];
+        "application/vnd.ms-excel.template.macroEnabled.12" =
+          [ "calc.desktop" ];
+        "application/vnd.ms-excel.sheet.binary.macroEnabled.12" =
+          [ "calc.desktop" ];
+        "text/csv" = [ "calc.desktop" ];
+        "application/x-dbf" = [ "calc.desktop" ];
+        "text/spreadsheet" = [ "calc.desktop" ];
+        "application/csv" = [ "calc.desktop" ];
+        "application/excel" = [ "calc.desktop" ];
+        "application/tab-separated-values" = [ "calc.desktop" ];
+        "application/vnd.lotus-1-2-3" = [ "calc.desktop" ];
+        "application/vnd.oasis.opendocument.chart" = [ "calc.desktop" ];
+        "application/vnd.oasis.opendocument.chart-template" =
+          [ "calc.desktop" ];
+        "application/x-dbase" = [ "calc.desktop" ];
+        "application/x-dos_ms_excel" = [ "calc.desktop" ];
+        "application/x-excel" = [ "calc.desktop" ];
+        "application/x-msexcel" = [ "calc.desktop" ];
+        "application/x-ms-excel" = [ "calc.desktop" ];
+        "application/x-quattropro" = [ "calc.desktop" ];
+        "application/x-123" = [ "calc.desktop" ];
+        "text/comma-separated-values" = [ "calc.desktop" ];
+        "text/tab-separated-values" = [ "calc.desktop" ];
+        "text/x-comma-separated-values" = [ "calc.desktop" ];
+        "text/x-csv" = [ "calc.desktop" ];
+        "application/vnd.oasis.opendocument.spreadsheet-flat-xml" =
+          [ "calc.desktop" ];
+        "application/x-iwork-numbers-sffnumbers" = [ "calc.desktop" ];
+        "application/x-starcalc" = [ "calc.desktop" ];
+
+        "application/vnd.oasis.opendocument.presentation" =
+          [ "impress.desktop" ];
+        "application/vnd.oasis.opendocument.presentation-template" =
+          [ "impress.desktop" ];
+        "application/vnd.sun.xml.impress" = [ "impress.desktop" ];
+        "application/vnd.sun.xml.impress.template" = [ "impress.desktop" ];
+        "application/mspowerpoint" = [ "impress.desktop" ];
+        "application/vnd.ms-powerpoint" = [ "impress.desktop" ];
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation" =
+          [ "impress.desktop" ];
+        "application/vnd.ms-powerpoint.presentation.macroEnabled.12" =
+          [ "impress.desktop" ];
+        "application/vnd.openxmlformats-officedocument.presentationml.template" =
+          [ "impress.desktop" ];
+        "application/vnd.ms-powerpoint.template.macroEnabled.12" =
+          [ "impress.desktop" ];
+        "application/vnd.openxmlformats-officedocument.presentationml.slide" =
+          [ "impress.desktop" ];
+        "application/vnd.openxmlformats-officedocument.presentationml.slideshow" =
+          [ "impress.desktop" ];
+        "application/vnd.ms-powerpoint.slideshow.macroEnabled.12" =
+          [ "impress.desktop" ];
+        "application/vnd.oasis.opendocument.presentation-flat-xml" =
+          [ "impress.desktop" ];
+        "application/x-iwork-keynote-sffkey" = [ "impress.desktop" ];
+
+        "application/vnd.oasis.opendocument.formula" = [ "math.desktop" ];
+        "application/vnd.sun.xml.math" = [ "math.desktop" ];
+        "application/vnd.oasis.opendocument.formula-template" =
+          [ "math.desktop" ];
+        "text/mathml" = [ "math.desktop" ];
+        "application/mathml+xml" = [ "math.desktop" ];
+
+        "application/vnd.oasis.opendocument.graphics" = [ "draw.desktop" ];
+        "application/vnd.oasis.opendocument.graphics-flat-xml" =
+          [ "draw.desktop" ];
+        "application/vnd.oasis.opendocument.graphics-template" =
+          [ "draw.desktop" ];
+        "application/vnd.sun.xml.draw" = [ "draw.desktop" ];
+        "application/vnd.sun.xml.draw.template" = [ "draw.desktop" ];
+        "application/vnd.visio" = [ "draw.desktop" ];
+        "application/x-wpg" = [ "draw.desktop" ];
+        "application/vnd.corel-draw" = [ "draw.desktop" ];
+        "application/vnd.ms-publisher" = [ "draw.desktop" ];
+        "image/x-freehand" = [ "draw.desktop" ];
+        "application/x-pagemaker" = [ "draw.desktop" ];
+        "application/x-stardraw" = [ "draw.desktop" ];
+        "image/x-emf" = [ "draw.desktop" ];
+        "image/x-wmf" = [ "draw.desktop" ];
+
+        "application/vnd.oasis.opendocument.database" = [ "base.desktop" ];
+        "application/vnd.sun.xml.base" = [ "base.desktop" ];
+
+        "application/vnd.oasis.opendocument.text" = [ "writer.desktop" ];
+        "application/vnd.oasis.opendocument.text-template" =
+          [ "writer.desktop" ];
+        "application/vnd.oasis.opendocument.text-web" = [ "writer.desktop" ];
+        "application/vnd.oasis.opendocument.text-master" = [ "writer.desktop" ];
+        "application/vnd.oasis.opendocument.text-master-template" =
+          [ "writer.desktop" ];
+        "application/vnd.sun.xml.writer" = [ "writer.desktop" ];
+        "application/vnd.sun.xml.writer.template" = [ "writer.desktop" ];
+        "application/vnd.sun.xml.writer.global" = [ "writer.desktop" ];
+        "application/msword" = [ "writer.desktop" ];
+        "application/vnd.ms-word" = [ "writer.desktop" ];
+        "application/x-doc" = [ "writer.desktop" ];
+        "application/x-hwp" = [ "writer.desktop" ];
+        "application/rtf" = [ "writer.desktop" ];
+        "text/rtf" = [ "writer.desktop" ];
+        "application/vnd.wordperfect" = [ "writer.desktop" ];
+        "application/wordperfect" = [ "writer.desktop" ];
+        "application/vnd.lotus-wordpro" = [ "writer.desktop" ];
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
+          [ "writer.desktop" ];
+        "application/vnd.ms-word.document.macroEnabled.12" =
+          [ "writer.desktop" ];
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.template" =
+          [ "writer.desktop" ];
+        "application/vnd.ms-word.template.macroEnabled.12" =
+          [ "writer.desktop" ];
+        "application/vnd.ms-works" = [ "writer.desktop" ];
+        "application/vnd.stardivision.writer-global" = [ "writer.desktop" ];
+        "application/x-extension-txt" = [ "writer.desktop" ];
+        "application/x-t602" = [ "writer.desktop" ];
+        "application/vnd.oasis.opendocument.text-flat-xml" =
+          [ "writer.desktop" ];
+        "application/x-fictionbook+xml" = [ "writer.desktop" ];
+        "application/macwriteii" = [ "writer.desktop" ];
+        "application/x-aportisdoc" = [ "writer.desktop" ];
+        "application/prs.plucker" = [ "writer.desktop" ];
+        "application/vnd.palm" = [ "writer.desktop" ];
+        "application/clarisworks" = [ "writer.desktop" ];
+        "application/x-sony-bbeb" = [ "writer.desktop" ];
+        "application/x-abiword" = [ "writer.desktop" ];
+        "application/x-iwork-pages-sffpages" = [ "writer.desktop" ];
+        "application/x-mswrite" = [ "writer.desktop" ];
+        "application/x-starwriter" = [ "writer.desktop" ];
+      };
+    };
+  };
 }
