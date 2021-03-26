@@ -1,6 +1,16 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
-let gruvbox = import ./resources/gruvbox.nix;
+let
+  gruvbox = import ./resources/colourschemes/gruvbox.nix;
+  myosevka = pkgs.iosevka.override {
+    privateBuildPlan = import resources/iosevka/myosevka.nix;
+    set = "myosevka";
+  };
+  myosevka-aile = pkgs.iosevka.override {
+    privateBuildPlan =
+      (import resources/iosevka/myosevka-aile.nix) { inherit lib; };
+    set = "myosevka-aile";
+  };
 in {
   home = {
     packages = with pkgs; [
@@ -175,6 +185,17 @@ in {
       source-code-pro
       source-sans-pro
       source-serif-pro
+      myosevka
+      myosevka-aile
+      (iosevka.override {
+        privateBuildPlan = import resources/iosevka/myosevka-proportional.nix;
+        set = "myosevka-proportional";
+      })
+      (iosevka.override {
+        privateBuildPlan =
+          (import resources/iosevka/myosevka-etoile.nix) { inherit lib; };
+        set = "myosevka-etoile";
+      })
     ];
     sessionPath = [ "~/bin" ];
     sessionVariables = {
@@ -292,7 +313,10 @@ in {
     kitty = {
       enable = true;
       # TODO: package customised Iosevka
-      font.name = "Myosevka";
+      font = {
+        name = "Myosevka";
+        package = myosevka;
+      };
       settings = rec {
         font_size = "13.0";
         cursor_blink_interval = "0.5";
@@ -714,8 +738,8 @@ in {
   gtk = {
     enable = true;
     font = {
-      package = null;
-      name = "Iosevka Aile 11";
+      package = myosevka-aile;
+      name = "Myosevka Aile 11";
     };
     iconTheme = {
       package = pkgs.arc-theme;
