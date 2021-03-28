@@ -313,7 +313,6 @@ in {
     gpg.enable = true;
     kitty = {
       enable = true;
-      # TODO: package customised Iosevka
       font = {
         name = "Myosevka";
         package = myosevka;
