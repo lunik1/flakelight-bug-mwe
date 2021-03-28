@@ -154,6 +154,7 @@ in {
       babashka
       joker
       leiningen
+      visualvm
 
       # Julia
       julia
