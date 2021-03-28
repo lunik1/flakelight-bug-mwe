@@ -491,6 +491,33 @@ in {
       newSession = true;
       prefix = "C-a";
       terminal = "tmux-256color";
+      plugins = with pkgs; [
+        # tmuxPlugins.tmux-fzf
+        tmuxPlugins.gruvbox
+        tmuxPlugins.resurrect
+        {
+          plugin = tmuxPlugins.continuum;
+          extraConfig = ''
+            set -g @continuum-restore 'on'
+            set -g @continuum-save-interval '20' # minutes
+          '';
+        }
+        {
+          plugin = tmuxPlugins.tilish;
+          extraConfig = ''
+            set -g @tilish-default 'main-vertical'
+            set -g @tilish-easymode 'on'
+            set -g @tilish-prefix 'C-\'
+            set -g @tilish-dmenu 'on'
+          '';
+        }
+        {
+          plugin = tmuxPlugins.sysstat;
+          extraConfig = ''
+            set -g status-right "#{sysstat_cpu} | #{sysstat_mem} | #{sysstat_swap} | #{sysstat_loadavg} | #[fg=blue]#(echo $USER)#[default]@#H"
+          '';
+        }
+      ];
       extraConfig = ''
         # Enable mouse
         set -g mouse
@@ -520,7 +547,6 @@ in {
         unbind-key ^Down
         bind-key ^Down swap-pane -D
               '';
-      # Plugins
     };
     waybar = {
       enable = true;
