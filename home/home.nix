@@ -483,6 +483,45 @@ in {
       enable = true;
       extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
     };
+    tmux = {
+      enable = true;
+      baseIndex = 1;
+      clock24 = true;
+      keyMode = "vi";
+      newSession = true;
+      prefix = "C-a";
+      terminal = "tmux-256color";
+      extraConfig = ''
+        # Enable mouse
+        set -g mouse
+        set -g mouse on
+
+        # horizontal splits
+        unbind-key |
+        bind-key | split-window -h
+
+        # vertical splits
+        unbind-key _
+        bind-key _ split-window
+
+        # true color
+        set-option -ga terminal-overrides ",xterm-kitty:Tc"
+
+        # fix cursor shape in neovim
+        set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+
+        # swapping panes with arrow keys
+        unbind-key ^Left
+        bind-key ^Left swap-pane -U
+        unbind-key ^Right
+        bind-key ^Right swap-pane -D
+        unbind-key ^Up
+        bind-key ^Up swap-pane -U
+        unbind-key ^Down
+        bind-key ^Down swap-pane -D
+              '';
+      # Plugins
+    };
     waybar = {
       enable = true;
       package = pkgs.waybar.override { pulseSupport = true; };
