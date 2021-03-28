@@ -632,7 +632,7 @@ in {
       style = (builtins.readFile (builtins.toPath
         "${config.programs.waybar.package}/etc/xdg/waybar/style.css")) + ''
           * {
-            font-family: monospace;
+            font-family: Myosevka;
             font-size: 20px;
           }
 
