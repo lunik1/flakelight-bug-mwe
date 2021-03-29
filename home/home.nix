@@ -121,6 +121,16 @@ in {
       # freeciv_gtk
       # freeciv_qt qt5.qtwayland
       openrct2
+      # (retroarch.override {
+      #   cores = [
+      #     # TODO package poweder toy
+      #     libretro.beetle-psx
+      #     libretro.bsnes-mercury
+      #     libretro.mesen
+      #     libretro.mgba
+      #     libretro.nestopia
+      #   ];
+      # })
       # steam
       # steam-run
       # wesnoth
