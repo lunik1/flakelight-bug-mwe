@@ -233,6 +233,7 @@ in {
     dircolors = {
       enable = true;
       enableZshIntegration = true;
+      extraConfig = builtins.readFile (pkgs.LS_COLORS.outPath + "/LS_COLORS");
     };
     emacs = {
       enable = true;

@@ -5,6 +5,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    LS_COLORS = {
+      url = "github:trapd00r/LS_COLORS";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, ... }:
@@ -21,6 +25,7 @@
         (self: super: {
           youtube-dl = super.youtube-dl.override { phantomjsSupport = true; };
         })
+        (final: prev: { LS_COLORS = inputs.LS_COLORS; })
       ];
     in {
       homeConfigurations = {
