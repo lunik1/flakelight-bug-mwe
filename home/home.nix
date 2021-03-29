@@ -103,6 +103,9 @@ in {
       yarn
       youtube-dl
 
+      # Git
+      git-crypt
+
       # (Doom) Emacs
       glslang
       gnuplot
@@ -482,6 +485,7 @@ in {
       enable = true;
       package = pkgs.ncmpcpp.override { visualizerSupport = true; };
     };
+    ssh = import config/ssh/config.nix;
     texlive = {
       enable = true;
       extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
