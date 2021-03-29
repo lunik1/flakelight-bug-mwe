@@ -230,6 +230,10 @@ in {
         pager = "less -FR";
       };
     };
+    dircolors = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     emacs = {
       enable = true;
       extraPackages = epkgs: [ epkgs.vterm ];
