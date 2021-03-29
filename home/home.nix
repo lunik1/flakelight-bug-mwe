@@ -207,6 +207,12 @@ in {
       MOZ_WEBRENDER = "1";
       XDG_CONFIG_HOME = "~/.config";
     };
+    file = {
+      ".zshrc.local" = {
+        source = ./config/zsh/.zshrc.local;
+        target = ".zshrc.local";
+      };
+    };
   };
 
   programs = {
@@ -732,6 +738,18 @@ in {
           }'';
     };
     zathura.enable = true;
+    zsh = {
+      enable = true;
+      enableVteIntegration = true;
+      history = { size = 50000; };
+      initExtraFirst = ''
+        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+        source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
+      '';
+      envExtra = ''
+        export PATH=$HOME/bin:$HOME/.cargo/bin/:$PATH
+      '';
+    };
   };
 
   pam.sessionVariables = { EDITOR = "nvim"; };

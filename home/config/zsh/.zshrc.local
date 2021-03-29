@@ -1,0 +1,331 @@
+# -*- mode: sh; -*-
+# vi:ft=zsh
+
+# Set up fzf, if it exists
+if type fzf-share >/dev/null 2>&1; then
+  source "$(fzf-share)/key-bindings.zsh"
+  source "$(fzf-share)/completion.zsh"
+elif [ -f /usr/share/fzf/key-bindings.zsh ] && [ -f /usr/share/fzf/completion.zsh ]; then
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+fi
+
+# make fzf use fd
+if type fd >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND="fd -H -E '.git' --type file"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="fd -H --type directory"
+
+  function _fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+  }
+
+  function _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
+fi
+
+# up-line-or-fzf-history-widget() {
+#   # If we are after the first \n in the prompt, we want to move up rather than
+#   # trigger fzf
+#   if [[ $(( ${#BUFFER[(f)1]} + 1 )) -gt $CURSOR ]]; then
+#     fzf-history-widget;
+#   else
+#     zle .up-line;
+#   fi
+# }
+# zle -N up-line-or-fzf-history-widget
+# bindkey '^[OA' up-line-or-fzf-history-widget
+# bindkey '^[[A' up-line-or-fzf-history-widget
+
+# Set up thefuck
+if type thefuck >/dev/null 2>&1; then
+  eval $(thefuck --alias yikes)
+fi
+
+# Set up virtualenvwrapper
+if [ -f /usr/bin/virtualenvwrapper_lazy.sh ]; then
+  export WORKON_HOME=~/.virtualenvs
+  source /usr/bin/virtualenvwrapper_lazy.sh
+fi
+
+# Disable flow control
+stty -ixon
+
+## Environment
+
+WORDCHARS='${WORDCHARS:s@/@}'
+
+# Increase history size 10×
+HISTSIZE=50000
+SAVEHIST=100000
+
+# Use a default width of 80 for manpages for more convenient reading
+export MANWIDTH=${MANWIDTH:-80}
+
+## Aliases
+
+# Easy access to full zsh manual
+alias manzsh='man zshall'
+
+## get top 10 shell commands:
+alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
+
+alias doom='~/.emacs.d/bin/doom'
+alias emacs='emacs & disown'
+alias s='sudo $(fc -ln -1)'
+
+# easy sedding with perl
+alias pie='perl -pi -e'
+
+# Julia daemon
+alias juliad="julia --startup-file=no -e 'using DaemonMode; serve()'"
+alias juliac='julia --startup-file=no -e "using DaemonMode; runargs()"'
+
+# Cheatsheet
+alias cs="bat -p ~/.resources/zsh_cheatsheet.md"
+
+# Docker
+if [[ "$HOST" = dionysus2 ]]; then
+  salias dcdown="docker-compose -f /opt/docker-compose.yaml --env-file /opt/docker-compose.env down"
+  salias dcpull="ionice -n 6 docker-compose -f /opt/docker-compose.yaml --env-file /opt/docker-compose.env pull"
+  salias dcup="ionice -n 6 docker-compose -f /opt/docker-compose.yaml --env-file /opt/docker-compose.env up -d --remove-orphans"
+fi
+
+if type bat >/dev/null 2>&1; then
+  # bat-powered less
+  alias bless='bat -p --paging=always'
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+  # bat-powered ripgrep
+  if type batgrep >/dev/null 2>&1; then
+    alias brg='batgrep'
+  fi
+fi
+
+# use neovim if it exists
+if type nvim >/dev/null 2>&1; then
+  alias vim='nvim'
+  alias vi='nvim -u NONE'
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
+
+# rsync over ssh
+alias srsync='rsync -avzPe ssh'
+
+# update all python packages at once with pip
+alias pipdate='sh -c "pip freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1  | xargs -n1 pip install -U"'
+alias pip2date='sh -c "pip2 freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1  | xargs -n1 pip install -U"'
+
+if type pacman >/dev/null 2>&1; then
+  # run pacman as root
+  salias pacman=pacman
+
+  # clean orphan packages with pacman
+  salias deorphan='pacman -Rns $(pacman -Qtdq)'
+
+  # find .pacnew, .pacsave, and pacorig files
+  if type fd >/dev/null 2>&1; then
+    salias pacfiles='fd --xdev ".+\.pac(new|save|orig)" /'
+  else
+    salias pacfiles='find / -xdev -regextype posix-extended -regex ".+\.pac(new|save|orig)"'
+  fi
+
+  # sort installed packages by size
+  alias pacsize='expac "%m\t%n" | sort -h'
+fi
+
+# find broken symlinks
+alias brokenlinks='find /var -path /proc -prune -o -type l -! -exec test -e {} \; -print'
+
+# diff files with escalated privilege
+alias sudodiff='VISUAL="$EDITOR -d" sudoedit'
+
+# shutdown and the like
+alias poweroff='systemctl poweroff'
+alias shutdown='systemctl poweroff'
+alias reboot='systemctl reboot'
+alias suspend='systemctl suspend'
+alias hibernate='systemctl hibernate'
+alias hybrid-sleep='systemctl hybrid-sleep'
+
+## Abk
+
+abk[NN]=">/dev/null 2>&1"
+
+## Functions
+
+# Show public ip
+function myip() {
+  local api
+  case "$1" in
+  "-4")
+    api="http://v4.ipv6-test.com/api/myip.php"
+    ;;
+  "-6")
+    api="http://v6.ipv6-test.com/api/myip.php"
+    ;;
+  *)
+    api="http://ipv6-test.com/api/myip.php"
+    ;;
+  esac
+  echo $(curl -s "$api") # newline
+}
+
+
+# List all occurrences of program in current PATH
+function plap() {
+  emulate -L zsh
+  setopt extended_glob
+
+   if [[ $# = 0 ]] ; then
+       echo "Usage:    $0 program"
+       echo "Example:  $0 zsh"
+       echo "Lists all occurrences of program in the current PATH."
+   else
+       ls -l ${^path}/$1(.*)#(*N)
+   fi
+}
+
+# print hex value of a number
+function hex() {
+  emulate -L zsh
+  if [[ -n "$1" ]]; then
+    printf "%x\n" $1
+  else
+    print 'Usage: hex <number-to-convert>'
+    return 1
+  fi
+}
+
+# Find out which libs define a symbol
+function lcheck() {
+   if [[ -n "$1" ]] ; then
+       nm -go /usr/lib/lib*.a 2>/dev/null | grep ":[[:xdigit:]]\{8\} . .*$1"
+   else
+       echo "Usage: lcheck <function>" >&2
+   fi
+}
+
+# Ask before applying changes with chezmoi
+function chezmoi() {
+  changes=$(command chezmoi apply -n -v --color "on" "${@:2}")
+  if [[ "$1" == apply ]] && [[ ! -z "${changes}" ]]; then
+    printf "${changes}\n"
+    if $(read -q "?Apply changes? [y/N] "); then
+      command chezmoi "${@}"
+    fi
+    printf "\n"
+  else
+    command chezmoi "${@}"
+  fi
+}
+
+# optimise a pdf
+function pdfopt() {
+  # from https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dNOPAUSE -dQUIET -dBATCH -dPrinted=false -sOutputFile="$2" "$1"
+}
+
+# swap files
+function swap() {
+  local TMPFILE=tmp.$$
+  mv -n "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE "$2"
+}
+
+## Prompt
+
+# Virtualenv support
+function virtual_env_prompt () {
+   REPLY=${VIRTUAL_ENV+(${VIRTUAL_ENV:t}) }
+}
+grml_theme_add_token  virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
+
+# grml's built in jobs prompt is a little verbose, so define one that just
+# prints 'running':'suspended', and nothing if there are no jobs
+# TODO: will currently leave space for ':(' even if it isn't there, fixable?
+function n_jobs () {
+  REPLY=${(M)#${jobstates%%:*}:#running}:${(M)#${jobstates%%:*}:#suspended}
+  if [[ $REPLY == 0:0 ]]; then REPLY=; fi
+  # echo $REPLY
+}
+grml_theme_add_token  my_jobs -f n_jobs '%F{green}' '%f '
+
+zstyle ':prompt:grml:left:setup' items rc virtual-env change-root user at host path vcs percent
+zstyle ':prompt:grml:right:setup' items my_jobs sad-smiley
+
+## set command prediction from history, see 'man 1 zshcontrib'
+is4 && zrcautoload predict-on &&
+  zle -N predict-on &&
+  zle -N predict-off &&
+  bindkey "^X^Z" predict-on &&
+  bindkey "^Z" predict-off
+
+## Options
+
+# warning if file exists ('cat /dev/null > ~/.zshrc')
+setopt NO_clobber
+
+# Allow comments even in interactive shells
+setopt interactivecomments
+
+## Autoload
+
+# enable calculator
+autoload zcalc
+
+## Misc
+
+# just type '...' to get '../..'
+rationalise-dot() {
+  local MATCH
+  if [[ $LBUFFER =~ '(^|/| |	|'$'\n''|\||;|&)\.\.$' ]]; then
+    LBUFFER+=/
+    zle self-insert
+    zle self-insert
+  else
+    zle self-insert
+  fi
+}
+zle -N rationalise-dot
+bindkey . rationalise-dot
+# without this, typing a . aborts incremental history search
+bindkey -M isearch . self-insert
+
+bindkey '\eq' push-line-or-edit
+
+## changed completer settings
+zstyle ':completion:*' completer _complete _correct _approximate
+
+## ctrl-s will no longer freeze the terminal.
+stty erase "^?"
+
+## Completion
+
+command mkdir -p ~/.zfunc
+
+# poetry
+if (( $+commands[poetry] )) && [[ ! -a ~/.zfunc/_poetry ]]; then
+  poetry completions zsh > ~/.zfunc/_poetry
+fi
+
+fpath+=~/.zfunc
+
+## Syntax highlighting
+
+# MUST be done last!
+if [ -f "/usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]; then
+  # Arch linux if zsh-fast-syntax-highlighting is installed
+  source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+fi
+
+## Customise highlighting (if enabled)
+if typeset -f fast-theme > /dev/null; then
+  # on NixOS we are spammed with complains about a ro fs, so redirect everything to /dev/null
+  # fast-theme -q default &> /dev/null
+  fast-theme -q XDG:overlay &> /dev/null  # load my theme customisations
+fi
+
+## END OF FILE #################################################################

@@ -135,6 +135,9 @@
       GTK_IM_MODULE = "xim";
     };
 
+    # For zsh completion
+    pathsToLink = [ "/share/zsh" ];
+
     systemPackages = with pkgs; [
       # TODO add these to home-manager
       git
@@ -155,14 +158,7 @@
   };
 
   programs = {
-    zsh = {
-      enable = true;
-      interactiveShellInit = ''
-        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
-        source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
-      '';
-      promptInit = "";
-    };
+    zsh.enable = true;
     nano.syntaxHighlight = true;
     iotop.enable = true;
     iftop.enable = true;
