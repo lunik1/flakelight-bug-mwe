@@ -225,7 +225,10 @@ in {
     };
     bat = {
       enable = true;
-      config = { theme = "gruvbox-dark"; };
+      config = {
+        theme = "gruvbox-dark";
+        pager = "less -FR";
+      };
     };
     emacs = {
       enable = true;
