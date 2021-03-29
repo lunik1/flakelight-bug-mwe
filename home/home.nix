@@ -64,7 +64,6 @@ in {
       fast-cli
       fd
       ffmpeg-full
-      gitAndTools.gh
       gnome3.gucharmap
       gnome3.simple-scan
       hplip
@@ -309,6 +308,10 @@ in {
         github.user = "lunik1";
         gitlab.user = "lunik1";
       };
+    };
+    gh = {
+      enable = true;
+      gitProtocol = "ssh";
     };
     gpg.enable = true;
     kitty = {
