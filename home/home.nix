@@ -216,7 +216,13 @@ in {
   };
 
   programs = {
-    aria2.enable = true;
+    aria2 = {
+      enable = true;
+      settings = {
+        max-connection-per-server = 4;
+        continue = true;
+      };
+    };
     bat = {
       enable = true;
       config = { theme = "gruvbox-dark"; };
