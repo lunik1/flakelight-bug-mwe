@@ -121,6 +121,8 @@ in {
       # freeciv_gtk
       # freeciv_qt qt5.qtwayland
       openrct2
+      # steam
+      # steam-run
       # wesnoth
 
       # Dev
