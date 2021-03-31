@@ -658,7 +658,7 @@ in {
             };
             format = "{icon}{volume}%";
             format-bluetooth = "{icon}󰂯{volume:3}%";
-            format-muted = "󰝟 {volume}%";
+            format-muted = "󰝟{volume}%";
           };
           backlight = {
             format = "{icon}{percent:3}%";
@@ -734,35 +734,7 @@ in {
         };
       }];
       # TODO use gruvbox colours
-      style = (builtins.readFile (builtins.toPath
-        "${config.programs.waybar.package}/etc/xdg/waybar/style.css")) + ''
-          * {
-            font-family: Myosevka;
-            font-size: 20px;
-          }
-
-          #disk,
-          #bluetooth {
-            padding: 0 10px;
-            margin: 0 4px;
-          }
-
-          #disk
-          {
-            background-color: #7c6f64
-          }
-
-          #bluetooth {
-            background-color: #2980b9
-          }
-
-          #mpd.stopped {
-            background: rgba(0, 0, 0, 0)
-          }
-
-          #mpd.disconnected {
-            background: rgba(0, 0, 0, 0)
-          }'';
+      style = import ./config/waybar/style.nix;
     };
     zathura.enable = true;
     zsh = {
