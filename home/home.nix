@@ -120,6 +120,7 @@ in {
       # freeciv
       # freeciv_gtk
       # freeciv_qt qt5.qtwayland
+      # multimc
       openrct2
       # (retroarch.override {
       #   cores = [
