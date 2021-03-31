@@ -795,6 +795,7 @@ in {
     # udiskie
     gpg-agent = {
       enable = true;
+      enableSshSupport = true;
       defaultCacheTtl = 86400;
       maxCacheTtl = 86400;
       extraConfig = ''

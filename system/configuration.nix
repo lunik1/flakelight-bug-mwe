@@ -162,7 +162,6 @@
     nano.syntaxHighlight = true;
     iotop.enable = true;
     iftop.enable = true;
-    ssh.startAgent = true;
     sway = {
       enable = true;
 
