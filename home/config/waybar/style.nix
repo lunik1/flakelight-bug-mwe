@@ -169,7 +169,8 @@ in ''
   }
 
   #mpd {
-      background-color: ${gruvbox.dark.cyan.normal};
+      background-color: ${gruvbox.dark.purple.bright};
+      color: ${gruvbox.light.fg};
   }
 
   #mpd.disconnected {
@@ -182,6 +183,7 @@ in ''
 
   #mpd.paused {
       background-color: ${gruvbox.dark.gray};
+      color: ${gruvbox.dark.fg};
   }
 
 ''
