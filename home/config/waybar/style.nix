@@ -87,19 +87,18 @@ in ''
   }
 
   #battery {
-      background-color: ${gruvbox.dark.fg};
-      color: ${gruvbox.dark.bg};
+      background-color: ${gruvbox.light.yellow.bright};
   }
 
   #battery.charging, #battery.plugged {
       color: ${gruvbox.dark.fg};
-      background-color: ${gruvbox.dark.cyan.normal};
+      background-color: ${gruvbox.light.green.bright};
   }
 
   @keyframes blink {
       to {
-          background-color: ${gruvbox.dark.fg};
-          color: ${gruvbox.dark.bg};
+          background-color: ${gruvbox.dark.yellow.normal};
+          color: ${gruvbox.dark.fg};
       }
   }
 
@@ -107,7 +106,7 @@ in ''
       background-color: ${gruvbox.dark.red.bright};
       color: ${gruvbox.dark.fg};
       animation-name: blink;
-      animation-duration: 0.5s;
+      animation-duration: 1s;
       animation-timing-function: linear;
       animation-iteration-count: infinite;
       animation-direction: alternate;
