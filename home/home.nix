@@ -656,9 +656,9 @@ in {
               portable = "󰏶";
               default = [ "󰕿" "󰖀" "󰕾" ];
             };
-            format = "{icon}{volume}%";
+            format = "{icon}{volume:3}%";
             format-bluetooth = "{icon}󰂯{volume:3}%";
-            format-muted = "󰝟{volume}%";
+            format-muted = "󰝟{volume:3}%";
           };
           backlight = {
             format = "{icon}{percent:3}%";
