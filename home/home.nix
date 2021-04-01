@@ -598,15 +598,15 @@ in {
         height = 30;
         modules-left = [ "sway/workspaces" "sway/mode" "idle_inhibitor" "mpd" ];
         modules-right = [
-          "pulseaudio"
-          "backlight"
-          "memory"
-          "cpu"
           "temperature"
+          "cpu"
+          "backlight"
+          "battery"
+          "memory"
           "disk"
           "network"
           "bluetooth"
-          "battery"
+          "pulseaudio"
           "clock"
           # "tray"
         ];

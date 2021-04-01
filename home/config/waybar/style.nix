@@ -50,7 +50,6 @@ in ''
   #battery,
   #bluetooth,
   #cpu,
-  #disk,
   #memory,
   #disk,
   #temperature,
@@ -83,7 +82,7 @@ in ''
   }
 
   #clock {
-      background-color: ${gruvbox.dark.bg};
+      background-color: ${gruvbox.light.purple.bright};
   }
 
   #battery {
@@ -117,15 +116,15 @@ in ''
   }
 
   #cpu {
-      background-color: ${gruvbox.dark.green.normal};
+      background-color: ${gruvbox.dark.orange.normal};
   }
 
   #memory {
-      background-color: ${gruvbox.dark.purple.normal};
+      background-color: ${gruvbox.dark.cyan.normal};
   }
 
   #disk {
-    background-color: ${gruvbox.dark.orange.normal};
+    background-color: ${gruvbox.light.cyan.bright};
   }
 
   #backlight {
@@ -145,7 +144,7 @@ in ''
   }
 
   #pulseaudio {
-      background-color: ${gruvbox.light.cyan.bright};
+      background-color: ${gruvbox.dark.purple.normal};
   }
 
   #pulseaudio.muted {
