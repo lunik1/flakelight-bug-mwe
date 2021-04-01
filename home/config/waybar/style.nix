@@ -160,7 +160,7 @@ in ''
   }
 
   #idle_inhibitor {
-      background-color: ${gruvbox.dark.bg};
+      background-color: ${gruvbox.dark.gray};
   }
 
   #idle_inhibitor.activated {
