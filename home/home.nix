@@ -51,6 +51,7 @@ in {
       aspellDicts.en-science
       bat-extras.batgrep
       bitwarden
+      bleachbit
       blueman
       borgbackup
       bpytop
