@@ -9,8 +9,8 @@ in ''
   }
 
   window#waybar {
-      background-color: rgba(40, 40, 40, 0.8);
-      border-bottom: 3px solid rgba(213, 196, 161, 0.8);
+      background-color: rgba(40, 40, 40, 0.9);
+      border-bottom: 3px solid rgba(213, 196, 161, 0.9);
       color: ${gruvbox.dark.fg};
       transition-property: background-color;
       transition-duration: .5s;

@@ -846,6 +846,141 @@ in {
     gtk3.extraConfig.gtk-error-bell = 0;
   };
 
+  wayland.windowManager.sway = let
+    lockCommand = ("exec ${pkgs.swaylock-effects}/bin/swaylock"
+      + "--screenshots" + "--clock" + "--indicator" + "--fade-in 1"
+      + "--font 'Myosevka'" + "--inside-color 282828"
+      + "--inside-clear-color d79921" + "--inside-caps-lock-color f88019"
+      + "--inside-ver-color b16286" + "--inside-wrong-color cc241d"
+      + "--key-hl-color b8bb26" + "--line-color 282828"
+      + "--line-clear-color 282828" + "--line-caps-lock-color 282828"
+      + "--line-ver-color 282828" + "--line-wrong-color 282828"
+      + "--ring-color 79740e" + "--ring-clear-color b57614"
+      + "--ring-caps-lock-color d65d0e" + "--ring-ver-color 8f3f71"
+      + "--ring-wrong-color 9d0006" + "--separator-color 282828"
+      + "--text-color fbf1c7" + "--text-clear-color fbf1c7"
+      + "--text-caps-lock-color fbf1c7" + "--text-ver-color fbf1c7"
+      + "--text-wrong-color fbf1c7" + "--effect-pixelate 15"
+      + "--effect-blur 7x5");
+  in {
+    enable = true;
+    config = rec {
+      bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
+      colors = {
+        background = gruvbox.dark.bg;
+        focused = {
+          background = gruvbox.dark.bg;
+          border = gruvbox.dark.bg;
+          childBorder = gruvbox.dark.bg2;
+          indicator = gruvbox.dark.bg4;
+          text = gruvbox.dark.fg;
+        };
+        focusedInactive = {
+          background = gruvbox.dark.bg;
+          border = gruvbox.dark.bg;
+          childBorder = gruvbox.dark.bg0_h;
+          indicator = gruvbox.dark.bg0_h;
+          text = gruvbox.dark.gray;
+        };
+        "placeholder" = {
+          background = gruvbox.dark.bg0_s;
+          border = gruvbox.dark.bg0_s;
+          childBorder = gruvbox.dark.bg0_s;
+          indicator = gruvbox.dark.bg0_s;
+          text = gruvbox.dark.fg;
+        };
+        unfocused = {
+          background = gruvbox.dark.bg2;
+          border = gruvbox.dark.bg;
+          childBorder = gruvbox.dark.bg0_h;
+          indicator = gruvbox.dark.bg0_h;
+          text = gruvbox.dark.gray;
+        };
+        urgent = {
+          background = gruvbox.light.red.normal;
+          border = gruvbox.light.red.normal;
+          childBorder = gruvbox.light.red.normal;
+          indicator = gruvbox.light.red.normal;
+          text = gruvbox.dark.fg;
+        };
+      };
+      floating = {
+        border = 4;
+        titlebar = true;
+      };
+      focus.followMouse = false;
+      fonts = [ "Myosevka Proportional 14" ];
+      # gaps = { smartBorders = "on"; };
+      input = {
+        "*" = {
+          xkb_numlock = "enabled";
+          xkb_layout = "gb";
+          xkb_options = "lv3:ralt_switch_multikey";
+        };
+      };
+      keybindings = lib.mkOptionDefault {
+        "${modifier}+Shift+q" = "kill";
+        "${modifier}+Shift+e" = ''
+          exec ${pkgs.sway}/bin/swaynag -t warning -f "Myosevka Proportional" -m "Exit sway?" -b "Yes" "${pkgs.sway}/bin/swaymsg exit"'';
+        "${modifier}+Shift+x" = "${lockCommand} --grace 5";
+        "${modifier}+p" =
+          "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
+        "Print" =
+          "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
+        "XF86AudioRaiseVolume" =
+          "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%";
+        "XF86AudioLowerVolume" =
+          "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%";
+        "XF86AudioMute" =
+          "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
+        "XF86AudioPrev" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s previous";
+        "XF86AudioNext" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s next";
+        "XF86AudioPlay" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s play-pause";
+        "XF86AudioStop" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s stop";
+        "Control+XF86AudioPrev" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s position 30-";
+        "Control+XF86AudioNext" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s position 30+";
+        "Control+XF86AudioPlay" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s stop";
+      };
+      menu = ''
+        ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --term="${pkgs.kitty}/bin/kitty" --dmenu="${pkgs.dmenu-wayland}/bin/dmenu-wl -i -fn 'Myosevka Proportional 14' -nb '${gruvbox.dark.bg}' -nf '${gruvbox.dark.fg}' -sb '${gruvbox.light.bg}' -sf '${gruvbox.light.fg}'"'';
+      modifier = "Mod4";
+      output = {
+        "*" = {
+          bg = "~/Pictures/wallpapers/i3/gruvbox-light-rainbow.png stretch";
+        };
+      };
+      startup = [{
+        command =
+          "${pkgs.swayidle}/bin/swayidle timeout 300 '${lockCommand} --grace 5' before-sleep '${lockCommand}'";
+      }];
+      terminal = "${pkgs.kitty}/bin/kitty";
+      window = {
+        border = 4;
+        commands = [
+          {
+            criteria = { app_id = "kitty"; };
+            command = "opacity 0.90";
+          }
+          {
+            criteria = { class = "(?i)(emacs)"; };
+            command = "opacity 0.90";
+          }
+        ];
+        hideEdgeBorders = "both";
+      };
+      workspaceAutoBackAndForth = true;
+    };
+    systemdIntegration = true;
+    wrapperFeatures.gtk = true;
+  };
+
   xdg = {
     enable = true;
     mime.enable = true;

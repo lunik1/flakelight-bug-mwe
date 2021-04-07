@@ -162,22 +162,6 @@
     nano.syntaxHighlight = true;
     iotop.enable = true;
     iftop.enable = true;
-    sway = {
-      enable = true;
-
-      wrapperFeatures.gtk = true;
-      extraPackages = with pkgs; [
-        grim
-        lm_sensors
-        swaylock
-        swayidle
-        xwayland
-        dmenu-wayland
-        j4-dmenu-desktop
-        i3status-rust
-        upower
-      ];
-    };
   };
   gtk.iconCache.enable = true;
 
@@ -275,18 +259,7 @@
     logind.lidSwitch = "hybrid-sleep";
     logind.lidSwitchExternalPower = "suspend";
 
-    # X11
-    xserver = {
-      enable = true;
-      layout = "gb";
-      libinput.enable = true;
-      displayManager.lightdm = {
-        enable = true;
-        greeters.enso.enable = true;
-        background =
-          pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
-      };
-    };
+    dbus.packages = with pkgs; [ gnome3.dconf ];
 
     # No scheduler for non-rotational disks
     udev.extraRules = ''
