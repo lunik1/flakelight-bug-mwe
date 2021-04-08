@@ -964,7 +964,7 @@ in {
       }];
       terminal = "${pkgs.kitty}/bin/kitty";
       window = {
-        border = 4;
+        border = 2;
         commands = [
           {
             criteria = { app_id = "kitty"; };
