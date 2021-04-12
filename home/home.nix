@@ -350,7 +350,10 @@ in {
       enable = true;
       gitProtocol = "ssh";
     };
-    gpg.enable = true;
+    gpg = {
+      enable = true;
+      settings.keyserver = "hkps://keys.openpgp.org";
+    };
     kitty = {
       enable = true;
       font = {
