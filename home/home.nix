@@ -100,6 +100,7 @@ in {
       unrar
       unzip
       wev
+      xdg_utils
       wget
       yarn
       youtube-dl
