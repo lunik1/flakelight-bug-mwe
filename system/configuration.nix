@@ -59,9 +59,16 @@
     hostName = "foureightynine";
     firewall.enable = false;
   };
-  services.connman = {
-    enable = true;
-    wifi.backend = "iwd";
+  services = {
+    connman = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
+    resolved = {
+      enable = true;
+      dnssec = "false";
+      fallbackDns = [ "91.239.100.100" "89.233.43.71" ];
+    };
   };
 
   ## Bluetooth
