@@ -26,4 +26,5 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.enableAllFirmware = true;
 }
