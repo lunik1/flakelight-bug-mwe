@@ -267,6 +267,10 @@
     fstrim.enable = true;
     irqbalance.enable = true;
     tlp.enable = true;
+
+    journald.extraConfig = ''
+      SystemMaxUse=1G
+    '';
   };
 
   ## Printing and Scanning
