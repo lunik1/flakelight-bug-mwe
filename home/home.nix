@@ -94,6 +94,7 @@ in {
       rsync
       shfmt
       skypeforlinux
+      stress-ng
       system-config-printer
       tealdeer
       teams
