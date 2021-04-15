@@ -3,9 +3,6 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  ## Hardware
-  hardware.cpu.intel.updateMicrocode = true;
-
   ## Boot & Kernel
   boot = {
     loader = {
