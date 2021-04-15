@@ -75,6 +75,7 @@ in {
       magic-wormhole
       megacmd
       ncdu
+      neofetch
       nodejs
       opera
       p7zip
