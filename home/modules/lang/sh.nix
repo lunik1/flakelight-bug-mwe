@@ -1,0 +1,9 @@
+{ config, lib, pkgs, ... }:
+
+{
+  home.packages = with pkgs; [
+    shellcheck
+    shfmt
+    nodePackages.bash-language-server
+  ];
+}

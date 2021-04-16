@@ -24,6 +24,26 @@
         # nixos-unstable-overlay
         (self: super: {
           youtube-dl = super.youtube-dl.override { phantomjsSupport = true; };
+          myosevka = super.iosevka.override {
+            privateBuildPlan = import resources/iosevka/myosevka.nix;
+            set = "myosevka";
+          };
+          myosevka-proportional = super.iosevka.override {
+            privateBuildPlan =
+              import resources/iosevka/myosevka-proportional.nix;
+            set = "myosevka-proportional";
+          };
+          myosevka-aile = super.iosevka.override {
+            privateBuildPlan =
+              (import resources/iosevka/myosevka-aile.nix) { lib = super.lib; };
+            set = "myosevka-aile";
+          };
+          myosevka-etoile = super.iosevka.override {
+            privateBuildPlan = (import resources/iosevka/myosevka-etoile.nix) {
+              lib = super.lib;
+            };
+            set = "myosevka-etoile";
+          };
         })
         (final: prev: { LS_COLORS = inputs.LS_COLORS; })
       ];
@@ -34,10 +54,42 @@
           username = "corin";
           homeDirectory = "/home/corin";
           configuration = { pkgs, ... }: {
+            require = [
+              modules/core.nix
+              modules/cli.nix
+              modules/gui.nix
+              modules/git.nix
+              modules/neovim.nix
+              modules/emacs.nix
+              modules/fonts.nix
+              modules/music.nix
+              modules/sync.nix
+              modules/sway.nix
+              modules/bluetooth.nix
+              modules/mpv.nix
+              modules/gpg.nix
+              modules/pulp-io.nix
+
+              modules/lang/c.nix
+              modules/lang/clojure.nix
+              modules/lang/data.nix
+              modules/lang/julia.nix
+              modules/lang/nix.nix
+              modules/lang/prose.nix
+              modules/lang/python.nix
+              modules/lang/rust.nix
+              modules/lang/sh.nix
+              modules/lang/tex.nix
+
+              modules/games.nix
+            ];
+
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = overlays;
             home.stateVersion = "20.09";
-            imports = [ ./home.nix ];
+
+            waybar.batteryModule = true;
+            games.cli.enable = true;
           };
         };
       };
