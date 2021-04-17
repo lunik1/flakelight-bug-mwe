@@ -95,4 +95,14 @@
       '';
     };
   };
+
+  xdg = {
+    enable = true;
+    configFile = {
+      "bpytop.conf" = {
+        source = ../config/bpytop/bpytop.conf;
+        target = "bpytop/bpytop.conf";
+      };
+    };
+  };
 }
