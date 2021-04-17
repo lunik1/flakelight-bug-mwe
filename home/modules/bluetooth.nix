@@ -1,4 +1,4 @@
-# # Useerspace Bluetooth management
+# Userspace Bluetooth management
 
 { config, lib, pkgs, ... }:
 
