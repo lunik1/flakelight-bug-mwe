@@ -70,7 +70,7 @@
     dircolors = {
       enable = true;
       enableZshIntegration = true;
-      extraConfig = builtins.readFile (pkgs.LS_COLORS.outPath + "/LS_COLORS");
+      extraConfig = builtins.readFile "${pkgs.LS_COLORS}/LS_COLORS";
     };
     htop = import ../config/htop/htop.nix;
     ssh = import ../config/ssh/config.nix;

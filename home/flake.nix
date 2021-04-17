@@ -45,7 +45,7 @@
             set = "myosevka-etoile";
           };
         })
-        (final: prev: { LS_COLORS = inputs.LS_COLORS; })
+        (self: super: { LS_COLORS = inputs.LS_COLORS; })
       ];
     in {
       homeConfigurations = {
