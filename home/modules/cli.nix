@@ -109,6 +109,10 @@
         source = ../config/bpytop/bpytop.conf;
         target = "bpytop/bpytop.conf";
       };
+      "rc.conf" = {
+        source = ../config/ranger/rc.conf;
+        target = "ranger/rc.conf";
+      };
     };
   };
 }
