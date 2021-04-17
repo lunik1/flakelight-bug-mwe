@@ -9,6 +9,7 @@
     gnuplot
     graphviz
     ripgrep
+    sqlite.bin
 
     emacs-all-the-icons-fonts
     myosevka
