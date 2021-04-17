@@ -13,21 +13,15 @@
 
   outputs = inputs@{ self, ... }:
     let
-      # nixos-unstable-overlay = final: prev: {
-      #   nixos-unstable = import inputs.nixos-unstable {
-      #     system = prev.system;
-      #     # config.allowUnfree = true;
-      #     overlays = [ inputs.emacs-overlay.overlay ];
-      #   };
-      # };
       overlays = [
-        # nixos-unstable-overlay
         (self: super: {
           youtube-dl = super.youtube-dl.override { phantomjsSupport = true; };
           myosevka = super.iosevka.override {
             privateBuildPlan = import resources/iosevka/myosevka.nix;
             set = "myosevka";
           };
+        })
+        (self: super: {
           myosevka-proportional = super.iosevka.override {
             privateBuildPlan =
               import resources/iosevka/myosevka-proportional.nix;
