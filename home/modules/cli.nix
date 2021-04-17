@@ -98,6 +98,12 @@
 
   xdg = {
     enable = true;
+    dataFile = {
+      "zsh_cheatsheet" = {
+        source = ../data/zsh/zsh_cheatsheet.md;
+        target = "zsh/zsh_cheatsheet.md";
+      };
+    };
     configFile = {
       "bpytop.conf" = {
         source = ../config/bpytop/bpytop.conf;

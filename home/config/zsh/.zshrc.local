@@ -83,7 +83,7 @@ alias juliad="julia --startup-file=no -e 'using DaemonMode; serve()'"
 alias juliac='julia --startup-file=no -e "using DaemonMode; runargs()"'
 
 # Cheatsheet
-alias cs="bat -p ~/.resources/zsh_cheatsheet.md"
+alias cs="bat -p ~/.local/share/zsh/zsh_cheatsheet.md"
 
 # Docker
 if [[ "$HOST" = dionysus2 ]]; then
