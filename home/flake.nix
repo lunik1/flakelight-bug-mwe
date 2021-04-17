@@ -63,6 +63,7 @@
               modules/mpv.nix
               modules/gpg.nix
               modules/pulp-io.nix
+              modules/games.nix
 
               modules/lang/c.nix
               modules/lang/clojure.nix
@@ -74,8 +75,6 @@
               modules/lang/rust.nix
               modules/lang/sh.nix
               modules/lang/tex.nix
-
-              modules/games.nix
             ];
 
             nixpkgs.config.allowUnfree = true;
