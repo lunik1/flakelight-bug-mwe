@@ -89,6 +89,8 @@
             home.stateVersion = "20.09";
 
             waybar.batteryModule = true;
+            waybar.bluetoothModule =
+              true; # TODO activate if bluetooth.nix included
             games.cli.enable = true;
           };
         };
