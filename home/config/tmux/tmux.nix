@@ -4,6 +4,7 @@
   enable = true;
   baseIndex = 1;
   clock24 = true;
+  escapeTime = 0;
   keyMode = "vi";
   newSession = true;
   prefix = "C-a";
@@ -49,7 +50,7 @@
     bind-key _ split-window
 
     # true color
-    set-option -ga terminal-overrides ",xterm-kitty:Tc"
+    set -as terminal-features ",xterm-kitty:RGB"
 
     # fix cursor shape in neovim
     set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
@@ -63,5 +64,9 @@
     bind-key ^Up swap-pane -U
     unbind-key ^Down
     bind-key ^Down swap-pane -
+
+    # use v and y in copy-mode
+    bind-key -T copy-mode-vi 'v' send -X begin-selection
+    bind-key -T copy-mode-vi 'y' send -X copy-selection-and-cancel
   '';
 }
