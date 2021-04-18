@@ -9,8 +9,10 @@ in {
       connman-gtk
       discord
       element-desktop
+      gimp
       gnome3.gucharmap
       hunspellDicts.en-gb-ise # needed for libreoffice
+      krita
       libreoffice-fresh # TODO languagetool
       opera
       pavucontrol
