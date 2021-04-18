@@ -109,6 +109,10 @@
         source = ../config/bpytop/bpytop.conf;
         target = "bpytop/bpytop.conf";
       };
+      "neofetch" = {
+        source = ../config/neofetch/config.conf;
+        target = "neofetch/config.conf";
+      };
       "rc.conf" = {
         source = ../config/ranger/rc.conf;
         target = "ranger/rc.conf";
