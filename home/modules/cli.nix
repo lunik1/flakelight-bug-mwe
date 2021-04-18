@@ -19,6 +19,7 @@
       ffmpeg-full
       imagemagick
       libarchive
+      libwebp
       lrzip
       magic-wormhole
       ncdu
