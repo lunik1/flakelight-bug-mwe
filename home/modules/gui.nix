@@ -14,7 +14,6 @@ in {
       libreoffice-fresh # TODO languagetool
       opera
       pavucontrol
-      plex-media-player
       qdirstat
       skypeforlinux
       teams
@@ -38,7 +37,10 @@ in {
       fontPkg = pkgs.myosevka;
       inherit gruvbox;
     };
-    zathura.enable = true;
+    zathura = {
+      enable = true;
+      options = import ../config/zathura/zathura.nix;
+    };
   };
 
   gtk = {
