@@ -75,6 +75,7 @@
       userEmail = "ch.gpg@themaw.xyz";
       userName = "lunik1";
       extraConfig = {
+        pull.rebase = "true";
         push.default = "matching";
         diff.algorithm = "histogram";
         github.user = "lunik1";
