@@ -109,6 +109,9 @@
     }];
   }];
 
+  # Needed to make swaylock work in home-manager
+  security.pam.services.swaylock = {};
+
   ## Nix
   nix = {
     useSandbox = "relaxed";

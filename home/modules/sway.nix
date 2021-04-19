@@ -166,21 +166,40 @@ in {
     };
 
     wayland.windowManager.sway = let
-      lockCommand = ("exec ${pkgs.swaylock-effects}/bin/swaylock"
-        + "--screenshots" + "--clock" + "--indicator" + "--fade-in 1"
-        + "--font 'Myosevka'" + "--inside-color 282828"
-        + "--inside-clear-color d79921" + "--inside-caps-lock-color f88019"
-        + "--inside-ver-color b16286" + "--inside-wrong-color cc241d"
-        + "--key-hl-color b8bb26" + "--line-color 282828"
-        + "--line-clear-color 282828" + "--line-caps-lock-color 282828"
-        + "--line-ver-color 282828" + "--line-wrong-color 282828"
-        + "--ring-color 79740e" + "--ring-clear-color b57614"
-        + "--ring-caps-lock-color d65d0e" + "--ring-ver-color 8f3f71"
-        + "--ring-wrong-color 9d0006" + "--separator-color 282828"
-        + "--text-color fbf1c7" + "--text-clear-color fbf1c7"
-        + "--text-caps-lock-color fbf1c7" + "--text-ver-color fbf1c7"
-        + "--text-wrong-color fbf1c7" + "--effect-pixelate 15"
-        + "--effect-blur 7x5");
+      lockCommand = lib.concatStringsSep " " (with gruvbox;
+        let rO = lib.removePrefix "#"; # remove Octothorpe
+        in [
+          "exec ${pkgs.swaylock-effects}/bin/swaylock"
+          "--screenshots"
+          "--clock"
+          "--indicator"
+          "--fade-in 1"
+          "--font 'Myosevka'"
+          "--inside-color ${rO dark.bg}"
+          "--inside-clear-color ${rO light.yellow.bright}"
+          "--inside-caps-lock-color ${rO light.orange.bright}"
+          "--inside-ver-color ${rO light.purple.bright}"
+          "--inside-wrong-color ${rO light.red.bright}"
+          "--key-hl-color ${rO dark.cyan.bright}"
+          "--line-color ${rO dark.bg}"
+          "--line-clear-color ${rO dark.bg}"
+          "--line-caps-lock-color ${rO dark.bg}"
+          "--line-ver-color ${rO dark.bg}"
+          "--line-wrong-color ${rO dark.bg}"
+          "--ring-color ${rO light.cyan.bright}"
+          "--ring-clear-color ${rO dark.yellow.bright}"
+          "--ring-caps-lock-color ${rO dark.orange.bright}"
+          "--ring-ver-color ${rO dark.purple.bright}"
+          "--ring-wrong-color ${rO dark.red.normal}"
+          "--separator-color ${rO dark.bg}"
+          "--text-color ${rO dark.fg}"
+          "--text-clear-color ${rO dark.fg}"
+          "--text-caps-lock-color ${rO dark.fg}"
+          "--text-ver-color ${rO dark.fg}"
+          "--text-wrong-color ${rO dark.fg}"
+          "--effect-pixelate 15"
+          "--effect-blur 7x5"
+        ]);
     in {
       enable = true;
       config = rec {
@@ -243,7 +262,7 @@ in {
           "${modifier}+Shift+q" = "kill";
           "${modifier}+Shift+e" = ''
             exec ${pkgs.sway}/bin/swaynag -t warning -f "Myosevka Proportional" -m "Exit sway?" -b "Yes" "${pkgs.sway}/bin/swaymsg exit"'';
-          "${modifier}+Shift+x" = "${lockCommand} --grace 5";
+          "${modifier}+Shift+x" = "${lockCommand}";
           "${modifier}+p" =
             "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
           "Print" =
