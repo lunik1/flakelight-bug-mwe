@@ -161,7 +161,6 @@ in {
           };
         };
       }];
-      # TODO use gruvbox colours
       style = import ../config/waybar/style.nix;
     };
 
