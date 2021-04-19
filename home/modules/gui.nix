@@ -45,6 +45,7 @@ in {
     };
   };
 
+  # TODO find/make a gruvbox gtk theme (use oomox?)
   gtk = {
     enable = true;
     font = {
@@ -52,12 +53,12 @@ in {
       name = "Myosevka Aile 11";
     };
     iconTheme = {
-      package = pkgs.arc-theme;
-      name = "Arc";
+      package = pkgs.qogir-theme;
+      name = "Qogir";
     };
     theme = {
-      package = pkgs.arc-theme;
-      name = "Arc";
+      package = pkgs.qogir-icon-theme;
+      name = "Qogir";
     };
     gtk2.extraConfig = ''
       gtk-error-bell = 0
@@ -68,6 +69,10 @@ in {
   qt = {
     enable = true;
     platformTheme = "gtk";
+    style = {
+      package = pkgs.arc-kde-theme;
+      name = "Arc";
+    };
   };
 
   xdg = {
