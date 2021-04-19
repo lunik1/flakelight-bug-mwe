@@ -259,6 +259,8 @@
     logind.lidSwitch = "hybrid-sleep";
     logind.lidSwitchExternalPower = "suspend";
 
+    gpm.enable = true;
+
     dbus.packages = with pkgs; [ gnome3.dconf ];
 
     # No scheduler for non-rotational disks
