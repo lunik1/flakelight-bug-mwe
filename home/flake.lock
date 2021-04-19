@@ -36,6 +36,22 @@
         "type": "github"
       }
     },
+    "nixos-logo-gruvbox-wallpaper": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1618844397,
+        "narHash": "sha256-skqKXidGoKcg3/APreZTN9vndUcRI3dckzUyoG3xVok=",
+        "owner": "lunik1",
+        "repo": "nixos-logo-gruvbox-wallpaper",
+        "rev": "c94a15202a1498e6d828dde570e6f24b6f4f922b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lunik1",
+        "repo": "nixos-logo-gruvbox-wallpaper",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1618619705,
@@ -56,6 +72,7 @@
       "inputs": {
         "LS_COLORS": "LS_COLORS",
         "home-manager": "home-manager",
+        "nixos-logo-gruvbox-wallpaper": "nixos-logo-gruvbox-wallpaper",
         "nixpkgs": "nixpkgs"
       }
     }

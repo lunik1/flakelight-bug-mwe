@@ -292,7 +292,8 @@ in {
         modifier = "Mod4";
         output = {
           "*" = {
-            bg = "~/Pictures/wallpapers/i3/gruvbox-light-rainbow.png stretch";
+            bg =
+              "${pkgs.nixos-logo-gruvbox-wallpaper}/png/gruvbox-light-rainbow.png stretch";
           };
         };
         startup = [{

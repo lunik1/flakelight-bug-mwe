@@ -5,6 +5,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-logo-gruvbox-wallpaper = {
+      url = "github:lunik1/nixos-logo-gruvbox-wallpaper";
+      flake = false;
+    };
     LS_COLORS = {
       url = "github:trapd00r/LS_COLORS";
       flake = false;
@@ -40,6 +44,9 @@
           };
         })
         (self: super: { LS_COLORS = inputs.LS_COLORS; })
+        (self: super: {
+          nixos-logo-gruvbox-wallpaper = inputs.nixos-logo-gruvbox-wallpaper;
+        })
       ];
     in {
       homeConfigurations = {
