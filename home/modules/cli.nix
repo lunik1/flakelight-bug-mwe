@@ -24,6 +24,7 @@
       magic-wormhole
       ncdu
       neofetch
+      nix-zsh-completions
       p7zip
       pandoc
       parallel
@@ -39,6 +40,7 @@
       unzip
       wget
       youtube-dl
+      zsh-completions
 
       ripgrep-all # heavy dependencies, optional/own module?
     ];
@@ -85,6 +87,7 @@
     };
     zsh = {
       enable = true;
+      enableCompletion = true;
       enableVteIntegration = true;
       history = { size = 50000; };
       initExtraFirst = ''
