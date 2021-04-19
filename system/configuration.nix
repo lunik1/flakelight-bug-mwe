@@ -115,6 +115,7 @@
   ## Nix
   nix = {
     useSandbox = "relaxed";
+    autoOptimiseStore = true;
     # enable flakes
     package = pkgs.nixFlakes;
     extraOptions = ''
