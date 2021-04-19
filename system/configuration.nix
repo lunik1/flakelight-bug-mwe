@@ -146,13 +146,8 @@
     pathsToLink = [ "/share/zsh" ];
 
     systemPackages = with pkgs; [
-      # TODO add these to home-manager
       git
-      git-lfs
-      gitAndTools.delta
       neovim
-      nix-zsh-completions
-      zsh-completions
 
       htop
       libarchive
