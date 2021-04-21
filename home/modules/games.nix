@@ -21,12 +21,12 @@ in {
     ([ ] ++ lib.optionals cfg.steam.enable [ steam steam-run ]
       ++ lib.optional cfg.emu.enable (retroarch.override {
         cores = [
-          # TODO package powder toy
           libretro.beetle-psx
           libretro.bsnes-mercury
           libretro.mesen
           libretro.mgba
           libretro.nestopia
+          libretro.thepowdertoy
         ];
       }) ++ lib.optionals cfg.cli.enable [ crawl nethack ]
       ++ lib.optional cfg.freeciv.enable freeciv_gtk
