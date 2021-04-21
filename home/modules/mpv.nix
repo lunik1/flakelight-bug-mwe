@@ -75,6 +75,7 @@
         "osc-vidscale=no,osc-layout=bottombar,osc-scalewindowed=2.0,osc-scalefullscreen=2.0,osc-minmousemove=1";
       cache = "auto";
       cache-on-disk = "yes";
+      cache-dir = "~/.cache/mpv";
       demuxer-readahead-secs = 20;
       demuxer-max-bytes = "10GiB";
       force-window = "yes";
