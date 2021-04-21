@@ -15,7 +15,7 @@
     scripts = with pkgs.mpvScripts; [
       autoload
       mpris
-      # mpv-playlistmanager
+      mpv-playlistmanager
       # thumbnail # performance-intensive
     ];
     config = {
