@@ -12,7 +12,12 @@
 
   programs.mpv = {
     enable = true;
-    # TODO scripts
+    scripts = with pkgs.mpvScripts; [
+      autoload
+      mpris
+      # mpv-playlistmanager
+      # thumbnail # performance-intensive
+    ];
     config = {
       # Video
       # profile = "gpu-hq";
@@ -85,6 +90,17 @@
 
   xdg = {
     enable = true;
+    configFile = {
+      # Add scripts distributed with mpv
+      "autocrop.lua" = {
+        source = "${pkgs.mpv-unwrapped.src.outPath}/TOOLS/lua/autocrop.lua";
+        target = "mpv/scripts/autocrop.lua";
+      };
+      "autodeint.lua" = {
+        source = "${pkgs.mpv-unwrapped.src.outPath}/TOOLS/lua/autodeint.lua";
+        target = "mpv/scripts/autodeint.lua";
+      };
+    };
     mime.enable = true;
     mimeApps = {
       enable = true;
