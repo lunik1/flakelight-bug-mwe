@@ -15,24 +15,24 @@
     # TODO scripts
     config = {
       # Video
-      profile = "gpu-hq";
+      # profile = "gpu-hq";
       vo = "gpu";
-      scale = "spline36";
-      cscale = "spline36";
-      dscale = "mitchell";
+      scale = "bicubic_fast";
+      cscale = "bicubic_fast";
+      dscale = "bilinear";
       # tscale="robidouxsharp";
-      scale-antiring = "1";
-      cscale-antiring = "1";
+      scale-antiring = 1;
+      cscale-antiring = 1;
       sigmoid-upscaling = "yes";
       # tscale-clamp;
       scaler-resizes-only = "yes";
       dither-depth = "auto";
-      dither-size-fruit = "6";
+      dither-size-fruit = 6;
       temporal-dither = "yes";
-      opengl-gamma = "0.9338";
-      # deband=yes;
+      gamma-factor = "0.9338";
+      deband = "no";  # performance-intensive
       gpu-context = "wayland";
-      hwdec = "vaapi";
+      hwdec = "auto-safe";
       target-prim = "bt.709";
       video-output-levels = "full";
       video-sync = "display-resample";
@@ -40,20 +40,20 @@
       vd-lavc-skiploopfilter = "bidir";
       sws-scaler = "x";
       screenshot-format = "png";
-      screenshot-png-compression = "0";
-      screenshot-png-filter = "0";
+      screenshot-png-compression = 0;
+      screenshot-png-filter = 0;
       screenshot-tag-colorspace = "yes";
       screenshot-high-bit-depth = "yes";
       geometry = "50%:50%";
       autofit = "90%x90%";
       autofit-larger = "90%x90%";
-      vf-defaults = "vdpaupp:deint-mode=bob";
-      vd-lavc-threads = "4";
+      # vo-vaapi-deint-mode = "bob";
+      vd-lavc-threads = 4;
 
       # Audio
       ao = "pulse";
       audio-channels = "auto";
-      volume-max = "200";
+      volume-max = 200;
       alang = "en,eng,english";
       ad = "lavc:libdcadec";
 
@@ -62,12 +62,11 @@
       sub-ass-force-style = "Kerning=yes";
       demuxer-mkv-subtitle-preroll = "yes";
       slang = "en,eng,english";
-      no-sub = "yes";
       sub-auto = "all";
 
       # youtube-dl
       ytdl-format =
-        "(bestvideo[fps=60][height<=1080]/bestvideo[height<=1440])[vcodec!=vp9]+(bestaudio[acodec=opus]/bestaudio[ext=webm]/bestaudio)/best";
+        "(bestvideo[fps=60][height<=1080]/bestvideo[height<=1080])[vcodec!=vp9]+(bestaudio[acodec=opus]/bestaudio[ext=webm]/bestaudio)/best";
 
       # Other
       keep-open = "yes";
@@ -75,10 +74,11 @@
       script-opts =
         "osc-vidscale=no,osc-layout=bottombar,osc-scalewindowed=2.0,osc-scalefullscreen=2.0,osc-minmousemove=1";
       cache = "auto";
-      cache-default = "1000000";
-      demuxer-readahead-secs = "10";
+      cache-on-disk = "yes";
+      demuxer-readahead-secs = 20;
+      demuxer-max-bytes = "10GiB";
       force-window = "yes";
-      no-resume-playback = "yes";
+      no-resume-playback = "";
     };
   };
 
