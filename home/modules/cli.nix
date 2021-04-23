@@ -12,11 +12,15 @@
       bpytop
       chezmoi
       cmake
+      dmidecode
       duf
+      edac-utils # checking errors on ecc ram
+      emv
       eternal-terminal
       fast-cli
       fd
       ffmpeg-full
+      glances
       imagemagick
       libarchive
       libwebp
@@ -31,9 +35,12 @@
       parted
       psmisc
       ranger
+      rename
       ripgrep
       rmlint
       rsync
+      smartmontools
+      streamlink
       stress-ng
       tealdeer
       unrar
