@@ -291,7 +291,7 @@
   ## Users
   users.users.corin = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "video" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "audio" "video" "networkmanager" ];
     shell = pkgs.zsh;
     initialHashedPassword =
       "$6$bE72miJzM$j2sh4WuC1UG1cdo3kkOVzuNTQ0V1LGGBVwz3nBWKiXzlkCm1IbgHEoMVDChsO2ccTP7VUNFg4I.qYW7FfBNQw.";
