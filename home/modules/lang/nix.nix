@@ -8,6 +8,7 @@
     nix-prefetch-github
     nix-tree
     nixfmt
+    nixos-shell
     nixpkgs-fmt
     nixpkgs-lint
   ];
