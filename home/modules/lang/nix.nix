@@ -7,6 +7,7 @@
     nix-prefetch-git
     nix-prefetch-github
     nix-tree
+    nix-update
     nixfmt
     nixos-shell
     nixpkgs-fmt
