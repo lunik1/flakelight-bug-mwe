@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ julia ];
+  home.packages = with pkgs; [ julia-stable ];
 }
