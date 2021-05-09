@@ -246,7 +246,10 @@ in {
           titlebar = true;
         };
         focus.followMouse = false;
-        fonts = [ "Myosevka Proportional 14" ];
+        fonts = {
+          names = [ "Myosevka Proportional" ];
+          size = 14.0;
+        };
         # gaps = { smartBorders = "on"; };
         input = {
           "*" = {
