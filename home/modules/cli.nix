@@ -84,7 +84,7 @@
     };
     htop = {
       enable = true;
-      settings = import ../config/htop/htop.nix;
+      settings = import ../config/htop/htop.nix { inherit config; };
     };
     ssh = import ../config/ssh/config.nix;
     tmux = import ../config/tmux/tmux.nix { tmuxPlugins = pkgs.tmuxPlugins; };
