@@ -1,5 +1,4 @@
 {
-  enable = true;
   fields = [
     "PID"
     "USER"
@@ -19,45 +18,15 @@
     "OOM"
     "COMM"
   ];
-  cpuCountFromZero = true;
-  hideThreads = true;
-  hideUserlandThreads = true;
-  highlightBaseName = true;
-  meters = {
-    left = [
-      "AllCPUs"
-      "Blank"
-      {
-        kind = "CPU";
-        mode = 3;
-      }
-      "Blank"
-      "LoadAverage"
-      "Tasks"
-    ];
-    right = [
-      {
-        kind = "Memory";
-        mode = 3;
-      }
-      {
-        kind = "Memory";
-        mode = 2;
-      }
-      "Blank"
-      {
-        kind = "Swap";
-        mode = 3;
-      }
-      {
-        kind = "Swap";
-        mode = 2;
-      }
-      "Blank"
-      "Uptime"
-    ];
-  };
-  showProgramPath = false;
-  updateProcessNames = true;
-  vimMode = true;
+  cpu_count_from_zero = true;
+  hide_threads = true;
+  hide_userland_threads = true;
+  highlight_base_name = true;
+  show_program_path = false;
+  update_process_names = true;
+  vim_mode = true;
+  left_meters = [ "AllCPUs" "Blank" "CPU" "Blank" "LoadAverage" "Tasks" ];
+  left_meter_modes = [ 1 2 3 2 2 2 ];
+  right_meters = [ "Memory" "Memory" "Blank" "Swap" "Swap" "Blank" "Uptime" ];
+  right_meter_modes = [ 3 2 2 3 2 2 2 ];
 }
