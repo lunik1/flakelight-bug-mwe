@@ -291,7 +291,7 @@ in {
             "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s stop";
         };
         menu = ''
-          ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --term="${pkgs.kitty}/bin/kitty" --dmenu="${pkgs.dmenu-wayland}/bin/dmenu-wl -i -fn 'Myosevka Proportional 14' -nb '${gruvbox.dark.bg}' -nf '${gruvbox.dark.fg}' -sb '${gruvbox.light.bg}' -sf '${gruvbox.light.fg}'"'';
+          ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --term="${pkgs.kitty}/bin/kitty --single-instance" --dmenu="${pkgs.dmenu-wayland}/bin/dmenu-wl -i -fn 'Myosevka Proportional 14' -nb '${gruvbox.dark.bg}' -nf '${gruvbox.dark.fg}' -sb '${gruvbox.light.bg}' -sf '${gruvbox.light.fg}'"'';
         modifier = "Mod4";
         output = {
           "*" = {
@@ -303,7 +303,7 @@ in {
           command =
             "${pkgs.swayidle}/bin/swayidle timeout 300 '${lockCommand} --grace 5' before-sleep '${lockCommand}'";
         }];
-        terminal = "${pkgs.kitty}/bin/kitty";
+        terminal = "${pkgs.kitty}/bin/kitty --single-instance";
         window = {
           border = 2;
           commands = [
