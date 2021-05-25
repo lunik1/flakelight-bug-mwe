@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ texlab ];
+  home.packages = with pkgs; [ svg2tikz texlab ];
 
   programs = {
     texlive = {
