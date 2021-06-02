@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-20.09-small";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05-small";
   outputs = { self, nixpkgs }: {
     nixosConfigurations.foureightynine = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
