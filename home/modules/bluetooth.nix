@@ -2,8 +2,15 @@
 
 { config, lib, pkgs, ... }:
 
-{
-  home.packages = with pkgs; [ blueman bluezFull ];
+let cfg = config.lunik1.bluetooth;
+in {
+  options.lunik1.bluetooth.enable = lib.mkEnableOption "bluetooth";
 
-  waybar.bluetoothModule = true;
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [ blueman bluezFull ];
+
+    lunik1.waybar.bluetoothModule = true;
+
+    services.blueman-applet.enable = true;
+  };
 }

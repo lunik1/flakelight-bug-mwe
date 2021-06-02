@@ -2,7 +2,11 @@
 
 { pkgs, config, lib, ... }:
 
-{
+let cfg = config.lunik1.core;
+in {
+  options.lunik1.core.enable = lib.mkEnableOption "core programs";
+
+  config = lib.mkIf cfg.enable {
   home.packages = with pkgs; [
     # Core utils (installed by defult on NixOS)
     acl
@@ -36,4 +40,5 @@
 
     nixFlakes
   ];
+  };
 }

@@ -1,12 +1,17 @@
 { config, lib, pkgs, ... }:
 
-{
-  home.packages = with pkgs; [ svg2tikz texlab ];
+let cfg = config.lunik1.lang.tex;
+in {
+  options.lunik1.lang.tex.enable = lib.mkEnableOption "TeX";
 
-  programs = {
-    texlive = {
-      enable = true;
-      extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [ svg2tikz texlab ];
+
+    programs = {
+      texlive = {
+        enable = true;
+        extraPackages = tpkgs: { inherit (tpkgs) scheme-full; };
+      };
     };
   };
 }

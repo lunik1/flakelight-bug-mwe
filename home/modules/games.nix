@@ -1,20 +1,18 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.games;
+let cfg = config.lunik1.games;
 in {
-  options = {
-    games = {
-      steam.enable = lib.mkEnableOption "Enable Steam?";
-      emu.enable = lib.mkEnableOption "Enable emulation? (RetroArch)";
-      cli.enable =
-        lib.mkEnableOption "Add games that can be played on a terminal";
-      freeciv.enable = lib.mkEnableOption "Enable Freeciv";
-      df.enable = lib.mkEnableOption "Enable Dwarf Fortress";
-      minecraft.enable = lib.mkEnableOption "Enable Minecraft";
-      openrct2.enable = lib.mkEnableOption "Enable Roller Coaster Tycoon 2";
-      wesnoth.enable = lib.mkEnableOption "Enable The Battle for Wesnoth";
-      dcss.enable = lib.mkEnableOption "Enable Dungeon Crawl Stone Soup";
-    };
+  options.lunik1.games = {
+    steam.enable = lib.mkEnableOption "Enable Steam?";
+    emu.enable = lib.mkEnableOption "Enable emulation? (RetroArch)";
+    cli.enable =
+      lib.mkEnableOption "Add games that can be played on a terminal";
+    freeciv.enable = lib.mkEnableOption "Enable Freeciv";
+    df.enable = lib.mkEnableOption "Enable Dwarf Fortress";
+    minecraft.enable = lib.mkEnableOption "Enable Minecraft";
+    openrct2.enable = lib.mkEnableOption "Enable Roller Coaster Tycoon 2";
+    wesnoth.enable = lib.mkEnableOption "Enable The Battle for Wesnoth";
+    dcss.enable = lib.mkEnableOption "Enable Dungeon Crawl Stone Soup";
   };
 
   config.home.packages = with pkgs;

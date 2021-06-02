@@ -1,37 +1,45 @@
 { config, lib, pkgs, ... }:
 
-{
-  require = [ ./git.nix lang/viml.nix ];
+let cfg = config.lunik1.neovim;
+in {
+  options.lunik1.neovim.enable = lib.mkEnableOption "Neovim";
 
-  home = {
-    packages = with pkgs; [
-      neovim
-      # Needed for plugins
-      ripgrep
-      fd
-      yarn
-      nodejs
-    ];
+  config = lib.mkIf cfg.enable {
+    lunik1 = {
+      git.enable = true;
+      lang.viml.enable = true;
+    };
 
-    sessionVariables.EDITOR = "nvim";
-  };
+    home = {
+      packages = with pkgs; [
+        neovim
+        # Needed for plugins
+        ripgrep
+        fd
+        yarn
+        nodejs
+      ];
 
-  pam.sessionVariables.EDITOR = "nvim";
+      sessionVariables.EDITOR = "nvim";
+    };
 
-  xdg = {
-    enable = true;
-    configFile = {
-      "init.vim" = {
-        source = ../config/nvim/init.vim;
-        target = "nvim/init.vim";
-      };
-      "tasks.ini" = {
-        source = ../config/nvim/tasks.ini;
-        target = "nvim/tasks.ini";
-      };
-      "coc-settings.json" = {
-        source = ../config/nvim/coc-settings.json;
-        target = "nvim/coc-settings.json";
+    pam.sessionVariables.EDITOR = "nvim";
+
+    xdg = {
+      enable = true;
+      configFile = {
+        "init.vim" = {
+          source = ../config/nvim/init.vim;
+          target = "nvim/init.vim";
+        };
+        "tasks.ini" = {
+          source = ../config/nvim/tasks.ini;
+          target = "nvim/tasks.ini";
+        };
+        "coc-settings.json" = {
+          source = ../config/nvim/coc-settings.json;
+          target = "nvim/coc-settings.json";
+        };
       };
     };
   };

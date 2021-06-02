@@ -2,9 +2,10 @@
 
 let
   gruvbox = import ../resources/colourschemes/gruvbox.nix;
-  cfg = config;
+  cfg = config.lunik1;
 in {
-  options = {
+  options.lunik1 = {
+    sway.enable = lib.mkEnableOption "sway";
     waybar = {
       batteryModule = lib.mkEnableOption "Enable the battery module in Waybar";
       bluetoothModule =
@@ -12,7 +13,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.sway.enable {
     home.packages = with pkgs; [
       myosevka
       myosevka-proportional
@@ -29,7 +30,7 @@ in {
         # output = [ "eDP-1" ];
         height = 30;
         modules-left = [ "sway/workspaces" "sway/mode" "idle_inhibitor" "mpd" ];
-        modules-right = with config.waybar;
+        modules-right = with config.lunik1.waybar;
           ([ "temperature" "cpu" "backlight" ]
             ++ lib.optional batteryModule "battery"
             ++ [ "memory" "disk" "network" ]

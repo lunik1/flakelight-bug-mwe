@@ -1,0 +1,29 @@
+[
+  ./core.nix
+  ./cli.nix
+  ./gui.nix
+  ./git.nix
+  ./neovim.nix
+  ./emacs.nix
+  ./fonts.nix
+  ./music.nix
+  ./sync.nix
+  ./sway.nix
+  ./bluetooth.nix
+  ./mpv.nix
+  ./gpg.nix
+  ./pulp-io.nix
+  ./games.nix
+
+  lang/c.nix
+  lang/clojure.nix
+  lang/data.nix
+  lang/julia.nix
+  lang/nix.nix
+  lang/prose.nix
+  lang/python.nix
+  lang/rust.nix
+  lang/sh.nix
+  lang/tex.nix
+  lang/viml.nix
+]
