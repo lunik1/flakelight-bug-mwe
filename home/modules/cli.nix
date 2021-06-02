@@ -28,6 +28,7 @@
       magic-wormhole
       ncdu
       neofetch
+      nix-index
       nix-zsh-completions
       p7zip
       pandoc
