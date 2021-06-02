@@ -14,6 +14,7 @@ in {
       hunspellDicts.en-gb-ise # needed for libreoffice
       krita
       libreoffice-fresh # TODO languagetool
+      # libsixel
       opera
       pavucontrol
       qdirstat
@@ -35,9 +36,39 @@ in {
       enable = true;
       package = pkgs.firefox-wayland;
     };
-    kitty = import ../config/kitty/kitty.nix {
-      fontPkg = pkgs.myosevka;
-      inherit gruvbox;
+    foot = {
+      enable = true;
+      server.enable = true;
+      settings = {
+        main = {
+          # term = "foot-direct"; # breaks zsh syntax highlighting
+          font = "Myosevka:size=6.8";
+        };
+        scrollback.lines = 5000;
+        cursor.blink = true;
+        colors = let rO = lib.removePrefix "#";
+        in {
+          foreground = rO gruvbox.dark.fg;
+          background = rO gruvbox.dark.bg;
+          regular0 = rO gruvbox.dark.black.normal;
+          regular1 = rO gruvbox.dark.red.normal;
+          regular2 = rO gruvbox.dark.green.normal;
+          regular3 = rO gruvbox.dark.yellow.normal;
+          regular4 = rO gruvbox.dark.blue.normal;
+          regular5 = rO gruvbox.dark.purple.normal;
+          regular6 = rO gruvbox.dark.cyan.normal;
+          regular7 = rO gruvbox.dark.white.normal;
+          bright0 = rO gruvbox.dark.black.bright;
+          bright1 = rO gruvbox.dark.red.bright;
+          bright2 = rO gruvbox.dark.green.bright;
+          bright3 = rO gruvbox.dark.yellow.bright;
+          bright4 = rO gruvbox.dark.blue.bright;
+          bright5 = rO gruvbox.dark.purple.bright;
+          bright6 = rO gruvbox.dark.cyan.bright;
+          bright7 = rO gruvbox.dark.white.bright;
+          urls = rO gruvbox.dark.orange.normal;
+        };
+      };
     };
     zathura = {
       enable = true;

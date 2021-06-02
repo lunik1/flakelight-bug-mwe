@@ -291,7 +291,7 @@ in {
             "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s stop";
         };
         menu = ''
-          ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --term="${pkgs.kitty}/bin/kitty --single-instance" --dmenu="${pkgs.dmenu-wayland}/bin/dmenu-wl -i -fn 'Myosevka Proportional 14' -nb '${gruvbox.dark.bg}' -nf '${gruvbox.dark.fg}' -sb '${gruvbox.light.bg}' -sf '${gruvbox.light.fg}'"'';
+          ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --term="${pkgs.foot}/bin/footclient" --dmenu="${pkgs.dmenu-wayland}/bin/dmenu-wl -i -fn 'Myosevka Proportional 14' -nb '${gruvbox.dark.bg}' -nf '${gruvbox.dark.fg}' -sb '${gruvbox.light.bg}' -sf '${gruvbox.light.fg}'"'';
         modifier = "Mod4";
         output = {
           "*" = {
@@ -312,6 +312,10 @@ in {
           commands = [
             {
               criteria = { app_id = "kitty"; };
+              command = "opacity 0.90";
+            }
+            {
+              criteria = { app_id = "foot"; };
               command = "opacity 0.90";
             }
             {

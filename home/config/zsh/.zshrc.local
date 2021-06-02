@@ -279,6 +279,20 @@ is4 && zrcautoload predict-on &&
   bindkey "^X^Z" predict-on &&
   bindkey "^Z" predict-off
 
+## Window title
+function set-term-title-precmd() {
+  emulate -L zsh
+  print -rn -- $'\e]2;'${USER}@${HOST}: ${(V%):-'%~'}$'\a' >$TTY
+}
+function set-term-title-preexec() {
+  emulate -L zsh
+  print -rn -- $'\e]2;'${USER}@${HOST}: ${(V)1}$'\a' >$TTY
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec set-term-title-preexec
+add-zsh-hook precmd set-term-title-precmd
+set-term-title-precmd
+
 ## Options
 
 # warning if file exists ('cat /dev/null > ~/.zshrc')
@@ -311,6 +325,25 @@ bindkey . rationalise-dot
 bindkey -M isearch . self-insert
 
 bindkey '\eq' push-line-or-edit
+
+# emit OSC 7, see https://codeberg.org/dnkl/foot/wiki#user-content-bash-and-zsh
+_urlencode() {
+  local length="${#1}"
+  for (( i = 0; i < length; i++ )); do
+    local c="${1:$i:1}"
+    case $c in
+      %) printf '%%%02X' "'$c" ;;
+      *) printf "%s" "$c" ;;
+    esac
+  done
+}
+
+osc7_cwd() {
+	printf '\e]7;file://%s%s\e\\' "$HOSTNAME" "$(_urlencode "$PWD")"
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook -Uz chpwd osc7_cwd
 
 ## changed completer settings
 zstyle ':completion:*' completer _complete _correct _approximate
