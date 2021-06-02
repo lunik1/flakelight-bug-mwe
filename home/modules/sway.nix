@@ -299,11 +299,14 @@ in {
               "${pkgs.nixos-logo-gruvbox-wallpaper}/png/gruvbox-light-rainbow.png stretch";
           };
         };
-        startup = [{
-          command =
-            "${pkgs.swayidle}/bin/swayidle timeout 300 '${lockCommand} --grace 5' before-sleep '${lockCommand}'";
-        }];
-        terminal = "${pkgs.kitty}/bin/kitty --single-instance";
+        startup = [
+          { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
+          {
+            command =
+              "${pkgs.swayidle}/bin/swayidle timeout 300 '${lockCommand} --grace 5' before-sleep '${lockCommand}'";
+          }
+        ];
+        terminal = "${pkgs.foot}/bin/footclient";
         window = {
           border = 2;
           commands = [
@@ -323,7 +326,7 @@ in {
       extraConfig = ''
         hide_edge_borders --i3 both
       '';
-      systemdIntegration = true;
+      # systemdIntegration = true;
       wrapperFeatures.gtk = true;
     };
   };
