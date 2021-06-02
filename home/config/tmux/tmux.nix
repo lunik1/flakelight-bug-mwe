@@ -63,7 +63,7 @@
     unbind-key ^Up
     bind-key ^Up swap-pane -U
     unbind-key ^Down
-    bind-key ^Down swap-pane -
+    bind-key ^Down swap-pane -D
 
     # use v and y in copy-mode
     bind-key -T copy-mode-vi 'v' send -X begin-selection
