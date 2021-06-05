@@ -231,15 +231,12 @@
     enable = true;
     mediaKeys.enable = true;
   };
-  hardware = {
-    pulseaudio = {
-      enable = true;
-      package = pkgs.pulseaudioFull;
-      daemon.config = {
-        resample-method = "soxr-vhq";
-        avoid-resampling = "yes";
-      };
-    };
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
   ## Video
