@@ -33,8 +33,9 @@ in {
         lidSwitchExternalPower = "suspend";
       };
 
-      # Power saving
+      # Power management
       tlp.enable = true;
     };
+      environment.systemPackages = with pkgs; [ powertop ];
   };
 }

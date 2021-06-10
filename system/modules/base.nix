@@ -62,7 +62,6 @@
       libarchive
       kitty.terminfo
       ntfs3g
-      powertop
       psmisc
       wget
     ];
