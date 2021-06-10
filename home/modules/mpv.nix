@@ -8,11 +8,7 @@ in {
   options.lunik1.home.mpv.enable = lib.mkEnableOption "mpv";
 
   config = lib.mkIf cfg.enable {
-    home = {
-      packages = with pkgs; [ playerctl xdg_utils ];
-
-      sessionVariables.LIBVA_DRIVER_NAME = "iHD";
-    };
+    home.packages = with pkgs; [ playerctl xdg_utils ];
 
     programs.mpv = {
       enable = true;

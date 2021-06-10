@@ -72,6 +72,7 @@ in {
       ];
     };
   };
+  environment.variables.LIBVA_DRIVER_NAME = "iHD";
 
   ## Config modules to use
   lunik1.system = {
