@@ -12,7 +12,7 @@ in {
       memtest86.enable = true;
       editor = false;
       consoleMode = "max";
-      configurationLimit = 100;
+      configurationLimit = 25;
     };
     boot.loader.efi.canTouchEfiVariables = true;
   };
