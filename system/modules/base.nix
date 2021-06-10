@@ -55,7 +55,7 @@
     pathsToLink = [ "/share/zsh" ];
 
     systemPackages = with pkgs; [
-      git
+      gitMinimal
       neovim
 
       htop
