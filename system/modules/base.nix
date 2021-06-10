@@ -72,7 +72,6 @@
     dconf.enable = true;
     zsh.enable = true;
     nano.syntaxHighlight = true;
-    iotop.enable = true;
     iftop.enable = true;
   };
 
