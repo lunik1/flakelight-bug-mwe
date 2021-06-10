@@ -28,8 +28,8 @@ in {
         source-code-pro
         source-sans-pro
         source-serif-pro
+        julia-mono
         # TODO: iosevka
-        # julia-mono
       ];
       enableDefaultFonts = true;
       fontconfig = {
@@ -40,7 +40,7 @@ in {
           "Sarasa Fixed TC"
           "Sarasa Fixed J"
           "Sarasa Fixed K"
-          # "Julia Mono"
+          "Julia Mono"
           "all-the-icons"
           "file-icons"
           "Material Icons"
