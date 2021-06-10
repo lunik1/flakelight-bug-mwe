@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.games;
+let cfg = config.lunik1.home.games;
 in {
-  options.lunik1.games = {
+  options.lunik1.home.games = {
     steam.enable = lib.mkEnableOption "Enable Steam?";
     emu.enable = lib.mkEnableOption "Enable emulation? (RetroArch)";
     cli.enable =

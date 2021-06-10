@@ -2,9 +2,9 @@
 
 let
   gruvbox = import ../resources/colourschemes/gruvbox.nix;
-  cfg = config.lunik1;
+  cfg = config.lunik1.home;
 in {
-  options.lunik1 = {
+  options.lunik1.home = {
     sway.enable = lib.mkEnableOption "sway";
     waybar = {
       batteryModule = lib.mkEnableOption "Enable the battery module in Waybar";
@@ -30,7 +30,7 @@ in {
         # output = [ "eDP-1" ];
         height = 30;
         modules-left = [ "sway/workspaces" "sway/mode" "idle_inhibitor" "mpd" ];
-        modules-right = with config.lunik1.waybar;
+        modules-right = with config.lunik1.home.waybar;
           ([ "temperature" "cpu" "backlight" ]
             ++ lib.optional batteryModule "battery"
             ++ [ "memory" "disk" "network" ]

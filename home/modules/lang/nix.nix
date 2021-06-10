@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.lang.nix;
+let cfg = config.lunik1.home.lang.nix;
 in {
-  options.lunik1.lang.nix.enable = lib.mkEnableOption "Nix";
+  options.lunik1.home.lang.nix.enable = lib.mkEnableOption "Nix";
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [

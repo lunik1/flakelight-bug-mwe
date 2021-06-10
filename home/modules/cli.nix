@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.cli;
+let cfg = config.lunik1.home.cli;
 in {
-  options.lunik1.cli.enable = lib.mkEnableOption "CLI programs";
+  options.lunik1.home.cli.enable = lib.mkEnableOption "CLI programs";
 
   config = lib.mkIf cfg.enable {
     home = {

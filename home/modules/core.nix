@@ -2,9 +2,9 @@
 
 { pkgs, config, lib, ... }:
 
-let cfg = config.lunik1.core;
+let cfg = config.lunik1.home.core;
 in {
-  options.lunik1.core.enable = lib.mkEnableOption "core programs";
+  options.lunik1.home.core.enable = lib.mkEnableOption "core programs";
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [

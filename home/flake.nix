@@ -61,36 +61,40 @@
             nixpkgs.overlays = overlays;
             home.stateVersion = "20.09";
 
-            lunik1.waybar.batteryModule = true;
+            lunik1.home = {
+              waybar.batteryModule = true;
 
-            lunik1.core.enable = true;
-            lunik1.cli.enable = true;
-            lunik1.gui.enable = true;
+              core.enable = true;
+              cli.enable = true;
+              gui.enable = true;
 
-            lunik1.bluetooth.enable = true;
-            lunik1.emacs.enable = true;
-            lunik1.fonts.enable = true;
-            lunik1.games.cli.enable = true;
-            lunik1.git.enable = true;
-            lunik1.gpg.enable = true;
-            lunik1.megacmd.enable = true;
-            lunik1.mpv.enable = true;
-            lunik1.music.enable = true;
-            lunik1.neovim.enable = true;
-            lunik1.pulp-io.enable = true;
-            lunik1.sway.enable = true;
-            lunik1.syncthing.enable = true;
+              bluetooth.enable = true;
+              emacs.enable = true;
+              fonts.enable = true;
+              games.cli.enable = true;
+              git.enable = true;
+              gpg.enable = true;
+              megacmd.enable = true;
+              mpv.enable = true;
+              music.enable = true;
+              neovim.enable = true;
+              pulp-io.enable = true;
+              sway.enable = true;
+              syncthing.enable = true;
 
-            lunik1.lang.c.enable = true;
-            lunik1.lang.clojure.enable = true;
-            lunik1.lang.data.enable = true;
-            lunik1.lang.julia.enable = true;
-            lunik1.lang.nix.enable = true;
-            lunik1.lang.prose.enable = true;
-            lunik1.lang.python.enable = true;
-            lunik1.lang.rust.enable = true;
-            lunik1.lang.sh.enable = true;
-            lunik1.lang.tex.enable = true;
+              lang = {
+            c.enable = true;
+            clojure.enable = true;
+            data.enable = true;
+            julia.enable = true;
+            nix.enable = true;
+            prose.enable = true;
+            python.enable = true;
+            rust.enable = true;
+            sh.enable = true;
+            tex.enable = true;
+              };
+            };
           };
         };
       };

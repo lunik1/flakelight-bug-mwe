@@ -3,9 +3,9 @@
 
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.mpv;
+let cfg = config.lunik1.home.mpv;
 in {
-  options.lunik1.mpv.enable = lib.mkEnableOption "mpv";
+  options.lunik1.home.mpv.enable = lib.mkEnableOption "mpv";
 
   config = lib.mkIf cfg.enable {
     home = {

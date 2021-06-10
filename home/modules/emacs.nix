@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.emacs;
+let cfg = config.lunik1.home.emacs;
 in {
-  options.lunik1.emacs.enable = lib.mkEnableOption "emacs";
+  options.lunik1.home.emacs.enable = lib.mkEnableOption "emacs";
 
   config = lib.mkIf cfg.enable {
-    lunik1.git.enable = true;
+    lunik1.home.git.enable = true;
 
     home.packages = with pkgs; [
       fd
