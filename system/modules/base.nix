@@ -69,7 +69,6 @@
   };
 
   programs = {
-    dconf.enable = true;
     zsh.enable = true;
     nano.syntaxHighlight = true;
     iftop.enable = true;
