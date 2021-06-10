@@ -6,4 +6,4 @@ set -Eeuo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 sudo ln --symbolic --no-dereference --force ${DIR} /etc/nixos
-sudo nixos-rebuild switch --flake '/etc/nixos#foureightynine'
+sudo nixos-rebuild switch --flake "/etc/nixos#${1}"
