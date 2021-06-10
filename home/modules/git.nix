@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.git;
+let cfg = config.lunik1.home.git;
 in {
-  options.lunik1.git.enable = lib.mkEnableOption "git";
+  options.lunik1.home.git.enable = lib.mkEnableOption "git";
 
   config = lib.mkIf cfg.enable {
     home = { packages = with pkgs; [ git-crypt ]; };

@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.lang.viml;
+let cfg = config.lunik1.home.lang.viml;
 in {
-  options.lunik1.lang.viml.enable = lib.mkEnableOption "Viml";
+  options.lunik1.home.lang.viml.enable = lib.mkEnableOption "Viml";
 
   config = lib.mkIf cfg.enable { home.packages = with pkgs; [ vim-vint ]; };
 }

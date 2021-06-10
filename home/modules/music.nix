@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.music;
+let cfg = config.lunik1.home.music;
 in {
-  options.lunik1.music.enable = lib.mkEnableOption "music";
+  options.lunik1.home.music.enable = lib.mkEnableOption "music";
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ playerctl ];

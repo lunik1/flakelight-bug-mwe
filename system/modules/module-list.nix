@@ -1,0 +1,12 @@
+[
+  ./base.nix
+  ./bluetooth.nix
+  ./graphical.nix
+  ./hidpi.nix
+  ./laptop.nix
+  ./network.nix
+  ./pulp-io.nix
+  ./sound.nix
+  ./systemd-boot.nix
+  ./zswap.nix
+]

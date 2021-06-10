@@ -1,9 +1,10 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05-small";
+
   outputs = { self, nixpkgs }: {
     nixosConfigurations.foureightynine = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [ ./configuration.nix ];
+      modules = [ (import systems/foureightynine.nix) ];
     };
   };
 }

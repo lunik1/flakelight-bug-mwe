@@ -2,9 +2,9 @@
 
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1;
+let cfg = config.lunik1.home;
 in {
-  options.lunik1 = {
+  options.lunik1.home = {
     megacmd.enable = lib.mkEnableOption "MEGAcmd";
     syncthing.enable = lib.mkEnableOption "syncthing";
   };

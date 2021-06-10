@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.neovim;
+let cfg = config.lunik1.home.neovim;
 in {
-  options.lunik1.neovim.enable = lib.mkEnableOption "Neovim";
+  options.lunik1.home.neovim.enable = lib.mkEnableOption "Neovim";
 
   config = lib.mkIf cfg.enable {
-    lunik1 = {
+    lunik1.home = {
       git.enable = true;
       lang.viml.enable = true;
     };

@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.lunik1.gpg;
+let cfg = config.lunik1.home.gpg;
 in {
-  options.lunik1.gpg.enable = lib.mkEnableOption "gpg";
+  options.lunik1.home.gpg.enable = lib.mkEnableOption "gpg";
 
   config = lib.mkIf cfg.enable {
     programs = {

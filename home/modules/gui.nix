@@ -2,9 +2,9 @@
 
 let
   gruvbox = import ../resources/colourschemes/gruvbox.nix;
-  cfg = config.lunik1.gui;
+  cfg = config.lunik1.home.gui;
 in {
-  options.lunik1.gui.enable = lib.mkEnableOption "GUI programs";
+  options.lunik1.home.gui.enable = lib.mkEnableOption "GUI programs";
 
   config = lib.mkIf cfg.enable {
     home = {
