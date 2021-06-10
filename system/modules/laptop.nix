@@ -36,6 +36,6 @@ in {
       # Power management
       tlp.enable = true;
     };
-      environment.systemPackages = with pkgs; [ powertop ];
+    environment.systemPackages = with pkgs; [ powertop ];
   };
 }
