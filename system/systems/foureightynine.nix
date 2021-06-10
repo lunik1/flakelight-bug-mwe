@@ -53,8 +53,8 @@ in {
     ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
   '';
 
-  nix.maxJobs = lib.mkDefault 4;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+  nix.maxJobs = 4;
+  powerManagement.cpuFreqGovernor = "ondemand";
 
   hardware = {
     cpu.intel.updateMicrocode = true;
