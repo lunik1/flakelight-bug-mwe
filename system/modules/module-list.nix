@@ -9,7 +9,4 @@
   ./sound.nix
   ./systemd-boot.nix
   ./zswap.nix
-
-  # System-specific configuration modules
-  systems/foureightynine.nix
 ]

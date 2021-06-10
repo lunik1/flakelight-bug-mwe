@@ -83,16 +83,16 @@
               syncthing.enable = true;
 
               lang = {
-            c.enable = true;
-            clojure.enable = true;
-            data.enable = true;
-            julia.enable = true;
-            nix.enable = true;
-            prose.enable = true;
-            python.enable = true;
-            rust.enable = true;
-            sh.enable = true;
-            tex.enable = true;
+                c.enable = true;
+                clojure.enable = true;
+                data.enable = true;
+                julia.enable = true;
+                nix.enable = true;
+                prose.enable = true;
+                python.enable = true;
+                rust.enable = true;
+                sh.enable = true;
+                tex.enable = true;
               };
             };
           };
