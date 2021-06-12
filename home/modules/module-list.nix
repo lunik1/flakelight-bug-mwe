@@ -14,6 +14,7 @@
   ./gpg.nix
   ./pulp-io.nix
   ./games.nix
+  ./wsl.nix
 
   lang/c.nix
   lang/clojure.nix

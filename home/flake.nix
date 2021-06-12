@@ -135,6 +135,7 @@
               git.enable = true;
               gpg.enable = true;
               neovim.enable = true;
+              wsl.enable = true;
 
               lang = {
                 c.enable = true;
