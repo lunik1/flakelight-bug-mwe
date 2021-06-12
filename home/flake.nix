@@ -45,6 +45,12 @@
         })
         (self: super: { LS_COLORS = inputs.LS_COLORS; })
         (self: super: {
+          neovim = super.neovim.override {
+            vimAlias = true;
+            viAlias = true;
+          };
+        })
+        (self: super: {
           nixos-logo-gruvbox-wallpaper = inputs.nixos-logo-gruvbox-wallpaper;
         })
       ];
