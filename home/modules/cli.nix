@@ -57,6 +57,15 @@ in {
         ripgrep-all # heavy dependencies, optional/own module?
       ];
 
+      file = {
+        ".aspell.conf" = {
+          text = ''
+            dict-dir ${config.home.homeDirectory}/.nix-profile/lib/aspell
+          '';
+          target = ".aspell.conf";
+        };
+      };
+
       sessionPath = [ "~/bin" ];
     };
 
