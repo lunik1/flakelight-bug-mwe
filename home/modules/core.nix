@@ -41,5 +41,17 @@ in {
 
       nixFlakes
     ];
+
+    xdg = {
+      enable = true;
+      configFile."nix.conf" = {
+        text = ''
+          experimental-features = nix-command flakes
+          sandbox = relaxed
+          auto-optimise-store = true
+        '';
+        target = "nix/nix.conf";
+      };
+    };
   };
 }

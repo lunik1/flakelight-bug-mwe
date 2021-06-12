@@ -116,6 +116,16 @@
 
             targets.genericLinux.enable = true;
 
+            xdg = {
+              enable = true;
+              configFile."nix.conf" = {
+                text = ''
+                  max-jobs = 4
+                  cores = 0
+                '';
+              };
+            };
+
             lunik1.home = {
               core.enable = true;
               cli.enable = true;
