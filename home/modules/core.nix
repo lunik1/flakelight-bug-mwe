@@ -8,7 +8,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      # Core utils (installed by defult on NixOS)
+      # Core utils (installed by default on NixOS)
       acl
       bashInteractive
       bzip2
