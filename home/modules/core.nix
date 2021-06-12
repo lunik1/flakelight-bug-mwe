@@ -29,6 +29,7 @@ in {
       libcap
       mkpasswd
       nano
+      openssh
       netcat
       procps
       su
