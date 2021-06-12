@@ -60,12 +60,12 @@
           system = "x86_64-linux";
           username = "corin";
           homeDirectory = "/home/corin";
+          stateVersion = "20.09";
           configuration = { pkgs, ... }: {
             require = import modules/module-list.nix;
 
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = overlays;
-            home.stateVersion = "20.09";
 
             lunik1.home = {
               waybar.batteryModule = true;
