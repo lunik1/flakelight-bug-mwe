@@ -57,13 +57,6 @@ in {
         ripgrep-all # heavy dependencies, optional/own module?
       ];
 
-      file = {
-        ".zshrc.local" = {
-          source = ../config/zsh/.zshrc.local;
-          target = ".zshrc.local";
-        };
-      };
-
       sessionPath = [ "~/bin" ];
     };
 
@@ -108,6 +101,9 @@ in {
         initExtraFirst = ''
           source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
           source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
+        '';
+        initExtra = ''
+          xsource ${../config/zsh/.zshrc.local}
         '';
         envExtra = ''
           export PATH=$HOME/bin:$HOME/.cargo/bin/:$PATH
