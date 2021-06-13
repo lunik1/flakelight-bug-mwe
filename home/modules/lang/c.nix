@@ -7,9 +7,9 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       ccls
-      # clang # collides with gcc
+      clang
       clang-tools
-      gcc
+      (lib.hiPrio gcc) # priority over clang
     ];
   };
 }
