@@ -4,6 +4,7 @@
   ./gui.nix
   ./git.nix
   ./neovim.nix
+  ./options.nix
   ./emacs.nix
   ./fonts.nix
   ./music.nix
