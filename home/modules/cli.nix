@@ -16,9 +16,7 @@ in {
         bpytop
         chezmoi
         cmake
-        dmidecode
         duf
-        edac-utils # checking errors on ecc ram
         emv
         eternal-terminal
         fast-cli
