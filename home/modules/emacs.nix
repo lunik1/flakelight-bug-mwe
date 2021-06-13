@@ -12,6 +12,7 @@ in {
       glslang
       gnuplot
       graphviz
+      pandoc
       ripgrep
       sqlite.bin
 

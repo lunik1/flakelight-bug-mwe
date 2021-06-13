@@ -33,7 +33,6 @@ in {
         nix-index
         nix-zsh-completions
         p7zip
-        pandoc
         parallel
         parted
         psmisc
