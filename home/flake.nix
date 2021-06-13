@@ -55,105 +55,13 @@
         })
       ];
     in {
-      homeConfigurations = {
-        foureightynine = inputs.home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          username = "corin";
-          homeDirectory = "/home/corin";
-          stateVersion = "20.09";
-          configuration = { pkgs, ... }: {
-            require = import modules/module-list.nix;
-
-            nixpkgs.config.allowUnfree = true;
-            nixpkgs.overlays = overlays;
-
-            lunik1.home = {
-              waybar.batteryModule = true;
-
-              core.enable = true;
-              cli.enable = true;
-              gui.enable = true;
-
-              bluetooth.enable = true;
-              emacs.enable = true;
-              fonts.enable = true;
-              games.cli.enable = true;
-              git.enable = true;
-              gpg.enable = true;
-              megacmd.enable = true;
-              mpv.enable = true;
-              music.enable = true;
-              neovim.enable = true;
-              pulp-io.enable = true;
-              sway.enable = true;
-              syncthing.enable = true;
-
-              lang = {
-                c.enable = true;
-                clojure.enable = true;
-                data.enable = true;
-                julia.enable = true;
-                nix.enable = true;
-                prose.enable = true;
-                python.enable = true;
-                rust.enable = true;
-                sh.enable = true;
-                tex.enable = true;
-              };
-            };
-          };
-        };
-        thesus = inputs.home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          username = "corin";
-          homeDirectory = "/home/corin";
-          stateVersion = "21.11";
-          configuration = { pkgs, ... }: {
-            require = import modules/module-list.nix;
-
-            nixpkgs.config.allowUnfree = true;
-            nixpkgs.overlays = overlays;
-
-            targets.genericLinux.enable = true;
-
-            xdg = {
-              enable = true;
-              configFile."nix.conf" = {
-                text = ''
-                  max-jobs = 4
-                  cores = 0
-                '';
-              };
-            };
-
-            lunik1.home = {
-              core.enable = true;
-              cli.enable = true;
-
-              emacs.enable = true;
-              fonts.enable = true;
-              git.enable = true;
-              gpg.enable = true;
-              neovim.enable = true;
-              wsl.enable = true;
-
-              lang = {
-                c.enable = true;
-                clojure.enable = true;
-                data.enable = true;
-                julia.enable = true;
-                nix.enable = true;
-                prose.enable = true;
-                python.enable = true;
-                rust.enable = true;
-                sh.enable = true;
-                tex.enable = true;
-              };
-            };
-          };
-        };
-      };
-      foureightynine = self.homeConfigurations.foureightynine.activationPackage;
-      thesus = self.homeConfigurations.thesus.activationPackage;
+      foureightynine = (import home-configurations/foureightynine.nix {
+        inherit inputs;
+        inherit overlays;
+      }).activationPackage;
+      thesus = (import home-configurations/thesus.nix {
+        inherit inputs;
+        inherit overlays;
+      }).activationPackage;
     };
 }
