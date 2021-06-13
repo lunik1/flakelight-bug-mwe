@@ -42,6 +42,9 @@ in {
       nixFlakes
     ];
 
+    programs.ssh = lib.mkIf config.lunik1.home.gpgKeyInstalled
+      (import ../config/ssh/config.nix);
+
     xdg = {
       enable = true;
       configFile."nix.conf" = {
