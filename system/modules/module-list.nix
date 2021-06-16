@@ -3,6 +3,7 @@
   ./bluetooth.nix
   ./containers.nix
   ./graphical.nix
+  ./grub.nix
   ./hidpi.nix
   ./laptop.nix
   ./network.nix
