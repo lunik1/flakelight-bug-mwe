@@ -5,7 +5,33 @@
 {
   boot = {
     cleanTmpDir = true;
-    blacklistedKernelModules = [ "ax25" "iTCO_wdt" "netrom" "rose" ];
+    blacklistedKernelModules = [
+      # Obscure network protocols
+      "ax25"
+      "netrom"
+      "rose"
+
+      # Old or rare or insufficiently audited filesystems
+      "adfs"
+      "affs"
+      "bfs"
+      "befs"
+      "cramfs"
+      "efs"
+      "erofs"
+      "exofs"
+      "freevxfs"
+      "hfs"
+      "hpfs"
+      "jfs"
+      "minix"
+      "nilfs2"
+      "ntfs"
+      "omfs"
+      "qnx4"
+      "qnx6"
+      "sysv"
+    ];
     kernel.sysctl = {
       "vm.mmap_min_addr" = 65536;
       "vm.mmap_rnd_bits" = 32;
