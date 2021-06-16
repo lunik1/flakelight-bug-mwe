@@ -16,6 +16,8 @@ in {
         # Needed for plugins
         ripgrep
         fd
+        wl-clipboard
+        xclip
         yarn
         nodejs
       ];
