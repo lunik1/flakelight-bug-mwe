@@ -7,6 +7,7 @@
   ./options.nix
   ./emacs.nix
   ./fonts.nix
+  ./media-management.nix
   ./music.nix
   ./sync.nix
   ./sway.nix
