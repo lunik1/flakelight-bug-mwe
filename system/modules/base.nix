@@ -71,7 +71,8 @@
   i18n = { defaultLocale = "en_GB.UTF-8"; };
   console = {
     keyMap = "uk";
-    font = lib.mkDefault "Lat2-Terminus16"; # might be overidden by hidpi module
+    font = lib.mkOverride 1499 # option defult prio is 1500
+      "Lat2-Terminus16"; # might be overidden by hidpi module
   };
   time.timeZone = "Europe/London";
 
