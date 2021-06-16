@@ -69,7 +69,10 @@
   };
 
   i18n = { defaultLocale = "en_GB.UTF-8"; };
-  console = { keyMap = "uk"; };
+  console = {
+    keyMap = "uk";
+    font = lib.mkDefault "Lat2-Terminus16"; # might be overidden by hidpi module
+  };
   time.timeZone = "Europe/London";
 
   nix = {
