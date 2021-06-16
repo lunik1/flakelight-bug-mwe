@@ -54,6 +54,8 @@ in {
         ripgrep-all # heavy dependencies, optional/own module?
       ];
 
+      sessionVariables = { ET_NO_TELEMETRY = "1"; };
+
       file = {
         ".aspell.conf" = {
           text = ''
