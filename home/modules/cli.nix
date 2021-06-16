@@ -13,6 +13,7 @@ in {
         aspellDicts.en-science
         bat-extras.batgrep
         borgbackup
+        bind.dnsutils
         bpytop
         chezmoi
         cmake
