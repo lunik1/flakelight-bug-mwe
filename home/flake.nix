@@ -63,5 +63,9 @@
         inherit inputs;
         inherit overlays;
       }).activationPackage;
+      dionysus2 = (import home-configurations/dionysus2.nix {
+        inherit inputs;
+        inherit overlays;
+      }).activationPackage;
     };
 }
