@@ -10,6 +10,7 @@
   ./network.nix
   ./pulp-io.nix
   ./sound.nix
+  ./ssh-server.nix
   ./systemd-boot.nix
   ./zswap.nix
 ]
