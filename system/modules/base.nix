@@ -36,14 +36,35 @@
       "vm.mmap_min_addr" = 65536;
       "vm.mmap_rnd_bits" = 32;
       "vm.mmap_rnd_compat_bits" = 16;
+
+      # https://www.phoronix.com/scan.php?page=news_item&px=Dmesg-Unrestricted-2019-So-Far
+      "kernel.dmesg_restrict" = true;
+
+      # https://wiki.archlinux.org/title/security
+      "net.core.bpf_jit_harden" = 2;
+
+      # https://wiki.archlinux.org/title/Sysctl
+
+      # Try to make sure we never run up against the inotify user watches limit
+      "fs.inotify.max_user_watches" = 524288;
+
+      # see also nixos/modules/profiles/hardened.nix
     };
     kernelParams = [
+      # Improve security
+      # https://tails.boum.org/contribute/design/kernel_hardening/
       "page_poison=1"
       "slab_nomerge"
       "slub_debug=FZP"
       "vsyscall=none"
       "kernel.kptr_restrict=2"
       "kernel.kexec_load_disabled=1"
+
+      # https://lwn.net/Articles/794145/
+      "page_alloc.shuffle=1"
+
+      # Reboot after 20 sec if the kernel panics
+      "panic=20"
     ];
   };
 
