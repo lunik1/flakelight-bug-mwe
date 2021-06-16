@@ -6,6 +6,7 @@
   ./grub.nix
   ./hidpi.nix
   ./laptop.nix
+  ./locate.nix
   ./network.nix
   ./pulp-io.nix
   ./sound.nix
