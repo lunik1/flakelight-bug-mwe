@@ -38,7 +38,6 @@
       "vm.mmap_rnd_compat_bits" = 16;
     };
     kernelParams = [
-      "nowatchdog"
       "page_poison=1"
       "slab_nomerge"
       "slub_debug=FZP"

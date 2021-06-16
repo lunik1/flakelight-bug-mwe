@@ -31,7 +31,8 @@ in {
     };
 
     kernelModules = [ "kvm-intel" ];
-    kernelParams = [ "intel_pstate=active" ];
+    blacklistedKernelModules = [ "iCTO_wdt" ]; # watchdog module
+    kernelParams = [ "intel_pstate=active" "nowatchdog" ];
     extraModulePackages = [ ];
   };
 
