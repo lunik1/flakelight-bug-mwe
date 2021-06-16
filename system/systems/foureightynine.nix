@@ -54,6 +54,10 @@ in {
     ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
   '';
 
+  # Updating firmware with fwupd on this machine has given me very weird
+  # filesystem errors
+  services.fwupd.enable = lib.mkForce false;
+
   nix.maxJobs = 4;
   powerManagement.cpuFreqGovernor = "ondemand";
 

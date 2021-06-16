@@ -131,6 +131,7 @@
   services = {
     earlyoom.enable = true;
     fstrim.enable = true;
+    fwupd.enable = true;
     irqbalance.enable = true;
 
     journald.extraConfig = ''
