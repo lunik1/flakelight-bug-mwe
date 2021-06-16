@@ -17,5 +17,7 @@ in {
       enable = true;
       drivers = [ pkgs.hplip ];
     };
+
+    users.users.corin.extraGroups = [ "scanner" "lp" ];
   };
 }
