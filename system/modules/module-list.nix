@@ -1,6 +1,7 @@
 [
   ./base.nix
   ./bluetooth.nix
+  ./containers.nix
   ./graphical.nix
   ./hidpi.nix
   ./laptop.nix
