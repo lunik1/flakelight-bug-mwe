@@ -1,20 +1,20 @@
-{ config, lib, pkgs, ... }:
+{ inputs, overlays, ... }:
 
 inputs.home-manager.lib.homeManagerConfiguration {
   system = "x86_64-linux";
   username = "corin";
   homeDirectory = "/home/corin";
-  stateVersion = "18.03";
+  stateVersion = "21.11";
 
   configuration = { pkgs, ... }: {
     require = import ../modules/module-list.nix;
 
     nixpkgs.config.allowUnfree = true;
 
-    # Use ffmprg build with nonfree components
+    # Use ffmpeg build with nonfree components
     nixpkgs.overlays = overlays ++ [
       (self: super: {
-        ffmpeg-full = pkgs.ffmpeg-full.override {
+        ffmpeg-full = super.ffmpeg-full.override {
           ffplayProgram = false;
           runtimeCpuDetectBuild = false; # compile natively
           nonfreeLicensing = true;

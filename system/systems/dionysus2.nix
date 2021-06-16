@@ -161,6 +161,7 @@ in {
 
   ## Config modules to use
   lunik1.system = {
+    containers.enable = true;
     grub.enable = true;
     locate.enable = true;
     network.resolved.enable = true;

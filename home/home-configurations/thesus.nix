@@ -27,7 +27,10 @@ inputs.home-manager.lib.homeManagerConfiguration {
       core.enable = true;
       cli.enable = true;
 
-      emacs.enable = true;
+      emacs = {
+        enable = true;
+        gui = true;
+      };
       fonts.enable = true;
       git.enable = true;
       gpg.enable = true;
