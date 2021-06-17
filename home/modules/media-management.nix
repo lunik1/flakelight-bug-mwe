@@ -9,17 +9,20 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      beets.override
-      {
+      (beets.override {
         enableAlternatives = true;
+        enableAura = false;
         enableEmbyupdate = false;
         enableKodiupdate = false;
         enableMpd = false;
         enableSonosUpdate = false;
-        enableKeyfinder = true;
-        # enableWeb = false;  # build fails on 20.09
-        # enableCheck = true;  # stack overflow on 20.09
-      }
+        enableSubsonicplaylist = false;
+        enableThumbnails = false;
+        enableSubsonicupdate = false;
+        enableLoadext = false;
+        enablePlaylist = false;
+        # enableWeb = false;  # build fails on 21.05
+      })
       mediainfo
       mkvtoolnix-cli
       vobsub2srt
