@@ -27,5 +27,13 @@ in {
       mkvtoolnix-cli
       vobsub2srt
     ];
+
+    xdg = {
+      enable = true;
+      configFile.beets_config = {
+        source = ../config/beets/config.yaml;
+        target = "beets/config.yaml";
+      };
+    };
   };
 }

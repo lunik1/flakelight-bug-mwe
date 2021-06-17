@@ -1,0 +1,55 @@
+directory: /mnt/storage/Music
+library: /opt/appdata/beets/musiclibrary.db
+
+plugins: acousticbrainz alternatives badfiles bpd chroma convert deezer discogs duplicates fetchart keyfinder lastgenre lyrics mbsync replaygain scrub web zero
+
+import:
+  move: yes
+
+scrub:
+  auto: yes
+
+keyfinder:
+  auto: yes
+
+replaygain:
+  auto: yes
+  overwrite: yes
+  backend: ffmpeg
+
+zero:
+  fields: comments
+  comments: ['ripped by']
+  update_database: true
+
+lyrics:
+  sources: lyricwiki musixmatch genius
+
+convert:
+  format: opus
+  formats:
+    aac:
+      command: ffmpeg -i $source -ac 2 -c:a libfdk_aac -vbr 3 $dest
+      extension: m4a
+      mp3:
+        command: ffmpeg -i $source -ac 2 -codec:a libmp3lame -qscale:a 4 $dest
+        extension: mp3
+        opus:
+          command: ffmpeg -i $source -ac 2 -acodec libopus -b:a 128k -vbr on -compression_level 10 $dest
+          extension: opus
+        speex:
+          command: ffmpeg -i $source -ac 2 -y -acodec speex $dest
+          extension: spx
+        vorbis:
+          command: ffmpeg -i $source -ac 2 -codec:a libvorbis -qscale:a 3 $dest
+          extension: ogg
+        wav: ffmpeg -i $source -y -acodec pcm_s16le $dest
+    max_bitrate: 320
+    never_convert_lossy_files: yes
+
+alternatives:
+  transcoded:
+    query: ""
+    directory: /mnt/storage/excluded/transcoded-music
+    formats: opus aac mp3 speex vorbis
+    removable: true
