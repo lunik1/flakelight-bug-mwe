@@ -1,4 +1,4 @@
-# Setup for ssh access
+# Setup for containers (podman)
 
 { config, lib, pkgs, ... }:
 
