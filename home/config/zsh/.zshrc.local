@@ -267,10 +267,10 @@ function n_jobs () {
   if [[ $REPLY == 0:0 ]]; then REPLY=; fi
   # echo $REPLY
 }
-grml_theme_add_token  my_jobs -f n_jobs '%F{green}' '%f '
+grml_theme_add_token  my-jobs -f n_jobs '%F{green}' '%f '
 
 zstyle ':prompt:grml:left:setup' items rc my-virtual-env change-root user at host path vcs percent
-zstyle ':prompt:grml:right:setup' items my_jobs sad-smiley
+zstyle ':prompt:grml:right:setup' items my-jobs sad-smiley
 
 ## set command prediction from history, see 'man 1 zshcontrib'
 is4 && zrcautoload predict-on &&
