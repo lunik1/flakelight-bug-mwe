@@ -5,6 +5,8 @@ in {
   options.lunik1.home.gpg.enable = lib.mkEnableOption "gpg";
 
   config = lib.mkIf cfg.enable {
+    home.sessionVariables.GPG_TTY = "$(tty)";
+
     programs = {
       git.signing = {
         key = "BA3A5886AE6D526E20B457D66A37DF9483188492";
