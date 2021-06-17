@@ -30,6 +30,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
       emacs.enable = true;
       git.enable = true;
       gpg.enable = true;
+      media-management.enable = true;
       neovim.enable = true;
 
       lang.nix.enable = true;
