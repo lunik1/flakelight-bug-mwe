@@ -423,20 +423,3 @@ augroup filetype_header
   autocmd!
   autocmd BufNewFile *.{h,hh,hxx,hpp} call <SID>insert_gates()
 augroup END
-
-" Lua config
-packadd! iron.nvim
-if has('nvim') && exists('*luaeval')
-lua << EOF
-local iron = require("iron")
-
--- Setup ROOT repl
-iron.core.add_repl_definitions{
-  cpp = {
-    root = {
-      command = {"root", "-b", "-l"}
-    }
-  }
-}
-EOF
-endif
