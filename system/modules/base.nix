@@ -128,7 +128,7 @@
     zsh.enable = true;
     nano.syntaxHighlight = true;
     iftop.enable = true;
-    ssh.hostKeyAlgorithms = [ "ssh-ed25519" ];
+    ssh.hostKeyAlgorithms = [ "ssh-ed25519" "rsa-sha2-512" ];
   };
 
   services = {
