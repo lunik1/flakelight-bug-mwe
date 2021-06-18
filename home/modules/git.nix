@@ -80,7 +80,7 @@ in {
         userName = "lunik1";
         extraConfig = {
           pull.rebase = "true";
-          push.default = "matching";
+          push.default = "current";
           diff.algorithm = "histogram";
           github.user = "lunik1";
           gitlab.user = "lunik1";
