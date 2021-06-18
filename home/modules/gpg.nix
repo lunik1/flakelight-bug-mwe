@@ -23,7 +23,7 @@ in {
       enableSshSupport = true;
       defaultCacheTtl = 86400;
       maxCacheTtl = 86400;
-      pinentryFlavor = if config.lunik1.home.gui.enable then "gtk2" else "curses";
+      pinentryFlavor = if config.lunik1.home.gui.enable then "gtk2" else "tty";
     };
   };
 }
