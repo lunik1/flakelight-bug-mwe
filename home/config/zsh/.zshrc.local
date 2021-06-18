@@ -225,20 +225,6 @@ function lcheck() {
    fi
 }
 
-# Ask before applying changes with chezmoi
-function chezmoi() {
-  changes=$(command chezmoi apply -n -v --color "on" "${@:2}")
-  if [[ "$1" == apply ]] && [[ ! -z "${changes}" ]]; then
-    printf "${changes}\n"
-    if $(read -q "?Apply changes? [y/N] "); then
-      command chezmoi "${@}"
-    fi
-    printf "\n"
-  else
-    command chezmoi "${@}"
-  fi
-}
-
 # optimise a pdf
 function pdfopt() {
   # from https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file

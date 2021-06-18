@@ -15,7 +15,6 @@ in {
         borgbackup
         bind.dnsutils
         bpytop
-        chezmoi
         cmake
         duf
         emv
