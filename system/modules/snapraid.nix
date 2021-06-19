@@ -27,18 +27,19 @@ in {
       description = "SnapRAID exclude directives.";
       type = listOf str;
     };
-    touchInterval = mkOption {
-      default = "15:00";
-      description = "How often to run <command>snapraid touch</command>";
-      type = str;
+    touchBeforeSync = mkOption {
+      default = true;
+      description =
+        "Whether <command>snapraid touch</command> should be run before <command>snapraid sync</command>";
+      type = bool;
     };
     syncInterval = mkOption {
-      default = "16:00";
+      default = "13:00";
       description = "How often to run <command>snapraid sync</command>";
       type = str;
     };
     scrubInterval = mkOption {
-      default = "Mon *-*-* 13:00:00";
+      default = "Mon *-*-* 14:00:00";
       description = "How often to run <command>snapraid scrub</command>";
       type = str;
     };
@@ -65,9 +66,9 @@ in {
             prependData = mkPrepend "data ";
             prependContent = mkPrepend "content ";
             prependExclude = mkPrepend "exclude ";
-          in concatStringsSep "\n"
-            (map prependData ((mapAttrsToList (name: value: name + " " + value))
-              dataDisks) ++ zipListsWith (a: b: a + b)
+          in concatStringsSep "\n" (map prependData
+            ((mapAttrsToList (name: value: name + " " + value)) dataDisks)
+            ++ zipListsWith (a: b: a + b)
             ([ "parity " ] ++ map (i: toString i + "-parity ") (range 2 6))
             parityFiles ++ map prependContent contentFiles
             ++ map prependExclude exclude ++ [ ]);
@@ -85,11 +86,6 @@ in {
         wantedBy = [ "timers.target" ];
         timerConfig.OnCalendar = syncInterval;
       };
-      snapraid-touch = {
-        description = "SnapRAID touch timer";
-        wantedBy = [ "timers.target" ];
-        timerConfig.OnCalendar = touchInterval;
-      };
     };
 
     systemd.services = {
@@ -102,6 +98,7 @@ in {
           IOSchedulingClass = "best-effort";
           IOSchedulingPriority = "6";
         };
+        unitConfig.After = "snapraid-sync.service";
       };
       snapraid-sync = {
         description = "Synchronize the state of the SnapRAID array";
@@ -111,17 +108,8 @@ in {
           Nice = "15";
           IOSchedulingClass = "best-effort";
           IOSchedulingPriority = "6";
-        };
-      };
-      snapraid-touch = {
-        description =
-          "Set the sub-second time-stamp of files in the SnapRAID array";
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${pkgs.snapraid}/bin/snapraid touch";
-          Nice = "15";
-          IOSchedulingClass = "best-effort";
-          IOSchedulingPriority = "6";
+        } // optionalAttrs cfg.touchBeforeSync {
+          ExecStartPre = "${pkgs.snapraid}/bin/snapraid touch";
         };
       };
     };
