@@ -11,10 +11,10 @@ in lib.recursiveUpdate myosevka {
     capital-i = "serifless";
     capital-j = "serifless";
     capital-w = "straight-flat-top";
-    g = "single-storey";
+    g = "single-storey-serifless";
     r = "compact";
-    a = "double-storey";
-    d = "toothed";
+    a = "double-storey-serifless";
+    d = "toothed-serifless";
     u = "toothed";
     i = "serifless";
     l = "serifless";

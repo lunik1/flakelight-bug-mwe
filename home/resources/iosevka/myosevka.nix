@@ -12,7 +12,7 @@
       eight = "two-circles";
       eszet = "longs-s-lig";
       four = "closed";
-      l = "serifed-tailed";
+      l = "tailed-serifed";
       nine = "closed-contour";
       number-sign = "upright-open";
       one = "base";
