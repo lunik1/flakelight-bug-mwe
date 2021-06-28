@@ -18,57 +18,22 @@ in {
     };
 
     fonts = {
-      fonts = with pkgs; [
-        font-awesome-ttf
-        material-design-icons
-        noto-fonts
-        noto-fonts-cjk
-        noto-fonts-emoji
-        sarasa-gothic
-        source-code-pro
-        source-sans-pro
-        source-serif-pro
-        julia-mono
-        # TODO: iosevka
-      ];
       enableDefaultFonts = true;
+      # Needed fonts should be installed by home configuration
       fontconfig = {
         defaultFonts.monospace = [
-          "Source Code Pro"
+          "Myosevka"
           "Sarasa Fixed CL"
           "Sarasa Fixed HC"
           "Sarasa Fixed TC"
           "Sarasa Fixed J"
           "Sarasa Fixed K"
           "Julia Mono"
-          "all-the-icons"
-          "file-icons"
           "Material Icons"
-          "Font Awesome 5 Free"
-          "Font Awesome 5 Brands"
         ];
-        defaultFonts.serif = [
-          "Source Serif Pro"
-          "all-the-icons"
-          "file-icons"
-          "Material Icons"
-          "Font Awesome 5 Free"
-          "Font Awesome 5 Brands"
-        ];
-        defaultFonts.sansSerif = [
-          "Source Sans Pro"
-          "all-the-icons"
-          "file-icons"
-          "Material Icons"
-          "Font Awesome 5 Free"
-          "Font Awesome 5 Brands"
-        ];
-        defaultFonts.emoji = [
-          "Noto Color Emoji"
-          "Material Icons"
-          "Font Awesome 5 Free"
-          "Font Awesome 5 Brands"
-        ];
+        defaultFonts.serif = [ "Myosevka Etoile" ];
+        defaultFonts.sansSerif = [ "Myosevka Etoile" ];
+        defaultFonts.emoji = [ "Noto Color Emoji" ];
       };
     };
   };
