@@ -338,7 +338,7 @@ in {
         hide_edge_borders --i3 both
       '';
       # systemdIntegration = true;
-      wrapperFeatures.gtk = true;
+      # wrapperFeatures.gtk = true;
     };
   };
 }

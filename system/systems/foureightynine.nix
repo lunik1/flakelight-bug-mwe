@@ -95,5 +95,9 @@ in {
   };
 
   # Provide sway
-  programs.sway.enable = true;
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+    extraPackages = [];
+  };
 }
