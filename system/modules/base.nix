@@ -143,9 +143,6 @@
     '';
   };
 
-  # Needed to make swaylock work in home-manager
-  security.pam.services.swaylock = { };
-
   users.users.corin = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "video" "networkmanager" ];

@@ -93,4 +93,7 @@ in {
     sound.enable = true;
     systemd-boot.enable = true;
   };
+
+  # Provide sway
+  programs.sway.enable = true;
 }

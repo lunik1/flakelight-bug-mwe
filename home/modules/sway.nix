@@ -202,6 +202,12 @@ in {
         ]);
     in {
       enable = true;
+
+      # https://github.com/NixOS/nixpkgs/issues/128469
+      # sway does not like using the non-system mesa so get the sway binary
+      # from the NixOS module
+      package = null;
+
       config = rec {
         bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
         colors = {
