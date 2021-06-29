@@ -23,7 +23,7 @@ in {
       [ "xhci_pci" "ahci" "usb_storage" "uas" "sd_mod" ];
 
     loader.grub.device =
-      "/dev/disk/by-id/usb-SanDisk_Extreme_Pro_12345778CBDF-0:0";
+      "/dev/disk/by-id/ata-TS240GMTS420S_G377480650";
 
     tmpOnTmpfs = true;
     kernelModules = [ "kvm-intel" "bfq" ];
@@ -56,7 +56,7 @@ in {
   # disable fsck for xfs systems, as fsck.xfs is a noop
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/38de2855-6354-4a13-a48b-35260b9f9104";
+      device = "/dev/disk/by-id/ata-TS240GMTS420S_G377480650-part1";
       fsType = "xfs";
     };
     "/mnt/parity1" = {
@@ -106,7 +106,7 @@ in {
   # programs.fuse.userAllowOther = true;
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/38dd1dc7-a945-46f8-93de-db3e3014fed4"; }];
+    [{ device = "/dev/disk/by-id/ata-TS240GMTS420S_G377480650-part2"; }];
 
   # and make /storage accessible over samba
   services.samba = {
