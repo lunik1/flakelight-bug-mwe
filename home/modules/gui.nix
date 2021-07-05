@@ -33,6 +33,11 @@ in {
       ];
 
       sessionVariables = { MOZ_WEBRENDER = "1"; };
+
+      file.firefox-lepton-icons = {
+        source = "${pkgs.firefox-lepton}/icons";
+        target = ".mozilla/firefox/corin/chrome/icons";
+      };
     };
 
     programs = {
@@ -42,6 +47,9 @@ in {
         package = pkgs.firefox-wayland;
         profiles.corin = {
           isDefault = true;
+          extraConfig = builtins.readFile "${pkgs.firefox-lepton}/user.js";
+          userChrome = builtins.readFile "${pkgs.firefox-lepton}/userChrome.css";
+          userContent = builtins.readFile "${pkgs.firefox-lepton}/userContent.css";
           settings = {
             "svg.context-properties.content.enabled" = true;
 

@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "firefox-lepton": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1625487707,
+        "narHash": "sha256-TGPSpfyYNlxq1KhNuUSFf+DDJliZPcoCHVljCVPAZd0=",
+        "owner": "black7375",
+        "repo": "Firefox-UI-Fix",
+        "rev": "9c4c3b03efe34514dcfa2f45dbc42832bc9e0abe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "black7375",
+        "repo": "Firefox-UI-Fix",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -71,6 +87,7 @@
     "root": {
       "inputs": {
         "LS_COLORS": "LS_COLORS",
+        "firefox-lepton": "firefox-lepton",
         "home-manager": "home-manager",
         "nixos-logo-gruvbox-wallpaper": "nixos-logo-gruvbox-wallpaper",
         "nixpkgs": "nixpkgs"
