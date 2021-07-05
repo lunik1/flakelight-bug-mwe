@@ -40,6 +40,62 @@ in {
       firefox = {
         enable = true;
         package = pkgs.firefox-wayland;
+        profiles.corin = {
+          isDefault = true;
+          settings = {
+            "svg.context-properties.content.enabled" = true;
+
+            # Disk cache on RAM
+            "browser.cache.disk.parent_directory" = "/run/user/1000/firefox";
+
+            # Save session every 60s (in stead of 15)
+            "browser.sessionstore.interval" = 60000;
+
+            # Use system dpi
+            "layout.css.dpi" = 0;
+
+            # Force enable hardware video decoding
+            "media.hardware-video-decoding.enabled" = true;
+            "media.hardware-video-decoding.foce-enabled" = true;
+
+            # No fullscreen warning
+            "full-screen-api.warning.timeout" = 0;
+
+            # Opt out of studies
+            "app.shield.optoutstudies.enabed" = false;
+
+            # Use forbidden pixel-saving methods
+            "browser.compactmode.show" = true;
+            "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+
+            # Strict tracking protection
+            "browser.contentblocking.category" = "strict";
+
+            # Send DNT header
+            "privacy.donottrackheader.enabled" = true;
+
+            # Separate search bar
+            "browser.search.widget.inNavBar" = true;
+
+            # HTTPS only mode
+            "dom.security.https_only_mode" = true;
+
+            # No desktop notifications
+            "permissions.default.desktop-notification" = 2;
+
+            # No VR
+            "permissions.default.xr" = 2;
+
+            # Warn on quit
+            "browser.sessionstore.warnOnQuit" = true;
+
+            # UK
+            "browser.search.region" = "GB";
+
+            # Search with DDG
+            "browser.urlbar.placeholderName" = "DuckDuckGo";
+          };
+        };
       };
       foot = {
         enable = true;
