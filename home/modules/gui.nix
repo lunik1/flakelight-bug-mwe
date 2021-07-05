@@ -116,13 +116,13 @@ in {
       mimeApps = {
         enable = true;
         defaultApplications = {
-          "text/html" = [ "opera.desktop" ];
-          "text/xhtml_xml" = [ "opera.desktop" ];
+          "text/html" = [ "firefox.desktop" ];
+          "text/xhtml_xml" = [ "firefox.desktop" ];
+          "x-scheme-handler/about" = [ "firefox.desktop" ];
+          "x-scheme-handler/http" = [ "firefox.desktop" ];
+          "x-scheme-handler/https" = [ "firefox.desktop" ];
+          "x-scheme-handler/unknown" = [ "firefox.desktop" ];
           "application/x-opera-download" = [ "opera.desktop" ];
-          "x-scheme-handler/about" = [ "opera.desktop" ];
-          "x-scheme-handler/http" = [ "opera.desktop" ];
-          "x-scheme-handler/https" = [ "opera.desktop" ];
-          "x-scheme-handler/unknown" = [ "opera.desktop" ];
 
           "x-scheme-handler/msteams" = [ "teams.desktop" ];
 
