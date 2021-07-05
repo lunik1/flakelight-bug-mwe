@@ -32,7 +32,7 @@ in {
           "Material Icons"
         ];
         defaultFonts.serif = [ "Myosevka Etoile" ];
-        defaultFonts.sansSerif = [ "Myosevka Etoile" ];
+        defaultFonts.sansSerif = [ "Myosevka Aile" ];
         defaultFonts.emoji = [ "Noto Color Emoji" ];
       };
     };
