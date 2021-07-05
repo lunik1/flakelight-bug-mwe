@@ -24,6 +24,7 @@ in {
         ffmpeg-full
         glances
         imagemagick
+        ix
         libarchive
         libwebp
         lrzip
