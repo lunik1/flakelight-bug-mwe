@@ -85,6 +85,7 @@ in {
       noCheck = true;
       options = [
         "defaults"
+        "nonempty"
         "allow_other"
         "use_ino"
         "fsname=mergerfs"
@@ -92,7 +93,7 @@ in {
         "func.getattr=newest"
         "cache.files=auto-full"
         "category.create=mfs"
-        # "cache.writeback=true" mergerfs 2.29.0+
+        "cache.writeback=true"
         "cache.symlinks=true"
         # "ignorepponrename=true"
         "cache.readdir=true"
