@@ -4,7 +4,7 @@
 
 let
   cfg = config.lunik1.system.network;
-  nameservers = [ "185.121.177.177" "169.239.202.202" ]; # OpenNIC anycast
+  nameservers = [ "91.239.100.100 " "89.233.43.71 " ]; # Uncensored DNS
 in {
   options.lunik1.system.network = {
     resolved.enable = lib.mkEnableOption "resolved";
