@@ -116,6 +116,28 @@ in {
         envExtra = ''
           export PATH=$HOME/bin:$HOME/.cargo/bin/:$PATH
         '';
+        # Make TRAMP and zsh play nice
+        # https://www.emacswiki.org/emacs/TrampMode#h5o-9
+        profileExtra = ''
+          if [[ "$TERM" == "tramp" ]]
+          then
+            unsetopt zle
+            unsetopt prompt_cr
+            unsetopt prompt_subst
+            unset zle_bracketed_paste
+            unset RPROMPT
+            unset RPS1
+            PS1="$ "
+            unsetopt rcs
+            if whence -w precmd >/dev/null; then
+                unfunction precmd
+            fi
+            if whence -w preexec >/dev/null; then
+                unfunction preexec
+            fi
+            PS1='$ '
+          fi
+        '';
       };
     };
 
