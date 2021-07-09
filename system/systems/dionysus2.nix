@@ -139,6 +139,9 @@ in {
     ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
   '';
 
+  ## Monitor network usage
+  services.vnstat.enable = true;
+
   ## Back up permissions info on /storage
   systemd = {
     timers.storage-permissions-backup = {
