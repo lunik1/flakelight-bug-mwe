@@ -31,7 +31,6 @@ in {
         magic-wormhole
         ncdu
         neofetch
-        nix-index
         nix-zsh-completions
         p7zip
         parallel
@@ -92,6 +91,10 @@ in {
       htop = {
         enable = true;
         settings = import ../config/htop/htop.nix { inherit config; };
+      };
+      nix-index = {
+        enable = true;
+        enableZshIntegration = true;
       };
       tmux = import ../config/tmux/tmux.nix { tmuxPlugins = pkgs.tmuxPlugins; };
       fzf = rec {
