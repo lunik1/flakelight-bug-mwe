@@ -101,11 +101,11 @@ alias juliac='julia --startup-file=no -e "using DaemonMode; runargs()"'
 # Cheatsheet
 alias cs="bat -p ~/.local/share/zsh/zsh_cheatsheet.md"
 
-# Docker
-if [[ "$HOST" = dionysus2 ]]; then
-  salias dcdown="docker-compose -f /opt/docker-compose.yaml --env-file /opt/docker-compose.env down"
-  salias dcpull="ionice -n 6 docker-compose -f /opt/docker-compose.yaml --env-file /opt/docker-compose.env pull"
-  salias dcup="ionice -n 6 docker-compose -f /opt/docker-compose.yaml --env-file /opt/docker-compose.env up -d --remove-orphans"
+# Arion
+if type arion >/dev/null 2>&1; then
+  salias adown="arion down"
+  salias apull="ionice -n 5 arion pull"
+  salias aup="ionice -n 5 arion up -d"
 fi
 
 if type bat >/dev/null 2>&1; then
