@@ -121,14 +121,15 @@ in {
         profileExtra = ''
           if [[ "$TERM" == "tramp" ]]
           then
+            . "/home/corin/.nix-profile/etc/profile.d/hm-session-vars.sh"
             unsetopt zle
             unsetopt prompt_cr
             unsetopt prompt_subst
             unset zle_bracketed_paste
             unset RPROMPT
             unset RPS1
-            PS1="$ "
             unsetopt rcs
+            PS1="$ "
             if whence -w precmd >/dev/null; then
                 unfunction precmd
             fi
