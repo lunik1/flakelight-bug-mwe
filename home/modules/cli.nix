@@ -22,6 +22,7 @@ in {
         fast-cli
         fd
         ffmpeg-full
+        fontconfig
         glances
         imagemagick
         ix
