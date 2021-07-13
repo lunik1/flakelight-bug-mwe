@@ -110,6 +110,10 @@ in {
         enableCompletion = true;
         enableVteIntegration = true;
         history = { size = 50000; };
+        dirHashes = {
+          conf = "$HOME/config";
+          code = "$HOME/code";
+        };
         initExtraFirst = ''
           source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
           source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
