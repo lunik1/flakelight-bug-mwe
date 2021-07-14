@@ -111,7 +111,7 @@ in {
         enableVteIntegration = true;
         history = { size = 50000; };
         dirHashes = {
-          conf = "$HOME/config";
+          conf = "$HOME/nix-config";
           code = "$HOME/code";
         };
         initExtraFirst = ''
