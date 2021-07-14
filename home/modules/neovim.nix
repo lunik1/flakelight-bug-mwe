@@ -10,39 +10,139 @@ in {
       lang.viml.enable = true;
     };
 
-    home = {
-      packages = with pkgs; [
-        neovim
-        # Needed for plugins
-        ripgrep
-        fd
-        wl-clipboard
-        xclip
-        yarn
-        nodejs
-      ];
-
-      sessionVariables.EDITOR = "nvim";
-    };
+    home = { sessionVariables.EDITOR = "nvim"; };
 
     pam.sessionVariables.EDITOR = "nvim";
 
-    xdg = {
+    programs.neovim = {
       enable = true;
-      configFile = {
-        "init.vim" = {
-          source = ../config/nvim/init.vim;
-          target = "nvim/init.vim";
-        };
-        "tasks.ini" = {
-          source = ../config/nvim/tasks.ini;
-          target = "nvim/tasks.ini";
-        };
-        "coc-settings.json" = {
-          source = ../config/nvim/coc-settings.json;
-          target = "nvim/coc-settings.json";
-        };
-      };
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+      withNodeJs = true;
+      extraPackages = with pkgs; [ fd ripgrep tree-sitter wl-clipboard xclip ];
+      plugins = with pkgs.vimPlugins; [
+        {
+          plugin = gitsigns-nvim;
+          config = ''
+            lua << EOF
+              require('gitsigns').setup {
+                signs = {
+                  add = { hl = 'GitGutterAdd', text = '+' },
+                  change = { hl = 'GitGutterChange', text = '~' },
+                  delete = { hl = 'GitGutterDelete', text = '_' },
+                  topdelete = { hl = 'GitGutterDelete', text = '‾' },
+                  changedelete = { hl = 'GitGutterChange', text = '≁' },
+                },
+              }
+            EOF
+          '';
+        }
+        {
+          plugin = gruvbox-nvim;
+          config = ''
+            colorscheme gruvbox
+            set background=dark
+            set termguicolors
+          '';
+        }
+        julia-vim
+        {
+          plugin = lexima-vim;
+          config = ''
+            let g:lexima_enable_basic_rules = 0
+            let g:lexima_enable_endwise_rules = 0
+          '';
+        }
+        {
+          plugin = indent-blankline-nvim;
+          config = ''
+            let g:indent_blankline_char_list=['┃', '╏', '┇', '┋', '│', '¦', '┆', '┊']
+            let g:indent_blankline_filetype_exclude=['help']
+            let g:indent_blankline_buftype_exclude=['terminal', 'nofile']
+            let g:indent_blankline_char_highlight='LineNr'
+          '';
+        }
+        {
+          plugin = lualine-nvim;
+          config = "lua require('lualine').setup()";
+        }
+        {
+          plugin = nvim-colorizer-lua;
+          config = "lua require('colorizer').setup()";
+        }
+        {
+          plugin = neogit;
+          config = ''
+            lua require('neogit').setup()
+          '';
+        }
+        {
+          plugin = nvim-compe;
+          config = ''
+          '';
+        }
+        {
+          plugin = nvim-lspconfig;
+          config = ''
+            lua << EOF
+              ${builtins.readFile ../config/nvim/plugins/nvim-lspconfig.lua}
+            EOF
+          '';
+        }
+        {
+          plugin = nvim-treesitter;
+          config = builtins.readFile ../config/nvim/plugins/nvim-compe.vim;
+        }
+        {
+          plugin = nvim-ts-rainbow;
+          config = ''
+            lua << EOF
+              require'nvim-treesitter.configs'.setup {
+                rainbow = {
+                  enable = true,
+                  extended_mode = true,
+                  max_file_lines = 10000,
+                }
+              }
+            EOF
+          '';
+        }
+        nvim-treesitter-textobjects
+        # nvim-web-devicons
+        plenary-nvim
+        popup-nvim
+        tcomment_vim
+        {
+          plugin = telescope-nvim;
+          config = ''
+            nnoremap <leader><SPACE> <cmd>Telescope git_files<cr>
+            nnoremap <leader>pf <cmd>Telescope git_files<cr>
+            nnoremap <leader>/ <cmd>Telescope live_grep<cr>
+            nnoremap <leader>bb <cmd>Telescope buffers<cr>
+            nnoremap <leader>: <cmd>Telescope commands<cr>
+            nnoremap <leader>: <cmd>Telescope commands<cr>
+            nnoremap <leader>iy <cmd>Telescope registers<cr>
+            nnoremap <leader>ss <cmd>Telescope current_buffer_fuzzy_find<cr>
+            nnoremap <leader>fr <cmd>Telescope oldfiles<cr>
+          '';
+        }
+        {
+          plugin = vim-eunuch;
+          config = ''
+            nnoremap <leader>fd :Delete<cr>
+            nnoremap <leader>fr :Rename<cr>
+          '';
+        }
+        vim-lion
+        vim-nix
+        vim-repeat
+        vim-sleuth
+        vim-sneak
+        vim-surround
+        vim-toml
+      ];
+      extraConfig = builtins.readFile ../config/nvim/init.vim;
     };
   };
 }

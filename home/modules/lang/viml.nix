@@ -4,5 +4,7 @@ let cfg = config.lunik1.home.lang.viml;
 in {
   options.lunik1.home.lang.viml.enable = lib.mkEnableOption "Viml";
 
-  config = lib.mkIf cfg.enable { home.packages = with pkgs; [ vim-vint ]; };
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [ vim-vint nodePackages.vim-language-server ];
+  };
 }
