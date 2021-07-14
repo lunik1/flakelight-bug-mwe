@@ -20,7 +20,14 @@ in {
       vimAlias = true;
       vimdiffAlias = true;
       withNodeJs = true;
-      extraPackages = with pkgs; [ fd ripgrep tree-sitter wl-clipboard xclip ];
+      extraPackages = with pkgs; [
+        gcc # needed to compile tree-sitter parsers
+        fd
+        ripgrep
+        tree-sitter
+        wl-clipboard
+        xclip
+      ];
       plugins = with pkgs.vimPlugins; [
         {
           plugin = gitsigns-nvim;
@@ -79,8 +86,7 @@ in {
         }
         {
           plugin = nvim-compe;
-          config = ''
-          '';
+          config = builtins.readFile ../config/nvim/plugins/nvim-compe.vim;
         }
         {
           plugin = nvim-lspconfig;
