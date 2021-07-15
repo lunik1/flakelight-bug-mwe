@@ -13,5 +13,6 @@
   ./snapraid.nix
   ./ssh-server.nix
   ./systemd-boot.nix
+  ./vpsadminos.nix
   ./zswap.nix
 ]

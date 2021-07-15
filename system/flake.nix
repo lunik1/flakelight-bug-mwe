@@ -11,6 +11,10 @@
         system = "x86_64-linux";
         modules = [ (import systems/dionysus2.nix) ];
       };
+      hermes = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ (import systems/hermes.nix) ];
+      };
     };
   };
 }

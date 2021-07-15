@@ -72,5 +72,9 @@
         inherit inputs;
         inherit overlays;
       }).activationPackage;
+      hermes = (import home-configurations/hermes.nix {
+        inherit inputs;
+        inherit overlays;
+      }).activationPackage;
     };
 }
