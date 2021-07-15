@@ -15,6 +15,8 @@ inputs.home-manager.lib.homeManagerConfiguration {
     };
 
     lunik1.home = {
+      vpsAdminOs = true;
+
       core.enable = true;
       cli.enable = true;
 

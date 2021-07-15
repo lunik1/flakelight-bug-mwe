@@ -160,7 +160,12 @@ in {
       };
       configFile = {
         "bpytop.conf" = {
-          source = ../config/bpytop/bpytop.conf;
+          # bpytop will crash if it tries to access /sys/class/power_supply
+          # in vpsAdminOS
+          text = (builtins.readFile ../config/bpytop/bpytop.conf)
+            + lib.optionalString config.lunik1.home.vpsAdminOs ''
+              show_battery=False
+            '';
           target = "bpytop/bpytop.conf";
         };
         "neofetch" = {
