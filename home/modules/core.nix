@@ -42,8 +42,12 @@ in {
       nixFlakes
     ];
 
-    programs.ssh = lib.mkIf config.lunik1.home.gpgKeyInstalled
-      (import ../config/ssh/config.nix);
+    # Use an if else to make sure config.nix is lazily loaded
+    # (mkIf will not work!)
+    programs.ssh = if config.lunik1.home.gpgKeyInstalled then
+      import ../config/ssh/config.nix
+    else
+      { };
 
     xdg = {
       enable = true;
