@@ -128,8 +128,9 @@ else
   export EDITOR=vim
 fi
 
-# rsync over ssh
-alias srsync='rsync -avzPe ssh'
+# rsync
+alias rsync='rsync -avzP --checksum-choice=xxh3 --compress-choice=lz4'
+alias srsync='rsync --checksum-choice=xxh3 --compress-choice=zstd -avzPe ssh'
 
 # update all python packages at once with pip
 alias pipdate='sh -c "pip freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1  | xargs -n1 pip install -U"'
