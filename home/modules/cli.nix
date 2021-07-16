@@ -29,6 +29,7 @@ in {
         libarchive
         libwebp
         lrzip
+        lz4
         magic-wormhole
         ncdu
         neofetch
