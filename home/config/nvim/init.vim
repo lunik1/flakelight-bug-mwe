@@ -25,6 +25,7 @@ augroup end
 "" Behaviour
 set clipboard=unnamedplus
 set cpoptions+=_ " don't include space after word with cw
+set diffopt=filler,internal,algorithm:histogram,indent-heuristic
 set expandtab
 set foldlevel=99
 set ignorecase
