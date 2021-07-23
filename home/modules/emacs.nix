@@ -23,6 +23,7 @@ in {
         myosevka
         myosevka-aile
         myosevka-etoile
+        zip # for org odt export
       ];
 
     programs.emacs = {
