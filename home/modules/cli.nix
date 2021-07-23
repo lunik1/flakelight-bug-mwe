@@ -90,6 +90,14 @@ in {
         enableZshIntegration = true;
         extraConfig = builtins.readFile "${pkgs.LS_COLORS}/LS_COLORS";
       };
+      direnv = {
+        enable = true;
+        enableZshIntegration = true;
+        nix-direnv = {
+          enable = true;
+          enableFlakes = true;
+        };
+      };
       htop = {
         enable = true;
         settings = import ../config/htop/htop.nix { inherit config; };
