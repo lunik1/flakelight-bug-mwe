@@ -14,7 +14,17 @@ in {
 
     pam.sessionVariables.EDITOR = "nvim";
 
-    programs.neovim = {
+    programs.neovim = let
+      kommentary = pkgs.vimUtils.buildVimPlugin {
+        name = "kommentary";
+        src = pkgs.fetchFromGitHub {
+          owner = "b3nj5m1n";
+          repo = "kommentary";
+          rev = "a5d7cd90059ad99b5e80a1d40d655756d86b5dad";
+          sha256 = "c8peJeAaZhnhpHYWXaYNmhh7nrdPJoA9pQlw+n9L8a0=";
+        };
+      };
+    in {
       enable = true;
       viAlias = true;
       vimAlias = true;
@@ -54,6 +64,7 @@ in {
           '';
         }
         julia-vim
+        kommentary
         {
           plugin = lexima-vim;
           config = ''
@@ -118,7 +129,6 @@ in {
         # nvim-web-devicons
         plenary-nvim
         popup-nvim
-        tcomment_vim
         {
           plugin = telescope-nvim;
           config = ''
