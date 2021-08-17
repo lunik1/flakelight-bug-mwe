@@ -24,6 +24,8 @@ in {
           sha256 = "c8peJeAaZhnhpHYWXaYNmhh7nrdPJoA9pQlw+n9L8a0=";
         };
       };
+      tree-sitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins
+        (plugins: pkgs.tree-sitter.allGrammars));
     in {
       enable = true;
       viAlias = true;
