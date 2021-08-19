@@ -174,6 +174,8 @@ in {
       };
     };
 
+    services.xsettingsd.enable = true;
+
     xdg = {
       enable = true;
       mime.enable = true;
