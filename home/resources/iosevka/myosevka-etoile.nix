@@ -8,9 +8,14 @@ in lib.recursiveUpdate myosevka {
   serifs = "slab";
   variants.design = {
     at = "fourfold";
+    capital-g = "toothless-corner-serifed-hooked";
+    capital-k = "straight-serifed";
     capital-w = "straight-flat-top";
-    j = "serifed";
+    f = "flat-hook-serifed";
+    j = "flat-hook-serifed";
+    t = "flat-hook";
     w = "straight-flat-top";
   };
+  italic = { f = "flat-hook-tailed"; };
   derivingVariants.mathtt = myosevka.variants;
 }
