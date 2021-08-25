@@ -18,6 +18,9 @@ in {
     fsType = "nfs";
   };
 
+  # Disable earlyoom
+  services.earlyoom.enable = lib.mkForce false;
+
   ## Config modules to use
   lunik1.system = {
     containers.enable = true;
