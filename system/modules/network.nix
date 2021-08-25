@@ -4,17 +4,20 @@
 
 let
   cfg = config.lunik1.system.network;
-  nameservers = [ "91.239.100.100 " "89.233.43.71 " ]; # Uncensored DNS
 in {
-  options.lunik1.system.network = {
+  options.lunik1.system.network = with lib.types; {
     resolved.enable = lib.mkEnableOption "resolved";
     connman.enable = lib.mkEnableOption "connman";
+    nameservers = lib.mkOption {
+      default = [ "91.239.100.100" "89.233.43.71" ]; # UncensoredDNS
+      types = listOf str;
+    }
   };
 
   config = {
     networking = {
       firewall.enable = false;
-      inherit nameservers;
+      nameservers = cfg.nameservers;
     };
     services = {
       connman = lib.mkIf cfg.connman.enable {
@@ -24,7 +27,7 @@ in {
       resolved = lib.mkIf cfg.resolved.enable {
         enable = true;
         dnssec = "false";
-        fallbackDns = nameservers;
+        fallbackDns = cfg.nameservers;
       };
     };
   };
