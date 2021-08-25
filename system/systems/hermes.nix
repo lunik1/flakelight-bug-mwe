@@ -24,7 +24,10 @@ in {
   ## Config modules to use
   lunik1.system = {
     containers.enable = true;
-    network.resolved.enable = true;
+    network = {
+      resolved.enable = true;
+      nameservers = [ "37.205.9.100" "37.205.10.88" ]; # vpsFree internal DNS
+    };
     ssh-server.enable = true;
     vpsadminos.enable = true;
   };
