@@ -50,7 +50,7 @@ in {
         unrar
         unzip
         wget
-        youtube-dl
+        yt-dlp
         zsh-completions
 
         ripgrep-all # heavy dependencies, optional/own module?

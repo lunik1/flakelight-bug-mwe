@@ -24,6 +24,7 @@
       overlays = [
         (self: super: {
           youtube-dl = super.youtube-dl.override { phantomjsSupport = true; };
+          yt-dlp = super.yt-dlp.override { phantomjsSupport = true; };
         })
         (self: super: {
           myosevka = super.iosevka.override {
