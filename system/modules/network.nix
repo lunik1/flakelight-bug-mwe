@@ -10,8 +10,8 @@ in {
     connman.enable = lib.mkEnableOption "connman";
     nameservers = lib.mkOption {
       default = [ "91.239.100.100" "89.233.43.71" ]; # UncensoredDNS
-      types = listOf str;
-    }
+      type = listOf str;
+    };
   };
 
   config = {
