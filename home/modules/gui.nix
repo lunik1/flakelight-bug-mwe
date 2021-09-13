@@ -113,7 +113,7 @@ in {
         settings = {
           main = {
             # term = "foot-direct"; # breaks zsh syntax highlighting
-            font = "Myosevka:size=6.8";
+            font = "Myosevka Light:size=6.8";
           };
           scrollback.lines = 5000;
           cursor.blink = true;
