@@ -16,6 +16,7 @@ in {
         bind.dnsutils
         bpytop
         cmake
+        croc
         duf
         emv
         eternal-terminal
@@ -30,7 +31,6 @@ in {
         libwebp
         lrzip
         lz4
-        magic-wormhole
         ncdu
         neofetch
         nix-zsh-completions
