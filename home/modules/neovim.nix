@@ -33,10 +33,8 @@ in {
       vimdiffAlias = true;
       withNodeJs = true;
       extraPackages = with pkgs; [
-        gcc # needed to compile tree-sitter parsers
         fd
         ripgrep
-        tree-sitter
         wl-clipboard
         xclip
       ];
