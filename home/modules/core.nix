@@ -39,7 +39,7 @@ in {
       xz
       zstd
 
-      nixFlakes
+      nixUnstable
     ];
 
     # Use an if else to make sure config.nix is lazily loaded
