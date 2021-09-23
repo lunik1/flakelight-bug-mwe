@@ -18,7 +18,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
           ffplayProgram = false;
           runtimeCpuDetectBuild = false; # compile natively
           nonfreeLicensing = true;
-          enableLto = true;
+          # enableLto = true; # broken https://github.com/NixOS/nixpkgs/issues/139168
         };
       })
     ];
