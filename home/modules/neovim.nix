@@ -15,15 +15,6 @@ in {
     pam.sessionVariables.EDITOR = "nvim";
 
     programs.neovim = let
-      kommentary = pkgs.vimUtils.buildVimPlugin {
-        name = "kommentary";
-        src = pkgs.fetchFromGitHub {
-          owner = "b3nj5m1n";
-          repo = "kommentary";
-          rev = "a5d7cd90059ad99b5e80a1d40d655756d86b5dad";
-          sha256 = "c8peJeAaZhnhpHYWXaYNmhh7nrdPJoA9pQlw+n9L8a0=";
-        };
-      };
       nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins
         (plugins: pkgs.tree-sitter.allGrammars));
     in {
