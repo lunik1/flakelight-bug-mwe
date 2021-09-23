@@ -42,6 +42,16 @@ in {
       ];
       plugins = with pkgs.vimPlugins; [
         {
+          plugin = cmp-nvim-lsp;
+          config = ''
+            lua << EOF
+              local capabilities = vim.lsp.protocol.make_client_capabilities()
+              capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+            EOF
+          '';
+        }
+        cmp_luasnip
+        {
           plugin = gitsigns-nvim;
           config = ''
             lua << EOF
@@ -98,8 +108,12 @@ in {
           '';
         }
         {
-          plugin = nvim-compe;
-          config = builtins.readFile ../config/nvim/plugins/nvim-compe.vim;
+          plugin = nvim-cmp;
+          config = ''
+            lua << EOF
+              ${builtins.readFile ../config/nvim/plugins/nvim-cmp.lua}
+            EOF
+          '';
         }
         {
           plugin = nvim-lspconfig;
@@ -111,7 +125,11 @@ in {
         }
         {
           plugin = nvim-treesitter;
-          config = builtins.readFile ../config/nvim/plugins/nvim-compe.vim;
+          config = ''
+            lua << EOF
+              ${builtins.readFile ../config/nvim/plugins/nvim-treesitter.lua}
+            EOF
+          '';
         }
         {
           plugin = nvim-ts-rainbow;
@@ -129,6 +147,14 @@ in {
         }
         nvim-treesitter-textobjects
         # nvim-web-devicons
+        {
+          plugin = luasnip;
+          config = ''
+            lua << EOF
+              local luasnip = require 'luasnip'
+            EOF
+          '';
+        }
         plenary-nvim
         popup-nvim
         {
