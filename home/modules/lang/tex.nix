@@ -5,11 +5,7 @@ in {
   options.lunik1.home.lang.tex.enable = lib.mkEnableOption "TeX";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      svg2tikz
-      texlab
-      python38Packages.pygments
-    ];
+    home.packages = with pkgs; [ svg2tikz texlab python38Packages.pygments ];
 
     programs = {
       texlive = {

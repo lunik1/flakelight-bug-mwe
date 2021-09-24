@@ -12,8 +12,8 @@ in {
       systemPackages = with pkgs; [ arion docker-client docker_compose ];
       variables = {
         COMPOSE_HTTP_TIMEOUT = "600";
-    PGID = "100";
-    PUID = "1000";
+        PGID = "100";
+        PUID = "1000";
       };
     };
 

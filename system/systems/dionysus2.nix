@@ -22,8 +22,7 @@ in {
     initrd.availableKernelModules =
       [ "xhci_pci" "ahci" "usb_storage" "uas" "sd_mod" ];
 
-    loader.grub.device =
-      "/dev/disk/by-id/ata-TS240GMTS420S_G377480650";
+    loader.grub.device = "/dev/disk/by-id/ata-TS240GMTS420S_G377480650";
 
     tmpOnTmpfs = true;
     kernelModules = [ "kvm-intel" "bfq" ];

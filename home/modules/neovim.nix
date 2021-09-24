@@ -23,12 +23,7 @@ in {
       vimAlias = true;
       vimdiffAlias = true;
       withNodeJs = true;
-      extraPackages = with pkgs; [
-        fd
-        ripgrep
-        wl-clipboard
-        xclip
-      ];
+      extraPackages = with pkgs; [ fd ripgrep wl-clipboard xclip ];
       plugins = with pkgs.vimPlugins; [
         {
           plugin = cmp-nvim-lsp;

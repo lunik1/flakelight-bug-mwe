@@ -2,8 +2,7 @@
 
 { config, lib, pkgs, ... }:
 
-let
-  cfg = config.lunik1.system.network;
+let cfg = config.lunik1.system.network;
 in {
   options.lunik1.system.network = with lib.types; {
     resolved.enable = lib.mkEnableOption "resolved";

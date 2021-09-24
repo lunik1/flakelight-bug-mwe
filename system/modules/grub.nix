@@ -9,10 +9,14 @@ in {
 
   config = lib.mkIf cfg.enable {
     assertions = [
-      { assertion = !config.lunik1.system.systemd-boot.enable;
-        message = "You cannot enable systemd-boot and GRUB.";}
-      { assertion = config.boot.loader.grub.device != "";
-        message = "You must set a device to install GRUB on.";}
+      {
+        assertion = !config.lunik1.system.systemd-boot.enable;
+        message = "You cannot enable systemd-boot and GRUB.";
+      }
+      {
+        assertion = config.boot.loader.grub.device != "";
+        message = "You must set a device to install GRUB on.";
+      }
     ];
 
     boot.loader = {
