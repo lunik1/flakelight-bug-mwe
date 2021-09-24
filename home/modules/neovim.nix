@@ -17,6 +17,11 @@ in {
     programs.neovim = let
       nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins
         (plugins: pkgs.tree-sitter.allGrammars));
+      luaWrap = luaCfg: ''
+        lua << EOF
+          ${luaCfg}
+        EOF
+      '';
     in {
       enable = true;
       viAlias = true;
@@ -27,28 +32,24 @@ in {
       plugins = with pkgs.vimPlugins; [
         {
           plugin = cmp-nvim-lsp;
-          config = ''
-            lua << EOF
-              local capabilities = vim.lsp.protocol.make_client_capabilities()
-              capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-            EOF
+          config = luaWrap ''
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
           '';
         }
         cmp_luasnip
         {
           plugin = gitsigns-nvim;
-          config = ''
-            lua << EOF
-              require('gitsigns').setup {
-                signs = {
-                  add = { hl = 'GitGutterAdd', text = '+' },
-                  change = { hl = 'GitGutterChange', text = '~' },
-                  delete = { hl = 'GitGutterDelete', text = '_' },
-                  topdelete = { hl = 'GitGutterDelete', text = '‾' },
-                  changedelete = { hl = 'GitGutterChange', text = '≁' },
-                },
-              }
-            EOF
+          config = luaWrap ''
+            require('gitsigns').setup {
+              signs = {
+                add = { hl = 'GitGutterAdd', text = '+' },
+                change = { hl = 'GitGutterChange', text = '~' },
+                delete = { hl = 'GitGutterDelete', text = '_' },
+                topdelete = { hl = 'GitGutterDelete', text = '‾' },
+                changedelete = { hl = 'GitGutterChange', text = '≁' },
+              },
+            }
           '';
         }
         {
@@ -79,11 +80,11 @@ in {
         }
         {
           plugin = lualine-nvim;
-          config = "lua require('lualine').setup()";
+          config = luaWrap "require('lualine').setup()";
         }
         {
           plugin = nvim-colorizer-lua;
-          config = "lua require('colorizer').setup()";
+          config = luaWrap "require('colorizer').setup()";
         }
         # Causing crash on startup
         # {
@@ -94,51 +95,36 @@ in {
         # }
         {
           plugin = nvim-cmp;
-          config = ''
-            lua << EOF
-              ${builtins.readFile ../config/nvim/plugins/nvim-cmp.lua}
-            EOF
-          '';
+          config =
+            luaWrap (builtins.readFile ../config/nvim/plugins/nvim-cmp.lua);
         }
         {
           plugin = nvim-lspconfig;
-          config = ''
-            lua << EOF
-              ${builtins.readFile ../config/nvim/plugins/nvim-lspconfig.lua}
-            EOF
-          '';
+          config = luaWrap
+            (builtins.readFile ../config/nvim/plugins/nvim-lspconfig.lua);
         }
         {
           plugin = nvim-treesitter;
-          config = ''
-            lua << EOF
-              ${builtins.readFile ../config/nvim/plugins/nvim-treesitter.lua}
-            EOF
-          '';
+          config = luaWrap
+            (builtins.readFile ../config/nvim/plugins/nvim-treesitter.lua);
         }
         {
           plugin = nvim-ts-rainbow;
-          config = ''
-            lua << EOF
-              require'nvim-treesitter.configs'.setup {
-                rainbow = {
-                  enable = true,
-                  extended_mode = true,
-                  max_file_lines = nil,
-                }
+          config = luaWrap ''
+            require'nvim-treesitter.configs'.setup {
+              rainbow = {
+                enable = true,
+                extended_mode = true,
+                max_file_lines = nil,
               }
-            EOF
+            }
           '';
         }
         nvim-treesitter-textobjects
         # nvim-web-devicons
         {
           plugin = luasnip;
-          config = ''
-            lua << EOF
-              local luasnip = require 'luasnip'
-            EOF
-          '';
+          config = luaWrap "local luasnip = require 'luasnip'";
         }
         plenary-nvim
         popup-nvim
