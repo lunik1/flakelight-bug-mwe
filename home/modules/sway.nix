@@ -125,7 +125,7 @@ in {
             format-linked = "󰌷";
             format-icons = [ "󰤫" "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
             format-disconnected = "󰤮";
-            on-click = "${pkgs.connman-gtk}/bin/connman-gtk";
+            on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
             tooltip-format =
               "󰩟{ipaddr} 󰀂{essid} {frequency} {icon}{signalStrength} 󰕒{bandwidthUpBits} 󰇚{bandwidthDownBits}";
           };
@@ -268,6 +268,7 @@ in {
         keybindings = lib.mkOptionDefault {
           "${modifier}+b" = "splitv";
           "${modifier}+v" = "splith";
+          "${modifier}+n" = "exec --no-startup-id ${pkgs.networkmanager_dmenu}/bin/networkmanager_dmenu";
           "${modifier}+Shift+q" = "kill";
           "${modifier}+Shift+e" = ''
             exec ${pkgs.sway}/bin/swaynag -t warning -f "Myosevka Proportional" -m "Exit sway?" -b "Yes" "${pkgs.sway}/bin/swaymsg exit"'';

@@ -87,7 +87,7 @@ in {
     laptop.enable = true;
     network = {
       resolved.enable = true;
-      connman.enable = true;
+      networkmanager.enable = true;
     };
     pulp-io.enable = true;
     sound.enable = true;

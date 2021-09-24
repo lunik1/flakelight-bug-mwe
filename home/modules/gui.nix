@@ -11,7 +11,6 @@ in {
       packages = with pkgs; [
         bitwarden
         bleachbit
-        connman-gtk
         discord
         element-desktop
         gimp
@@ -19,6 +18,8 @@ in {
         hunspellDicts.en-gb-ise # needed for libreoffice
         krita
         libreoffice-fresh # TODO languagetool
+        networkmanager_dmenu
+        networkmanagerapplet
         # libsixel
         opera
         pavucontrol
@@ -180,6 +181,25 @@ in {
 
     xdg = {
       enable = true;
+      configFile = {
+        "networkmanager_dmenu" = {
+          text = ''
+            [dmenu]
+            dmenu_command = ${pkgs.dmenu-wayland}/bin/dmenu-wl
+            fn = Myosevka Proportional 14
+            nb = ${gruvbox.dark.bg}
+            nf = ${gruvbox.dark.fg}
+            sb = ${gruvbox.light.bg}
+            sf =  ${gruvbox.light.fg}
+            pinentry = ${pkgs.pinentry-gtk2}/bin/pinentry-gtk-2
+            wifi_chars = ▂▄▆█
+
+            [editor]
+            terminal = foot
+          '';
+          target = "networkmanager-dmenu/config.ini";
+        };
+      };
       mime.enable = true;
       mimeApps = {
         enable = true;
