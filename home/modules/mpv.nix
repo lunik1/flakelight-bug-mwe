@@ -72,6 +72,7 @@ in {
         # youtube-dl
         ytdl-format =
           "(bestvideo[fps=60][height<=1080]/bestvideo[height<=1080])[vcodec!=vp9]+(bestaudio[acodec=opus]/bestaudio[ext=webm]/bestaudio)/best";
+        script-opts="ytdl_hook-ytdl_path=${nixpkgs.yt-dlp}/bin/yt-dlp";
 
         # Other
         keep-open = "yes";
