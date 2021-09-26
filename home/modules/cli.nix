@@ -43,6 +43,7 @@ in {
         ripgrep
         rmlint
         rsync
+        sd
         smartmontools
         streamlink
         stress-ng
