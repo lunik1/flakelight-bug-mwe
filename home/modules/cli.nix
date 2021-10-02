@@ -14,7 +14,7 @@ in {
         bat-extras.batgrep
         borgbackup
         bind.dnsutils
-        bpytop
+        btop
         cmake
         croc
         duf
@@ -169,14 +169,16 @@ in {
         };
       };
       configFile = {
-        "bpytop.conf" = {
-          # bpytop will crash if it tries to access /sys/class/power_supply
-          # in vpsAdminOS
-          text = (builtins.readFile ../config/bpytop/bpytop.conf)
+        "btop.conf" = {
+          text = (builtins.readFile ../config/btop/btop.conf)
+            # Need to get colour theme location from package
+            + "color_theme = ${pkgs.btop}/share/btop/themes/gruvbox_dark.theme"
+            # bpytop will crash if it tries to access /sys/class/power_supply
+            # in vpsAdminOS
             + lib.optionalString config.lunik1.home.vpsAdminOs ''
               show_battery=False
             '';
-          target = "bpytop/bpytop.conf";
+          target = "btop/btop.conf";
         };
         "neofetch" = {
           source = ../config/neofetch/config.conf;
