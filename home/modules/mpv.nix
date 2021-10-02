@@ -72,13 +72,14 @@ in {
         # youtube-dl
         ytdl-format =
           "(bestvideo[fps=60][height<=1080]/bestvideo[height<=1080])[vcodec!=vp9]+(bestaudio[acodec=opus]/bestaudio[ext=webm]/bestaudio)/best";
-        script-opts="ytdl_hook-ytdl_path=${nixpkgs.yt-dlp}/bin/yt-dlp";
+
+        # Script options
+        script-opts =
+          "osc-vidscale=no,osc-layout=bottombar,osc-scalewindowed=2.0,osc-scalefullscreen=2.0,osc-minmousemove=1,ytdl_hook-ytdl_path=${nixpkgs.yt-dlp}/bin/yt-dlp";
 
         # Other
         keep-open = "yes";
         idle = "yes";
-        script-opts =
-          "osc-vidscale=no,osc-layout=bottombar,osc-scalewindowed=2.0,osc-scalefullscreen=2.0,osc-minmousemove=1";
         cache = "auto";
         cache-on-disk = "yes";
         cache-dir = "~/.cache/mpv";
