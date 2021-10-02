@@ -75,7 +75,7 @@ in {
 
         # Script options
         script-opts =
-          "osc-vidscale=no,osc-layout=bottombar,osc-scalewindowed=2.0,osc-scalefullscreen=2.0,osc-minmousemove=1,ytdl_hook-ytdl_path=${nixpkgs.yt-dlp}/bin/yt-dlp";
+          "osc-vidscale=no,osc-layout=bottombar,osc-scalewindowed=2.0,osc-scalefullscreen=2.0,osc-minmousemove=1,ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
 
         # Other
         keep-open = "yes";
