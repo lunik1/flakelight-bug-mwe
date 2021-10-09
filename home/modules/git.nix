@@ -15,6 +15,7 @@ in {
           enable = true;
           options.syntax-theme = "gruvbox";
         };
+        init.defaultBracnh = "master";
         ignores = [
           "$RECYCLE.BIN/"
           "*.cab"
