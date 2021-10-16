@@ -15,7 +15,6 @@ in {
           enable = true;
           options.syntax-theme = "gruvbox";
         };
-        init.defaultBracnh = "master";
         ignores = [
           "$RECYCLE.BIN/"
           "*.cab"
@@ -80,6 +79,7 @@ in {
         userEmail = "ch.gpg@themaw.xyz";
         userName = "lunik1";
         extraConfig = {
+          init.defaultBracnh = "master";
           pull.rebase = "true";
           push.default = "current";
           diff.algorithm = "histogram";
