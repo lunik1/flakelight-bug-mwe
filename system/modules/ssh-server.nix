@@ -38,6 +38,7 @@ in {
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ0+cUVaESw5u7V/S7tAmKSYE0u0Ij7eOsxH2rgzGXLH corin@thesus"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMzMGelXQHdhXbxlTJ+DzW+b8Lojkawr7+9JmftgzeCI corin@dionysus2"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID17KStyIU+A23dghTW/6a/sR71Za8prKJcAkZrrhbJm corin@foureightynine"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1djimfe24mF+GRzwWlYULJtmJ7hbiMvSoel0tR4ZFd corin@hermes"
     ];
 
     # Also allow access with et
