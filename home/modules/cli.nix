@@ -27,6 +27,7 @@ in {
         glances
         imagemagick
         ix
+        kopia
         libarchive
         libwebp
         lrzip
