@@ -171,6 +171,22 @@ in {
           Nice = 19;
           IOSchedulingPriority = 7;
           CPUSchedulingPolicy = "batch";
+
+          CapabilityBoundingSet = "";
+          KeyringMode = "private";
+          LockPersonality = true;
+          MemoryDenyWriteExecute = true;
+          NoNewPrivileges = true;
+          PrivateTmp = true;
+          PrivateUsers = true;
+          ProtectSystem = "full";
+          RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          SystemCallArchitectures = "native";
+          SystemCallErrorNumber = "EPERM";
+          SystemCallFilter = "@system-service";
         };
       };
       timers.tldr = {
