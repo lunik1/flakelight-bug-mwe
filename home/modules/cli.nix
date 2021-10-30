@@ -162,6 +162,31 @@ in {
       };
     };
 
+    systemd.user = {
+      services.tldr = {
+        Unit.Description = "tldr cache update";
+
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.tealdeer}/bin/tldr --update";
+          Nice = 19;
+          IOSchedulingPriority = 7;
+          CPUSchedulingPolicy = "batch";
+        };
+      };
+      timers.tldr = {
+        Unit = { Description = "tldr cache update"; };
+
+        Timer = {
+          OnCalendar = "*-*-* 00:00";
+          Persistent = true;
+          Unit = "tldr.service";
+        };
+
+        Install = { WantedBy = [ "timers.target" ]; };
+      };
+    };
+
     xdg = {
       enable = true;
       dataFile = {
