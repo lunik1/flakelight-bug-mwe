@@ -91,13 +91,20 @@
         checks = {
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;
-            hooks = { nixfmt.enable = true; };
+            hooks = {
+              nixfmt.enable = true;
+              shellcheck.enable = true;
+            };
           };
         };
-
         devShell = pkgs.mkShell {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
-          buildInputs = with pkgs; [ nixfmt nix-linter nixpkgs-lint ];
+          buildInputs = with pkgs; [
+            nixfmt
+            nix-linter
+            nixpkgs-lint
+            shellcheck
+          ];
         };
       });
 }
