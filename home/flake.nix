@@ -5,6 +5,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-utils.url = "github:numtide/flake-utils";
     nixos-logo-gruvbox-wallpaper = {
       url = "github:lunik1/nixos-logo-gruvbox-wallpaper";
       flake = false;
@@ -16,6 +17,13 @@
     firefox-lepton = {
       url = "github:black7375/Firefox-UI-Fix";
       flake = false;
+    };
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
   };
 
@@ -77,5 +85,19 @@
         inherit inputs;
         inherit overlays;
       }).activationPackage;
-    };
+    } // inputs.flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = inputs.nixpkgs.legacyPackages.${system};
+      in {
+        checks = {
+          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = { nixfmt.enable = true; };
+          };
+        };
+
+        devShell = pkgs.mkShell {
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          buildInputs = with pkgs; [ nixfmt nix-linter nixpkgs-lint ];
+        };
+      });
 }
