@@ -5,6 +5,16 @@ in {
   options.lunik1.home.lang.python.enable = lib.mkEnableOption "Python";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ black poetry nodePackages.pyright python3 ];
+    home.packages = with pkgs;
+      [
+        (python3.withPackages (ps:
+          with ps; [
+            black
+            poetry
+            pylsp-mypy
+            python-lsp-black
+            python-lsp-server
+          ]))
+      ];
   };
 }
