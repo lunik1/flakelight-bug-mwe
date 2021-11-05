@@ -39,7 +39,9 @@ in {
       xz
       zstd
 
-      nixUnstable
+      # prevent collision with nix-zsh-completions (even though it isn't
+      # explicitly installed??)
+      (lib.hiPrio nix_2_4)
     ];
 
     # Use an if else to make sure config.nix is lazily loaded

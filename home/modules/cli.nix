@@ -34,7 +34,6 @@ in {
         lz4
         ncdu
         neofetch
-        nix-zsh-completions
         p7zip
         parallel
         parted
