@@ -23,6 +23,16 @@ inputs.home-manager.lib.homeManagerConfiguration {
       })
     ];
 
+    ## Machine-specifc dir hashes
+    programs.zsh.dirHashes = {
+      appdata = "/opt/appdata";
+      kopia = "/mnt/storage/backup/kopia";
+      movies = "/mnt/storage/Movies";
+      music = "/mnt/storage/Music";
+      storage = "/mnt/storage";
+      tv = "/mnt/storage/TV";
+    };
+
     lunik1.home = {
       core.enable = true;
       cli.enable = true;
