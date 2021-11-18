@@ -23,6 +23,7 @@ in {
 
   ## Config modules to use
   lunik1.system = {
+    backup.enable = true;
     containers.enable = true;
     network = {
       resolved.enable = true;

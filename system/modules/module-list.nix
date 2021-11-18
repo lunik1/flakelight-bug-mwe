@@ -1,5 +1,6 @@
 [
   ./base.nix
+  ./backup.nix
   ./bluetooth.nix
   ./containers.nix
   ./graphical.nix

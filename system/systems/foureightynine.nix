@@ -81,6 +81,7 @@ in {
 
   ## Config modules to use
   lunik1.system = {
+    backup.enable = true;
     bluetooth.enable = true;
     graphical.enable = true;
     hidpi.enable = true;
