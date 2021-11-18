@@ -92,6 +92,7 @@ in {
     pulp-io.enable = true;
     sound.enable = true;
     systemd-boot.enable = true;
+    zswap.enable = true;
   };
 
   # Provide sway
