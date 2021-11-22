@@ -86,6 +86,10 @@
         inherit inputs;
         inherit overlays;
       }).activationPackage;
+      vegas = (import home-configurations/vegas.nix {
+        inherit inputs;
+        inherit overlays;
+      }).activationPackage;
     } // inputs.flake-utils.lib.eachDefaultSystem (system:
       let pkgs = inputs.nixpkgs.legacyPackages.${system};
       in {
