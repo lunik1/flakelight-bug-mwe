@@ -23,6 +23,9 @@ inputs.home-manager.lib.homeManagerConfiguration {
       };
     };
 
+    ## Machine-specifc dir hashes
+    programs.zsh.dirHashes = { win = "/mnt/c/Users/chmic"; };
+
     lunik1.home = {
       core.enable = true;
       cli.enable = true;
