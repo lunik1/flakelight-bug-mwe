@@ -177,8 +177,6 @@ in {
       };
     };
 
-    services.xsettingsd.enable = true;
-
     xdg = {
       enable = true;
       configFile = {
