@@ -36,7 +36,6 @@ inputs.home-manager.lib.homeManagerConfiguration {
       };
       fonts.enable = true;
       git.enable = true;
-      gpgKeyInstalled = false;
       gpg.enable = true;
       neovim.enable = true;
       wsl.enable = true;
