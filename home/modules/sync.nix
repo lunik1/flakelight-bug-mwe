@@ -6,18 +6,17 @@ let cfg = config.lunik1.home;
 in {
   options.lunik1.home = {
     megacmd.enable = lib.mkEnableOption "MEGAcmd";
+    megasync.enable = lib.mkEnableOption "MEGAsync";
     syncthing.enable = lib.mkEnableOption "syncthing";
   };
 
   config = {
-    home.packages = with pkgs; lib.mkIf cfg.megacmd.enable [ megacmd ];
+    home.packages = with pkgs;
+      [ ] ++ lib.optional cfg.megacmd.enable megacmd
+      ++ lib.optional cfg.megasync.enable megasync;
 
-    services = lib.mkIf cfg.syncthing.enable {
-      syncthing = {
-        enable = true;
-        tray = false; # does not work on wayland
-      };
-    };
+    services =
+      lib.mkIf cfg.syncthing.enable { syncthing = { enable = true; }; };
 
     systemd.user = lib.mkIf cfg.megacmd.enable {
       startServices = "sd-switch";

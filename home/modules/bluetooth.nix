@@ -9,6 +9,9 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ blueman bluezFull ];
     lunik1.home.waybar.bluetoothModule = true;
-    services.blueman-applet.enable = true;
+
+    # KDE has its own applet
+    services.blueman-applet =
+      lib.mkIf (!config.lunik1.home.kde.enable) { enable = true; };
   };
 }

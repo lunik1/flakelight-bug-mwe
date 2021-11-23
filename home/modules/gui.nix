@@ -18,8 +18,6 @@ in {
         hunspellDicts.en-gb-ise # needed for libreoffice
         krita
         libreoffice-fresh # TODO languagetool
-        networkmanager_dmenu
-        networkmanagerapplet
         # libsixel
         opera
         pavucontrol
@@ -28,7 +26,6 @@ in {
         teams
         thunderbird
         xdg_utils
-        xfce.thunar
 
         myosevka-aile
       ];
@@ -45,7 +42,7 @@ in {
       feh.enable = true;
       firefox = {
         enable = true;
-        package = pkgs.firefox-wayland;
+        package = pkgs.firefox-bin; # pkgs.firefox crashes on YouTube on tucson
         profiles.corin = {
           isDefault = true;
           extraConfig = builtins.readFile "${pkgs.firefox-lepton}/user.js";
@@ -108,96 +105,10 @@ in {
           };
         };
       };
-      foot = {
-        enable = true;
-        server.enable = true;
-        settings = {
-          main = {
-            # term = "foot-direct"; # breaks zsh syntax highlighting
-            font = "Myosevka Light:size=6.8";
-          };
-          scrollback.lines = 5000;
-          cursor.blink = true;
-          colors = builtins.mapAttrs (_: lib.removePrefix "#") {
-            foreground = gruvbox.dark.fg;
-            background = gruvbox.dark.bg;
-            regular0 = gruvbox.dark.black.normal;
-            regular1 = gruvbox.dark.red.normal;
-            regular2 = gruvbox.dark.green.normal;
-            regular3 = gruvbox.dark.yellow.normal;
-            regular4 = gruvbox.dark.blue.normal;
-            regular5 = gruvbox.dark.purple.normal;
-            regular6 = gruvbox.dark.cyan.normal;
-            regular7 = gruvbox.dark.white.normal;
-            bright0 = gruvbox.dark.black.bright;
-            bright1 = gruvbox.dark.red.bright;
-            bright2 = gruvbox.dark.green.bright;
-            bright3 = gruvbox.dark.yellow.bright;
-            bright4 = gruvbox.dark.blue.bright;
-            bright5 = gruvbox.dark.purple.bright;
-            bright6 = gruvbox.dark.cyan.bright;
-            bright7 = gruvbox.dark.white.bright;
-            urls = gruvbox.dark.orange.normal;
-          };
-        };
-      };
-      zathura = {
-        enable = true;
-        options = import ../config/zathura/zathura.nix;
-      };
-    };
-
-    # TODO find/make a gruvbox gtk theme (use oomox?)
-    gtk = {
-      enable = true;
-      font = {
-        package = pkgs.myosevka-aile;
-        name = "Myosevka Aile 11";
-      };
-      iconTheme = {
-        package = pkgs.qogir-theme;
-        name = "Qogir";
-      };
-      theme = {
-        package = pkgs.qogir-icon-theme;
-        name = "Qogir";
-      };
-      gtk2.extraConfig = ''
-        gtk-error-bell = 0
-      '';
-      gtk3.extraConfig.gtk-error-bell = 0;
-    };
-
-    qt = {
-      enable = true;
-      platformTheme = "gtk";
-      style = {
-        package = pkgs.arc-kde-theme;
-        name = "Arc";
-      };
     };
 
     xdg = {
       enable = true;
-      configFile = {
-        "networkmanager_dmenu" = {
-          text = ''
-            [dmenu]
-            dmenu_command = ${pkgs.dmenu-wayland}/bin/dmenu-wl
-            fn = Myosevka Proportional 14
-            nb = ${gruvbox.dark.bg}
-            nf = ${gruvbox.dark.fg}
-            sb = ${gruvbox.light.bg}
-            sf =  ${gruvbox.light.fg}
-            pinentry = ${pkgs.pinentry-gtk2}/bin/pinentry-gtk-2
-            wifi_chars = ▂▄▆█
-
-            [editor]
-            terminal = foot
-          '';
-          target = "networkmanager-dmenu/config.ini";
-        };
-      };
       mime.enable = true;
       mimeApps = {
         enable = true;
@@ -214,29 +125,11 @@ in {
 
           "x-scheme-handler/skype" = [ "skypeforlinux.desktop" ];
 
-          "inode/directory" = [ "thunar.desktop" ];
-
           "message/rfc822" = [ "thunderbird.desktop" ];
           "x-scheme-handler/mailto" = [ "thunderbird.desktop" ];
           "x-scheme-handler/news" = [ "thunderbird.desktop" ];
           "x-scheme-handler/nntp" = [ "thunderbird.desktop" ];
           "x-scheme-handler/snews" = [ "thunderbird.desktop" ];
-
-          "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
-          "appliction/oxps" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
-          "application/x-fictionbook" =
-            [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
-          "application/epub+zip" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
-          "application/x-cbr" = [ "org.pwmt.zathura-cb.desktop" ];
-          "application/x-cb7" = [ "org.pwmt.zathura-cb.desktop" ];
-          "application/x-cbt" = [ "org.pwmt.zathura-cb.desktop" ];
-          "image/vnd.djvu" = [ "org.pwmt.zathura-djvu.desktop" ];
-          "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-djvu.desktop" ];
-          "application/postscript" = [ "org.pwmt.zathura-ps.desktop" ];
-          "application/eps" = [ "org.pwmt.zathura-ps.desktop" ];
-          "application/x-eps" = [ "org.pwmt.zathura-ps.desktop" ];
-          "image/eps" = [ "org.pwmt.zathura-ps.desktop" ];
-          "image/x-eps" = [ "org.pwmt.zathura-ps.desktop" ];
 
           # Libreoffice
           "application/vnd.openofficeorg.extension" = [ "startcenter.desktop" ];

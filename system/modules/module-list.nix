@@ -1,4 +1,5 @@
 [
+  ./amdgpu.nix
   ./base.nix
   ./backup.nix
   ./bluetooth.nix
@@ -6,6 +7,7 @@
   ./graphical.nix
   ./grub.nix
   ./hidpi.nix
+  ./kde.nix
   ./laptop.nix
   ./locate.nix
   ./network.nix

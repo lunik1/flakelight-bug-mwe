@@ -14,155 +14,171 @@ in {
   };
 
   config = lib.mkIf cfg.sway.enable {
-    home.packages = with pkgs; [
-      myosevka
-      myosevka-proportional
-      material-design-icons
-      wev
-    ];
+    home = {
+      packages = with pkgs; [
+        myosevka
+        myosevka-proportional
+        material-design-icons
+        wev
 
-    programs.waybar = {
-      enable = true;
-      package = pkgs.waybar.override { pulseSupport = true; };
-      settings = [{
-        layer = "bottom";
-        position = "bottom";
-        # output = [ "eDP-1" ];
-        height = 30;
-        modules-left = [ "sway/workspaces" "sway/mode" "idle_inhibitor" "mpd" ];
-        modules-right = with config.lunik1.home.waybar;
-          ([ "temperature" "cpu" "backlight" ]
-            ++ lib.optional batteryModule "battery"
-            ++ [ "memory" "disk" "network" ]
-            ++ lib.optional bluetoothModule "bluetooth" ++ [
-              "pulseaudio"
-              "clock"
-              # "tray"
-            ]);
-        modules = {
-          "sway/workspaces".numeric-first = true;
-          mpd = {
-            format =
-              "{stateIcon}{repeatIcon}{randomIcon}{singleIcon}{consumeIcon} {title} – {artist}";
-            format-stopped = "";
-            format-disconnected = "";
-            interval = 5;
-            max-length = 40;
-            state-icons = {
-              playing = "󰐊";
-              paused = "󰏤";
+        networkmanager_dmenu
+        networkmanagerapplet
+        xfce.thunar
+      ];
+
+      sessionVariables = { MOZ_ENABLE_WAYLAND = "1"; };
+    };
+
+    programs = {
+      waybar = {
+        enable = true;
+        package = pkgs.waybar.override { pulseSupport = true; };
+        settings = [{
+          layer = "bottom";
+          position = "bottom";
+          # output = [ "eDP-1" ];
+          height = 30;
+          modules-left =
+            [ "sway/workspaces" "sway/mode" "idle_inhibitor" "mpd" ];
+          modules-right = with config.lunik1.home.waybar;
+            ([ "temperature" "cpu" "backlight" ]
+              ++ lib.optional batteryModule "battery"
+              ++ [ "memory" "disk" "network" ]
+              ++ lib.optional bluetoothModule "bluetooth" ++ [
+                "pulseaudio"
+                "clock"
+                # "tray"
+              ]);
+          modules = {
+            "sway/workspaces".numeric-first = true;
+            mpd = {
+              format =
+                "{stateIcon}{repeatIcon}{randomIcon}{singleIcon}{consumeIcon} {title} – {artist}";
+              format-stopped = "";
+              format-disconnected = "";
+              interval = 5;
+              max-length = 40;
+              state-icons = {
+                playing = "󰐊";
+                paused = "󰏤";
+              };
+              consume-icons = {
+                on = "󰮯";
+                off = "";
+              };
+              random-icons = {
+                on = "󰒟";
+                off = "";
+              };
+              repeat-icons = {
+                on = "󰑖";
+                off = "";
+              };
+              single-icons = {
+                on = "󰎤";
+                off = "";
+              };
             };
-            consume-icons = {
-              on = "󰮯";
-              off = "";
+            pulseaudio = {
+              on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+              on-click-right =
+                "${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
+              format-icons = {
+                # TODO bluetooth + muted icons? (needs support upstream?)
+                car = "󰄋";
+                hands-free = "󰋎";
+                hdmi = "󰡁";
+                headphone = "󰋋";
+                headset = "󰋎";
+                hifi = "󰗜";
+                phone = "󰏶";
+                portable = "󰏶";
+                default = [ "󰕿" "󰖀" "󰕾" ];
+              };
+              format = "{icon}{volume:3}%";
+              format-bluetooth = "{icon}󰂯{volume:3}%";
+              format-muted = "󰝟{volume:3}%";
             };
-            random-icons = {
-              on = "󰒟";
-              off = "";
+            backlight = {
+              format = "{icon}{percent:3}%";
+              format-icons = [ "󰌵" "󱉕" "󱉓" ];
+              on-scroll-up = "${pkgs.light}/bin/light -A 1";
+              on-scroll-down = "${pkgs.light}/bin/light -U 1";
+              on-click-right = "${pkgs.light}/bin/light -S 100";
+              on-click-middle = "${pkgs.light}/bin/light -S 0";
             };
-            repeat-icons = {
-              on = "󰑖";
-              off = "";
+            memory = {
+              format = "󰩾 {used:0.2f}GiB";
+              interval = 5;
             };
-            single-icons = {
-              on = "󰎤";
-              off = "";
+            cpu = {
+              # TODO When 0.9.6 is released use format-state
+              # https://github.com/Alexays/Waybar/pull/881
+              format = "󰊚{usage:3}%";
+              interval = 1;
             };
-          };
-          pulseaudio = {
-            on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
-            on-click-right =
-              "${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
-            format-icons = {
-              # TODO bluetooth + muted icons? (needs support upstream?)
-              car = "󰄋";
-              hands-free = "󰋎";
-              hdmi = "󰡁";
-              headphone = "󰋋";
-              headset = "󰋎";
-              hifi = "󰗜";
-              phone = "󰏶";
-              portable = "󰏶";
-              default = [ "󰕿" "󰖀" "󰕾" ];
+            temperature = {
+              format = "󰔏{temperatureC}°C";
+              format-critical = "󰸁 {temperatureC}°C";
+              interval = 1;
+              critical_threshold = 90;
+              hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
             };
-            format = "{icon}{volume:3}%";
-            format-bluetooth = "{icon}󰂯{volume:3}%";
-            format-muted = "󰝟{volume:3}%";
-          };
-          backlight = {
-            format = "{icon}{percent:3}%";
-            format-icons = [ "󰌵" "󱉕" "󱉓" ];
-            on-scroll-up = "${pkgs.light}/bin/light -A 1";
-            on-scroll-down = "${pkgs.light}/bin/light -U 1";
-            on-click-right = "${pkgs.light}/bin/light -S 100";
-            on-click-middle = "${pkgs.light}/bin/light -S 0";
-          };
-          memory = {
-            format = "󰩾 {used:0.2f}GiB";
-            interval = 5;
-          };
-          cpu = {
-            # TODO When 0.9.6 is released use format-state
-            # https://github.com/Alexays/Waybar/pull/881
-            format = "󰊚{usage:3}%";
-            interval = 1;
-          };
-          temperature = {
-            format = "󰔏{temperatureC}°C";
-            format-critical = "󰸁 {temperatureC}°C";
-            interval = 1;
-            critical_threshold = 90;
-            hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
-          };
-          disk = {
-            format = "󰋊{percentage_used:3}%";
-            interval = 60;
-          };
-          network = {
-            format-wifi = "{icon}";
-            interval = 20;
-            format-ethernet = "󰈀";
-            format-linked = "󰌷";
-            format-icons = [ "󰤫" "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-            format-disconnected = "󰤮";
-            on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
-            tooltip-format =
-              "󰩟{ipaddr} 󰀂{essid} {frequency} {icon}{signalStrength} 󰕒{bandwidthUpBits} 󰇚{bandwidthDownBits}";
-          };
-          bluetooth = {
-            format-icons = {
-              disabled = "󰂲";
-              enabled = "󰂯";
+            disk = {
+              format = "󰋊{percentage_used:3}%";
+              interval = 60;
             };
-            on-click = "${pkgs.blueman}/bin/blueman-manager";
-            # TODO rfkill to disable/enable on right click
-          };
-          battery = {
-            format = "{icon}";
-            rotate = 270;
-            # TODO set different icons when charging (currently broken?)
-            format-icons = [ "󱃍" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
-            states = {
-              critical = 10;
-              warning = 30;
+            network = {
+              format-wifi = "{icon}";
+              interval = 20;
+              format-ethernet = "󰈀";
+              format-linked = "󰌷";
+              format-icons = [ "󰤫" "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
+              format-disconnected = "󰤮";
+              on-click =
+                "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
+              tooltip-format =
+                "󰩟{ipaddr} 󰀂{essid} {frequency} {icon}{signalStrength} 󰕒{bandwidthUpBits} 󰇚{bandwidthDownBits}";
             };
-            # TODO % capacity in tooltip
-          };
-          idle_inhibitor = {
-            format = "{icon}";
-            format-icons = {
-              activated = "󰅶";
-              deactivated = "󰾪";
+            bluetooth = {
+              format-icons = {
+                disabled = "󰂲";
+                enabled = "󰂯";
+              };
+              on-click = "${pkgs.blueman}/bin/blueman-manager";
+              # TODO rfkill to disable/enable on right click
+            };
+            battery = {
+              format = "{icon}";
+              rotate = 270;
+              # TODO set different icons when charging (currently broken?)
+              format-icons = [ "󱃍" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+              states = {
+                critical = 10;
+                warning = 30;
+              };
+              # TODO % capacity in tooltip
+            };
+            idle_inhibitor = {
+              format = "{icon}";
+              format-icons = {
+                activated = "󰅶";
+                deactivated = "󰾪";
+              };
+            };
+            clock = {
+              interval = 1;
+              format = "󰅐 {:%T}";
+              tooltip-format = "{:%F}";
             };
           };
-          clock = {
-            interval = 1;
-            format = "󰅐 {:%T}";
-            tooltip-format = "{:%F}";
-          };
-        };
-      }];
-      style = import ../config/waybar/style.nix;
+        }];
+        style = import ../config/waybar/style.nix;
+      };
+      zathura = {
+        enable = true;
+        options = import ../config/zathura/zathura.nix;
+      };
     };
 
     wayland.windowManager.sway = let
@@ -341,6 +357,50 @@ in {
       '';
       # systemdIntegration = true;
       # wrapperFeatures.gtk = true;
+    };
+
+    xdg = {
+      enable = true;
+      configFile = {
+        "networkmanager_dmenu" = {
+          text = ''
+            [dmenu]
+            dmenu_command = ${pkgs.dmenu-wayland}/bin/dmenu-wl
+            fn = Myosevka Proportional 14
+            nb = ${gruvbox.dark.bg}
+            nf = ${gruvbox.dark.fg}
+            sb = ${gruvbox.light.bg}
+            sf =  ${gruvbox.light.fg}
+            pinentry = ${pkgs.pinentry-gtk2}/bin/pinentry-gtk-2
+            wifi_chars = ▂▄▆█
+
+            [editor]
+            terminal = foot
+          '';
+          target = "networkmanager-dmenu/config.ini";
+        };
+      };
+      mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "inode/directory" = [ "thunar.desktop" ];
+          "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+          "appliction/oxps" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+          "application/x-fictionbook" =
+            [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+          "application/epub+zip" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+          "application/x-cbr" = [ "org.pwmt.zathura-cb.desktop" ];
+          "application/x-cb7" = [ "org.pwmt.zathura-cb.desktop" ];
+          "application/x-cbt" = [ "org.pwmt.zathura-cb.desktop" ];
+          "image/vnd.djvu" = [ "org.pwmt.zathura-djvu.desktop" ];
+          "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-djvu.desktop" ];
+          "application/postscript" = [ "org.pwmt.zathura-ps.desktop" ];
+          "application/eps" = [ "org.pwmt.zathura-ps.desktop" ];
+          "application/x-eps" = [ "org.pwmt.zathura-ps.desktop" ];
+          "image/eps" = [ "org.pwmt.zathura-ps.desktop" ];
+          "image/x-eps" = [ "org.pwmt.zathura-ps.desktop" ];
+        };
+      };
     };
   };
 }

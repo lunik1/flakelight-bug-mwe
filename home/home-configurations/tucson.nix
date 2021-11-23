@@ -4,7 +4,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
   system = "x86_64-linux";
   username = "corin";
   homeDirectory = "/home/corin";
-  stateVersion = "20.09";
+  stateVersion = "21.05";
   configuration = { pkgs, ... }: {
     require = import ../modules/module-list.nix;
 
@@ -12,8 +12,6 @@ inputs.home-manager.lib.homeManagerConfiguration {
     nixpkgs.overlays = overlays;
 
     lunik1.home = {
-      waybar.batteryModule = true;
-
       core.enable = true;
       cli.enable = true;
       gui.enable = true;
@@ -24,14 +22,21 @@ inputs.home-manager.lib.homeManagerConfiguration {
       games.cli.enable = true;
       git.enable = true;
       gpg.enable = true;
-      gtk.enable = true;
-      megacmd.enable = true;
-      mpv.enable = true;
-      music.enable = true;
+      kde.enable = true;
+      megasync.enable = true;
+      mpv = {
+        enable = true;
+        profile = "placebo";
+      };
       neovim.enable = true;
       pulp-io.enable = true;
-      sway.enable = true;
       syncthing.enable = true;
+
+      games = {
+        emu.enable = true;
+        minecraft.enable = true;
+        steam.enable = true;
+      };
 
       lang = {
         c.enable = true;

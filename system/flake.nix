@@ -26,6 +26,10 @@
           system = "x86_64-linux";
           modules = [ (import systems/hermes.nix) ];
         };
+        tucson = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ (import systems/tucson.nix) ];
+        };
       };
     } // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
