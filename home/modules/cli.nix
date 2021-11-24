@@ -130,7 +130,7 @@ in {
           source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
         '';
         initExtra = ''
-          xsource ${../config/zsh/.zshrc.local}
+          xsource ${../config/zsh/zshrc.local}
         '';
         envExtra = ''
           export PATH=$HOME/bin:$HOME/.cargo/bin/:$PATH
