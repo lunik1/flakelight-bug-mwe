@@ -1,14 +1,21 @@
 # mpv configuration
-# TODO tuned for laptop, needs to be made more configurable
 
 { config, lib, pkgs, ... }:
 
+with lib;
+
 let cfg = config.lunik1.home.mpv;
 in {
-  options.lunik1.home.mpv.enable = lib.mkEnableOption "mpv";
+  options.lunik1.home.mpv = with types; {
+    enable = mkEnableOption "mpv";
+    profile = mkOption {
+      default = "potato";
+      type = enum [ "potato" "placebo" ];
+    };
+  };
 
-  config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ playerctl xdg_utils ];
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [ playerctl plex-mpv-shim xdg_utils ];
 
     programs.mpv = {
       enable = true;
@@ -16,77 +23,128 @@ in {
         autoload
         mpris
         mpv-playlistmanager
-        # thumbnail # performance-intensive
+        # thumbnail # broken
       ];
-      config = {
-        # Video
-        # profile = "gpu-hq";
-        vo = "gpu";
-        scale = "bicubic_fast";
-        cscale = "bicubic_fast";
-        dscale = "bilinear";
-        # tscale="robidouxsharp";
-        scale-antiring = 1;
-        cscale-antiring = 1;
-        sigmoid-upscaling = "yes";
-        # tscale-clamp;
-        scaler-resizes-only = "yes";
-        dither-depth = "auto";
-        dither-size-fruit = 6;
-        temporal-dither = "yes";
-        gamma-factor = "0.9338";
-        deband = "no"; # performance-intensive
-        gpu-context = "wayland";
-        hwdec = "auto-safe";
-        target-prim = "bt.709";
-        video-output-levels = "full";
-        video-sync = "display-resample";
-        # interpolation;
-        vd-lavc-skiploopfilter = "bidir";
-        sws-scaler = "x";
-        screenshot-format = "png";
-        screenshot-png-compression = 0;
-        screenshot-png-filter = 0;
-        screenshot-tag-colorspace = "yes";
-        screenshot-high-bit-depth = "yes";
-        geometry = "50%:50%";
-        autofit = "90%x90%";
-        autofit-larger = "90%x90%";
-        # vo-vaapi-deint-mode = "bob";
-        vd-lavc-threads = 4;
+      config = with cfg;
+        {
+          # Video
+          vo = "gpu";
+          video-output-levels = "full";
+          screenshot-format = "webp";
+          screenshot-webp-lossless = "yes";
+          screenshot-webp-compression = 6;
+          screenshot-tag-colorspace = "yes";
+          screenshot-high-bit-depth = "yes";
+          vlang = "enGB,en-GB,eng,en,english,enUS,en-US,jpn,jp";
+          hwdec-codecs = "all";
+          gpu-api = "opengl";
+          video-latency-hacks = "yes";
+          gamma-factor = 1.1;
+          temporal-dither = "yes";
+          dither-depth = "auto";
+          sigmoid-upscaling = "yes";
+          scaler-resizes-only = "yes";
+          sws-scaler = "x";
+          scaler-lut-size = 10;
 
-        # Audio
-        ao = "pulse";
-        audio-channels = "auto";
-        volume-max = 200;
-        alang = "en,eng,english";
-        ad = "lavc:libdcadec";
+          # Audio
+          ao = "pulse";
+          audio-channels = "auto";
+          volume-max = 200;
+          alang = "enGB,en-GB,eng,en,english,enUS,en-US,jpn,jp";
+          audio-file-auto = "fuzzy";
+          ad-lavc-threads = 0;
 
-        # Subtitles
-        sub-ass-vsfilter-color-compat = "full";
-        sub-ass-force-style = "Kerning=yes";
-        demuxer-mkv-subtitle-preroll = "yes";
-        slang = "en,eng,english";
-        sub-auto = "all";
+          # Subtitles
+          sub-ass-vsfilter-color-compat = "full";
+          sub-ass-vsfilter-aspect-compat = "no";
+          sub-ass-force-style = "Kerning=yes";
+          demuxer-mkv-subtitle-preroll = "yes";
+          sub-auto = "fuzzy";
+          slang = "enGB,en-GB,eng,en,english,enUS,en-US";
+          sid = "no";
+          sub-fix-timing = "yes";
+          sub-file-paths = "sub";
+          sub-gauss = 0.75;
+          sub-gray = "yes";
+          blend-subtitles = "yes";
 
-        # youtube-dl
-        ytdl-format =
-          "(bestvideo[fps=60][height<=1080]/bestvideo[height<=1080])[vcodec!=vp9]+(bestaudio[acodec=opus]/bestaudio[ext=webm]/bestaudio)/best";
+          # Playback
+          demuxer-cache-wait = "no";
+          hr-seek-framedrop = "no";
 
-        # Script options
-        script-opts =
-          "osc-vidscale=no,osc-layout=bottombar,osc-scalewindowed=2.0,osc-scalefullscreen=2.0,osc-minmousemove=1,ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
+          # Window
+          geometry = "50%:50%";
+          autofit = "90%x90%";
+          autofit-larger = "90%x90%";
 
-        # Other
-        keep-open = "yes";
-        idle = "yes";
-        cache = "auto";
-        cache-on-disk = "yes";
-        cache-dir = "~/.cache/mpv";
-        demuxer-readahead-secs = 20;
-        demuxer-max-bytes = "10GiB";
-        force-window = "yes";
-        no-resume-playback = "";
+          # UI
+          msg-color = "yes";
+          term-osd-bar = "yes";
+          osc = "yes";
+
+          # Behaviour
+          keep-open = "yes";
+          idle = "yes";
+          cache = "auto";
+          cache-on-disk = "yes";
+          cache-dir = "/tmp";
+          demuxer-readahead-secs = 20;
+          demuxer-max-bytes = "10GiB";
+          force-window = "yes";
+          no-resume-playback = "";
+
+          script-opts =
+            "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp,autocrop-auto=no";
+        } // optionalAttrs (profile == "potato") {
+          vo = "gpu";
+          scale = "bicubic_fast";
+          cscale = "bicubic_fast";
+          dscale = "bilinear";
+          scale-antiring = 0.7;
+          cscale-antiring = 0.7;
+          sigmoid-upscaling = "yes";
+          deband = "no";
+          vd-lavc-skiploopfilter = "bidir";
+
+          hwdec = "auto-safe";
+
+          ytdl-format = "bestvideo[height<=1080]+bestaudio/best[height<=1080]";
+        } // optionalAttrs (profile == "placebo") {
+          profile = "gpu-hq";
+          scale = "ewa_lanczos";
+          cscale = "ewa_lanczos";
+          dscale = "mitchell";
+          linear-downscaling = "no";
+          correct-downscaling = "yes";
+
+          deband = "yes";
+          deband-iterations = 4;
+          deband-range = 8;
+
+          icc-profile-auto = "";
+          icc-3dlut-size = "266x256x256";
+          # icc-cache-dir = "~/.cache/mpv/icc";
+
+          glsl-shaders = "${../resources/mpv/shaders/KrigBilateral.glsl}:${
+              ../resources/mpv/shaders/FSRCNNX_x2_16-0-4-1.glsl
+            }:${../resources/mpv/shaders/SSimDownscaler.glsl}:${
+              ../resources/mpv/shaders/FSRCNNX_x2_16-0-4-1.glsl
+            }";
+
+          ytdl-format = "bestvideo+bestaudio/best";
+        };
+      profiles = {
+        "protocol.http" = {
+          hls-bitrate = "max";
+          cache = "yes";
+          cache-on-disk = "yes";
+          demuxer-max-bytes = "4000MiB";
+          demuxer-max-back-bytes = "4000MiB";
+        };
+        "protocol.https" = { profile = "protocol.http"; };
+        "protocol.ytdl" = { profile = "protocol.http"; };
+        "protocol.smb" = { profile = "protocol.http"; };
       };
     };
 
