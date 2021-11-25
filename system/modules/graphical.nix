@@ -23,8 +23,8 @@ in {
     };
 
     services = {
+      colord.enable = true;
       gpm.enable = true;
-
       dbus.packages = with pkgs; [ gnome3.dconf ];
     };
 
