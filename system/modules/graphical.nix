@@ -28,6 +28,8 @@ in {
       dbus.packages = with pkgs; [ gnome3.dconf ];
     };
 
+    services.xserver.layout = "gb";
+
     fonts = {
       enableDefaultFonts = true;
       # Needed fonts should be installed by home configuration
