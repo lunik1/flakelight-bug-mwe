@@ -19,12 +19,12 @@ in {
         krita
         libreoffice-fresh # TODO languagetool
         # libsixel
-        opera
         pavucontrol
         qdirstat
         skypeforlinux
         teams
         thunderbird
+        ungoogled-chromium
         xdg_utils
 
         myosevka-aile
@@ -119,7 +119,6 @@ in {
           "x-scheme-handler/http" = [ "firefox.desktop" ];
           "x-scheme-handler/https" = [ "firefox.desktop" ];
           "x-scheme-handler/unknown" = [ "firefox.desktop" ];
-          "application/x-opera-download" = [ "opera.desktop" ];
 
           "x-scheme-handler/msteams" = [ "teams.desktop" ];
 
