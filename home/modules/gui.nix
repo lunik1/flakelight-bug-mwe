@@ -20,7 +20,6 @@ in {
         krita
         jitsi-meet-electron
         libreoffice-fresh # TODO languagetool
-        # libsixel
         pavucontrol
         qdirstat
         skypeforlinux
