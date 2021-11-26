@@ -18,6 +18,7 @@ in {
         gnome3.gucharmap
         hunspellDicts.en-gb-ise # needed for libreoffice
         krita
+        jitsi-meet-electron
         libreoffice-fresh # TODO languagetool
         # libsixel
         pavucontrol
