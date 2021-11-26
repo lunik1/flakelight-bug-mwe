@@ -14,6 +14,7 @@ in {
       libsForQt5.krunner-symbols
       libsForQt5.okular
       syncthingtray
+      featherpad
     ];
 
     services.kdeconnect.enable = true;
