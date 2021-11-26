@@ -44,7 +44,11 @@ in {
       feh.enable = true;
       firefox = {
         enable = true;
-        package = pkgs.firefox-bin; # pkgs.firefox crashes on YouTube on tucson
+        package = pkgs.firefox-bin.override {
+          cfg = {
+            enablePlasmaBrowserIntegration = config.lunik1.home.kde.enable;
+          };
+        };
         profiles.corin = {
           isDefault = true;
           extraConfig = builtins.readFile "${pkgs.firefox-lepton}/user.js";
