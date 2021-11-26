@@ -11,6 +11,7 @@ in {
       packages = with pkgs; [
         bitwarden
         bleachbit
+        dbeaver
         discord
         element-desktop
         gimp
