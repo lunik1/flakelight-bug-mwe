@@ -9,12 +9,12 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      featherpad
       libsForQt5.ark
       libsForQt5.kcalc
       libsForQt5.krunner-symbols
       libsForQt5.okular
       syncthingtray
-      featherpad
     ];
 
     services.kdeconnect.enable = true;

@@ -19,7 +19,6 @@ in {
         hunspellDicts.en-gb-ise # needed for libreoffice
         krita
         jitsi-meet-electron
-        libreoffice-fresh # TODO languagetool
         pavucontrol
         qdirstat
         skypeforlinux
@@ -27,6 +26,11 @@ in {
         thunderbird
         ungoogled-chromium
         xdg_utils
+
+        (if config.lunik1.home.kde.enable then
+          libreoffice-qt
+        else
+          libreoffice-fresh)
 
         myosevka-aile
       ];
