@@ -13,15 +13,20 @@ in {
     kernelPackages = pkgs.linuxPackages_zen;
 
     blacklistedKernelModules = [ "iCTO_wdt" ]; # watchdog module
+
+    initrd = {
+      luks.devices.nixos = {
+        preLVM = true;
+        allowDiscards = true;
+        device = "/dev/disk/by-uuid/cdd84488-5be8-44a3-b886-ae2492d2be29";
+      };
+      availableKernelModules =
+        [ "nvme" "xhci_pci" "ahci" "uas" "usb_storage" "usbhid" "sd_mod" ];
+      kernelModules = [ "dm-snapshot" ];
+    };
+
+    tmpOnTmpfs = true;
   };
-  boot.initrd.luks.devices.nixos = {
-    preLVM = true;
-    allowDiscards = true;
-    device = "/dev/disk/by-uuid/cdd84488-5be8-44a3-b886-ae2492d2be29";
-  };
-  boot.initrd.availableKernelModules =
-    [ "nvme" "xhci_pci" "ahci" "uas" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/91ba7453-e8af-4bc6-ba40-6444992232f9";
