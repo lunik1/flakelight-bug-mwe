@@ -23,6 +23,7 @@ in {
         autoload
         mpris
         mpv-playlistmanager
+        youtube-quality
         # thumbnail # broken
       ];
       config = with cfg;
