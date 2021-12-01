@@ -81,8 +81,8 @@
     autoOptimiseStore = true;
 
     # try to make the system a bit more responsive while nix is operating
-    daemonNiceLevel = 5;
-    daemonIONiceLevel = 3;
+    daemonCPUSchedPolicy = "batch";
+    daemonIOSchedPriority = 3;
 
     # enable flakes
     package = pkgs.nixUnstable;
