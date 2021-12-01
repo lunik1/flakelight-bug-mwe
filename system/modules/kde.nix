@@ -9,7 +9,7 @@ in {
     sddm.enable = lib.mkEnableOption "SDDM greeter";
   };
 
-  config = {
+  config = lib.mkIf (cfg.kde.enable || cfg.sddm.enable) {
     assertions = [{
       assertion = config.lunik1.system.graphical.enable;
       message = "KDE/SDDM can only be used on graphical systems";
