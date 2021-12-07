@@ -17,15 +17,11 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ playerctl plex-mpv-shim xdg_utils ];
 
-    programs.mpv = {
+    programs.mpv = rec {
       enable = true;
-      scripts = with pkgs.mpvScripts; [
-        autoload
-        mpris
-        mpv-playlistmanager
-        pkgs.mpv-youtube-quality
-        # thumbnail # broken
-      ];
+      scripts = with pkgs.mpvScripts;
+        [ autoload mpris mpv-playlistmanager pkgs.mpv-youtube-quality ]
+        ++ lib.optional (cfg.profile == "placebo") thumbnail;
       config = with cfg;
         {
           # Video
@@ -82,7 +78,7 @@ in {
           # UI
           msg-color = "yes";
           term-osd-bar = "yes";
-          osc = "yes";
+          osc = if elem pkgs.mpvScripts.thumbnail scripts then "no" else "yes";
 
           # Behaviour
           keep-open = "yes";
@@ -164,6 +160,13 @@ in {
         "youtube-quality.conf" = {
           text = "style_ass_tags={\\fnmonospace\\fs50}";
           target = "mpv/script-opts/youtube-quality.conf";
+        };
+        "mpv_thumbnail_script.conf" = {
+          text = ''
+            autogenerate_max_duration=18000
+            thumbnail_network=yes
+          '';
+          target = "mpv/script-opts/mpv_thumbnail_script.conf";
         };
       };
       mime.enable = true;
