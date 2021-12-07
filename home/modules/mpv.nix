@@ -90,9 +90,6 @@ in {
           demuxer-max-bytes = "10GiB";
           force-window = "yes";
           no-resume-playback = "";
-
-          script-opts =
-            "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp,autocrop-auto=no";
         } // optionalAttrs (profile == "potato") {
           vo = "gpu";
           scale = "bicubic_fast";
@@ -148,18 +145,17 @@ in {
     xdg = {
       enable = true;
       configFile = {
-        # Add scripts distributed with mpv
         "autocrop.lua" = {
           source = "${pkgs.mpv-unwrapped.src.outPath}/TOOLS/lua/autocrop.lua";
           target = "mpv/scripts/autocrop.lua";
         };
+        "autocrop.conf" = {
+          text = "auto=no";
+          target = "mpv/script-opts/autocrop.conf";
+        };
         "autodeint.lua" = {
           source = "${pkgs.mpv-unwrapped.src.outPath}/TOOLS/lua/autodeint.lua";
           target = "mpv/scripts/autodeint.lua";
-        };
-        "youtube-quality.conf" = {
-          text = "style_ass_tags={\\fnmonospace\\fs50}";
-          target = "mpv/script-opts/youtube-quality.conf";
         };
         "mpv_thumbnail_script.conf" = {
           text = ''
@@ -167,6 +163,14 @@ in {
             thumbnail_network=yes
           '';
           target = "mpv/script-opts/mpv_thumbnail_script.conf";
+        };
+        "youtube-quality.conf" = {
+          text = "style_ass_tags={\\fnmonospace\\fs50}";
+          target = "mpv/script-opts/youtube-quality.conf";
+        };
+        "ytdl_hook.conf" = {
+          text = "ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
+          target = "mpv/script-opts/ytdl_hook.conf";
         };
       };
       mime.enable = true;
