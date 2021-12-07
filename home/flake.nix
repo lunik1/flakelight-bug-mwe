@@ -71,6 +71,17 @@
         (self: super: {
           nixos-logo-gruvbox-wallpaper = inputs.nixos-logo-gruvbox-wallpaper;
         })
+        (self: super: {
+          mpv-youtube-quality = super.mpvScripts.youtube-quality.overrideAttrs
+            (old: rec {
+              src = super.fetchFromGitHub {
+                owner = "christoph-heinrich";
+                repo = "mpv-youtube-quality";
+                rev = "7562cc0fd7bbd3b5ff056e416aeb7117abf62079";
+                sha256 = "BduHK4OUYQHps3XHxudzsF1OTbygEKA5yQnEcDtyI4E=";
+              };
+            });
+        })
       ];
     in {
       foureightynine = (import home-configurations/foureightynine.nix {

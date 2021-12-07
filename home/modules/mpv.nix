@@ -23,7 +23,7 @@ in {
         autoload
         mpris
         mpv-playlistmanager
-        youtube-quality
+        pkgs.mpv-youtube-quality
         # thumbnail # broken
       ];
       config = with cfg;
@@ -160,6 +160,10 @@ in {
         "autodeint.lua" = {
           source = "${pkgs.mpv-unwrapped.src.outPath}/TOOLS/lua/autodeint.lua";
           target = "mpv/scripts/autodeint.lua";
+        };
+        "youtube-quality.conf" = {
+          text = "style_ass_tags={\\fnmonospace\\fs50}";
+          target = "mpv/script-opts/youtube-quality.conf";
         };
       };
       mime.enable = true;
