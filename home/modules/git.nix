@@ -5,7 +5,7 @@ in {
   options.lunik1.home.git.enable = lib.mkEnableOption "git";
 
   config = lib.mkIf cfg.enable {
-    home = { packages = with pkgs; [ git-crypt ]; };
+    home = { packages = with pkgs; [ git-crypt pre-commit ]; };
 
     programs = {
       git = {
