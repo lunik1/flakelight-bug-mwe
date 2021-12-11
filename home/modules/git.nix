@@ -79,7 +79,7 @@ in {
         userEmail = "ch.gpg@themaw.xyz";
         userName = "lunik1";
         extraConfig = {
-          init.defaultBracnh = "master";
+          init.defaultBranch = "master";
           pull.rebase = "true";
           push.default = "current";
           diff.algorithm = "histogram";
