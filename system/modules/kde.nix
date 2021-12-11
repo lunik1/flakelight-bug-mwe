@@ -18,7 +18,7 @@ in {
     # KDE
     services.xserver.desktopManager.plasma5.enable = cfg.kde.enable;
     environment.systemPackages = with pkgs; [
-      # kio-fuse
+      kio-fuse # TODO broken?
       libsForQt5.kdeconnect-kde
       libsForQt5.plasma-browser-integration
     ];
