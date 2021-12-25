@@ -117,7 +117,7 @@
       git-crypt
       neovim
 
-      foot # TODO: use foot.terminfo once #125397 is in stable
+      foot.terminfo
       htop
       libarchive
       kitty.terminfo
