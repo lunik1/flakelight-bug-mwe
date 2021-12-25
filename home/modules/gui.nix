@@ -47,7 +47,7 @@ in {
       feh.enable = true;
       firefox = {
         enable = true;
-        package = pkgs.firefox-bin.override {
+        package = pkgs.firefox.override {
           cfg = {
             enablePlasmaBrowserIntegration = config.lunik1.home.kde.enable;
           };
