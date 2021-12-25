@@ -129,6 +129,7 @@
             nixfmt
             nix-linter
             nixpkgs-lint
+            pre-commit
             shellcheck
           ];
         };
