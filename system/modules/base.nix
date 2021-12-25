@@ -104,7 +104,10 @@
   };
 
   environment = {
-    variables = { EDITOR = "nvim"; };
+    variables = {
+      EDITOR = "nvim";
+      KOPIA_CHECK_FOR_UPDATES = "false";
+    };
 
     # For zsh completion
     pathsToLink = [ "/share/zsh" ];
