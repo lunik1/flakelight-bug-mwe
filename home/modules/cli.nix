@@ -101,6 +101,7 @@ in {
         enable = true;
         settings = import ../config/htop/htop.nix { inherit config; };
       };
+      lesspipe.enable = true;
       nix-index = {
         enable = true;
         enableZshIntegration = true;
