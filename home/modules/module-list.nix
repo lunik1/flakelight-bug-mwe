@@ -14,6 +14,7 @@
   ./bluetooth.nix
   ./mpv.nix
   ./gpg.nix
+  ./gtk.nix
   ./kde.nix
   ./pulp-io.nix
   ./games.nix
