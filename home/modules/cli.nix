@@ -26,7 +26,7 @@ in {
         fontconfig
         glances
         imagemagick
-        ix
+        pb_cli
         kopia
         libarchive
         libwebp
