@@ -24,6 +24,7 @@ in {
           libretro.mesen
           libretro.mgba
           libretro.nestopia
+          libretro.sameboy
           libretro.thepowdertoy
         ];
       }) ++ lib.optionals cfg.cli.enable [ crawl nethack ]
