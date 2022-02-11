@@ -11,7 +11,7 @@ in {
   config = lib.mkIf cfg.enable {
     hardware.sane = {
       enable = true;
-      extraBackends = [ epson-escpr ];
+      extraBackends = with pkgs; [ epson-escpr ];
     };
     services.printing = {
       enable = true;
