@@ -76,8 +76,13 @@ in {
       aria2 = {
         enable = true;
         settings = {
-          max-connection-per-server = 4;
           continue = true;
+          file-allocation = "falloc";
+          max-connection-per-server = 16;
+          min-split-size = "8M";
+          no-file-allocation-limit = "8M";
+          on-download-complete = "exit";
+          split = 32;
         };
       };
       bat = {
