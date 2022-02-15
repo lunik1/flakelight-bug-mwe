@@ -235,6 +235,10 @@ in {
           source = ../config/ranger/rc.conf;
           target = "ranger/rc.conf";
         };
+        "yt-dlp" = {
+          source = ../config/yt-dlp/conf;
+          target = "yt-dlp/config";
+        };
       };
     };
   };
