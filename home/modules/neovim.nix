@@ -39,6 +39,12 @@ in {
         }
         cmp_luasnip
         {
+          plugin = comment-nvim;
+          config = ''
+            lua require('Comment').setup()
+          '';
+        }
+        {
           plugin = gitsigns-nvim;
           config = luaWrap ''
             require('gitsigns').setup {
@@ -61,7 +67,6 @@ in {
           '';
         }
         julia-vim
-        kommentary
         {
           plugin = lexima-vim;
           config = ''
