@@ -143,6 +143,12 @@ in {
           '';
         }
         {
+          plugin = telescope-fzf-native-nvim;
+          config = luaWrap ''
+            require('telescope').load_extension 'fzf'
+          '';
+        }
+        {
           plugin = vim-eunuch;
           config = ''
             nnoremap <leader>fd :Delete<cr>
