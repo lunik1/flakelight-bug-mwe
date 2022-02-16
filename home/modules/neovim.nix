@@ -86,13 +86,12 @@ in {
           plugin = nvim-colorizer-lua;
           config = luaWrap "require('colorizer').setup()";
         }
-        # Causing crash on startup
-        # {
-        #   plugin = neogit;
-        #   config = ''
-        #     lua require('neogit').setup()
-        #   '';
-        # }
+        {
+          plugin = neogit;
+          config = ''
+            lua require('neogit').setup()
+          '';
+        }
         {
           plugin = nvim-cmp;
           config =
