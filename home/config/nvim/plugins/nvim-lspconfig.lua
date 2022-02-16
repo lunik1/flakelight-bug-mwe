@@ -33,7 +33,7 @@ end
 -- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Enable the following language servers
-local servers = { 'clangd', 'clojure_lsp', 'dockerls', 'julials', 'rust_analyzer', 'pyright', 'rnix', 'texlab', 'vimls', 'yamlls' }
+local servers = { 'clangd', 'clojure_lsp', 'dockerls', 'julials', 'rust_analyzer', 'pylsp', 'rnix', 'texlab', 'vimls', 'yamlls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
