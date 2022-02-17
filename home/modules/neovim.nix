@@ -40,8 +40,10 @@ in {
         cmp_luasnip
         {
           plugin = comment-nvim;
-          config = ''
-            lua require('Comment').setup()
+          config = luaWrap ''
+            require('Comment').setup {
+              ignore = '^$',
+            }
           '';
         }
         {
