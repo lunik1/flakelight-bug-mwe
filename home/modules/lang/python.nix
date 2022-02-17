@@ -6,15 +6,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs;
-      [
-        (python3.withPackages (ps:
-          with ps; [
-            black
-            poetry
-            pylsp-mypy
-            python-lsp-black
-            python-lsp-server
-          ]))
-      ];
+      [ (python3.withPackages (ps: with ps; [ black poetry ])) ];
   };
 }

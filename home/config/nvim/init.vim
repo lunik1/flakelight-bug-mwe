@@ -29,7 +29,6 @@ set diffopt=filler,internal,algorithm:histogram,indent-heuristic
 set expandtab
 set foldlevel=99
 set ignorecase
-set inccommand=nosplit
 set incsearch
 set lazyredraw
 set mouse=a
@@ -66,9 +65,6 @@ nnoremap Q <Nop>
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 
-" sensible Y
-noremap Y y$
-
 " Clear search highlight with esc
 nnoremap <silent><esc> :noh<cr><esc>
 " nnoremap <esc>^[ <esc>^[
@@ -97,6 +93,15 @@ nnoremap <silent> ]q :<c-u>execute 'cnext' . v:count1<cr>
 nnoremap <silent> [q :<c-u>execute 'cprevious' . v:count1<cr>
 nnoremap <silent> ]Q :clast<cr>
 nnoremap <silent> [Q :cfirst<cr>
+
+" diagnostics
+lua << EOF
+    local opts = { noremap = true, silent = true }
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ce', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cx', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
+EOF
 
 if has('multi_byte')
   digraph

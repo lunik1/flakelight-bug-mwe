@@ -82,7 +82,6 @@ in {
             let g:indent_blankline_char_list=['┃', '╏', '┇', '┋', '│', '¦', '┆', '┊']
             let g:indent_blankline_filetype_exclude=['help']
             let g:indent_blankline_buftype_exclude=['terminal', 'nofile']
-            let g:indent_blankline_char_highlight='LineNr'
           '';
         }
         {
