@@ -21,6 +21,7 @@ in {
         material-design-icons
         wev
 
+        foot
         networkmanager_dmenu
         networkmanagerapplet
         xfce.thunar
@@ -330,6 +331,7 @@ in {
             command =
               "${pkgs.swayidle}/bin/swayidle timeout 300 '${lockCommand} --grace 5' before-sleep '${lockCommand}'";
           }
+          { command = "${pkgs.foot}/bin/foot --server"; }
         ];
         terminal = "${pkgs.foot}/bin/footclient";
         window = {
