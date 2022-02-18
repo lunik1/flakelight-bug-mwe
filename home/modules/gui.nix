@@ -21,7 +21,6 @@ in {
         jitsi-meet-electron
         pavucontrol
         qdirstat
-        spotify
         skypeforlinux
         teams
         thunderbird

@@ -5,7 +5,9 @@ in {
   options.lunik1.home.music.enable = lib.mkEnableOption "music";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ playerctl ];
+    home.packages = with pkgs;
+      [ playerctl spotify ]
+      ++ lib.optional config.lunik1.home.gui.enable spotify;
     programs = {
       ncmpcpp = {
         enable = true;
