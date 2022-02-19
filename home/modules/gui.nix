@@ -114,6 +114,10 @@ in {
           };
         };
       };
+      zathura = {
+        enable = true;
+        options = import ../config/zathura/zathura.nix;
+      };
     };
 
     xdg = {
