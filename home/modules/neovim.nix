@@ -129,7 +129,6 @@ in {
         # nvim-web-devicons
         luasnip
         plenary-nvim
-        popup-nvim
         {
           plugin = telescope-nvim;
           config = ''
