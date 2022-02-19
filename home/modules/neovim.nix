@@ -127,10 +127,7 @@ in {
         }
         nvim-treesitter-textobjects
         # nvim-web-devicons
-        {
-          plugin = luasnip;
-          config = luaWrap "local luasnip = require 'luasnip'";
-        }
+        luasnip
         plenary-nvim
         popup-nvim
         {
