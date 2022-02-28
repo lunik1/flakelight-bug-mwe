@@ -6,7 +6,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      font-awesome-ttf
+      font-awesome
       julia-mono
       material-design-icons
       montserrat
