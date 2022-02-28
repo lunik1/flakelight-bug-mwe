@@ -26,7 +26,7 @@
       nine = "closed-contour";
       number-sign = "upright-open";
       one = "base";
-      paragraph-sign = "low";
+      pilcrow = "low";
       paren = "large-contour";
       seven = "curly-serifless";
       six = "closed-contour";
