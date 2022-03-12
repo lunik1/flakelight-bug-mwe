@@ -11,6 +11,7 @@ scrub:
 
 keyfinder:
   auto: yes
+  bin: keyfinder-cli
 
 replaygain:
   auto: yes
