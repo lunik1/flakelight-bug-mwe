@@ -162,6 +162,40 @@ in {
     };
   };
 
+  snapraid = {
+    enable = true;
+    parityFiles =
+      [ "/mnt/parity1/snapraid.parity" "/mnt/parity2/snapraid.parity" ];
+    contentFiles = [
+      "/var/snapraid.content"
+      "/mnt/data1/.snapraid.content"
+      "/mnt/data2/.snapraid.content"
+    ];
+    dataDisks = {
+      d1 = "/mnt/data1/";
+      d2 = "/mnt/data2/";
+    };
+    exclude = [
+      "*.!sync"
+      "*.unrecoverable"
+      ".AppleDB"
+      ".AppleDouble"
+      ".DS_Store"
+      ".Spotlight-V100"
+      ".TemporaryItems"
+      ".Thumbs.db"
+      ".Trashes"
+      "._.DS_Store"
+      "._AppleDouble"
+      ".fseventsd"
+      "/.boinc/"
+      "/.downloads/"
+      "/excluded/"
+      "/lost+found/"
+      "/tmp/"
+    ];
+  };
+
   ## Config modules to use
   lunik1.system = {
     backup.enable = true;
@@ -171,39 +205,5 @@ in {
     network.resolved.enable = true;
     ssh-server.enable = true;
     zswap.enable = true;
-
-    snapraid = {
-      enable = true;
-      parityFiles =
-        [ "/mnt/parity1/snapraid.parity" "/mnt/parity2/snapraid.parity" ];
-      contentFiles = [
-        "/var/snapraid.content"
-        "/mnt/data1/.snapraid.content"
-        "/mnt/data2/.snapraid.content"
-      ];
-      dataDisks = {
-        d1 = "/mnt/data1/";
-        d2 = "/mnt/data2/";
-      };
-      exclude = [
-        "*.!sync"
-        "*.unrecoverable"
-        ".AppleDB"
-        ".AppleDouble"
-        ".DS_Store"
-        ".Spotlight-V100"
-        ".TemporaryItems"
-        ".Thumbs.db"
-        ".Trashes"
-        "._.DS_Store"
-        "._AppleDouble"
-        ".fseventsd"
-        "/.boinc/"
-        "/.downloads/"
-        "/excluded/"
-        "/lost+found/"
-        "/tmp/"
-      ];
-    };
   };
 }
