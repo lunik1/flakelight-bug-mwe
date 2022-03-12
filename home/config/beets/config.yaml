@@ -1,7 +1,7 @@
 directory: /mnt/storage/Music
 library: /opt/appdata/beets/musiclibrary.db
 
-plugins: acousticbrainz alternatives badfiles bpd chroma convert deezer discogs duplicates fetchart keyfinder lastgenre lyrics mbsync replaygain scrub web zero
+plugins: acousticbrainz alternatives badfiles bpd chroma convert deezer discogs duplicates fetchart keyfinder lastgenre lyrics mbsync replaygain scrub web zero embedart
 
 import:
   move: yes
@@ -17,6 +17,9 @@ replaygain:
   auto: yes
   overwrite: yes
   backend: ffmpeg
+
+embedart:
+  auto: yes
 
 zero:
   fields: comments
