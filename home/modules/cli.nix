@@ -16,6 +16,7 @@ in {
         bind.dnsutils
         btop
         cmake
+        comma
         croc
         duf
         emv
