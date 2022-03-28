@@ -12,10 +12,8 @@ in {
         aspellDicts.en-computers
         aspellDicts.en-science
         bat-extras.batgrep
-        borgbackup
         bind.dnsutils
         btop
-        cmake
         comma
         croc
         duf
@@ -25,16 +23,13 @@ in {
         fd
         ffmpeg-full
         fontconfig
-        glances
         imagemagick
         pb_cli
         kopia
         libarchive
-        libwebp
         lrzip
         lz4
         ncdu
-        neofetch
         p7zip
         parallel
         parted
