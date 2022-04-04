@@ -27,6 +27,7 @@ in {
       mediainfo
       mkvtoolnix-cli
       vobsub2srt
+      ytmdl
     ];
 
     xdg = {
