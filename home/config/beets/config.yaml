@@ -30,7 +30,7 @@ lyrics:
   sources: lyricwiki musixmatch genius
 
 convert:
-  format: opus
+  format: flac
   formats:
     aac:
       command: ffmpeg -i $source -ac 2 -c:a libfdk_aac -vbr 3 $dest

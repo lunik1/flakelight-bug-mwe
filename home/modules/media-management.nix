@@ -9,6 +9,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      flac
       keyfinder-cli # TODO use path in beet config rather than install globally
       (beets.override {
         enableAlternatives = true;
