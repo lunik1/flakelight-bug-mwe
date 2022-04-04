@@ -38,16 +38,19 @@ convert:
       mp3:
         command: ffmpeg -i $source -ac 2 -codec:a libmp3lame -qscale:a 4 $dest
         extension: mp3
-        opus:
-          command: ffmpeg -i $source -ac 2 -acodec libopus -b:a 128k -vbr on -compression_level 10 $dest
-          extension: opus
-        speex:
-          command: ffmpeg -i $source -ac 2 -y -acodec speex $dest
-          extension: spx
-        vorbis:
-          command: ffmpeg -i $source -ac 2 -codec:a libvorbis -qscale:a 3 $dest
-          extension: ogg
-        wav: ffmpeg -i $source -y -acodec pcm_s16le $dest
+      opus:
+        command: ffmpeg -i $source -ac 2 -acodec libopus -b:a 128k -vbr on -compression_level 10 $dest
+        extension: opus
+      speex:
+        command: ffmpeg -i $source -ac 2 -y -acodec speex $dest
+        extension: spx
+      vorbis:
+        command: ffmpeg -i $source -ac 2 -codec:a libvorbis -qscale:a 3 $dest
+        extension: ogg
+      flac:
+        command: flac -8sVep $source -o $dest
+        extension: flac
+      wav: ffmpeg -i $source -y -acodec pcm_s16le $dest
     max_bitrate: 320
     never_convert_lossy_files: yes
 
