@@ -133,6 +133,9 @@ in {
     };
   };
 
+  # UPS
+  services.apcupsd.enable = true;
+
   ## Use bfq for rotational drives
   services.udev.extraRules = ''
     ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
