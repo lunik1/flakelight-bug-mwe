@@ -167,6 +167,7 @@ in {
 
   snapraid = {
     enable = true;
+    scrub.plan = 15;
     parityFiles =
       [ "/mnt/parity1/snapraid.parity" "/mnt/parity2/snapraid.parity" ];
     contentFiles = [
