@@ -47,6 +47,7 @@ in {
         unrar
         unzip
         wget
+        xfsdump
         xxHash
         yt-dlp
         zsh-completions
