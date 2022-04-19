@@ -24,10 +24,17 @@ in {
 
     loader.grub.device = "/dev/disk/by-id/ata-TS240GMTS420S_G377480650";
 
-    tmpOnTmpfs = true;
+    tmpOnTmpfs = false;
     kernelModules = [ "kvm-intel" "bfq" ];
     kernelPackages = pkgs.linuxPackages_hardened;
     kernelParams = [ "mce=0" ]; # Panic on uncorrectable ECC ram error
+    kernelPatches = [{
+      name = "xfs-online-scrub";
+      patch = null;
+      extraConfig = ''
+        XFS_ONLINE_SCRUB y
+      '';
+    }];
     kernel.sysctl = {
       "kernel.yama.ptrace_scope" = 1; # will break strace, gdb etc.
     };
