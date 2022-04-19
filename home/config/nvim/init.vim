@@ -97,10 +97,10 @@ nnoremap <silent> [Q :cfirst<cr>
 " diagnostics
 lua << EOF
     local opts = { noremap = true, silent = true }
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ce', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cx', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
+    vim.keymap.set('n', '<leader>ce', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+    vim.keymap.set('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+    vim.keymap.set('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+    vim.keymap.set('n', '<leader>cx', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
 EOF
 
 if has('multi_byte')
