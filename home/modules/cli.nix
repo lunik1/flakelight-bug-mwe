@@ -171,13 +171,11 @@ in {
           IOSchedulingPriority = 7;
           CPUSchedulingPolicy = "batch";
 
-          CapabilityBoundingSet = "";
           KeyringMode = "private";
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
           NoNewPrivileges = true;
           PrivateTmp = true;
-          PrivateUsers = true;
           ProtectSystem = "full";
           RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
           RestrictNamespaces = true;
