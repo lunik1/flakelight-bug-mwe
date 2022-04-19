@@ -85,8 +85,13 @@ in {
       fsType = "xfs";
       noCheck = true;
     };
+    "/mnt/data3" = {
+      device = "/dev/disk/by-id/ata-TOSHIBA_MG06ACA800E_91J0A09VFKRE-part1";
+      fsType = "xfs";
+      noCheck = true;
+    };
     "/mnt/storage" = {
-      device = "${pkgs.mergerfs}/bin/mergerfs#/mnt/data1:/mnt/data2";
+      device = "${pkgs.mergerfs}/bin/mergerfs#/mnt/data1:/mnt/data2:/mnt/data3";
       fsType = "fuse";
       noCheck = true;
       options = [
@@ -181,10 +186,12 @@ in {
       "/var/snapraid.content"
       "/mnt/data1/.snapraid.content"
       "/mnt/data2/.snapraid.content"
+      "/mnt/data3/.snapraid.content"
     ];
     dataDisks = {
       d1 = "/mnt/data1/";
       d2 = "/mnt/data2/";
+      d3 = "/mnt/data3/";
     };
     exclude = [
       "*.!sync"
