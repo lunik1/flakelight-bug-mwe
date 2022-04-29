@@ -164,7 +164,7 @@ in {
     systemd.user = {
       services = {
         nix-index = {
-          Unit.Description = "nix index update";
+          Unit.Description = "nix-locate index update";
 
           Service = {
             Type = "oneshot";
@@ -216,7 +216,7 @@ in {
       };
       timers = {
         nix-index = {
-          Unit = { Description = "nix-index cache update"; };
+          Unit = { Description = "nix-locate cache update"; };
 
           Timer = {
             OnCalendar = "*-*-* 00:00";
