@@ -22,6 +22,17 @@ in {
           ${luaCfg}
         EOF
       '';
+      idris2-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+        pname = "idris2-vim";
+        version = "2022-04-09";
+        src = pkgs.fetchFromGitHub {
+          owner = "ShinKage";
+          repo = "idris2-nvim";
+          rev = "fdc47ba6f0e9d15c2754ee98b6455acad0fa7c95";
+          sha256 = "sha256-5A1j1HO8H5wBXVyo6MdkVI5Jec+MrNxktvFyf3t9688=";
+        };
+        meta.homepage = "https://github.com/ShinKage/idris2-nvim/commits/main";
+      };
     in {
       enable = true;
       viAlias = true;
@@ -68,6 +79,7 @@ in {
             set termguicolors
           '';
         }
+        idris2-nvim
         julia-vim
         {
           plugin = lexima-vim;
