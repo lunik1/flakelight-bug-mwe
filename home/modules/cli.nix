@@ -25,6 +25,7 @@ in {
         fontconfig
         imagemagick
         pb_cli
+        pgcli
         kopia
         libarchive
         lrzip
