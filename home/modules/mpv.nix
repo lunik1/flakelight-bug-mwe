@@ -59,7 +59,7 @@ in {
           demuxer-mkv-subtitle-preroll = "yes";
           sub-auto = "fuzzy";
           slang = "enGB,en-GB,eng,en,english,enUS,en-US";
-          sid = "no";
+          sid = "auto";
           sub-fix-timing = "yes";
           sub-file-paths = "sub";
           sub-gauss = 0.75;
