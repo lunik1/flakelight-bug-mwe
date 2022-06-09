@@ -30,13 +30,7 @@
   outputs = inputs@{ self, ... }:
     let
       overlays = [
-        (self: super: {
-          youtube-dl = super.youtube-dl.override { phantomjsSupport = true; };
-          yt-dlp = super.yt-dlp.override {
-            phantomjsSupport = true;
-            withAlias = true;
-          };
-        })
+        (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
         (self: super: {
           myosevka = super.iosevka.override {
             privateBuildPlan = import resources/iosevka/myosevka.nix;
