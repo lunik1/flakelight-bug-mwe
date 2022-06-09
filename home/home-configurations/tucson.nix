@@ -9,6 +9,8 @@ inputs.home-manager.lib.homeManagerConfiguration {
     require = import ../modules/module-list.nix;
 
     nixpkgs.config.allowUnfree = true;
+    # https://github.com/nix-community/home-manager/issues/2942 workaround
+    nixpkgs.config.allowUnfreePredicate = (pkg: true);
     nixpkgs.overlays = overlays;
 
     lunik1.home = {
