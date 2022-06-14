@@ -11,6 +11,11 @@ in {
       description = "Whether to enable Emacs' gui.";
       type = types.bool;
     };
+    nativeComp = mkOption {
+      default = true;
+      description = "Whether to enable nativecomp.";
+      type = types.bool;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -26,9 +31,17 @@ in {
         zip # for org odt export
       ];
 
-    programs.emacs = {
+    programs.emacs = let
+      settings = {
+        nativeComp = true;
+        withPgtk = true;
+        withWebP = true;
+      };
+      emacs-package =
+        (with pkgs; if cfg.gui then emacs else emacs-nox).override settings;
+    in {
       enable = true;
-      package = with pkgs; if cfg.gui then emacs else emacs-nox;
+      package = emacs-package;
       extraPackages = epkgs:
         [ epkgs.vterm ] ++ optionals cfg.gui [ epkgs.pdf-tools ];
     };

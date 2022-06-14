@@ -19,7 +19,10 @@ inputs.home-manager.lib.homeManagerConfiguration {
       gui.enable = true;
 
       bluetooth.enable = true;
-      emacs.enable = true;
+      emacs = {
+        enable = true;
+        nativeComp = false;
+      };
       fonts.enable = true;
       games.cli.enable = true;
       git.enable = true;
