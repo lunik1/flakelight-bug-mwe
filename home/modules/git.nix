@@ -17,7 +17,7 @@ in {
         package = pkgs.gitSVN;
         delta = {
           enable = true;
-          options.syntax-theme = "gruvbox";
+          options.syntax-theme = "gruvbox-dark";
         };
         ignores = [
           "$RECYCLE.BIN/"
