@@ -58,6 +58,7 @@ in {
     amdgpu = {
       enable = true;
       support32Bit = true;
+      opencl = true;
     };
     backup.enable = true;
     bluetooth.enable = true;
