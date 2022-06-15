@@ -60,6 +60,7 @@ in {
           sub-auto = "fuzzy";
           slang = "enGB,en-GB,eng,en,english,enUS,en-US";
           sid = "auto";
+          subs-with-matching-audio = "no";
           sub-fix-timing = "yes";
           sub-file-paths = "sub";
           sub-gauss = 0.75;
