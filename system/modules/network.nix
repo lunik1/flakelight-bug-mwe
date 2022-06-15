@@ -20,7 +20,7 @@ in {
     };
     networking.networkmanager = lib.mkIf cfg.networkmanager.enable {
       enable = true;
-      packages = [ pkgs.networkmanager-openvpn ];
+      plugins = [ pkgs.networkmanager-openvpn ];
       wifi.backend = "iwd";
       wifi.powersave = true;
     };

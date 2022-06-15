@@ -9,7 +9,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = with pkgs; [ arion docker-client docker_compose ];
+      systemPackages = with pkgs; [ arion docker-client docker-compose ];
       variables = {
         COMPOSE_HTTP_TIMEOUT = "600";
         PGID = "100";
