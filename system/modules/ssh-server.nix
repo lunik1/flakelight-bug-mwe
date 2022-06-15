@@ -27,7 +27,7 @@ in {
       startWhenNeeded = lib.mkDefault false;
       permitRootLogin = "no";
       passwordAuthentication = false;
-      challengeResponseAuthentication = false;
+      kbdInteractiveAuthentication = false;
       macs = [
         "hmac-sha2-512-etm@openssh.com"
         "hmac-sha2-256-etm@openssh.com"
