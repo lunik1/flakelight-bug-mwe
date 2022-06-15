@@ -9,22 +9,14 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      (beets.override {
+        pluginOverrides.alternatives = {
+          enable = true;
+          propagatedBuildInputs = [ pkgs.beetsPackages.alternatives ];
+        };
+      })
       flac
       keyfinder-cli # TODO use path in beet config rather than install globally
-      (beets.override {
-        enableAlternatives = true;
-        enableAura = false;
-        enableEmbyupdate = false;
-        enableKodiupdate = false;
-        enableMpd = false;
-        enableSonosUpdate = false;
-        enableSubsonicplaylist = false;
-        enableThumbnails = false;
-        enableSubsonicupdate = false;
-        enableLoadext = false;
-        enablePlaylist = false;
-        # enableWeb = false;  # build fails on 21.05
-      })
       mediainfo
       mkvtoolnix-cli
       vobsub2srt
