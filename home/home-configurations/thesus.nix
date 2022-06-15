@@ -10,6 +10,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.overlays = overlays;
+    nixpkgs.config.allowUnfreePredicate = (pkg: true);
 
     targets.genericLinux.enable = true;
 

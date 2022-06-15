@@ -10,6 +10,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
     require = import ../modules/module-list.nix;
 
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.allowUnfreePredicate = (pkg: true);
 
     # Use ffmpeg build with nonfree components
     nixpkgs.overlays = overlays ++ [

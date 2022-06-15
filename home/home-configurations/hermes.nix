@@ -10,7 +10,10 @@ inputs.home-manager.lib.homeManagerConfiguration {
     require = import ../modules/module-list.nix;
 
     nixpkgs = {
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = (pkg: true);
+      };
       inherit overlays;
     };
 
