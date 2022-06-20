@@ -28,6 +28,7 @@
   };
 
   outputs = inputs@{ self, ... }:
+    with inputs;
     let
       overlays = [
         (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
@@ -53,8 +54,8 @@
             set = "myosevka-etoile";
           };
         })
-        (self: super: { LS_COLORS = inputs.LS_COLORS; })
-        (self: super: { firefox-lepton = inputs.firefox-lepton; })
+        (self: super: { LS_COLORS = LS_COLORS; })
+        (self: super: { firefox-lepton = firefox-lepton; })
         (self: super: {
           neovim = super.neovim.override {
             vimAlias = true;
@@ -62,7 +63,7 @@
           };
         })
         (self: super: {
-          nixos-logo-gruvbox-wallpaper = inputs.nixos-logo-gruvbox-wallpaper;
+          nixos-logo-gruvbox-wallpaper = nixos-logo-gruvbox-wallpaper;
         })
         (self: super: {
           mpv-youtube-quality = super.mpvScripts.youtube-quality.overrideAttrs
@@ -80,52 +81,35 @@
             });
         })
       ];
-    in {
-      foureightynine = (import home-configurations/foureightynine.nix {
-        inherit inputs;
-        inherit overlays;
-      }).activationPackage;
-      thesus = (import home-configurations/thesus.nix {
-        inherit inputs;
-        inherit overlays;
-      }).activationPackage;
-      dionysus2 = (import home-configurations/dionysus2.nix {
-        inherit inputs;
-        inherit overlays;
-      }).activationPackage;
-      hermes = (import home-configurations/hermes.nix {
-        inherit inputs;
-        inherit overlays;
-      }).activationPackage;
-      vegas = (import home-configurations/vegas.nix {
-        inherit inputs;
-        inherit overlays;
-      }).activationPackage;
-      tucson = (import home-configurations/tucson.nix {
-        inherit inputs;
-        inherit overlays;
-      }).activationPackage;
-    } // inputs.flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = inputs.nixpkgs.legacyPackages.${system};
-      in {
-        checks = {
-          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixfmt.enable = true;
-              shellcheck.enable = true;
+    in builtins.mapAttrs (_: path:
+      (import path { inherit home-manager overlays; }).activationPackage) {
+        foureightnine = home-configurations/foureightnine.nix;
+        thesus = home-configurations/thesus.nix;
+        dionysus2 = home-configurations/dionysus2.nix;
+        hermes = home-configurations/hermes.nix;
+        vegas = home-configurations/vegas.nix;
+        tucson = home-configurations/tucson.nix;
+      } // inputs.flake-utils.lib.eachDefaultSystem (system:
+        let pkgs = inputs.nixpkgs.legacyPackages.${system};
+        in {
+          checks = {
+            pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                nixfmt.enable = true;
+                shellcheck.enable = true;
+              };
             };
           };
-        };
-        devShell = pkgs.mkShell {
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
-          buildInputs = with pkgs; [
-            nixfmt
-            nix-linter
-            nixpkgs-lint
-            pre-commit
-            shellcheck
-          ];
-        };
-      });
+          devShell = pkgs.mkShell {
+            inherit (self.checks.${system}.pre-commit-check) shellHook;
+            buildInputs = with pkgs; [
+              nixfmt
+              nix-linter
+              nixpkgs-lint
+              pre-commit
+              shellcheck
+            ];
+          };
+        });
 }

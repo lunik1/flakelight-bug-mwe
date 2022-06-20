@@ -1,6 +1,6 @@
-{ inputs, overlays, ... }:
+{ home-manager, overlays, ... }:
 
-inputs.home-manager.lib.homeManagerConfiguration {
+home-manager.lib.homeManagerConfiguration {
   system = "x86_64-linux";
   username = "corin";
   homeDirectory = "/home/corin";
