@@ -84,7 +84,6 @@
     in builtins.mapAttrs (_: path:
       (import path { inherit home-manager overlays; }).activationPackage) {
         foureightnine = home-configurations/foureightnine.nix;
-        thesus = home-configurations/thesus.nix;
         dionysus2 = home-configurations/dionysus2.nix;
         hermes = home-configurations/hermes.nix;
         vegas = home-configurations/vegas.nix;
