@@ -29,6 +29,7 @@
 
   outputs = inputs@{ self, ... }:
     with inputs;
+    with nixpkgs.lib;
     let
       overlays = [
         (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
@@ -81,34 +82,36 @@
             });
         })
       ];
-    in builtins.mapAttrs (_: path:
-      (import path { inherit home-manager overlays; }).activationPackage) {
-        foureightnine = home-configurations/foureightnine.nix;
-        dionysus2 = home-configurations/dionysus2.nix;
-        hermes = home-configurations/hermes.nix;
-        vegas = home-configurations/vegas.nix;
-        tucson = home-configurations/tucson.nix;
-      } // inputs.flake-utils.lib.eachDefaultSystem (system:
-        let pkgs = inputs.nixpkgs.legacyPackages.${system};
-        in {
-          checks = {
-            pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-              src = ./.;
-              hooks = {
-                nixfmt.enable = true;
-                shellcheck.enable = true;
-              };
+      configDir = ./home-configurations;
+      isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
+    in mapAttrs' (file: _: {
+      # create an attrset of hostname = config pairs
+      name = (removeSuffix ".nix" file);
+      value = ((import (configDir + "/${file}") {
+        inherit home-manager overlays;
+      }).activationPackage);
+    }) (filterAttrs isNixFile (builtins.readDir configDir))
+    // inputs.flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = inputs.nixpkgs.legacyPackages.${system};
+      in {
+        checks = {
+          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixfmt.enable = true;
+              shellcheck.enable = true;
             };
           };
-          devShell = pkgs.mkShell {
-            inherit (self.checks.${system}.pre-commit-check) shellHook;
-            buildInputs = with pkgs; [
-              nixfmt
-              nix-linter
-              nixpkgs-lint
-              pre-commit
-              shellcheck
-            ];
-          };
-        });
+        };
+        devShell = pkgs.mkShell {
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          buildInputs = with pkgs; [
+            nixfmt
+            nix-linter
+            nixpkgs-lint
+            pre-commit
+            shellcheck
+          ];
+        };
+      });
 }
