@@ -84,14 +84,15 @@
       ];
       configDir = ./home-configurations;
       isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
-    in mapAttrs' (file: _: {
-      # create an attrset of hostname = config pairs
-      name = (removeSuffix ".nix" file);
-      value = ((import (configDir + "/${file}") {
-        inherit home-manager overlays;
-      }).activationPackage);
-    }) (filterAttrs isNixFile (builtins.readDir configDir))
-    // inputs.flake-utils.lib.eachDefaultSystem (system:
+    in {
+      homeConfigurations = mapAttrs' (file: _: {
+        # create an attrset of hostname = config pairs
+        name = (removeSuffix ".nix" file);
+        value = ((import (configDir + "/${file}") {
+          inherit home-manager overlays;
+        }).activationPackage);
+      }) (filterAttrs isNixFile (builtins.readDir configDir));
+    } // inputs.flake-utils.lib.eachDefaultSystem (system:
       let pkgs = inputs.nixpkgs.legacyPackages.${system};
       in {
         checks = {

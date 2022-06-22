@@ -9,7 +9,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 mkdir -p "${HOME}/.config"
 ln --symbolic --no-dereference --force "${DIR}" "${HOME}/.config"
 nix-shell -p nixFlakes --command \
-  "nix build -o ${DIR}/result --experimental-features 'nix-command flakes' '${DIR}#$1'"
+  "nix build -o ${DIR}/result --experimental-features 'nix-command flakes' '${DIR}#homeConfigurations.${1}'"
 
 # Activate new environment
 # shellcheck disable=SC1091
