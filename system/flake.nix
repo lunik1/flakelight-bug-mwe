@@ -8,27 +8,17 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, pre-commit-hooks }:
-    {
-      nixosConfigurations = {
-        foureightynine = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ (import systems/foureightynine.nix) ];
-        };
-        dionysus2 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ (import systems/dionysus2.nix) ];
-        };
-        hermes = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ (import systems/hermes.nix) ];
-        };
-        tucson = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ (import systems/tucson.nix) ];
-        };
-      };
-    } // flake-utils.lib.eachDefaultSystem (system:
+  outputs = inputs@{ self, ... }:
+    with inputs;
+    with nixpkgs.lib;
+    let
+      isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
+      configDir = ./systems;
+    in mapAttrs' (file: _: {
+      name = (removeSuffix ".nix" file);
+      value = nixosSystem (import configDir + "/${file}");
+    }) (filterAttrs isNixFile (builtins.readDir configDir))
+    // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         checks = {
