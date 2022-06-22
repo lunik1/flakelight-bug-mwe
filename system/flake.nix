@@ -14,11 +14,12 @@
     let
       isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
       configDir = ./systems;
-    in mapAttrs' (file: _: {
-      name = (removeSuffix ".nix" file);
-      value = nixosSystem (import configDir + "/${file}");
-    }) (filterAttrs isNixFile (builtins.readDir configDir))
-    // flake-utils.lib.eachDefaultSystem (system:
+    in {
+      nixosConfigurations = mapAttrs' (file: _: {
+        name = (removeSuffix ".nix" file);
+        value = nixosSystem (import configDir + "/${file}");
+      }) (filterAttrs isNixFile (builtins.readDir configDir));
+    } // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         checks = {
