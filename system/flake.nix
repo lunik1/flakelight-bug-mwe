@@ -17,7 +17,7 @@
     in {
       nixosConfigurations = mapAttrs' (file: _: {
         name = (removeSuffix ".nix" file);
-        value = nixosSystem (import configDir + "/${file}");
+        value = nixosSystem (import (configDir + "/${file}"));
       }) (filterAttrs isNixFile (builtins.readDir configDir));
     } // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
