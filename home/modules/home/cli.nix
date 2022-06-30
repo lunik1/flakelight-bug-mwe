@@ -99,14 +99,15 @@ in {
       };
       htop = {
         enable = true;
-        settings = import ../config/htop/htop.nix { inherit config; };
+        settings = import ../../config/htop/htop.nix { inherit config; };
       };
       lesspipe.enable = true;
       nix-index = {
         enable = true;
         enableZshIntegration = true;
       };
-      tmux = import ../config/tmux/tmux.nix { tmuxPlugins = pkgs.tmuxPlugins; };
+      tmux =
+        import ../../config/tmux/tmux.nix { tmuxPlugins = pkgs.tmuxPlugins; };
       fzf = rec {
         enable = true;
         enableFishIntegration = false;
@@ -128,7 +129,7 @@ in {
           source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
         '';
         initExtra = ''
-          xsource ${../config/zsh/zshrc.local}
+          xsource ${../../config/zsh/zshrc.local}
         '';
         envExtra = ''
           export PATH=$HOME/bin:$HOME/.cargo/bin/:$PATH
@@ -242,13 +243,13 @@ in {
       enable = true;
       dataFile = {
         "zsh_cheatsheet" = {
-          source = ../data/zsh/zsh_cheatsheet.md;
+          source = ../../resources/zsh/zsh_cheatsheet.md;
           target = "zsh/zsh_cheatsheet.md";
         };
       };
       configFile = {
         "btop.conf" = {
-          text = (builtins.readFile ../config/btop/btop.conf)
+          text = (builtins.readFile ../../config/btop/btop.conf)
           # Need to get colour theme location from package
             + ''
               color_theme = ${pkgs.btop}/share/btop/themes/gruvbox_dark.theme
@@ -261,15 +262,15 @@ in {
           target = "btop/btop.conf";
         };
         "neofetch" = {
-          source = ../config/neofetch/config.conf;
+          source = ../../config/neofetch/config.conf;
           target = "neofetch/config.conf";
         };
         "rc.conf" = {
-          source = ../config/ranger/rc.conf;
+          source = ../../config/ranger/rc.conf;
           target = "ranger/rc.conf";
         };
         "yt-dlp" = {
-          source = ../config/yt-dlp/conf;
+          source = ../../config/yt-dlp/conf;
           target = "yt-dlp/config";
         };
       };

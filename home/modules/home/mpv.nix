@@ -121,10 +121,10 @@ in {
           icc-3dlut-size = "266x256x256";
           # icc-cache-dir = "~/.cache/mpv/icc";
 
-          glsl-shaders = "${../resources/mpv/shaders/KrigBilateral.glsl}:${
-              ../resources/mpv/shaders/FSRCNNX_x2_16-0-4-1.glsl
-            }:${../resources/mpv/shaders/SSimDownscaler.glsl}:${
-              ../resources/mpv/shaders/FSRCNNX_x2_16-0-4-1.glsl
+          glsl-shaders = "${../../resources/mpv/shaders/KrigBilateral.glsl}:${
+              ../../resources/mpv/shaders/FSRCNNX_x2_16-0-4-1.glsl
+            }:${../../resources/mpv/shaders/SSimDownscaler.glsl}:${
+              ../../resources/mpv/shaders/FSRCNNX_x2_16-0-4-1.glsl
             }";
 
           ytdl-format = "bestvideo+bestaudio/best";

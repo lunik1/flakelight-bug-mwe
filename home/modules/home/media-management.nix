@@ -26,7 +26,7 @@ in {
     xdg = {
       enable = true;
       configFile.beets_config = {
-        source = ../config/beets/config.yaml;
+        source = ../../config/beets/config.yaml;
         target = "beets/config.yaml";
       };
     };

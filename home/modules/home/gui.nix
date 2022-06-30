@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  gruvbox = import ../resources/colourschemes/gruvbox.nix;
+  gruvbox = import ../../resources/colourschemes/gruvbox.nix;
   cfg = config.lunik1.home.gui;
 in {
   options.lunik1.home.gui.enable = lib.mkEnableOption "GUI programs";
@@ -116,7 +116,7 @@ in {
       };
       zathura = {
         enable = true;
-        options = import ../config/zathura/zathura.nix;
+        options = import ../../config/zathura/zathura.nix;
       };
     };
 

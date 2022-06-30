@@ -113,17 +113,17 @@ in {
         {
           plugin = nvim-cmp;
           config =
-            luaWrap (builtins.readFile ../config/nvim/plugins/nvim-cmp.lua);
+            luaWrap (builtins.readFile ../../config/nvim/plugins/nvim-cmp.lua);
         }
         {
           plugin = nvim-lspconfig;
           config = luaWrap
-            (builtins.readFile ../config/nvim/plugins/nvim-lspconfig.lua);
+            (builtins.readFile ../../config/nvim/plugins/nvim-lspconfig.lua);
         }
         {
           plugin = nvim-treesitter;
           config = luaWrap
-            (builtins.readFile ../config/nvim/plugins/nvim-treesitter.lua);
+            (builtins.readFile ../../config/nvim/plugins/nvim-treesitter.lua);
         }
         {
           plugin = nvim-ts-rainbow;
@@ -176,7 +176,7 @@ in {
         vim-surround
         vim-toml
       ];
-      extraConfig = builtins.readFile ../config/nvim/init.vim;
+      extraConfig = builtins.readFile ../../config/nvim/init.vim;
     };
   };
 }

@@ -7,7 +7,7 @@ home-manager.lib.homeManagerConfiguration {
   stateVersion = "21.11";
 
   configuration = { pkgs, ... }: {
-    require = import ../modules/module-list.nix;
+    require = import ../modules/home/module-list.nix;
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.allowUnfreePredicate = (pkg: true);

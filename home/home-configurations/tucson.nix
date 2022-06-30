@@ -6,7 +6,7 @@ home-manager.lib.homeManagerConfiguration {
   homeDirectory = "/home/corin";
   stateVersion = "21.05";
   configuration = { pkgs, ... }: {
-    require = import ../modules/module-list.nix;
+    require = import ../modules/home/module-list.nix;
 
     nixpkgs.config.allowUnfree = true;
     # https://github.com/nix-community/home-manager/issues/2942 workaround

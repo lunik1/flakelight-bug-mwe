@@ -6,7 +6,7 @@ home-manager.lib.homeManagerConfiguration {
   homeDirectory = "/home/corin";
   stateVersion = "20.09";
   configuration = { pkgs, ... }: {
-    require = import ../modules/module-list.nix;
+    require = import ../modules/home/module-list.nix;
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.allowUnfreePredicate = (pkg: true);

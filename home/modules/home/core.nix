@@ -47,7 +47,7 @@ in {
     # Use an if else to make sure config.nix is lazily loaded
     # (mkIf will not work!)
     programs.ssh = if config.lunik1.home.gpgKeyInstalled then
-      import ../config/ssh/config.nix
+      import ../../config/ssh/config.nix
     else
       { };
 
