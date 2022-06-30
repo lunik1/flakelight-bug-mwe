@@ -5,7 +5,7 @@
 
       {
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ]
-          ++ import ../modules/module-list.nix;
+          ++ import ../modules/system/module-list.nix;
 
         ### System-specific config incl. hardware scan
         networking.hostName = "dionysus2";
