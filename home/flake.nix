@@ -71,9 +71,9 @@
             (old: rec {
               src = super.fetchFromGitHub {
                 owner = "christoph-heinrich";
-                repo = "mpv-youtube-quality";
-                rev = "7562cc0fd7bbd3b5ff056e416aeb7117abf62079";
-                sha256 = "BduHK4OUYQHps3XHxudzsF1OTbygEKA5yQnEcDtyI4E=";
+                repo = "mpv-quality-menu";
+                rev = "4a42423b8fc3b5fa81a64a7d142b3c7009749abe";
+                sha256 = "sha256-nxtyOyC5qPEcC2FilQh2wTZzZwh39T7oMYF/q+3i15M=";
               };
               postPatch = ''
                 substituteInPlace youtube-quality.lua \
