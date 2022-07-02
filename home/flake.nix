@@ -101,7 +101,7 @@
           ((import (configDir + "/${file}")) pkgsForSystem)).activationPackage;
       }) (filterAttrs isNixFile (builtins.readDir configDir));
     } // inputs.flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
+      let pkgs = pkgsForSystem system;
       in {
         checks = {
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
