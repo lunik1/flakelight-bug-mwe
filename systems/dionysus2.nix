@@ -1,3 +1,5 @@
+overlays:
+
 {
   system = "x86_64-linux";
   modules = [
@@ -6,6 +8,8 @@
       {
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ]
           ++ import ../modules/system/module-list.nix;
+
+        nixpkgs.overlays = overlays;
 
         ### System-specific config incl. hardware scan
         networking.hostName = "dionysus2";

@@ -98,8 +98,8 @@
     in {
       nixosConfigurations = mapAttrs' (file: _: {
         name = (removeSuffix ".nix" file);
-        value =
-          inputs.nixos.lib.nixosSystem (import (systemConfigDir + "/${file}"));
+        value = inputs.nixos.lib.nixosSystem
+          ((import (systemConfigDir + "/${file}")) overlays);
       }) (filterAttrs isNixFile (builtins.readDir systemConfigDir));
       homeConfigurations = mapAttrs' (file: _: {
         name = (removeSuffix ".nix" file);
