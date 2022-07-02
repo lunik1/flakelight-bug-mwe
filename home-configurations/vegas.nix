@@ -2,11 +2,12 @@ pkgsForSystem:
 
 rec {
   system = "x86_64-linux";
+  pkgs = pkgsForSystem system;
   username = "corin";
   homeDirectory = "/home/corin";
   stateVersion = "21.11";
   configuration = {
-    require = import ../modules/module-list.nix;
+    require = import ../modules/home/module-list.nix;
 
     targets.genericLinux.enable = true;
 

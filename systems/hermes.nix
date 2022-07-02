@@ -1,6 +1,6 @@
 {
   system = "x86_64-linux";
-  moudles = [
+  modules = [
     ({ pkgs, lib, modulesPath, ... }:
 
       {
