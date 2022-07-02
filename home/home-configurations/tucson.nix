@@ -1,17 +1,13 @@
-{ home-manager, overlays, ... }:
+pkgsForSystem:
 
-home-manager.lib.homeManagerConfiguration {
+rec {
   system = "x86_64-linux";
+  pkgs = pkgsForSystem system;
   username = "corin";
   homeDirectory = "/home/corin";
   stateVersion = "21.05";
-  configuration = { pkgs, ... }: {
+  configuration = {
     require = import ../modules/home/module-list.nix;
-
-    nixpkgs.config.allowUnfree = true;
-    # https://github.com/nix-community/home-manager/issues/2942 workaround
-    nixpkgs.config.allowUnfreePredicate = (pkg: true);
-    nixpkgs.overlays = overlays;
 
     lunik1.home = {
       core.enable = true;

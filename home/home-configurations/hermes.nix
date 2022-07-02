@@ -1,21 +1,14 @@
-{ home-manager, overlays, ... }:
+pkgsForSystem:
 
-home-manager.lib.homeManagerConfiguration {
+rec {
   system = "x86_64-linux";
+  pkgs = pkgsForSystem system;
   username = "corin";
   homeDirectory = "/home/corin";
   stateVersion = "21.11";
 
-  configuration = { pkgs, ... }: {
+  configuration = {
     require = import ../modules/home/module-list.nix;
-
-    nixpkgs = {
-      config = {
-        allowUnfree = true;
-        allowUnfreePredicate = (pkg: true);
-      };
-      inherit overlays;
-    };
 
     lunik1.home = {
       vpsAdminOs = true;

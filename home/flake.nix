@@ -84,16 +84,24 @@
       ];
       configDir = ./home-configurations;
       isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
+      pkgsForSystem = system:
+        import nixpkgs {
+          inherit overlays system;
+          config = {
+            allowUnfree = true;
+            # https://github.com/nix-community/home-manager/issues/2942 workaround
+            allowUnfreePredicate = (_: true);
+          };
+        };
     in {
       homeConfigurations = mapAttrs' (file: _: {
         # create an attrset of hostname = config pairs
         name = (removeSuffix ".nix" file);
-        value = ((import (configDir + "/${file}") {
-          inherit home-manager overlays;
-        }).activationPackage);
+        value = (home-manager.lib.homeManagerConfiguration
+          ((import (configDir + "/${file}")) pkgsForSystem)).activationPackage;
       }) (filterAttrs isNixFile (builtins.readDir configDir));
     } // inputs.flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = inputs.nixpkgs.legacyPackages.${system};
+      let pkgs = nixpkgs.legacyPackages.${system};
       in {
         checks = {
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {

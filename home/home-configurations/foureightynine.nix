@@ -1,16 +1,13 @@
-{ home-manager, overlays, ... }:
+pkgsForSystem:
 
-home-manager.lib.homeManagerConfiguration {
+rec {
   system = "x86_64-linux";
+  pkgs = pkgsForSystem system;
   username = "corin";
   homeDirectory = "/home/corin";
   stateVersion = "20.09";
-  configuration = { pkgs, ... }: {
+  configuration = {
     require = import ../modules/home/module-list.nix;
-
-    nixpkgs.config.allowUnfree = true;
-    nixpkgs.config.allowUnfreePredicate = (pkg: true);
-    nixpkgs.overlays = overlays;
 
     lunik1.home = {
       waybar.batteryModule = true;

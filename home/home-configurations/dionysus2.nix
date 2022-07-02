@@ -1,19 +1,17 @@
-{ home-manager, overlays, ... }:
+pkgsForSystem:
 
-home-manager.lib.homeManagerConfiguration {
+rec {
   system = "x86_64-linux";
+  pkgs = pkgsForSystem system;
   username = "corin";
   homeDirectory = "/home/corin";
   stateVersion = "21.11";
 
-  configuration = { pkgs, ... }: {
+  configuration = {
     require = import ../modules/home/module-list.nix;
 
-    nixpkgs.config.allowUnfree = true;
-    nixpkgs.config.allowUnfreePredicate = (pkg: true);
-
     # Use ffmpeg build with nonfree components
-    nixpkgs.overlays = overlays ++ [
+    nixpkgs.overlays = [
       (self: super: {
         ffmpeg-full = super.ffmpeg-full.override {
           ffplayProgram = false;
