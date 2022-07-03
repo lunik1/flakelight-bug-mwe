@@ -1,13 +1,15 @@
 pkgsForSystem:
 
 rec {
-  system = "x86_64-linux";
-  pkgs = pkgsForSystem system;
-  username = "corin";
-  homeDirectory = "/home/corin";
-  stateVersion = "20.09";
-  configuration = {
+  pkgs = pkgsForSystem "x86_64-linux";
+  modules = [{
     require = import ../modules/home/module-list.nix;
+
+    home = {
+      username = "corin";
+      homeDirectory = "/home/corin";
+      stateVersion = "20.09";
+    };
 
     lunik1.home = {
       waybar.batteryModule = true;
@@ -47,5 +49,5 @@ rec {
         tex.enable = true;
       };
     };
-  };
+  }];
 }

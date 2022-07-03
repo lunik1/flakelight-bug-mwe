@@ -1,14 +1,16 @@
 pkgsForSystem:
 
 rec {
-  system = "x86_64-linux";
-  pkgs = pkgsForSystem system;
-  username = "corin";
-  homeDirectory = "/home/corin";
-  stateVersion = "21.11";
+  pkgs = pkgsForSystem "x86_64-linux";
 
-  configuration = {
+  modules = [{
     require = import ../modules/home/module-list.nix;
+
+    home = {
+      username = "corin";
+      homeDirectory = "/home/corin";
+      stateVersion = "21.11";
+    };
 
     # Use ffmpeg build with nonfree components
     nixpkgs.overlays = [
@@ -44,5 +46,5 @@ rec {
 
       lang.nix.enable = true;
     };
-  };
+  }];
 }

@@ -1,13 +1,15 @@
 pkgsForSystem:
 
 rec {
-  system = "x86_64-linux";
-  pkgs = pkgsForSystem system;
-  username = "corin";
-  homeDirectory = "/home/corin";
-  stateVersion = "21.05";
-  configuration = {
+  pkgs = pkgsForSystem "x86_64-linux";
+  modules = [{
     require = import ../modules/home/module-list.nix;
+
+    home = {
+      username = "corin";
+      homeDirectory = "/home/corin";
+      stateVersion = "21.05";
+    };
 
     lunik1.home = {
       core.enable = true;
@@ -49,5 +51,5 @@ rec {
         tex.enable = true;
       };
     };
-  };
+  }];
 }
