@@ -38,8 +38,8 @@ in {
           main = {
             # term = "foot-direct"; # breaks zsh syntax highlighting
             font = "Myosevka Light:size=6.8";
+            box-drawings-uses-font-glyphs = true;
           };
-          box-drawings-uses-font-glyphs = "yes";
           scrollback.lines = 5000;
           cursor.blink = true;
           colors = builtins.mapAttrs (_: lib.removePrefix "#") {
