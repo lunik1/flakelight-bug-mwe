@@ -122,7 +122,10 @@
         devShell = pkgs.mkShell {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           buildInputs = with pkgs; [
+            coreutils
+            gawk
             nixfmt
+            nix-info
             nix-linter
             nixpkgs-lint
             pre-commit
