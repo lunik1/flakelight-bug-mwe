@@ -124,7 +124,7 @@
           buildInputs = with pkgs; [
             nixfmt
             nix-linter
-            nixpkgs-unstable-lint
+            nixpkgs-lint
             pre-commit
             shellcheck
           ];
