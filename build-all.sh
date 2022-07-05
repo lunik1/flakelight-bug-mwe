@@ -20,8 +20,6 @@ basename() {
 
 nix build "${DIR}#devShell.${SYSTEM}"
 
-nix build "${DIR}#checks.${SYSTEM}.pre-commit-check"
-
 for i in "${DIR}"/systems/*.nix; do
   name=$(basename "${i}" .nix)
   nix build "${DIR}#nixosConfigurations.${name}.config.system.build.toplevel"
