@@ -29,6 +29,7 @@ in {
       libcap
       mkpasswd
       nano
+      nix
       openssh
       netcat
       procps
@@ -38,10 +39,6 @@ in {
       which
       xz
       zstd
-
-      # prevent collision with nix-zsh-completions (even though it isn't
-      # explicitly installed??)
-      (lib.hiPrio nix_2_4)
     ];
 
     programs.ssh = let
