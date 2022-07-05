@@ -44,12 +44,18 @@ in {
       (lib.hiPrio nix_2_4)
     ];
 
-    # Use an if else to make sure config.nix is lazily loaded
-    # (mkIf will not work!)
-    programs.ssh = if config.lunik1.home.gpgKeyInstalled then
-      import ../../config/ssh/config.nix
+    programs.ssh = let
+      isEncrypted = with pkgs;
+        f:
+        !lib.hasInfix "text" (lib.fileContents (runCommandNoCCLocal "is-encrypted" {
+          buildInputs = [ file ];
+          src = f;
+        } "file $src > $out"));
+      sshConfig = ../../config/ssh/config.nix;
+    in if isEncrypted sshConfig then
+      builtins.trace "Warning: ssh config is encrypted, not building" { }
     else
-      { };
+      import sshConfig;
 
     xdg = {
       enable = true;
