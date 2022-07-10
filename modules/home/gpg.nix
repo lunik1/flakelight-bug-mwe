@@ -14,7 +14,10 @@ in {
       };
       gpg = {
         enable = true;
-        settings.keyserver = "hkps://keys.openpgp.org";
+        settings = {
+          keyserver = "hkps://keys.openpgp.org";
+          keyserver-options = "no-honor-keyserver-url";
+        };
       };
     };
 
