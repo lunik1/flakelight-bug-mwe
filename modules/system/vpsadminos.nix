@@ -18,6 +18,7 @@ in {
 
     systemd = {
       services = {
+        networking-setup.restartIfChanged = false;
         systemd-udev-trigger.enable = false;
         rpc-gssd.enable = false;
         systemd-sysctl.enable = false;
