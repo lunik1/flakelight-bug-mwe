@@ -13,7 +13,7 @@ in {
       nix-tree
       nix-update
       nixfmt
-      # nixopsUnstable
+      nixops_unstable
       nixos-shell
       nixpkgs-fmt
       nixpkgs-lint
