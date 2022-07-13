@@ -89,6 +89,12 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+
+    # cachix
+    binaryCaches = [ "https://lunik1-nix-config.cachix.org" ];
+    binaryCachePublicKeys = [
+      "lunik1-nix-config.cachix.org-1:GqZJS5q4NsaZfo2CszuqbB1WrvdyZJqO7e+JqNjtd94="
+    ];
   };
 
   ## Nixpkgs
