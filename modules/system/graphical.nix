@@ -32,7 +32,15 @@ in {
 
     fonts = {
       enableDefaultFonts = true;
-      # Needed fonts should be installed by home configuration
+      fonts = with pkgs; [
+        julia-mono
+        material-design-icons
+        noto-fonts-emoji
+        sarasa-gothic
+        myosevka
+        myosevka-aile
+        myosevka-etoile
+      ];
       fontconfig = {
         defaultFonts.monospace = [
           "Myosevka"
