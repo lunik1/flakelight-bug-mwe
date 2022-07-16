@@ -44,25 +44,23 @@ in {
     programs.ssh = let
       isEncrypted = with pkgs;
         f:
-        !lib.hasInfix "text" (lib.fileContents (runCommandNoCCLocal "is-encrypted" {
-          buildInputs = [ file ];
-          src = f;
-        } "file $src > $out"));
+        !lib.hasInfix "text" (lib.fileContents
+          (runCommandNoCCLocal "is-encrypted" {
+            buildInputs = [ file ];
+            src = f;
+          } "file $src > $out"));
       sshConfig = ../../config/ssh/config.nix;
     in if isEncrypted sshConfig then
       builtins.trace "Warning: ssh config is encrypted, not building" { }
     else
       import sshConfig;
 
-    xdg = {
-      enable = true;
-      configFile."nix.conf" = {
-        text = ''
-          experimental-features = nix-command flakes
-          sandbox = relaxed
-          auto-optimise-store = true
-        '';
-        target = "nix/nix.conf";
+    nix = {
+      package = pkgs.nix;
+      settings = {
+        auto-optimise-store = true;
+        experimental-features = [ "nix-command" "flakes" ];
+        sandbox = "relaxed";
       };
     };
   };
