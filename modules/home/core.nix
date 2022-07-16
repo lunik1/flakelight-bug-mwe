@@ -61,6 +61,12 @@ in {
         auto-optimise-store = true;
         experimental-features = [ "nix-command" "flakes" ];
         sandbox = "relaxed";
+        substituters =
+          [ "https://cache.nixos.org" "https://lunik1-nix-config.cachix.org" ];
+        trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          "lunik1-nix-config.cachix.org-1:GqZJS5q4NsaZfo2CszuqbB1WrvdyZJqO7e+JqNjtd94="
+        ];
       };
     };
   };
