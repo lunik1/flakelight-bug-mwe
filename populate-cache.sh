@@ -23,7 +23,7 @@ push_to_cachix() {
 }
 
 push_output() {
-  nix build "$1" --json | jq -r '.[].outputs | to_entries[].value' | push_to_cachix
+  nix --experimental-features 'nix-command flakes' build "$1" --json | jq -r '.[].outputs | to_entries[].value' | push_to_cachix
 }
 
 cd "${DIR}"
@@ -42,7 +42,7 @@ else
 fi
 
 # Push all inputs
-nix flake archive --json |
+nix --experimental-features 'nix-command flakes' flake archive --json |
   jq -r '.path,(.inputs|to_entries[].value.path)' |
   push_to_cachix
 
