@@ -8,7 +8,8 @@ in {
     resolved.enable = lib.mkEnableOption "resolved";
     networkmanager.enable = lib.mkEnableOption "network manager";
     nameservers = lib.mkOption {
-      default = [ "91.239.100.100" "89.233.43.71" ]; # UncensoredDNS
+      default =
+        [ "1.1.1.1" "9.9.9.9" ]; # TODO: UncensoredDNS? (port 53 disabled)
       type = listOf str;
     };
   };
