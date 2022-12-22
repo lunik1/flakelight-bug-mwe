@@ -34,7 +34,7 @@ in {
     programs.emacs = let
       settings = {
         nativeComp = true;
-        withPgtk = true;
+        withPgtk = cfg.gui;
         withWebP = true;
       };
       emacs-package =
