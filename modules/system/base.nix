@@ -5,6 +5,7 @@
 {
   boot = {
     cleanTmpDir = true;
+    enableContainers = false;
     blacklistedKernelModules = [
       # Obscure network protocols
       "ax25"
