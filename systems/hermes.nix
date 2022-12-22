@@ -14,7 +14,10 @@ overlays:
         ### System-specific config incl. hardware scan
         networking.hostName = "hermes";
         system.stateVersion = "21.05";
-        nix.maxJobs = 8;
+        nix.settings = {
+          max-jobs = 2;
+          cores = 4;
+        };
 
         ## Add ability to muotn nfs
         # environment.systemPackages = with pkgs; [ nfsUtils ];
