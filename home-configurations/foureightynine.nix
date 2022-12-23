@@ -19,10 +19,7 @@ rec {
       gui.enable = true;
 
       bluetooth.enable = true;
-      emacs = {
-        enable = true;
-        nativeComp = false;
-      };
+      emacs.enable = true;
       fonts.enable = true;
       games.cli.enable = true;
       git.enable = true;
