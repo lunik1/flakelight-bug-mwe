@@ -66,7 +66,7 @@ overlays:
         # filesystem errors
         services.fwupd.enable = lib.mkForce false;
 
-        nix.maxJobs = 4;
+        nix.settings.max-jobs = 4;
         powerManagement.cpuFreqGovernor = "ondemand";
 
         hardware = {

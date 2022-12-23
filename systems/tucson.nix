@@ -60,7 +60,7 @@ overlays:
           ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
         '';
 
-        nix.maxJobs = 32;
+        nix.settings.max-jobs = 32;
 
         hardware = {
           cpu.amd.updateMicrocode = true;

@@ -78,24 +78,25 @@
   time.timeZone = "Europe/London";
 
   nix = {
-    useSandbox = "relaxed";
-    autoOptimiseStore = true;
-
     # try to make the system a bit more responsive while nix is operating
     daemonCPUSchedPolicy = "batch";
     daemonIOSchedPriority = 3;
 
     # enable flakes
-    package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
 
-    # cachix
-    binaryCaches = [ "https://lunik1-nix-config.cachix.org" ];
-    binaryCachePublicKeys = [
-      "lunik1-nix-config.cachix.org-1:GqZJS5q4NsaZfo2CszuqbB1WrvdyZJqO7e+JqNjtd94="
-    ];
+    settings = {
+      sandbox = "relaxed";
+      auto-optimise-store = true;
+
+      # cachix
+      substituters = [ "https://lunik1-nix-config.cachix.org" ];
+      trusted-public-keys = [
+        "lunik1-nix-config.cachix.org-1:GqZJS5q4NsaZfo2CszuqbB1WrvdyZJqO7e+JqNjtd94="
+      ];
+    };
   };
 
   ## Nixpkgs

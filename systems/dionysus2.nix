@@ -14,7 +14,7 @@ overlays:
         ### System-specific config incl. hardware scan
         networking.hostName = "dionysus2";
         system.stateVersion = "18.03";
-        nix.maxJobs = 8;
+        nix.settings.max-jobs = 8;
         powerManagement.cpuFreqGovernor = "powersave";
 
         hardware = {
