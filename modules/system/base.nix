@@ -143,10 +143,6 @@
   };
 
   services = {
-    earlyoom = {
-      enable = true;
-      freeMemThreshold = 2;
-    };
     fstrim.enable = true;
     fwupd.enable = true;
     irqbalance.enable = true;
