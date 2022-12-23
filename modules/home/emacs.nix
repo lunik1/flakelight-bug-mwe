@@ -33,12 +33,15 @@ in {
 
     programs.emacs = let
       settings = {
-        nativeComp = true;
+        nativeComp = cfg.nativeComp;
+        withX = false;
+        withNS = false;
+        withGTK2 = false;
+        withGTK3 = cfg.gui;
         withPgtk = cfg.gui;
         withWebP = true;
       };
-      emacs-package =
-        (with pkgs; if cfg.gui then emacs else emacs-nox).override settings;
+      emacs-package = pkgs.emacs.override settings;
     in {
       enable = true;
       package = emacs-package;
