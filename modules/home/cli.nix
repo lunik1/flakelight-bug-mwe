@@ -133,6 +133,11 @@ in {
         '';
         envExtra = ''
           export PATH=$HOME/bin:$HOME/.cargo/bin/:$PATH
+
+          if [[ "$TERM" == "foot" ]]
+          then
+            export COLORTERM="truecolor"
+          fi
         '';
         # Make TRAMP and zsh play nice
         # https://www.emacswiki.org/emacs/TrampMode#h5o-9
