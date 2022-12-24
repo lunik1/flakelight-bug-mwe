@@ -26,6 +26,13 @@
         flake-utils.follows = "flake-utils";
       };
     };
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs = inputs@{ self, ... }:
@@ -82,6 +89,7 @@
               '';
             });
         })
+        emacs-overlay.overlays.default
       ];
       homeConfigDir = ./home-configurations;
       systemConfigDir = ./systems;

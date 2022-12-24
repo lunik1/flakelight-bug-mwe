@@ -92,7 +92,10 @@
       auto-optimise-store = true;
 
       # cachix
-      substituters = [ "https://lunik1-nix-config.cachix.org" ];
+      substituters = [
+        "https://lunik1-nix-config.cachix.org"
+        "https://nix-community.cachix.org"
+      ];
       trusted-public-keys = [
         "lunik1-nix-config.cachix.org-1:GqZJS5q4NsaZfo2CszuqbB1WrvdyZJqO7e+JqNjtd94="
       ];

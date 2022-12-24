@@ -41,7 +41,7 @@ in {
         withPgtk = cfg.gui;
         withWebP = true;
       };
-      emacs-package = pkgs.emacs.override settings;
+      emacs-package = pkgs.emacsLsp.override settings;
     in {
       enable = true;
       package = emacs-package;
