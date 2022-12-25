@@ -47,7 +47,6 @@ in {
         wget
         # xfsdump
         xxHash
-        yt-dlp
         zsh-completions
 
         ripgrep-all # heavy dependencies, optional/own module?
@@ -114,6 +113,17 @@ in {
         changeDirWidgetCommand = "${pkgs.fd}/bin/fd -H --type directory";
         defaultCommand = "${pkgs.fd}/bin/fd -H -E '.git' --type file";
         fileWidgetCommand = defaultCommand;
+      };
+      yt-dlp = {
+        enable = true;
+        settings = {
+          embed-thumbnail = true;
+          add-metadata = true;
+          merge-output-format = "mkv";
+          embed-subs = true;
+          convert-subs = "ass";
+          external-downloader = "${pkgs.aria2}/bin/aria2c";
+        };
       };
       zsh = {
         enable = true;
@@ -273,10 +283,6 @@ in {
         "rc.conf" = {
           source = ../../config/ranger/rc.conf;
           target = "ranger/rc.conf";
-        };
-        "yt-dlp" = {
-          source = ../../config/yt-dlp/conf;
-          target = "yt-dlp/config";
         };
       };
     };

@@ -1,6 +1,0 @@
---embed-thumbnail
---add-metadata
---merge-output-format mkv
---embed-subs
---convert-subs ass
---external-downloader aria2c
