@@ -107,6 +107,9 @@ in {
 
             # Search with DDG
             "browser.urlbar.placeholderName" = "DuckDuckGo";
+
+            # Disable pocket
+            "extensions.pocket.enabled" = false;
           };
         };
       };
