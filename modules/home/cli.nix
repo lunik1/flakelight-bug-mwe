@@ -40,7 +40,6 @@ in {
         smartmontools
         streamlink
         stress-ng
-        tealdeer
         unrar
         unzip
         wget
@@ -171,6 +170,7 @@ in {
         enable = true;
         enableZshIntegration = true;
       };
+      tealdeer.enable = true;
       tmux =
         import ../../config/tmux/tmux.nix { tmuxPlugins = pkgs.tmuxPlugins; };
       fzf = rec {
