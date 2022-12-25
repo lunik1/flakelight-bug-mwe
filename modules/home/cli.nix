@@ -170,7 +170,13 @@ in {
         enable = true;
         enableZshIntegration = true;
       };
-      tealdeer.enable = true;
+      tealdeer = {
+        enable = true;
+        settings.updates = {
+          auto_update = true;
+          auto_update_interval_hours = 24;
+        };
+      };
       tmux =
         import ../../config/tmux/tmux.nix { tmuxPlugins = pkgs.tmuxPlugins; };
       fzf = rec {
