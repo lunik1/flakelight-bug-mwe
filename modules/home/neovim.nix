@@ -17,11 +17,6 @@ in {
     programs.neovim = let
       nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins
         (plugins: pkgs.tree-sitter.allGrammars));
-      luaWrap = luaCfg: ''
-        lua << EOF
-          ${luaCfg}
-        EOF
-      '';
       idris2-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
         pname = "idris2-vim";
         version = "2022-04-09";
@@ -43,7 +38,8 @@ in {
       plugins = with pkgs.vimPlugins; [
         {
           plugin = cmp-nvim-lsp;
-          config = luaWrap ''
+          type = "lua";
+          config = ''
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
           '';
@@ -51,7 +47,8 @@ in {
         cmp_luasnip
         {
           plugin = comment-nvim;
-          config = luaWrap ''
+          type = "lua";
+          config = ''
             require('Comment').setup {
               ignore = '^$',
             }
@@ -59,7 +56,8 @@ in {
         }
         {
           plugin = gitsigns-nvim;
-          config = luaWrap ''
+          type = "lua";
+          config = ''
             require('gitsigns').setup {
               signs = {
                 add = { hl = 'GitGutterAdd', text = '+' },
@@ -98,11 +96,13 @@ in {
         }
         {
           plugin = lualine-nvim;
-          config = luaWrap "require('lualine').setup()";
+          type = "lua";
+          config = "require('lualine').setup()";
         }
         {
           plugin = nvim-colorizer-lua;
-          config = luaWrap "require('colorizer').setup()";
+          type = "lua";
+          config = "require('colorizer').setup()";
         }
         {
           plugin = neogit;
@@ -112,22 +112,25 @@ in {
         }
         {
           plugin = nvim-cmp;
-          config =
-            luaWrap (builtins.readFile ../../config/nvim/plugins/nvim-cmp.lua);
+          type = "lua";
+          config = (builtins.readFile ../../config/nvim/plugins/nvim-cmp.lua);
         }
         {
           plugin = nvim-lspconfig;
-          config = luaWrap
+          type = "lua";
+          config =
             (builtins.readFile ../../config/nvim/plugins/nvim-lspconfig.lua);
         }
         {
           plugin = nvim-treesitter;
-          config = luaWrap
+          type = "lua";
+          config =
             (builtins.readFile ../../config/nvim/plugins/nvim-treesitter.lua);
         }
         {
           plugin = nvim-ts-rainbow;
-          config = luaWrap ''
+          type = "lua";
+          config = ''
             require'nvim-treesitter.configs'.setup {
               rainbow = {
                 enable = true,
@@ -157,7 +160,8 @@ in {
         }
         {
           plugin = telescope-fzf-native-nvim;
-          config = luaWrap ''
+          type = "lua";
+          config = ''
             require('telescope').load_extension 'fzf'
           '';
         }
