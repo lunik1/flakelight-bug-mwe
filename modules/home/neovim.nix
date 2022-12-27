@@ -18,13 +18,13 @@ in {
       nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins
         (plugins: pkgs.tree-sitter.allGrammars));
       idris2-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-        pname = "idris2-vim";
-        version = "2022-04-09";
+        pname = "idris2-nvim";
+        version = "2022-12-01";
         src = pkgs.fetchFromGitHub {
           owner = "ShinKage";
           repo = "idris2-nvim";
-          rev = "fdc47ba6f0e9d15c2754ee98b6455acad0fa7c95";
-          sha256 = "sha256-5A1j1HO8H5wBXVyo6MdkVI5Jec+MrNxktvFyf3t9688=";
+          rev = "dd850c1c67bcacd2395121b0898374fe9cdd228f";
+          sha256 = "sha256-gwB2tkPT9gmg137durmgtjZw9HfEssY/oSI57saZwp8=";
         };
         meta.homepage = "https://github.com/ShinKage/idris2-nvim/commits/main";
       };
@@ -77,7 +77,11 @@ in {
             set termguicolors
           '';
         }
-        idris2-nvim
+        {
+          plugin = idris2-nvim;
+          type = "lua";
+          config = "require('idris2').setup({})";
+        }
         julia-vim
         {
           plugin = lexima-vim;
@@ -99,6 +103,7 @@ in {
           type = "lua";
           config = "require('lualine').setup()";
         }
+        nui-nvim # required by idris2-nvim
         {
           plugin = nvim-colorizer-lua;
           type = "lua";
