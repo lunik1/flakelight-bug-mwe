@@ -101,6 +101,9 @@ alias juliac='julia --startup-file=no -e "using DaemonMode; runargs()"'
 # Cheatsheet
 alias cs="bat -p ~/.local/share/zsh/zsh_cheatsheet.md"
 
+# nixpkgs pr check
+alias nixpkgs-revhead='nix-shell -p nixpkgs-review --run "nixpkgs-review rev HEAD"'
+
 # Arion
 if type arion >/dev/null 2>&1; then
   salias adown="arion down"
