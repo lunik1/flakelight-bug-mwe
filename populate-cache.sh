@@ -29,7 +29,7 @@ push_output() {
 cd "${DIR}"
 
 builtin cd "$(mktemp -d)"
-if ! git diff-index --quiet HEAD --; then
+if git diff-index --quiet HEAD --; then
   printf "WARNING: Uncomitted changes. Will not be pushed to cachix.\n"
 fi
 
