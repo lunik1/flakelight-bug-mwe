@@ -50,7 +50,7 @@
     bind-key _ split-window
 
     # true color
-    set -as terminal-features ",xterm-kitty,foot:RGB"
+    set -as terminal-overrides ",xterm-kitty,foot:RGB"
 
     # fix cursor shape in neovim
     set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
