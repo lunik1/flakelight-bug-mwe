@@ -15,8 +15,7 @@ in {
     pam.sessionVariables.EDITOR = "nvim";
 
     programs.neovim = let
-      nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins
-        (plugins: pkgs.tree-sitter.allGrammars));
+      nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
       idris2-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
         pname = "idris2-nvim";
         version = "2022-12-01";
