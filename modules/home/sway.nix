@@ -160,7 +160,20 @@ in {
               hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
             };
             disk = {
-              format = "󰋊{percentage_used:3}%";
+              states = let nIcons = 9;
+              in builtins.listToAttrs (map (x: {
+                "name" = builtins.toString x;
+                "value" = builtins.floor ((x * 100.0) / (nIcons - 1) + 0.5);
+              }) (lib.range 0 (nIcons - 1)));
+              format-0 = "󰝦";
+              format-1 = "󰪞";
+              format-2 = "󰪟";
+              format-3 = "󰪠";
+              format-4 = "󰪡";
+              format-5 = "󰪢";
+              format-6 = "󰪣";
+              format-7 = "󰪤";
+              format-8 = "󰪥";
               interval = 60;
             };
             network = {
