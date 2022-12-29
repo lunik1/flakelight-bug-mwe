@@ -195,6 +195,7 @@ in {
                 disabled = "󰂲";
                 enabled = "󰂯";
               };
+              format = "{icon}";
               on-click = "${pkgs.blueman}/bin/blueman-manager";
               # TODO rfkill to disable/enable on right click
             };
