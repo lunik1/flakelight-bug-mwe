@@ -150,9 +150,8 @@ in {
               interval = 5;
             };
             cpu = {
-              # TODO When 0.9.6 is released use format-state
-              # https://github.com/Alexays/Waybar/pull/881
-              format = "󰊚{usage:3}%";
+              format = "{icon}";
+              format-icons = [ "󰡳" "󰡵" "󰊚" "󰡴" ];
               interval = 1;
             };
             temperature = {
