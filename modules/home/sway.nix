@@ -197,7 +197,7 @@ in {
               };
               format = "{icon}";
               on-click = "${pkgs.blueman}/bin/blueman-manager";
-              # TODO rfkill to disable/enable on right click
+              on-click-right = "${pkgs.utillinux}/bin/rfkill toggle bluetooth";
             };
             battery = {
               format = "{icon}";
