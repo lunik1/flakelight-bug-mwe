@@ -4,7 +4,7 @@ in ''
       border: none;
       border-radius: 0;
       font-family: Myosevka;
-      font-size: 20px;
+      font-size: 23px;
       min-height: 0;
   }
 

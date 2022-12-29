@@ -72,7 +72,7 @@ in {
           layer = "bottom";
           position = "bottom";
           # output = [ "eDP-1" ];
-          height = 30;
+          height = 35;
           modules-left =
             [ "sway/workspaces" "sway/mode" "idle_inhibitor" "mpd" ];
           modules-right = with config.lunik1.home.waybar;
