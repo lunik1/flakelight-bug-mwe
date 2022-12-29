@@ -135,8 +135,8 @@ in {
               format-muted = "󰝟{volume:3}%";
             };
             backlight = {
-              format = "{icon}{percent:3}%";
-              format-icons = [ "󰌵" "󱉕" "󱉓" ];
+              format = "{icon}";
+              format-icons = [ "󰛩" "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
               on-scroll-up = "${pkgs.light}/bin/light -A 1";
               on-scroll-down = "${pkgs.light}/bin/light -U 1";
               on-click-right = "${pkgs.light}/bin/light -S 100";
