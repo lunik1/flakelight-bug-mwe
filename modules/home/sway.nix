@@ -78,7 +78,7 @@ in {
           modules-right = with config.lunik1.home.waybar;
             ([ "temperature" "cpu" "backlight" ]
               ++ lib.optional batteryModule "battery"
-              ++ [ "memory" "disk" "network" ]
+              ++ [ "custom/memory" "disk" "network" ]
               ++ lib.optional bluetoothModule "bluetooth" ++ [
                 "pulseaudio"
                 "clock"
@@ -142,8 +142,11 @@ in {
               on-click-right = "${pkgs.light}/bin/light -S 100";
               on-click-middle = "${pkgs.light}/bin/light -S 0";
             };
-            memory = {
-              format = "󰩾 {used:0.2f}GiB";
+            "custom/memory" = {
+              exec = "${pkgs.procps}/bin/free -b | ${pkgs.gawk}/bin/gawk -f ${
+                  ../../resources/waybar/memory_module.awk
+                }";
+              return-type = "json";
               interval = 5;
             };
             cpu = {

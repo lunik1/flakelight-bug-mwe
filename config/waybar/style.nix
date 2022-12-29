@@ -50,7 +50,7 @@ in ''
   #battery,
   #bluetooth,
   #cpu,
-  #memory,
+  #custom-memory,
   #disk,
   #temperature,
   #backlight,
@@ -119,7 +119,7 @@ in ''
       background-color: ${gruvbox.dark.orange.normal};
   }
 
-  #memory {
+  #custom-memory {
       background-color: ${gruvbox.dark.cyan.normal};
   }
 
