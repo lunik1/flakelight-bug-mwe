@@ -155,8 +155,8 @@ in {
               interval = 1;
             };
             temperature = {
+              format-icons = [ "󰜗" "󱃃" "󰔏" "󱃂" "󰸁" ];
               format = "󰔏{temperatureC}°C";
-              format-critical = "󰸁 {temperatureC}°C";
               interval = 1;
               critical_threshold = 90;
               hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
