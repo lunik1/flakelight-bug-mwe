@@ -121,9 +121,9 @@ in {
               format-icons = {
                 # TODO bluetooth + muted icons? (needs support upstream?)
                 car = "󰄋";
-                hands-free = "󰋎";
+                handsfree = "󰋎";
                 hdmi = "󰡁";
-                headphone = "󰋋";
+                headphones = "󰋋";
                 headset = "󰋎";
                 hifi = "󰗜";
                 phone = "󰏶";
