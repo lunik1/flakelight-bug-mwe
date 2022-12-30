@@ -116,6 +116,7 @@
 
   environment = {
     variables = {
+      AWK_HASH = "fnv1a";
       EDITOR = "nvim";
       KOPIA_CHECK_FOR_UPDATES = "false";
     };
