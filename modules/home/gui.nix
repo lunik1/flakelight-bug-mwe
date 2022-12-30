@@ -61,6 +61,9 @@ in {
             # Disk cache on RAM
             "browser.cache.disk.parent_directory" = "/run/user/1000/firefox";
 
+            # Disable pinch to zoom
+            "apz.gtk.touchpad_pinch.enabled" = false;
+
             # Save session every 60s (in stead of 15)
             "browser.sessionstore.interval" = 60000;
 
