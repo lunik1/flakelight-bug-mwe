@@ -18,6 +18,7 @@ in {
         fast-cli
         fd
         ffmpeg-full
+        file
         fontconfig
         imagemagick
         pb_cli
