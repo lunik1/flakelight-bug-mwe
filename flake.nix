@@ -136,7 +136,7 @@
             jq
             nixfmt
             nix-info
-            nix-linter
+            # nix-linter # does not build, broken
             nixpkgs-lint
             pre-commit
             shellcheck
