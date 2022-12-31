@@ -9,9 +9,9 @@ in {
       packages = with pkgs; [
         (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
         bat-extras.batgrep
-        bind.dnsutils
         comma
         croc
+        doggo
         duf
         emv
         eternal-terminal
