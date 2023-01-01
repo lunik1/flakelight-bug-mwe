@@ -2,6 +2,10 @@
   inputs = {
     nixos.url = "github:NixOS/nixpkgs/nixos-22.11-small";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    lunik1-nur-unstable = {
+      url = "github:lunik1/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
