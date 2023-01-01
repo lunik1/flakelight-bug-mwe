@@ -97,11 +97,7 @@
       pkgsForSystem = system:
         import nixpkgs-unstable {
           inherit overlays system;
-          config = {
-            allowUnfree = true;
-            # https://github.com/nix-community/home-manager/issues/2942 workaround
-            allowUnfreePredicate = (_: true);
-          };
+          config = { allowUnfree = true; };
         };
     in {
       nixosConfigurations = mapAttrs' (file: _: {
