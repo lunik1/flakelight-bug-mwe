@@ -104,7 +104,7 @@
           config = {
             allowUnfree = true;
             packageOverrides = pkgs: {
-              Lunik1-nur = import lunik1-nur-unstable { inherit pkgs; };
+              lunik1-nur = import lunik1-nur-unstable { inherit pkgs; };
             };
           };
         };
