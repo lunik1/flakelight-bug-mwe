@@ -103,8 +103,9 @@
           inherit overlays system;
           config = {
             allowUnfree = true;
-            # https://github.com/nix-community/home-manager/issues/2942 workaround
-            allowUnfreePredicate = (_: true);
+            packageOverrides = pkgs: {
+              lunik1-nur = import lunik1-nur-unstable { inherit pkgs; };
+            };
           };
         };
     in {
