@@ -31,7 +31,7 @@ in {
             format          "44100:16:2"
           }'';
       };
-      mpdris2.enable = true; # TODO: use mpd-mpris instead?
+      mpdris2.enable = true;
       playerctld.enable = true;
     };
 
