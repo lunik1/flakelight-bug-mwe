@@ -128,6 +128,26 @@
         "type": "github"
       }
     },
+    "lunik1-nur-unstable": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1672502196,
+        "narHash": "sha256-OoiuKsQZT0NzIlONzmJPTRbtpVJCxU4yuY4v1PWlBOo=",
+        "owner": "lunik1",
+        "repo": "nur-packages",
+        "rev": "bc08229d189ede9e9f089431fe0e5c655e4e14c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lunik1",
+        "repo": "nur-packages",
+        "type": "github"
+      }
+    },
     "nixos": {
       "locked": {
         "lastModified": 1672437037,
@@ -225,6 +245,7 @@
         "firefox-lepton": "firefox-lepton",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "lunik1-nur-unstable": "lunik1-nur-unstable",
         "nixos": "nixos",
         "nixos-logo-gruvbox-wallpaper": "nixos-logo-gruvbox-wallpaper",
         "nixpkgs-unstable": "nixpkgs-unstable",

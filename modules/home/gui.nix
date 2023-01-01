@@ -32,6 +32,8 @@ in {
           libreoffice-fresh)
 
         myosevka-aile
+
+        lunik1-nur.amazing-marvin
       ];
 
       sessionVariables = { MOZ_WEBRENDER = "1"; };

@@ -2,6 +2,10 @@
   inputs = {
     nixos.url = "github:NixOS/nixpkgs/nixos-22.11-small";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    lunik1-nur-unstable = {
+      url = "github:lunik1/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -97,7 +101,12 @@
       pkgsForSystem = system:
         import nixpkgs-unstable {
           inherit overlays system;
-          config = { allowUnfree = true; };
+          config = {
+            allowUnfree = true;
+            packageOverrides = pkgs: {
+              Lunik1-nur = import lunik1-nur-unstable { inherit pkgs; };
+            };
+          };
         };
     in {
       nixosConfigurations = mapAttrs' (file: _: {
