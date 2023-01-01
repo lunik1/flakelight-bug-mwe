@@ -43,7 +43,7 @@ in {
         unrar
         unzip
         wget
-        # xfsdump
+        xfsdump
         xxHash
         zsh-completions
 
