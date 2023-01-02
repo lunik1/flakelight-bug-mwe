@@ -67,7 +67,7 @@ in {
       };
       waybar = {
         enable = true;
-        package = pkgs.waybar.override { pulseSupport = true; };
+        package = pkgs.waybar;
         settings = [{
           layer = "bottom";
           position = "bottom";
