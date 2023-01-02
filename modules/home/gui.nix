@@ -123,6 +123,8 @@ in {
       };
     };
 
+    services.playerctld.enable = true;
+
     xdg = {
       enable = true;
       mime.enable = true;

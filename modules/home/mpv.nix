@@ -143,6 +143,8 @@ in {
       };
     };
 
+    services.playerctld.enable = true;
+
     xdg = {
       enable = true;
       configFile = {
