@@ -45,7 +45,7 @@ in {
           scaler-lut-size = 10;
 
           # Audio
-          ao = "pulse";
+          ao = "pipewire";
           audio-channels = "auto";
           volume-max = 200;
           alang = "enGB,en-GB,eng,en,english,enUS,en-US,jpn,jp";
