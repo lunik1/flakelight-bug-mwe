@@ -20,8 +20,8 @@ in {
         network.startWhenNeeded = true;
         extraConfig = ''
           audio_output {
-            type            "pulse"
-            name            "pulse audio"
+            type            "pipewire"
+            name            "Pipewire Sound Server"
           }
 
           audio_output {
