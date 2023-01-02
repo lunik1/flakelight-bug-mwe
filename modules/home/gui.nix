@@ -8,33 +8,34 @@ in {
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = with pkgs; [
-        bitwarden
-        bleachbit
-        discord
-        element-desktop
-        gimp
-        gnome3.gucharmap
-        hunspellDicts.en-gb-ise # needed for libreoffice
-        krita
-        jitsi-meet-electron
-        pavucontrol
-        qdirstat
-        skypeforlinux
-        teams
-        thunderbird
-        ungoogled-chromium
-        xdg_utils
+      packages = with pkgs;
+        [
+          bitwarden
+          bleachbit
+          discord
+          element-desktop
+          gimp
+          gnome3.gucharmap
+          hunspellDicts.en-gb-ise # needed for libreoffice
+          krita
+          jitsi-meet-electron
+          qdirstat
+          skypeforlinux
+          teams
+          thunderbird
+          ungoogled-chromium
+          xdg_utils
 
-        (if config.lunik1.home.kde.enable then
+          myosevka-aile
+
+          lunik1-nur.amazing-marvin
+        ] ++ (if config.lunik1.home.kde.enable then [
           libreoffice-qt
-        else
-          libreoffice-fresh)
-
-        myosevka-aile
-
-        lunik1-nur.amazing-marvin
-      ];
+          pavucontrol
+        ] else [
+          libreoffice-fresh
+          lxqt.pavucontrol-qt
+        ]);
 
       sessionVariables = { MOZ_WEBRENDER = "1"; };
 
