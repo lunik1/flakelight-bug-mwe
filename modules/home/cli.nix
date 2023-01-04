@@ -11,7 +11,6 @@ in {
         bat-extras.batgrep
         comma
         croc
-        doggo
         duf
         emv
         eternal-terminal
@@ -31,6 +30,7 @@ in {
         parallel
         parted
         psmisc
+        q
         ranger
         rename
         ripgrep
