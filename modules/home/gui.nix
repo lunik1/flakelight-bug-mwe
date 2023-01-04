@@ -149,6 +149,8 @@ in {
           "x-scheme-handler/nntp" = [ "thunderbird.desktop" ];
           "x-scheme-handler/snews" = [ "thunderbird.desktop" ];
 
+          "application/pdf" = [ "zathura.desktop" ];
+
           # Libreoffice
           "application/vnd.openofficeorg.extension" = [ "startcenter.desktop" ];
           "x-scheme-handler/vnd.libreoffice.cmis" = [ "startcenter.desktop" ];
