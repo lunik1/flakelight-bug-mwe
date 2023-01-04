@@ -1,5 +1,4 @@
 # System printing and scanning configuration
-# For now, just supports HP printers
 
 { config, lib, pkgs, ... }:
 
