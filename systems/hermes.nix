@@ -35,6 +35,7 @@ overlays:
             resolved.enable = true;
             nameservers =
               [ "37.205.9.100" "37.205.10.88" ]; # vpsFree internal DNS
+            dnsOverTls = false;
           };
           ssh-server.enable = true;
           vpsadminos.enable = true;

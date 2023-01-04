@@ -7,8 +7,13 @@ in {
   options.lunik1.system.network = with lib.types; {
     resolved.enable = lib.mkEnableOption "resolved";
     networkmanager.enable = lib.mkEnableOption "network manager";
+    dnsOverTls = lib.mkOption {
+      default = true;
+      type = bool;
+      description = "Whether to use DNS-over-TLS (DoT)";
+    };
     nameservers = lib.mkOption {
-      default = if cfg.resolved.enable then [
+      default = if cfg.resolved.enable && cfg.dnsOverTls then [
         # recommended by https://www.privacyguides.org/dns/
         "194.242.2.2#doh.mullvad.net"
         "45.90.30.0#anycast.dns.nextdns.io"
@@ -25,6 +30,11 @@ in {
   };
 
   config = {
+    assertions = with cfg; [{
+      assertion = dnsOverTls -> resolved.enable;
+      message = "DNS-over-TLS support requires resolved";
+    }];
+
     networking = {
       firewall.enable = false;
       nameservers = cfg.nameservers;
@@ -40,7 +50,7 @@ in {
       dnssec = "false";
       fallbackDns = [ "" ];
       extraConfig = ''
-        DNSOverTLS=true
+        DNSOverTLS=${lib.boolToString cfg.dnsOverTls};
       '';
     };
   };
