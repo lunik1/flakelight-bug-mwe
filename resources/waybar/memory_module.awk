@@ -12,8 +12,9 @@ BEGIN {
     icons[6] = "󰫈"
     n_icons = length(icons)
 
-    for (i = 0; i < n_icons; i++)
+    for (i = 0; i < n_icons - 1; i++)
         thresholds[i] = i / (n_icons - 1) * 100
+    thresholds[n_icons - 1] = 95
     thresholds[n_icons] = -log(0) # +inf
 }
 
