@@ -114,7 +114,7 @@ overlays:
               "category.create=mfs"
               "cache.writeback=true"
               "cache.symlinks=true"
-              # "ignorepponrename=true"
+              "ignorepponrename=true"
               "cache.readdir=true"
               "cache.open=1"
               "dropcacheonclose=true"
