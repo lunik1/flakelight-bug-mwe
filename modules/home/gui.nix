@@ -115,6 +115,9 @@ in {
 
             # Disable pocket
             "extensions.pocket.enabled" = false;
+
+            # Use light themes on websites
+            "layout.css.prefers-color-scheme.content-override" = 1;
           };
         };
       };
