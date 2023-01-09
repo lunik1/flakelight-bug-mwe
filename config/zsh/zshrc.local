@@ -139,6 +139,78 @@ alias srsync='rsync --checksum-choice=xxh3 --compress-choice=zstd --info=progres
 alias pipdate='sh -c "pip freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1  | xargs -n1 pip install -U"'
 alias pip2date='sh -c "pip2 freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1  | xargs -n1 pip install -U"'
 
+# different behaviour inside emacs
+# courtesey of elken
+if [ "${INSIDE_EMACS}" = "vterm" ]; then
+  vterm_printf() {
+    if [ -n "$TMUX" ]; then
+      # Tell tmux to pass the escape sequences through
+      printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+      # GNU screen (screen, screen-256color, screen-256color-bce)
+      printf "\eP\e]%s\007\e\\" "$1"
+    else
+      printf "\e]%s\e\\" "$1"
+    fi
+  }
+
+  vterm_cmd() {
+    local vterm_elisp
+    vterm_elisp=""
+    while [ $# -gt 0 ]; do
+      vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
+      shift
+    done
+    vterm_printf "51;E$vterm_elisp"
+  }
+
+  find_file() {
+    vterm_cmd find-file "$(realpath -mq "${@:-.}")"
+  }
+
+  woman () {
+    vterm_cmd woman $1
+  }
+
+  dired () {
+    local patharg
+    patharg="$(realpath -eq "${@:-.}")"
+
+    if [ $? -eq 1 ]; then
+       printf "No such file or directory\n"
+       return 1
+    fi
+
+    vterm_cmd dired ${patharg}
+  }
+
+  ranger () {
+    local patharg
+    patharg="$(realpath -eq "${@:-.}")"
+
+    if [ $? -eq 1 ]; then
+       printf "No such file or directory\n"
+       return 1
+    fi
+
+    # ranger needs a trailing slash to open the directory
+    if [ -d "${patharg}" ]; then
+       patharg="${patharg}/"
+    fi
+
+    vterm_cmd ranger ${patharg}
+  }
+
+  alias find-file='find_file'
+  alias ff='find_file'
+  alias emacs='find_file'
+  alias vim='find_file'
+  alias nvim='find_file'
+  alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
+  alias man='woman'
+  alias fm='dired'
+fi
+
 if type pacman >/dev/null 2>&1; then
   # run pacman as root
   salias pacman=pacman
