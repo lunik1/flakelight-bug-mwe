@@ -19,7 +19,7 @@ in {
           enable = true;
           options = {
             syntax-theme = "gruvbox-dark";
-            line-numbers = true;
+            features = "line-numbers";
           };
         };
         ignores = [
@@ -92,6 +92,7 @@ in {
           diff.algorithm = "histogram";
           github.user = "lunik1";
           gitlab.user = "lunik1";
+          "delta \"magit-delta\"".line-numbers = false;
         };
       };
       gh = {
