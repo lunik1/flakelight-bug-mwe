@@ -15,6 +15,7 @@ in {
           propagatedBuildInputs = [ pkgs.beetsPackages.alternatives ];
         };
       })
+      calibre
       flac
       keyfinder-cli # TODO use path in beet config rather than install globally
       mediainfo
