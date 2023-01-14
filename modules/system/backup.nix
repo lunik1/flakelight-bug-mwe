@@ -21,7 +21,7 @@ in {
     environment.systemPackages = [ pkgs.kopia ];
 
     systemd.services.kopia-create = {
-      description = "Backup to kopia webdav server";
+      description = "Backup to kopia repository";
       startAt = cfg.interval;
       serviceConfig = {
         Type = "oneshot";
