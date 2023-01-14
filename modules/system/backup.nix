@@ -18,6 +18,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.kopia ];
+
     systemd.services.kopia-create = {
       description = "Backup to kopia webdav server";
       startAt = cfg.interval;
