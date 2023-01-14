@@ -42,6 +42,7 @@ in {
         stress-ng
         unrar
         unzip
+        webwormhole
         wget
         xfsdump
         xxHash
