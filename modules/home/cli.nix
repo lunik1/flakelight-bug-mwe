@@ -60,6 +60,17 @@ in {
           '';
           target = ".aspell.conf";
         };
+        xcompose = {
+          # Some applications (emacs, firefox, …) seem to ignore include
+          # directives, so let's just concatenate all the files together
+          text = with pkgs.lunik1-nur;
+            (builtins.readFile "${xcompose}/dotXCompose")
+            + (builtins.readFile "${xcompose}/frakturcompose")
+            + (builtins.readFile "${xcompose}/emoji.compose")
+            + (builtins.readFile "${xcompose}/parens.compose")
+            + (builtins.readFile "${xcompose}/maths.compose");
+          target = ".XCompose";
+        };
       };
 
       sessionPath = [ "~/bin" ];
