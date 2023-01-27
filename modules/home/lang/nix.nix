@@ -18,6 +18,7 @@ in {
       nixpkgs-fmt
       nixpkgs-lint
       nixpkgs-review
+      nurl
       rnix-lsp
     ];
   };
