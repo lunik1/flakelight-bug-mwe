@@ -20,7 +20,7 @@ in {
     programs.mpv = rec {
       enable = true;
       scripts = with pkgs.mpvScripts;
-        [ autoload mpris mpv-playlistmanager pkgs.mpv-youtube-quality ]
+        [ autoload mpris mpv-playlistmanager pkgs.lunik1-nur.quality-menu ]
         ++ lib.optional (cfg.profile == "placebo") thumbnail;
       config = with cfg;
         {
@@ -129,6 +129,14 @@ in {
 
           ytdl-format = "bestvideo+bestaudio/best";
         };
+      bindings = {
+        "F" = "script-binding quality_menu/video_formats_toggle";
+        "Alt+f" = "script-binding quality_menu/audio_formats_toggle";
+        "Ctrl+h" = ''cycle-values hwdec "auto-copy-safe" "auto-safe" "no"'';
+        "Ctrl++" = "add audio-delay 0.100";
+        "x" = "add audio-delay -0.1";
+        "X" = "add audio-delay +0.1";
+      };
       profiles = {
         "protocol.http" = {
           hls-bitrate = "max";
