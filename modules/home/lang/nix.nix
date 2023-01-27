@@ -17,6 +17,7 @@ in {
       nixos-shell
       nixpkgs-fmt
       nixpkgs-lint
+      nixpkgs-review
       rnix-lsp
     ];
   };
