@@ -23,8 +23,13 @@ rec {
       };
     };
 
-    ## Machine-specifc dir hashes
-    programs.zsh.dirHashes = { win = "/mnt/c/Users/chmic"; };
+    programs.zsh = {
+      ## Machine-specifc dir hashes
+      dirHashes = { win = "/mnt/c/Users/chmic"; };
+      profileExtra = ''
+        setxkbmap -option compose:ralt
+      '';
+    };
 
     lunik1.home = {
       core.enable = true;
