@@ -211,6 +211,11 @@ if [ "${INSIDE_EMACS}" = "vterm" ]; then
   alias fm='dired'
 fi
 
+# Don't try to open EDITORs inside emacs
+if [ -n "${INSIDE_EMACS}" ]; then
+  export EDITOR="false"
+fi
+
 if type pacman >/dev/null 2>&1; then
   # run pacman as root
   salias pacman=pacman
