@@ -17,8 +17,8 @@ rec {
       enable = true;
       configFile."nix.conf" = {
         text = ''
-          max-jobs = 32
-          cores = 0
+          max-jobs = 16
+          cores = 8
         '';
       };
     };
