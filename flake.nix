@@ -56,28 +56,27 @@
             set = "myosevka-proportional";
           };
           myosevka-aile = super.iosevka.override {
-            privateBuildPlan =
-              (import resources/iosevka/myosevka-aile.nix) { lib = super.lib; };
+            privateBuildPlan = (import resources/iosevka/myosevka-aile.nix) {
+              inherit (super) lib;
+            };
             set = "myosevka-aile";
           };
           myosevka-etoile = super.iosevka.override {
             privateBuildPlan = (import resources/iosevka/myosevka-etoile.nix) {
-              lib = super.lib;
+              inherit (super) lib;
             };
             set = "myosevka-etoile";
           };
         })
-        (self: super: { LS_COLORS = LS_COLORS; })
-        (self: super: { firefox-lepton = firefox-lepton; })
+        (self: super: { inherit LS_COLORS; })
+        (self: super: { inherit firefox-lepton; })
         (self: super: {
           neovim = super.neovim.override {
             vimAlias = true;
             viAlias = true;
           };
         })
-        (self: super: {
-          nixos-logo-gruvbox-wallpaper = nixos-logo-gruvbox-wallpaper;
-        })
+        (self: super: { inherit nixos-logo-gruvbox-wallpaper; })
         emacs-overlay.overlays.default
       ];
       homeConfigDir = ./home-configurations;
@@ -95,12 +94,12 @@
         };
     in {
       nixosConfigurations = mapAttrs' (file: _: {
-        name = (removeSuffix ".nix" file);
+        name = removeSuffix ".nix" file;
         value = inputs.nixos.lib.nixosSystem
           ((import (systemConfigDir + "/${file}")) overlays);
       }) (filterAttrs isNixFile (builtins.readDir systemConfigDir));
       homeConfigurations = mapAttrs' (file: _: {
-        name = (removeSuffix ".nix" file);
+        name = removeSuffix ".nix" file;
         value = (home-manager.lib.homeManagerConfiguration
           ((import (homeConfigDir + "/${file}"))
             pkgsForSystem)).activationPackage;

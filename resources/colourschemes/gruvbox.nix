@@ -55,30 +55,30 @@ rec {
   light = rec {
     black = {
       normal = dark.fg0;
-      bright = dark.black.bright;
+      inherit (dark.black) bright;
     };
     red = {
-      normal = dark.red.normal;
+      inherit (dark.red) normal;
       bright = "#9d0006";
     };
     green = {
-      normal = dark.green.normal;
+      inherit (dark.green) normal;
       bright = "#79740e";
     };
     yellow = {
-      normal = dark.yellow.normal;
+      inherit (dark.yellow) normal;
       bright = "#B57614";
     };
     blue = {
-      normal = dark.blue.normal;
+      inherit (dark.blue) normal;
       bright = "#076678";
     };
     purple = {
-      normal = dark.purple.normal;
+      inherit (dark.purple) normal;
       bright = "#8f3f71";
     };
     cyan = {
-      normal = dark.cyan.normal;
+      inherit (dark.cyan) normal;
       bright = "#427b58";
     };
     white = {
@@ -86,7 +86,7 @@ rec {
       bright = dark.bg1;
     };
     orange = {
-      normal = dark.orange.normal;
+      inherit (dark.orange) normal;
       bright = "#af3a03";
     };
     bg = light.black.normal;

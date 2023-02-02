@@ -117,19 +117,19 @@ in {
         {
           plugin = nvim-cmp;
           type = "lua";
-          config = (builtins.readFile ../../config/nvim/plugins/nvim-cmp.lua);
+          config = builtins.readFile ../../config/nvim/plugins/nvim-cmp.lua;
         }
         {
           plugin = nvim-lspconfig;
           type = "lua";
           config =
-            (builtins.readFile ../../config/nvim/plugins/nvim-lspconfig.lua);
+            builtins.readFile ../../config/nvim/plugins/nvim-lspconfig.lua;
         }
         {
           plugin = nvim-treesitter;
           type = "lua";
           config =
-            (builtins.readFile ../../config/nvim/plugins/nvim-treesitter.lua);
+            builtins.readFile ../../config/nvim/plugins/nvim-treesitter.lua;
         }
         {
           plugin = nvim-ts-rainbow;

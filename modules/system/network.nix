@@ -37,7 +37,7 @@ in {
 
     networking = {
       firewall.enable = false;
-      nameservers = cfg.nameservers;
+      inherit (cfg) nameservers;
     };
     networking.networkmanager = lib.mkIf cfg.networkmanager.enable {
       enable = true;

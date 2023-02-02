@@ -190,8 +190,7 @@ in {
           auto_update_interval_hours = 24;
         };
       };
-      tmux =
-        import ../../config/tmux/tmux.nix { tmuxPlugins = pkgs.tmuxPlugins; };
+      tmux = import ../../config/tmux/tmux.nix { inherit (pkgs) tmuxPlugins; };
       fzf = rec {
         enable = true;
         enableFishIntegration = false;

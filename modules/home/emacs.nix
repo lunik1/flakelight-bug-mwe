@@ -33,7 +33,7 @@ in {
 
     programs.emacs = let
       settings = {
-        nativeComp = cfg.nativeComp;
+        inherit (cfg) nativeComp;
         withX = false;
         withNS = false;
         withGTK2 = false;

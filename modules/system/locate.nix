@@ -19,7 +19,7 @@ in {
     services.locate = {
       enable = true;
       locate = pkgs.mlocate;
-      interval = cfg.interval;
+      inherit (cfg) interval;
       localuser = null;
     };
 
