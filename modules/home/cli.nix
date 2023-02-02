@@ -26,6 +26,7 @@ in {
         lrzip
         lz4
         ncdu
+        nix-tree
         p7zip
         parallel
         parted

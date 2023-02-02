@@ -9,7 +9,6 @@ in {
       nix-prefetch
       nix-prefetch-git
       nix-prefetch-github
-      nix-tree
       nix-update
       nixfmt
       # nixops_unstable # does not build, insecure
