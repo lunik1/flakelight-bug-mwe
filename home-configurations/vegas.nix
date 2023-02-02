@@ -13,22 +13,17 @@ rec {
 
     targets.genericLinux.enable = true;
 
-    xdg = {
-      enable = true;
-      configFile."nix.conf" = {
-        text = ''
-          max-jobs = 16
-          cores = 8
-        '';
-      };
-    };
-
     programs.zsh = {
       ## Machine-specifc dir hashes
       dirHashes = { win = "/mnt/c/Users/chmic"; };
       profileExtra = ''
         setxkbmap -option compose:ralt
       '';
+    };
+
+    nix.settings = {
+      max-jobs = 16;
+      cores = 8;
     };
 
     lunik1.home = {
