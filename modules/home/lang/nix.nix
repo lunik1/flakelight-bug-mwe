@@ -6,7 +6,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      # nix-linter # does not build, broken
       nix-prefetch
       nix-prefetch-git
       nix-prefetch-github
@@ -20,6 +19,7 @@ in {
       nixpkgs-review
       nurl
       rnix-lsp
+      statix
     ];
   };
 }
