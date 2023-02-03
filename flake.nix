@@ -4,7 +4,12 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     lunik1-nur-unstable = {
       url = "github:lunik1/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-utils.follows = "flake-utils";
+        nixpkgs-lint.follows = "nixpkgs-lint";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
     };
     home-manager = {
       url = "github:nix-community/home-manager";

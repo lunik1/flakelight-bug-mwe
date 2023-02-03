@@ -146,16 +146,25 @@
     },
     "lunik1-nur-unstable": {
       "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
           "nixpkgs-unstable"
+        ],
+        "nixpkgs-lint": [
+          "nixpkgs-lint"
+        ],
+        "pre-commit-hooks": [
+          "pre-commit-hooks"
         ]
       },
       "locked": {
-        "lastModified": 1675300966,
-        "narHash": "sha256-oygow35y2NRTgg0Ek+5X6poa6OHjNxa6OS1Dp3YpodY=",
+        "lastModified": 1675435820,
+        "narHash": "sha256-UKJ2Z2oMpgSpx/rYVdeUXGmtRxgTnGewDjo30VEPOr0=",
         "owner": "lunik1",
         "repo": "nur-packages",
-        "rev": "03758b2c9aa16fe7a98333cacd9ea5721aa53816",
+        "rev": "f58bfe0bb54a1cc5da35c21bcfbe95f7dee7ba5f",
         "type": "github"
       },
       "original": {
