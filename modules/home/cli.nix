@@ -10,6 +10,7 @@ in {
         (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
         bat-extras.batgrep
         comma
+        copier
         croc
         duf
         emv
