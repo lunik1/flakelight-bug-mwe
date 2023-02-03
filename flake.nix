@@ -37,6 +37,13 @@
         flake-utils.follows = "flake-utils";
       };
     };
+    nixpkgs-lint = {
+      url = "github:nix-community/nixpkgs-lint";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs = inputs@{ self, ... }:
@@ -78,6 +85,7 @@
         })
         (self: super: { inherit nixos-logo-gruvbox-wallpaper; })
         emacs-overlay.overlays.default
+        nixpkgs-lint.overlays.default
       ];
       homeConfigDir = ./home-configurations;
       systemConfigDir = ./systems;
