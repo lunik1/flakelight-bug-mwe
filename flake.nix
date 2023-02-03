@@ -116,7 +116,7 @@
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
-              nixfmt.enable = true;
+              nixpkgs-fmt.enable = true;
               shellcheck.enable = true;
             };
           };
@@ -131,10 +131,10 @@
             jq
             nixpkgs-fmt
             nix-info
-            # nix-linter # does not build, broken
             nixpkgs-lint
             pre-commit
             shellcheck
+            statix
           ];
         };
       });
