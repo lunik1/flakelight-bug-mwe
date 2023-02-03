@@ -7,8 +7,6 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       nix-prefetch
-      nix-prefetch-git
-      nix-prefetch-github
       nix-update
       nixfmt
       # nixops_unstable # does not build, insecure
