@@ -116,6 +116,7 @@
             };
           };
         };
+        formatter = pkgs.nixpkgs-fmt;
         devShell = pkgs.mkShell {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           buildInputs = with pkgs; [
@@ -123,7 +124,7 @@
             coreutils
             gawk
             jq
-            nixfmt
+            nixpkgs-fmt
             nix-info
             # nix-linter # does not build, broken
             nixpkgs-lint
