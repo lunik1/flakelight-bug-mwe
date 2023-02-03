@@ -45,19 +45,22 @@ in {
       sessionVariables.AWK_HASH = "fnv1a";
     };
 
-    programs.ssh = let
-      isEncrypted = with pkgs;
-        f:
-        !lib.hasInfix "text" (lib.fileContents
-          (runCommandNoCCLocal "is-encrypted" {
-            buildInputs = [ file ];
-            src = f;
-          } "file $src > $out"));
-      sshConfig = ../../config/ssh/config.nix;
-    in if isEncrypted sshConfig then
-      builtins.trace "Warning: ssh config is encrypted, not building" { }
-    else
-      import sshConfig;
+    programs.ssh =
+      let
+        isEncrypted = with pkgs;
+          f:
+            !lib.hasInfix "text" (lib.fileContents
+              (runCommandNoCCLocal "is-encrypted"
+                {
+                  buildInputs = [ file ];
+                  src = f;
+                } "file $src > $out"));
+        sshConfig = ../../config/ssh/config.nix;
+      in
+      if isEncrypted sshConfig then
+        builtins.trace "Warning: ssh config is encrypted, not building" { }
+      else
+        import sshConfig;
 
     nix = {
       package = pkgs.nix;

@@ -31,23 +31,25 @@ in {
         zip # for org odt export
       ];
 
-    programs.emacs = let
-      settings = {
-        inherit (cfg) nativeComp;
-        withX = false;
-        withNS = false;
-        withGTK2 = false;
-        withGTK3 = cfg.gui;
-        withPgtk = cfg.gui;
-        withWebP = true;
+    programs.emacs =
+      let
+        settings = {
+          inherit (cfg) nativeComp;
+          withX = false;
+          withNS = false;
+          withGTK2 = false;
+          withGTK3 = cfg.gui;
+          withPgtk = cfg.gui;
+          withWebP = true;
+        };
+        emacs-package = pkgs.emacsLsp.override settings;
+      in
+      {
+        enable = true;
+        package = emacs-package;
+        extraPackages = epkgs:
+          [ epkgs.vterm ] ++ optionals cfg.gui [ epkgs.pdf-tools ];
       };
-      emacs-package = pkgs.emacsLsp.override settings;
-    in {
-      enable = true;
-      package = emacs-package;
-      extraPackages = epkgs:
-        [ epkgs.vterm ] ++ optionals cfg.gui [ epkgs.pdf-tools ];
-    };
 
     services.gpg-agent.extraConfig = ''
       allow-emacs-pinentry

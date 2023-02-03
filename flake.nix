@@ -92,18 +92,23 @@
             };
           };
         };
-    in {
-      nixosConfigurations = mapAttrs' (file: _: {
-        name = removeSuffix ".nix" file;
-        value = inputs.nixos.lib.nixosSystem
-          ((import (systemConfigDir + "/${file}")) overlays);
-      }) (filterAttrs isNixFile (builtins.readDir systemConfigDir));
-      homeConfigurations = mapAttrs' (file: _: {
-        name = removeSuffix ".nix" file;
-        value = (home-manager.lib.homeManagerConfiguration
-          ((import (homeConfigDir + "/${file}"))
-            pkgsForSystem)).activationPackage;
-      }) (filterAttrs isNixFile (builtins.readDir homeConfigDir));
+    in
+    {
+      nixosConfigurations = mapAttrs'
+        (file: _: {
+          name = removeSuffix ".nix" file;
+          value = inputs.nixos.lib.nixosSystem
+            ((import (systemConfigDir + "/${file}")) overlays);
+        })
+        (filterAttrs isNixFile (builtins.readDir systemConfigDir));
+      homeConfigurations = mapAttrs'
+        (file: _: {
+          name = removeSuffix ".nix" file;
+          value = (home-manager.lib.homeManagerConfiguration
+            ((import (homeConfigDir + "/${file}"))
+              pkgsForSystem)).activationPackage;
+        })
+        (filterAttrs isNixFile (builtins.readDir homeConfigDir));
     } // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = pkgsForSystem system;
       in {

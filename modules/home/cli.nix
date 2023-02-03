@@ -161,9 +161,9 @@ in {
         }
         # btop will crash if it tries to access /sys/class/power_supply
         # in vpsAdminOS
-          // lib.optionalAttrs config.lunik1.home.vpsAdminOs {
-            show_battery = false;
-          };
+        // lib.optionalAttrs config.lunik1.home.vpsAdminOs {
+          show_battery = false;
+        };
       };
       dircolors = {
         enable = true;

@@ -3,7 +3,8 @@
 let
   gruvbox = import ../../resources/colourschemes/gruvbox.nix;
   cfg = config.lunik1.home;
-in {
+in
+{
   options.lunik1.home = {
     sway.enable = lib.mkEnableOption "sway";
     waybar = {
@@ -80,10 +81,10 @@ in {
               ++ lib.optional batteryModule "battery"
               ++ [ "custom/memory" "disk" "network" ]
               ++ lib.optional bluetoothModule "bluetooth" ++ [
-                "pulseaudio"
-                "clock"
-                # "tray"
-              ]);
+              "pulseaudio"
+              "clock"
+              # "tray"
+            ]);
           modules = {
             "sway/workspaces".numeric-first = true;
             mpd = {
@@ -162,11 +163,14 @@ in {
               hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
             };
             disk = {
-              states = let nIcons = 9;
-              in builtins.listToAttrs (map (x: {
-                "name" = builtins.toString x;
-                "value" = builtins.floor ((x * 100.0) / (nIcons - 1) + 0.5);
-              }) (lib.range 0 (nIcons - 1)));
+              states =
+                let nIcons = 9;
+                in builtins.listToAttrs (map
+                  (x: {
+                    "name" = builtins.toString x;
+                    "value" = builtins.floor ((x * 100.0) / (nIcons - 1) + 0.5);
+                  })
+                  (lib.range 0 (nIcons - 1)));
               format-0 = "󰝦";
               format-1 = "󰪞";
               format-2 = "󰪟";
@@ -232,184 +236,186 @@ in {
       };
     };
 
-    wayland.windowManager.sway = let
-      lockCommand = lib.concatStringsSep " " (with gruvbox;
-        let rO = lib.removePrefix "#"; # remove Octothorpe
-        in [
-          "exec ${pkgs.swaylock-effects}/bin/swaylock"
-          "--screenshots"
-          "--clock"
-          "--indicator"
-          "--fade-in 1"
-          "--font 'Myosevka'"
-          "--inside-color ${rO dark.bg}"
-          "--inside-clear-color ${rO light.yellow.bright}"
-          "--inside-caps-lock-color ${rO light.orange.bright}"
-          "--inside-ver-color ${rO light.purple.bright}"
-          "--inside-wrong-color ${rO light.red.bright}"
-          "--key-hl-color ${rO dark.cyan.bright}"
-          "--line-color ${rO dark.bg}"
-          "--line-clear-color ${rO dark.bg}"
-          "--line-caps-lock-color ${rO dark.bg}"
-          "--line-ver-color ${rO dark.bg}"
-          "--line-wrong-color ${rO dark.bg}"
-          "--ring-color ${rO light.cyan.bright}"
-          "--ring-clear-color ${rO dark.yellow.bright}"
-          "--ring-caps-lock-color ${rO dark.orange.bright}"
-          "--ring-ver-color ${rO dark.purple.bright}"
-          "--ring-wrong-color ${rO dark.red.normal}"
-          "--separator-color ${rO dark.bg}"
-          "--text-color ${rO dark.fg}"
-          "--text-clear-color ${rO dark.fg}"
-          "--text-caps-lock-color ${rO dark.fg}"
-          "--text-ver-color ${rO dark.fg}"
-          "--text-wrong-color ${rO dark.fg}"
-          "--effect-pixelate 15"
-          "--effect-blur 7x5"
-        ]);
-    in {
-      enable = true;
+    wayland.windowManager.sway =
+      let
+        lockCommand = lib.concatStringsSep " " (with gruvbox;
+          let rO = lib.removePrefix "#"; # remove Octothorpe
+          in [
+            "exec ${pkgs.swaylock-effects}/bin/swaylock"
+            "--screenshots"
+            "--clock"
+            "--indicator"
+            "--fade-in 1"
+            "--font 'Myosevka'"
+            "--inside-color ${rO dark.bg}"
+            "--inside-clear-color ${rO light.yellow.bright}"
+            "--inside-caps-lock-color ${rO light.orange.bright}"
+            "--inside-ver-color ${rO light.purple.bright}"
+            "--inside-wrong-color ${rO light.red.bright}"
+            "--key-hl-color ${rO dark.cyan.bright}"
+            "--line-color ${rO dark.bg}"
+            "--line-clear-color ${rO dark.bg}"
+            "--line-caps-lock-color ${rO dark.bg}"
+            "--line-ver-color ${rO dark.bg}"
+            "--line-wrong-color ${rO dark.bg}"
+            "--ring-color ${rO light.cyan.bright}"
+            "--ring-clear-color ${rO dark.yellow.bright}"
+            "--ring-caps-lock-color ${rO dark.orange.bright}"
+            "--ring-ver-color ${rO dark.purple.bright}"
+            "--ring-wrong-color ${rO dark.red.normal}"
+            "--separator-color ${rO dark.bg}"
+            "--text-color ${rO dark.fg}"
+            "--text-clear-color ${rO dark.fg}"
+            "--text-caps-lock-color ${rO dark.fg}"
+            "--text-ver-color ${rO dark.fg}"
+            "--text-wrong-color ${rO dark.fg}"
+            "--effect-pixelate 15"
+            "--effect-blur 7x5"
+          ]);
+      in
+      {
+        enable = true;
 
-      # https://github.com/NixOS/nixpkgs/issues/128469
-      # sway does not like using the non-system mesa so get the sway binary
-      # from the NixOS module
-      package = null;
+        # https://github.com/NixOS/nixpkgs/issues/128469
+        # sway does not like using the non-system mesa so get the sway binary
+        # from the NixOS module
+        package = null;
 
-      config = rec {
-        bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
-        colors = {
-          background = gruvbox.dark.bg;
-          focused = {
+        config = rec {
+          bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
+          colors = {
             background = gruvbox.dark.bg;
-            border = gruvbox.dark.bg;
-            childBorder = gruvbox.dark.bg2;
-            indicator = gruvbox.dark.bg4;
-            text = gruvbox.dark.fg;
+            focused = {
+              background = gruvbox.dark.bg;
+              border = gruvbox.dark.bg;
+              childBorder = gruvbox.dark.bg2;
+              indicator = gruvbox.dark.bg4;
+              text = gruvbox.dark.fg;
+            };
+            focusedInactive = {
+              background = gruvbox.dark.bg;
+              border = gruvbox.dark.bg;
+              childBorder = gruvbox.dark.bg0_h;
+              indicator = gruvbox.dark.bg0_h;
+              text = gruvbox.dark.gray;
+            };
+            "placeholder" = {
+              background = gruvbox.dark.bg0_s;
+              border = gruvbox.dark.bg0_s;
+              childBorder = gruvbox.dark.bg0_s;
+              indicator = gruvbox.dark.bg0_s;
+              text = gruvbox.dark.fg;
+            };
+            unfocused = {
+              background = gruvbox.dark.bg2;
+              border = gruvbox.dark.bg;
+              childBorder = gruvbox.dark.bg0_h;
+              indicator = gruvbox.dark.bg0_h;
+              text = gruvbox.dark.gray;
+            };
+            urgent = {
+              background = gruvbox.light.red.normal;
+              border = gruvbox.light.red.normal;
+              childBorder = gruvbox.light.red.normal;
+              indicator = gruvbox.light.red.normal;
+              text = gruvbox.dark.fg;
+            };
           };
-          focusedInactive = {
-            background = gruvbox.dark.bg;
-            border = gruvbox.dark.bg;
-            childBorder = gruvbox.dark.bg0_h;
-            indicator = gruvbox.dark.bg0_h;
-            text = gruvbox.dark.gray;
+          floating = {
+            border = 4;
+            titlebar = true;
           };
-          "placeholder" = {
-            background = gruvbox.dark.bg0_s;
-            border = gruvbox.dark.bg0_s;
-            childBorder = gruvbox.dark.bg0_s;
-            indicator = gruvbox.dark.bg0_s;
-            text = gruvbox.dark.fg;
+          focus.followMouse = false;
+          fonts = {
+            names = [ "Myosevka Proportional" ];
+            size = 14.0;
           };
-          unfocused = {
-            background = gruvbox.dark.bg2;
-            border = gruvbox.dark.bg;
-            childBorder = gruvbox.dark.bg0_h;
-            indicator = gruvbox.dark.bg0_h;
-            text = gruvbox.dark.gray;
+          # gaps = { smartBorders = "on"; };
+          input = {
+            "*" = {
+              xkb_numlock = "enabled";
+              xkb_layout = "gb";
+              xkb_options = "lv3:ralt_switch_multikey";
+            };
           };
-          urgent = {
-            background = gruvbox.light.red.normal;
-            border = gruvbox.light.red.normal;
-            childBorder = gruvbox.light.red.normal;
-            indicator = gruvbox.light.red.normal;
-            text = gruvbox.dark.fg;
+          keybindings = lib.mkOptionDefault {
+            "${modifier}+b" = "splitv";
+            "${modifier}+v" = "splith";
+            "${modifier}+n" =
+              "exec --no-startup-id ${pkgs.networkmanager_dmenu}/bin/networkmanager_dmenu";
+            "${modifier}+Shift+q" = "kill";
+            "${modifier}+Shift+e" = ''
+              exec ${pkgs.sway}/bin/swaynag -t warning -f "Myosevka Proportional" -m "Exit sway?" -b "Yes" "${pkgs.sway}/bin/swaymsg exit"'';
+            "${modifier}+Shift+x" = "${lockCommand}";
+            "${modifier}+p" =
+              "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
+            "Print" =
+              "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
+            "XF86AudioRaiseVolume" =
+              "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%";
+            "XF86AudioLowerVolume" =
+              "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%";
+            "XF86AudioMute" =
+              "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
+            "XF86AudioPrev" =
+              "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s previous";
+            "XF86AudioNext" =
+              "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s next";
+            "XF86AudioPlay" =
+              "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s play-pause";
+            "XF86AudioStop" =
+              "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s stop";
+            "Control+XF86AudioPrev" =
+              "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s position 30-";
+            "Control+XF86AudioNext" =
+              "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s position 30+";
+            "Control+XF86AudioPlay" =
+              "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s stop";
           };
-        };
-        floating = {
-          border = 4;
-          titlebar = true;
-        };
-        focus.followMouse = false;
-        fonts = {
-          names = [ "Myosevka Proportional" ];
-          size = 14.0;
-        };
-        # gaps = { smartBorders = "on"; };
-        input = {
-          "*" = {
-            xkb_numlock = "enabled";
-            xkb_layout = "gb";
-            xkb_options = "lv3:ralt_switch_multikey";
+          menu = ''
+            ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --term="${pkgs.foot}/bin/footclient" --dmenu="${pkgs.dmenu-wayland}/bin/dmenu-wl -i -fn 'Myosevka Proportional 14' -nb '${gruvbox.dark.bg}' -nf '${gruvbox.dark.fg}' -sb '${gruvbox.light.bg}' -sf '${gruvbox.light.fg}'"'';
+          modifier = "Mod4";
+          output = {
+            "*" = {
+              bg =
+                "${pkgs.nixos-logo-gruvbox-wallpaper}/png/gruvbox-light-rainbow.png stretch";
+            };
           };
-        };
-        keybindings = lib.mkOptionDefault {
-          "${modifier}+b" = "splitv";
-          "${modifier}+v" = "splith";
-          "${modifier}+n" =
-            "exec --no-startup-id ${pkgs.networkmanager_dmenu}/bin/networkmanager_dmenu";
-          "${modifier}+Shift+q" = "kill";
-          "${modifier}+Shift+e" = ''
-            exec ${pkgs.sway}/bin/swaynag -t warning -f "Myosevka Proportional" -m "Exit sway?" -b "Yes" "${pkgs.sway}/bin/swaymsg exit"'';
-          "${modifier}+Shift+x" = "${lockCommand}";
-          "${modifier}+p" =
-            "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
-          "Print" =
-            "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
-          "XF86AudioRaiseVolume" =
-            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%";
-          "XF86AudioLowerVolume" =
-            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%";
-          "XF86AudioMute" =
-            "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
-          "XF86AudioPrev" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s previous";
-          "XF86AudioNext" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s next";
-          "XF86AudioPlay" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s play-pause";
-          "XF86AudioStop" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s stop";
-          "Control+XF86AudioPrev" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s position 30-";
-          "Control+XF86AudioNext" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s position 30+";
-          "Control+XF86AudioPlay" =
-            "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl -s stop";
-        };
-        menu = ''
-          ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --term="${pkgs.foot}/bin/footclient" --dmenu="${pkgs.dmenu-wayland}/bin/dmenu-wl -i -fn 'Myosevka Proportional 14' -nb '${gruvbox.dark.bg}' -nf '${gruvbox.dark.fg}' -sb '${gruvbox.light.bg}' -sf '${gruvbox.light.fg}'"'';
-        modifier = "Mod4";
-        output = {
-          "*" = {
-            bg =
-              "${pkgs.nixos-logo-gruvbox-wallpaper}/png/gruvbox-light-rainbow.png stretch";
-          };
-        };
-        startup = [
-          { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
-          {
-            command =
-              "${pkgs.swayidle}/bin/swayidle timeout 300 '${lockCommand} --grace 5' before-sleep '${lockCommand}'";
-          }
-          { command = "${pkgs.foot}/bin/foot --server"; }
-        ];
-        terminal = "${pkgs.foot}/bin/footclient";
-        window = {
-          border = 2;
-          commands = [
+          startup = [
+            { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
             {
-              criteria = { app_id = "kitty"; };
-              command = "opacity 0.90";
+              command =
+                "${pkgs.swayidle}/bin/swayidle timeout 300 '${lockCommand} --grace 5' before-sleep '${lockCommand}'";
             }
-            {
-              criteria = { app_id = "foot"; };
-              command = "opacity 0.90";
-            }
-            {
-              criteria = { class = "(?i)(emacs)"; };
-              command = "opacity 0.90";
-            }
+            { command = "${pkgs.foot}/bin/foot --server"; }
           ];
+          terminal = "${pkgs.foot}/bin/footclient";
+          window = {
+            border = 2;
+            commands = [
+              {
+                criteria = { app_id = "kitty"; };
+                command = "opacity 0.90";
+              }
+              {
+                criteria = { app_id = "foot"; };
+                command = "opacity 0.90";
+              }
+              {
+                criteria = { class = "(?i)(emacs)"; };
+                command = "opacity 0.90";
+              }
+            ];
+          };
+          workspaceAutoBackAndForth = true;
         };
-        workspaceAutoBackAndForth = true;
+        # Need to use extraConfig to enable i3 titlebar hiding behaviour
+        extraConfig = ''
+          hide_edge_borders --i3 both
+        '';
+        # systemdIntegration = true;
+        # wrapperFeatures.gtk = true;
       };
-      # Need to use extraConfig to enable i3 titlebar hiding behaviour
-      extraConfig = ''
-        hide_edge_borders --i3 both
-      '';
-      # systemdIntegration = true;
-      # wrapperFeatures.gtk = true;
-    };
 
     xdg = {
       enable = true;

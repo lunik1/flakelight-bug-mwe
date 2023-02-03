@@ -18,16 +18,16 @@ in {
   config.home.packages = with pkgs;
     ([ ] ++ lib.optionals cfg.steam.enable [ steam steam-run ]
       ++ lib.optional cfg.emu.enable (retroarch.override {
-        cores = [
-          libretro.beetle-psx
-          libretro.bsnes-mercury
-          libretro.mesen
-          libretro.mgba
-          libretro.nestopia
-          libretro.sameboy
-          libretro.thepowdertoy
-        ];
-      }) ++ lib.optionals cfg.cli.enable [ crawl nethack ]
+      cores = [
+        libretro.beetle-psx
+        libretro.bsnes-mercury
+        libretro.mesen
+        libretro.mgba
+        libretro.nestopia
+        libretro.sameboy
+        libretro.thepowdertoy
+      ];
+    }) ++ lib.optionals cfg.cli.enable [ crawl nethack ]
       ++ lib.optional cfg.freeciv.enable freeciv_gtk
       ++ lib.optional cfg.df.enable dwarf-fortress-packages.dwarf-fortress-full
       ++ lib.optional cfg.minecraft.enable prismlauncher

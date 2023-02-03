@@ -13,18 +13,19 @@ in {
       description = "Whether to use DNS-over-TLS (DoT)";
     };
     nameservers = lib.mkOption {
-      default = if cfg.resolved.enable && cfg.dnsOverTls then [
-        # recommended by https://www.privacyguides.org/dns/
-        "194.242.2.2#doh.mullvad.net"
-        "45.90.30.0#anycast.dns.nextdns.io"
-        "76.76.2.11#p0.freedns.controld.com"
-        "9.9.9.9#dns.quad9.net"
-      ] else [
-        "194.242.2.2"
-        "45.90.30.0"
-        "76.76.2.11"
-        "9.9.9.9"
-      ];
+      default =
+        if cfg.resolved.enable && cfg.dnsOverTls then [
+          # recommended by https://www.privacyguides.org/dns/
+          "194.242.2.2#doh.mullvad.net"
+          "45.90.30.0#anycast.dns.nextdns.io"
+          "76.76.2.11#p0.freedns.controld.com"
+          "9.9.9.9#dns.quad9.net"
+        ] else [
+          "194.242.2.2"
+          "45.90.30.0"
+          "76.76.2.11"
+          "9.9.9.9"
+        ];
       type = listOf str;
     };
   };
