@@ -1,0 +1,8 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v0.1
+_src_path: gl:lunik1/nix-flake-template
+author: Corin Hoad
+nixpkgs_channel: nixos-22.11-small
+project_description: null
+project_name: nix-config
+

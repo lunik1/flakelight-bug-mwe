@@ -1,8 +1,9 @@
-.DS_Store
-.idea
-*.log
-tmp/
-
-result
+# Direnv
 .direnv/
+
+# pre-commit-hooks
 .pre-commit-config.yaml
+
+# Nix
+result
+result-*
