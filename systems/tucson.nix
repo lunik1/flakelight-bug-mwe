@@ -11,6 +11,8 @@ overlays:
 
         nixpkgs.overlays = overlays;
 
+        environment.systemPackages = with pkgs; [ cifs-utils ];
+
         ## System-specific config incl. hardware scan
         networking.hostName = "tucson";
         system.stateVersion = "21.05";
