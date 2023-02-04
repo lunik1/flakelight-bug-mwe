@@ -6,6 +6,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      nix-init
       nix-prefetch
       nix-update
       nixfmt
