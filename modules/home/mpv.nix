@@ -25,7 +25,7 @@ in {
       config = with cfg;
         {
           # Video
-          vo = "gpu";
+          vo = "gpu-next";
           video-output-levels = "full";
           screenshot-format = "webp";
           screenshot-webp-lossless = "yes";
@@ -36,7 +36,6 @@ in {
           hwdec-codecs = "all";
           gpu-api = "opengl";
           video-latency-hacks = "yes";
-          gamma-factor = 1.1;
           temporal-dither = "yes";
           dither-depth = "auto";
           sigmoid-upscaling = "yes";
