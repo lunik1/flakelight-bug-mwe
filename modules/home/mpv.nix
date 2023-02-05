@@ -34,7 +34,7 @@ in {
           screenshot-high-bit-depth = "yes";
           vlang = "enGB,en-GB,eng,en,english,enUS,en-US,jpn,jp";
           hwdec-codecs = "all";
-          gpu-api = "opengl";
+          gpu-api = "vulkan";
           video-latency-hacks = "yes";
           temporal-dither = "yes";
           dither-depth = "auto";
