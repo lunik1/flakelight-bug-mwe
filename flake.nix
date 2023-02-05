@@ -137,7 +137,7 @@
         formatter = pkgs.nixpkgs-fmt;
         devShell = pkgs.mkShell {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
-          buildInputs = with pkgs; [
+          packages = with pkgs; [
             cachix
             coreutils
             gawk
