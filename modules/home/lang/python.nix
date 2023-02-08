@@ -7,11 +7,11 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs;
       [
+        poetry
         (python3.withPackages (ps:
           with ps;
           [
             black
-            # poetry # does not build
           ]))
       ];
   };
