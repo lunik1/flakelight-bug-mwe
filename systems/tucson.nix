@@ -37,7 +37,7 @@ overlays:
               "usbhid"
               "sd_mod"
             ];
-            kernelModules = [ "dm-snapshot" ];
+            kernelModules = [ "dm-snapshot" "i2c-dev" "i2c-piix4" ];
           };
 
           tmpOnTmpfs = true;
