@@ -42,7 +42,7 @@ in {
           ".#*"
           ".Trash-*"
           ".cask/"
-          ".dir-locals.el"
+          ".dir-locals-2.el"
           ".directory"
           ".fuse_hidden*"
           ".netrwhist"
