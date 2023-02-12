@@ -13,6 +13,7 @@ in {
         copier
         croc
         duf
+        efficient-compression-tool
         emv
         eternal-terminal
         fast-cli
