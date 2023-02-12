@@ -81,6 +81,7 @@ in {
           "~$*.doc*"
           "~$*.ppt*"
           "~$*.xls*"
+          ".direnv/"
         ];
         lfs.enable = true;
         userEmail = "ch.gpg@themaw.xyz";
