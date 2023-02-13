@@ -9,7 +9,6 @@ in {
       nix-init
       nix-prefetch
       nix-update
-      nixfmt
       # nixops_unstable # does not build, insecure
       nixos-shell
       nixpkgs-fmt
