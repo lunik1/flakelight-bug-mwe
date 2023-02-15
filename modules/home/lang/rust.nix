@@ -7,7 +7,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       (lib.setPrio 100 bintools) # prevent collisions with gcc and clang
-      rustup
+      cargo
       rust-analyzer
     ];
   };
