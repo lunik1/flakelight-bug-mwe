@@ -122,9 +122,7 @@ in {
 
           glsl-shaders = "${../../resources/mpv/shaders/KrigBilateral.glsl}:${
               ../../resources/mpv/shaders/FSRCNNX_x2_16-0-4-1.glsl
-            }:${../../resources/mpv/shaders/SSimDownscaler.glsl}:${
-              ../../resources/mpv/shaders/FSRCNNX_x2_16-0-4-1.glsl
-            }";
+            }:${../../resources/mpv/shaders/SSimDownscaler.glsl}";
 
           ytdl-format = "bestvideo+bestaudio/best";
         };
