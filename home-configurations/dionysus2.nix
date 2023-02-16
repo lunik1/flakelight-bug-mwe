@@ -16,10 +16,9 @@ rec {
     nixpkgs.overlays = [
       (self: super: {
         ffmpeg-full = super.ffmpeg-full.override {
-          ffplayProgram = false;
-          runtimeCpuDetectBuild = false; # compile natively
-          nonfreeLicensing = true;
-          # enableLto = true; # broken https://github.com/NixOS/nixpkgs/issues/139168
+          buildFfplay = false;
+          withUnfree = true;
+          # withLTO = true; # broken https://github.com/NixOS/nixpkgs/issues/139168
         };
       })
     ];
