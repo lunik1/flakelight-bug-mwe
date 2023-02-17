@@ -74,6 +74,10 @@ in {
             + (builtins.readFile "${xcompose}/maths.compose");
           target = ".XCompose";
         };
+        zprintrc = {
+          text = "{:search-config? true}";
+          target = ".zprintrc";
+        };
       };
 
       sessionPath = [ "~/bin" ];
