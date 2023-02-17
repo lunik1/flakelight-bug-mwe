@@ -5,7 +5,8 @@
 with lib;
 
 let cfg = config.lunik1.home.mpv;
-in {
+in
+{
   options.lunik1.home.mpv = with types; {
     enable = mkEnableOption "mpv";
     profile = mkOption {
@@ -120,9 +121,11 @@ in {
           icc-3dlut-size = "266x256x256";
           # icc-cache-dir = "~/.cache/mpv/icc";
 
-          glsl-shaders = "${../../resources/mpv/shaders/KrigBilateral.glsl}:${
-              ../../resources/mpv/shaders/FSRCNNX_x2_16-0-4-1.glsl
-            }:${../../resources/mpv/shaders/SSimDownscaler.glsl}";
+          glsl-shaders = with pkgs.lunik1-nur; builtins.concatStringsSep ":" [
+            "${krig-bilateral}/share/krig-bilateral/KrigBilateral.glsl"
+            "${fsrcnnx-x2-16-0-4-1}/share/fsrcnnx/FSRCNNX_x2_16-0-4-1.glsl"
+            "${ssim-downscaler}/share/ssim-downscaler/SSimDownscaler.glsl"
+          ];
 
           ytdl-format = "bestvideo+bestaudio/best";
         };
