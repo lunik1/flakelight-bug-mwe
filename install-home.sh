@@ -25,6 +25,9 @@ nix --experimental-features 'nix-command flakes' build -o "${DIR}/result" "${DIR
 # remove old home manager profiles b/c of https://github.com/nix-community/home-manager/issues/2848
 nix --experimental-features 'nix-command flakes' profile list | awk '$4 ~ "/nix/store/[0-9a-z]{32}-home-manager-path" { print $1 }' | xargs -r nix profile remove
 
+# mimeapps.list has a bad habit of being modified and getting in the way
+rm -f "${HOME}/.config/mimeapps.list"
+
 # Activate new environment
 # shellcheck disable=SC1091
 . "${DIR}/result/activate"
