@@ -15,6 +15,7 @@ in {
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID17KStyIU+A23dghTW/6a/sR71Za8prKJcAkZrrhbJm corin@foureightynine"
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmX7eYDHycsNfGU3x9Yzh6Cx7xd1JMhj2ca3cg8ELOK openpgp:0xE480A7A9"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICkSRk4VCfwnoNBH/dT5F3mRbYV9U9yt6NNb6XpbVTan openpgp:0x2559C602"
         ];
         port = 1002;
       };
@@ -40,6 +41,7 @@ in {
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID17KStyIU+A23dghTW/6a/sR71Za8prKJcAkZrrhbJm corin@foureightynine"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1djimfe24mF+GRzwWlYULJtmJ7hbiMvSoel0tR4ZFd corin@hermes"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmX7eYDHycsNfGU3x9Yzh6Cx7xd1JMhj2ca3cg8ELOK openpgp:0xE480A7A9"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICkSRk4VCfwnoNBH/dT5F3mRbYV9U9yt6NNb6XpbVTan openpgp:0x2559C602"
     ];
 
     # Also allow access with et
