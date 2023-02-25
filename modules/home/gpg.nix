@@ -9,7 +9,7 @@ in {
 
     programs = {
       git.signing = {
-        key = "BA3A5886AE6D526E20B457D66A37DF9483188492";
+        key = "0x9F1451AC2559C602";
         signByDefault = true;
       };
       gpg = {
