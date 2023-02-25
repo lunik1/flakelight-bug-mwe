@@ -22,7 +22,6 @@ in
           jitsi-meet-electron
           qdirstat
           skypeforlinux
-          teams
           thunderbird
           ungoogled-chromium
           xdg_utils
