@@ -14,6 +14,7 @@ in {
         hostKeys = [ /etc/secrets/initrd/ssh_host_ed25519_key ];
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICkSRk4VCfwnoNBH/dT5F3mRbYV9U9yt6NNb6XpbVTan openpgp:0x2559C602"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpM/AZjpBrMzy7o5gMKPJMa0stjzc9wyn6Y2RC6FzsJ"
         ];
         port = 1002;
       };
@@ -35,6 +36,7 @@ in {
 
     users.users.corin.openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICkSRk4VCfwnoNBH/dT5F3mRbYV9U9yt6NNb6XpbVTan openpgp:0x2559C602"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpM/AZjpBrMzy7o5gMKPJMa0stjzc9wyn6Y2RC6FzsJ"
     ];
 
     # Also allow access with et
