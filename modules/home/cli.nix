@@ -56,6 +56,16 @@ in {
 
       sessionVariables = { ET_NO_TELEMETRY = "1"; };
 
+      # Add a personal aspell dict if it does not already exist
+      activation = {
+        createAspellPersonalDictionary = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          if [ ! -f ~/.aspell.en_GB.pws ]
+          then
+            printf "personal_ws-1.1 en_GB 0\n" > ~/.aspell.en_GB.pws
+          fi
+        '';
+      };
+
       file = {
         ".aspell.conf" = {
           text = ''
