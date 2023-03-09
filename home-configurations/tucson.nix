@@ -41,7 +41,6 @@ rec {
 
       lang = {
         c.enable = true;
-        clojure.enable = true;
         data.enable = true;
         julia.enable = true;
         nix.enable = true;

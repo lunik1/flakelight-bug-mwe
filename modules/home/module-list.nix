@@ -21,7 +21,6 @@
   ./wsl.nix
 
   lang/c.nix
-  lang/clojure.nix
   lang/data.nix
   lang/julia.nix
   lang/nix.nix
