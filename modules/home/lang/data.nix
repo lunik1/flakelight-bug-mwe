@@ -13,6 +13,9 @@ in {
       # YAML
       yamllint
       nodePackages.yaml-language-server
+
+      # TOML
+      taplo
     ];
   };
 }
