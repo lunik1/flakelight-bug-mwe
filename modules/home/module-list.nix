@@ -29,6 +29,5 @@
   lang/python.nix
   lang/rust.nix
   lang/sh.nix
-  lang/tex.nix
   lang/viml.nix
 ]

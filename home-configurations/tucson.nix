@@ -49,7 +49,6 @@ rec {
         python.enable = true;
         rust.enable = true;
         sh.enable = true;
-        tex.enable = true;
       };
     };
   }];
