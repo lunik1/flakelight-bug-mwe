@@ -46,7 +46,6 @@ rec {
         nix.enable = true;
         prose.enable = true;
         python.enable = true;
-        rust.enable = true;
         sh.enable = true;
       };
     };
