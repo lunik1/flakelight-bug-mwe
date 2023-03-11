@@ -104,6 +104,8 @@ in {
           no-file-allocation-limit = "8M";
           on-download-complete = "exit";
           split = 32;
+        } // lib.optionalAttrs config.lunik1.home.wsl.enable {
+          ca-certificate = "/etc/ssl/ca-bundle.pem"; #openSUSE location
         };
       };
       bat = {
