@@ -1,4 +1,5 @@
 {
+
   inputs = {
     nixos.url = "github:NixOS/nixpkgs/nixos-22.11-small";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -56,6 +57,7 @@
     with nixpkgs-unstable.lib;
     let
       overlays = [
+        (import ./lib/overlay.nix)
         (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
         (self: super: {
           myosevka = super.iosevka.override {
