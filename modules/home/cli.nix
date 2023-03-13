@@ -54,7 +54,10 @@ in {
         ripgrep-all # heavy dependencies, optional/own module?
       ];
 
-      sessionVariables = { ET_NO_TELEMETRY = "1"; };
+      sessionVariables = {
+        ET_NO_TELEMETRY = "1";
+        CARGO_REGISTRIES_CRATES_IO_PROTOCO = "sparse";
+      };
 
       # Add a personal aspell dict if it does not already exist
       activation = {
