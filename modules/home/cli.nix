@@ -62,9 +62,9 @@ in {
       # Add a personal aspell dict if it does not already exist
       activation = {
         createAspellPersonalDictionary = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          if [ ! -f ~/.aspell.en_GB.pws ]
+          if [ ! -f ~/.aspell.en.pws ]
           then
-            printf "personal_ws-1.1 en_GB 0\n" > ~/.aspell.en_GB.pws
+            printf "personal_ws-1.1 en 0\n" > ~/.aspell.en.pws
           fi
         '';
       };
