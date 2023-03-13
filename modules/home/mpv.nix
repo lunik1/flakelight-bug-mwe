@@ -21,8 +21,14 @@ in
     programs.mpv = rec {
       enable = true;
       scripts = with pkgs.mpvScripts;
-        [ autoload mpris mpv-playlistmanager pkgs.lunik1-nur.quality-menu ]
-        ++ lib.optional (cfg.profile == "placebo") thumbnail;
+        [
+          autoload
+          mpris
+          mpv-playlistmanager
+          uosc
+
+          pkgs.lunik1-nur.quality-menu
+        ];
       config = with cfg;
         {
           # Video
@@ -79,7 +85,7 @@ in
           # UI
           msg-color = "yes";
           term-osd-bar = "yes";
-          osc = if elem pkgs.mpvScripts.thumbnail scripts then "no" else "yes";
+          osc = "no";
 
           # Behaviour
           keep-open = "yes";
@@ -168,12 +174,11 @@ in
           source = "${pkgs.mpv-unwrapped.src.outPath}/TOOLS/lua/autodeint.lua";
           target = "mpv/scripts/autodeint.lua";
         };
-        "mpv_thumbnail_script.conf" = {
+        "uosc.conf" = {
           text = ''
-            autogenerate_max_duration=18000
-            thumbnail_network=yes
+            command:theaters:script-binding quality_menu/video_formats_toggle#@vformats>1?Video
+            command:graphic_eq:script-binding quality_menu/audio_formats_toggle#@aformats>1?Audio
           '';
-          target = "mpv/script-opts/mpv_thumbnail_script.conf";
         };
         "ytdl_hook.conf" = {
           text = "ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
