@@ -25,6 +25,7 @@ in
           autoload
           mpris
           mpv-playlistmanager
+          sponsorblock
           uosc
 
           pkgs.lunik1-nur.quality-menu
@@ -174,6 +175,10 @@ in
         "autodeint.lua" = {
           source = "${pkgs.mpv-unwrapped.src.outPath}/TOOLS/lua/autodeint.lua";
           target = "mpv/scripts/autodeint.lua";
+        };
+        "sponsorblock.conf" = {
+          text = ''skip_categories=""'';
+          target = "mpv/script-opts/sponsorblock.conf";
         };
         "thumbfast.conf" = {
           text = "network=yes";
