@@ -175,10 +175,6 @@ in
           '';
           target = "mpv/script-opts/mpv_thumbnail_script.conf";
         };
-        "youtube-quality.conf" = {
-          text = "style_ass_tags={\\fnmonospace\\fs50}";
-          target = "mpv/script-opts/youtube-quality.conf";
-        };
         "ytdl_hook.conf" = {
           text = "ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
           target = "mpv/script-opts/ytdl_hook.conf";
