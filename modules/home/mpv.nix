@@ -28,6 +28,7 @@ in
           uosc
 
           pkgs.lunik1-nur.quality-menu
+          pkgs.lunik1-nur.thumbfast
         ];
       config = with cfg;
         {
@@ -173,6 +174,10 @@ in
         "autodeint.lua" = {
           source = "${pkgs.mpv-unwrapped.src.outPath}/TOOLS/lua/autodeint.lua";
           target = "mpv/scripts/autodeint.lua";
+        };
+        "thumbfast.conf" = {
+          text = "network=yes";
+          target = "mpv/script-opts/thumbfast.conf";
         };
         "uosc.conf" = {
           text = ''
