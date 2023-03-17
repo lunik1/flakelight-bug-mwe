@@ -21,15 +21,21 @@ in {
   config = mkIf cfg.enable {
     lunik1.home.git.enable = true;
 
-    home.packages = with pkgs;
-      [ fd glslang gnuplot graphviz pandoc ripgrep sqlite.bin ]
-      ++ optionals cfg.gui [
-        emacs-all-the-icons-fonts
-        myosevka
-        myosevka-aile
-        myosevka-etoile
-        zip # for org odt export
-      ];
+    home = {
+      packages = with pkgs;
+        [ fd glslang gnuplot graphviz pandoc ripgrep sqlite.bin ]
+        ++ optionals cfg.gui [
+          emacs-all-the-icons-fonts
+          myosevka
+          myosevka-aile
+          myosevka-etoile
+          zip # for org odt export
+        ];
+
+      sessionVariables = {
+        LSP_USE_PLISTS = "true";
+      };
+    };
 
     programs.emacs =
       let
