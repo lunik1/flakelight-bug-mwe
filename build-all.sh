@@ -18,14 +18,18 @@ basename() {
   printf '%s\n' "${dir:-/}"
 }
 
-nix --experimental-features 'nix-command flakes' build "${DIR}#devShell.${SYSTEM}"
+tobuild=()
+
+tobuild+=("${DIR}#devShell.${SYSTEM}")
 
 for i in "${DIR}"/systems/*.nix; do
   name=$(basename "${i}" .nix)
-  nix --experimental-features 'nix-command flakes' build "${DIR}#nixosConfigurations.${name}.config.system.build.toplevel"
+  tobuild+=("${DIR}#nixosConfigurations.${name}.config.system.build.toplevel")
 done
 
 for i in "${DIR}"/home-configurations/*.nix; do
   name=$(basename "${i}" .nix)
-  nix --experimental-features 'nix-command flakes' build "${DIR}#homeConfigurations.${name}"
+  tobuild+=("${DIR}#homeConfigurations.${name}")
 done
+
+nix --experimental-features 'nix-command flakes' build "${tobuild[@]}"
