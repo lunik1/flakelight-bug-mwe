@@ -68,6 +68,9 @@ export MANWIDTH=${MANWIDTH:-80}
 # Easy access to full zsh manual
 alias manzsh='man zshall'
 
+# Emacs client
+alias ec="emacsclient -a '' -t"
+
 ## get top 10 shell commands:
 alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
 
