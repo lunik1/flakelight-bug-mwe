@@ -21,6 +21,7 @@ in {
         ffmpeg-full
         file
         fontconfig
+        ghostscript
         imagemagick
         pb_cli
         kopia
