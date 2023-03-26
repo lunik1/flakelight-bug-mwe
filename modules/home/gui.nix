@@ -21,7 +21,6 @@ in
           krita
           jitsi-meet-electron
           qdirstat
-          skypeforlinux
           thunderbird
           ungoogled-chromium
           xdg_utils
