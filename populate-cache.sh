@@ -23,7 +23,7 @@ push_to_cachix() {
 }
 
 push_output() {
-  nix --experimental-features 'nix-command flakes' build "$1" --json | jq -r '.[].outputs | to_entries[].value' | push_to_cachix
+  nix --experimental-features 'nix-command flakes' build "$@" --json | jq -r '.[].outputs | to_entries[].value' | push_to_cachix
 }
 
 cd "${DIR}"
@@ -50,14 +50,20 @@ nix --experimental-features 'nix-command flakes' flake archive --json |
   push_to_cachix
 
 # Push all outputs
-push_output ".#devShell.${SYSTEM}"
 
-for i in systems/*.nix; do
+
+tobuild=()
+
+tobuild+=("${DIR}#devShell.${SYSTEM}")
+
+for i in "${DIR}"/systems/*.nix; do
   name=$(basename "${i}" .nix)
-  push_output ".#nixosConfigurations.${name}.config.system.build.toplevel"
+  tobuild+=("${DIR}#nixosConfigurations.${name}.config.system.build.toplevel")
 done
 
-for i in home-configurations/*.nix; do
+for i in "${DIR}"/home-configurations/*.nix; do
   name=$(basename "${i}" .nix)
-  push_output ".#homeConfigurations.${name}"
+  tobuild+=("${DIR}#homeConfigurations.${name}")
 done
+
+push_output "${tobuild[@]}"
