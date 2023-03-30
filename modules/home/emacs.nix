@@ -54,7 +54,7 @@ in {
         enable = true;
         package = emacs-package;
         extraPackages = epkgs:
-          [ epkgs.vterm ] ++ optionals cfg.gui [ epkgs.pdf-tools ];
+          [ epkgs.vterm ];
       };
 
     services.gpg-agent.extraConfig = ''
