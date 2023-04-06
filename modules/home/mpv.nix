@@ -20,30 +20,17 @@ in
 
     programs.mpv = rec {
       enable = true;
-      package = pkgs.wrapMpv
-        (pkgs.mpv-unwrapped.overrideAttrs
-          (_: {
-            patches = [
-              (pkgs.fetchpatch {
-                # fixes mpv #11392
-                url = "https://patch-diff.githubusercontent.com/raw/mpv-player/mpv/pull/11398.patch";
-                sha256 = "sha256-MGXU1L5OSxY5bdEpu9vHngnRXMr7WHeHWuamhjcUD4A=";
-              })
-            ];
-          }))
-        {
-          scripts = with pkgs.mpvScripts;
-            [
-              autoload
-              mpris
-              mpv-playlistmanager
-              sponsorblock
-              uosc
+      scripts = with pkgs.mpvScripts;
+        [
+          autoload
+          mpris
+          mpv-playlistmanager
+          sponsorblock
+          uosc
 
-              pkgs.lunik1-nur.quality-menu
-              pkgs.lunik1-nur.thumbfast
-            ];
-        };
+          pkgs.lunik1-nur.quality-menu
+          pkgs.lunik1-nur.thumbfast
+        ];
       config = with cfg;
         {
           # Video
