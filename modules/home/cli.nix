@@ -9,6 +9,7 @@ in {
       packages = with pkgs; [
         (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
         bat-extras.batgrep
+        cargo
         comma
         copier
         croc
