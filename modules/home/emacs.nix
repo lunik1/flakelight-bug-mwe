@@ -31,10 +31,6 @@ in {
           myosevka-etoile
           zip # for org odt export
         ];
-
-      sessionVariables = {
-        LSP_USE_PLISTS = "true";
-      };
     };
 
     programs.emacs =
@@ -48,7 +44,7 @@ in {
           withPgtk = cfg.gui;
           withWebP = true;
         };
-        emacs-package = pkgs.emacsLsp.override settings;
+        emacs-package = pkgs.emacs.override settings;
       in
       {
         enable = true;
