@@ -31,6 +31,10 @@ in {
           myosevka-etoile
           zip # for org odt export
         ];
+
+      sessionVariables = {
+        LSP_USE_PLISTS = "true";
+      };
     };
 
     programs.emacs =
