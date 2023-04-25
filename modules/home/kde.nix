@@ -14,9 +14,14 @@ in {
       libsForQt5.kcalc
       libsForQt5.krunner-symbols
       libsForQt5.okular
-      syncthingtray
     ];
 
-    services.kdeconnect.enable = true;
+    services = {
+      kdeconnect.enable = true;
+      syncthing.tray = {
+        enable = true;
+        command = "syncthingtray --wait";
+      };
+    };
   };
 }
