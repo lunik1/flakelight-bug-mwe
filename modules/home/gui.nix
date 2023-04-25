@@ -20,6 +20,7 @@ in
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
           jitsi-meet-electron
+          plex-media-player
           qdirstat
           thunderbird
           ungoogled-chromium

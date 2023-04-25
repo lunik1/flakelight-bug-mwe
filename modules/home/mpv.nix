@@ -16,7 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ playerctl plex-mpv-shim xdg_utils ];
+    home.packages = with pkgs; [ playerctl xdg_utils ];
 
     programs.mpv = rec {
       enable = true;
