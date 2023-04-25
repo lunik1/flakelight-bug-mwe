@@ -1,43 +1,6 @@
 # -*- mode: sh; -*-
 # vi:ft=zsh
 
-# Set up fzf, if it exists
-if type fzf-share >/dev/null 2>&1; then
-  source "$(fzf-share)/key-bindings.zsh"
-  source "$(fzf-share)/completion.zsh"
-elif [ -f /usr/share/fzf/key-bindings.zsh ] && [ -f /usr/share/fzf/completion.zsh ]; then
-  source /usr/share/fzf/key-bindings.zsh
-  source /usr/share/fzf/completion.zsh
-fi
-
-# make fzf use fd
-if type fd >/dev/null 2>&1; then
-  export FZF_DEFAULT_COMMAND="fd -H -E '.git' --type file"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="fd -H --type directory"
-
-  function _fzf_compgen_path() {
-    fd --hidden --follow --exclude ".git" . "$1"
-  }
-
-  function _fzf_compgen_dir() {
-    fd --type d --hidden --follow --exclude ".git" . "$1"
-  }
-fi
-
-# up-line-or-fzf-history-widget() {
-#   # If we are after the first \n in the prompt, we want to move up rather than
-#   # trigger fzf
-#   if [[ $(( ${#BUFFER[(f)1]} + 1 )) -gt $CURSOR ]]; then
-#     fzf-history-widget;
-#   else
-#     zle .up-line;
-#   fi
-# }
-# zle -N up-line-or-fzf-history-widget
-# bindkey '^[OA' up-line-or-fzf-history-widget
-# bindkey '^[[A' up-line-or-fzf-history-widget
-
 # Set up thefuck
 if type thefuck >/dev/null 2>&1; then
   eval $(thefuck --alias yikes)

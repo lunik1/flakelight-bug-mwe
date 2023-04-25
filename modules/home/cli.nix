@@ -113,6 +113,25 @@ in {
           ca-certificate = "/etc/ssl/ca-bundle.pem"; #openSUSE location
         };
       };
+      atuin = {
+        enable = true;
+        flags = [ "--disable-up-arrow" ];
+        enableZshIntegration = true;
+        settings = {
+          dialect = "uk";
+          update_check = false;
+          sync_address = "https://atuin.lunik.one:443";
+          sync_frequency = "15m";
+          filter_mode_shell_up_key_binding = "host";
+          style = "compact";
+          show_preview = true;
+          exit_mode = "return-query";
+          history_filter = [
+            "^ "
+            "^export"
+          ];
+        };
+      };
       bat = {
         enable = true;
         config = {
