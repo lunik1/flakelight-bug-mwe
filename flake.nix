@@ -16,6 +16,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    bach = {
+      url = "gitlab:lunik1/bach";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-utils.follows = "flake-utils";
+      };
+    };
     flake-utils.url = "github:numtide/flake-utils";
     nixos-logo-gruvbox-wallpaper = {
       url = "github:lunik1/nixos-logo-gruvbox-wallpaper";
@@ -104,6 +111,7 @@
             allowUnfree = true;
             packageOverrides = pkgs: {
               lunik1-nur = import lunik1-nur-unstable { inherit pkgs; };
+              bach = bach.packages.${system}.bach;
             };
           };
         };
