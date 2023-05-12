@@ -381,12 +381,11 @@ in
             };
           };
           startup = [
-            { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
+            { command = "dbus-update-activation-environment --systemd PATH DISPLAY WAYLAND_DISPLAY DBUS_SESSION_BUS_ADDRESS SWAYSOCK XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP"; }
             {
               command =
                 "${pkgs.swayidle}/bin/swayidle timeout 300 '${lockCommand} --grace 5' before-sleep '${lockCommand}'";
             }
-            { command = "${pkgs.foot}/bin/foot --server"; }
           ];
           terminal = "${pkgs.foot}/bin/footclient";
           window = {
