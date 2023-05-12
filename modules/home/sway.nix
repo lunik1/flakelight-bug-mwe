@@ -37,7 +37,6 @@ in
         server.enable = true;
         settings = {
           main = {
-            # term = "foot-direct"; # breaks zsh syntax highlighting
             font = "Myosevka Light:size=6.8";
             box-drawings-uses-font-glyphs = true;
           };
