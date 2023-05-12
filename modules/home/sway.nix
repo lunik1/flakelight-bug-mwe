@@ -335,7 +335,7 @@ in
             "*" = {
               xkb_numlock = "enabled";
               xkb_layout = "gb";
-              xkb_options = "lv3:ralt_switch_multikey";
+              xkb_options = "compose:ralt";
             };
           };
           keybindings = lib.mkOptionDefault {
