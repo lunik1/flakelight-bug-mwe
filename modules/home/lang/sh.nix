@@ -8,7 +8,7 @@ in {
     home.packages = with pkgs; [
       shellcheck
       shfmt
-      nodePackages.bash-language-server
+      nodePackages_latest.bash-language-server
     ];
   };
 }

@@ -7,7 +7,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       languagetool
-      nodePackages.write-good
+      nodePackages_latest.write-good
       proselint
       vale
     ];

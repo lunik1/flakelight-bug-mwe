@@ -8,11 +8,11 @@ in {
     home.packages = with pkgs; [
       # Json
       jq
-      nodePackages.vscode-json-languageserver-bin
+      nodePackages_latest.vscode-json-languageserver-bin
 
       # YAML
       yamllint
-      nodePackages.yaml-language-server
+      nodePackages_latest.yaml-language-server
 
       # TOML
       taplo
