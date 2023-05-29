@@ -16,6 +16,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     bach = {
       url = "gitlab:lunik1/bach";
       inputs = {
@@ -101,6 +105,7 @@
         emacs-overlay.overlays.default
         nixpkgs-lint.overlays.default
       ];
+      hmModules = [ nix-index-database.hmModules.nix-index ];
       homeConfigDir = ./home-configurations;
       systemConfigDir = ./systems;
       isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
@@ -129,7 +134,7 @@
           name = removeSuffix ".nix" file;
           value = (home-manager.lib.homeManagerConfiguration
             ((import (homeConfigDir + "/${file}"))
-              pkgsForSystem)).activationPackage;
+              { inherit hmModules pkgsForSystem; })).activationPackage;
         })
         (filterAttrs isNixFile (builtins.readDir homeConfigDir));
     } // flake-utils.lib.eachDefaultSystem (system:

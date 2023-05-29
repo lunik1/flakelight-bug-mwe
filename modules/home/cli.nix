@@ -11,7 +11,6 @@ in {
         bach
         bat-extras.batgrep
         cargo
-        comma
         copier
         croc
         duf
@@ -226,6 +225,7 @@ in {
         enable = true;
         enableZshIntegration = true;
       };
+      nix-index-database.comma.enable = true;
       tealdeer = {
         enable = true;
         settings.updates = {

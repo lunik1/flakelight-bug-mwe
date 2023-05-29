@@ -1,4 +1,4 @@
-pkgsForSystem:
+{ hmModules, pkgsForSystem }:
 
 rec {
   pkgs = pkgsForSystem "x86_64-linux";
@@ -49,5 +49,5 @@ rec {
         sh.enable = true;
       };
     };
-  }];
+  }] ++ hmModules;
 }
