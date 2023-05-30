@@ -26,9 +26,17 @@ in {
 
     xdg = {
       enable = true;
-      configFile.beets_config = {
-        source = ../../config/beets/config.yaml;
-        target = "beets/config.yaml";
+      configFile = {
+        beets_config = {
+          source = ../../config/beets/config.yaml;
+          target = "beets/config.yaml";
+        };
+        ytmdl = {
+          text = ''
+            DEFAULT_FORMAT = "opus"
+          '';
+          target = "ytmdl/config";
+        };
       };
     };
   };
