@@ -29,6 +29,10 @@ in
         let gruvbox = import ../../resources/colourschemes/gruvbox.nix;
         in
         rec {
+          bold_font = "Myosevka Semibold";
+          italic_font = "Myosevka Light Italic";
+          bold_italic_font = "Myosevka Semibold Italic";
+
           cursor_blink_interval = "0.5";
           cursor_stop_blinking_after = 15;
           enable_audio_bell = false;
