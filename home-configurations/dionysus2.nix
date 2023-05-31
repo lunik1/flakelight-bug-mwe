@@ -23,15 +23,29 @@ rec {
       })
     ];
 
-    ## Machine-specifc dir hashes
-    programs.zsh.dirHashes = {
-      appdata = "/opt/appdata";
-      kopia = "/mnt/storage/backup/kopia";
-      movies = "/mnt/storage/Movies";
-      music = "/mnt/storage/Music";
-      storage = "/mnt/storage";
-      tv = "/mnt/storage/TV";
+    programs = {
+      beets.settings = {
+        directory = "/mnt/storage/Music";
+        library = "/opt/appdata/beets/musiclibrary.db";
+        alternatives.transcoded = {
+          query = "";
+          directory = "/mnt/storage/excluded/transcoded-music";
+          formats = "opus aac mp3 speex vorbis";
+          removable = true;
+        };
+      };
+
+      ## Machine-specifc dir hashes
+      zsh.dirHashes = {
+        appdata = "/opt/appdata";
+        kopia = "/mnt/storage/backup/kopia";
+        movies = "/mnt/storage/Movies";
+        music = "/mnt/storage/Music";
+        storage = "/mnt/storage";
+        tv = "/mnt/storage/TV";
+      };
     };
+
 
     lunik1.home = {
       core.enable = true;
