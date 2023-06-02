@@ -92,7 +92,6 @@ overlays:
           backup.enable = true;
           bluetooth.enable = true;
           graphical.enable = true;
-          hidpi.enable = true;
           laptop.enable = true;
           network = {
             resolved.enable = true;

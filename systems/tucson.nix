@@ -40,7 +40,7 @@ overlays:
             kernelModules = [ "dm-snapshot" "i2c-dev" "i2c-piix4" ];
           };
 
-          tmpOnTmpfs = true;
+          tmp.useTmpfs = true;
         };
 
         fileSystems."/" = {
@@ -83,7 +83,6 @@ overlays:
           bluetooth.enable = true;
           containers.enable = true;
           graphical.enable = true;
-          # hidpi.enable = true;
           kde.enable = true;
           network = {
             resolved.enable = true;

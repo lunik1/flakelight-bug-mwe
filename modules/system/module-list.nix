@@ -6,7 +6,6 @@
   ./containers.nix
   ./graphical.nix
   ./grub.nix
-  ./hidpi.nix
   ./kde.nix
   ./laptop.nix
   ./locate.nix

@@ -3,7 +3,8 @@
 { config, lib, pkgs, ... }:
 
 let cfg = config.lunik1.system.ssh-server;
-in {
+in
+{
   options.lunik1.system.ssh-server.enable = lib.mkEnableOption "ssh access";
 
   config = lib.mkIf cfg.enable {
@@ -24,14 +25,16 @@ in {
       enable = true;
       ports = [ 1002 ];
       startWhenNeeded = lib.mkDefault false;
-      permitRootLogin = "no";
-      passwordAuthentication = false;
-      kbdInteractiveAuthentication = false;
-      macs = [
-        "hmac-sha2-512-etm@openssh.com"
-        "hmac-sha2-256-etm@openssh.com"
-        "umac-128-etm@openssh.com"
-      ];
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        Macs = [
+          "hmac-sha2-512-etm@openssh.com"
+          "hmac-sha2-256-etm@openssh.com"
+          "umac-128-etm@openssh.com"
+        ];
+      };
     };
 
     users.users.corin.openssh.authorizedKeys.keys = [

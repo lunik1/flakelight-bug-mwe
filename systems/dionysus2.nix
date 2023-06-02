@@ -30,7 +30,8 @@ overlays:
 
           loader.grub.device = "/dev/disk/by-id/ata-TS240GMTS420S_G377480650";
 
-          tmpOnTmpfs = false;
+          tmp.useTmpfs = false;
+
           kernelModules = [ "kvm-intel" "bfq" ];
           kernelPackages = pkgs.linuxPackages_hardened;
           kernelParams = [ "mce=0" ]; # Panic on uncorrectable ECC ram error

@@ -1,7 +1,7 @@
 {
 
   inputs = {
-    nixos.url = "github:NixOS/nixpkgs/nixos-22.11-small";
+    nixos.url = "github:NixOS/nixpkgs/nixos-23.05-small";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     lunik1-nur-unstable = {
       url = "github:lunik1/nur-packages";
@@ -21,7 +21,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     bach = {
-      url = "gitlab:lunik1/bach";
+      # latest master needs rustc 1.70, not in nixpkgs yet
+      url = "gitlab:lunik1/bach/89ae65ab28ab32c911e455f3d36a5633213f5fb2";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         flake-utils.follows = "flake-utils";
@@ -67,44 +68,6 @@
     with inputs;
     with nixpkgs-unstable.lib;
     let
-      overlays = [
-        (import ./lib/overlay.nix)
-        (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
-        (self: super: {
-          myosevka = super.iosevka.override {
-            privateBuildPlan = import resources/iosevka/myosevka.nix;
-            set = "myosevka";
-          };
-          myosevka-proportional = super.iosevka.override {
-            privateBuildPlan =
-              import resources/iosevka/myosevka-proportional.nix;
-            set = "myosevka-proportional";
-          };
-          myosevka-aile = super.iosevka.override {
-            privateBuildPlan = (import resources/iosevka/myosevka-aile.nix) {
-              inherit (super) lib;
-            };
-            set = "myosevka-aile";
-          };
-          myosevka-etoile = super.iosevka.override {
-            privateBuildPlan = (import resources/iosevka/myosevka-etoile.nix) {
-              inherit (super) lib;
-            };
-            set = "myosevka-etoile";
-          };
-        })
-        (self: super: { inherit LS_COLORS; })
-        (self: super: { inherit firefox-lepton; })
-        (self: super: {
-          neovim = super.neovim.override {
-            vimAlias = true;
-            viAlias = true;
-          };
-        })
-        (self: super: { inherit nixos-logo-gruvbox-wallpaper; })
-        emacs-overlay.overlays.default
-        nixpkgs-lint.overlays.default
-      ];
       hmModules = [ nix-index-database.hmModules.nix-index ];
       homeConfigDir = ./home-configurations;
       systemConfigDir = ./systems;
@@ -120,6 +83,62 @@
             };
           };
         };
+      overlays = [
+        (import ./lib/overlay.nix)
+        (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
+        (self: super:
+          # TODO: move to NUR
+          {
+            iosevka24 = self.iosevka.override
+              rec {
+                buildNpmPackage = args: super.buildNpmPackage
+                  (args // {
+                    version = "24.1.0";
+                    src = super.fetchFromGitHub {
+                      owner = "be5invis";
+                      repo = "iosevka";
+                      rev = "v${version}";
+                      hash = "sha256-Th4+SUP1gqusGA680Ddh1YHUYJFJIe9zUSNE+NIDl40=";
+                    };
+                    npmDepsHash = "sha256-ChK3fUqPX1F8CljJGNiquS+5ZTlpeBEuYRPGoxSsyuI=";
+                  });
+              };
+            myosevka = self.iosevka24.override {
+              privateBuildPlan = import resources/iosevka/myosevka.nix;
+              set = "myosevka";
+            };
+            myosevka-proportional = self.iosevka24.override {
+              privateBuildPlan =
+                import resources/iosevka/myosevka-proportional.nix;
+              set = "myosevka-proportional";
+            };
+            myosevka-aile = self.iosevka24.override {
+              privateBuildPlan = (import resources/iosevka/myosevka-aile.nix) {
+                inherit (super) lib;
+              };
+              set = "myosevka-aile";
+            };
+            myosevka-etoile = self.iosevka24.override {
+              privateBuildPlan = (import resources/iosevka/myosevka-etoile.nix) {
+                inherit (super) lib;
+              };
+              set = "myosevka-etoile";
+            };
+          })
+        (self: super: {
+          inherit LS_COLORS;
+        })
+        (self: super: { inherit firefox-lepton; })
+        (self: super: {
+          neovim = super.neovim.override {
+            vimAlias = true;
+            viAlias = true;
+          };
+        })
+        (self: super: { inherit nixos-logo-gruvbox-wallpaper; })
+        emacs-overlay.overlays.default
+        nixpkgs-lint.overlays.default
+      ];
     in
     {
       nixosConfigurations = mapAttrs'
@@ -139,7 +158,8 @@
         (filterAttrs isNixFile (builtins.readDir homeConfigDir));
     } // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = pkgsForSystem system;
-      in {
+      in
+      {
         checks = {
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;

@@ -22,7 +22,6 @@ in {
     boot.loader = {
       grub = {
         enable = true;
-        version = 2;
         splashImage = null;
       };
       efi.canTouchEfiVariables = true;

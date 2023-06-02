@@ -10,11 +10,12 @@ in lib.recursiveUpdate myosevka {
     at = "fourfold";
     capital-g = "toothless-corner-serifed-hooked";
     capital-k = "straight-serifed";
-    capital-w = "straight-flat-top";
+    capital-w = "straight-flat-top-serifed";
     f = "flat-hook-serifed";
     j = "flat-hook-serifed";
     t = "flat-hook";
-    w = "straight-flat-top";
+    w = "straight-flat-top-serifed";
+    long-s = "flat-hook-bottom-serifed";
   };
   italic = { f = "flat-hook-tailed"; };
   derivingVariants.mathtt = myosevka.variants;
