@@ -4,7 +4,7 @@
 
 {
   boot = {
-    cleanTmpDir = true;
+    tmp.cleanOnBoot = true;
     enableContainers = false;
     blacklistedKernelModules = [
       # Obscure network protocols
@@ -73,7 +73,7 @@
   console = {
     keyMap = "uk";
     font = lib.mkOverride 1499 # option defult prio is 1500
-      "Lat2-Terminus16"; # might be overidden by hidpi module
+      "Lat2-Terminus16";
   };
   time.timeZone = "Europe/London";
 

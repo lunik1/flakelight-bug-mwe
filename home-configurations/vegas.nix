@@ -22,8 +22,8 @@ rec {
     };
 
     nix.settings = {
-      max-jobs = 16;
-      cores = 8;
+      max-jobs = 2;
+      cores = 16;
     };
 
     lunik1.home = {

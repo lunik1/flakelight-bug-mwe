@@ -18,16 +18,28 @@ in {
 
     systemd = {
       services = {
-        networking-setup.restartIfChanged = false;
         systemd-udev-trigger.enable = false;
         rpc-gssd.enable = false;
         systemd-sysctl.enable = false;
+        oomd.enable = mkForce false;
       };
       sockets."systemd-journald-audit".enable = false;
       mounts = [{
         where = "/sys/kernel/debug";
         enable = false;
       }];
+
+      # Due to our restrictions in /sys, the default systemd-udev-trigger fails
+      # on accessing PCI devices, etc. Override it to match only network devices.
+      # In addition, boot.isContainer prevents systemd-udev-trigger.service from
+      # being enabled at all, so add it explicitly.
+      systemd.additionalUpstreamSystemUnits = [
+        "systemd-udev-trigger.service"
+      ];
+      systemd.services.systemd-udev-trigger.serviceConfig.ExecStart = [
+        ""
+        "-udevadm trigger --subsystem-match=net --action=add"
+      ];
     };
 
     boot = {
@@ -54,7 +66,7 @@ in {
       before = [ "network.target" ];
       wantedBy = [ "network.target" ];
       after = [ "network-pre.target" ];
-      path = [ pkgs.iproute ];
+      path = [ pkgs.iproute2 ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -62,6 +74,7 @@ in {
         ExecStop = "${pkgs.bash}/bin/bash /ifcfg.del";
       };
       unitConfig.ConditionPathExists = "/ifcfg.add";
+      restartIfChanged = false;
     };
   };
 }
