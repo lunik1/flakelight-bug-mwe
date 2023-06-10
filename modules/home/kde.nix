@@ -44,6 +44,7 @@ in
           tab_bar_style = "powerline";
           tab_switch_strategy = "right";
           tab_bar_min_tabs = 1;
+          tab_bar_edge = "top";
 
           foreground = gruvbox.dark.fg;
           background = gruvbox.dark.bg;
