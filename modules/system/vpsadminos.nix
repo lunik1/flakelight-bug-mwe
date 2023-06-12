@@ -33,10 +33,10 @@ in {
       # on accessing PCI devices, etc. Override it to match only network devices.
       # In addition, boot.isContainer prevents systemd-udev-trigger.service from
       # being enabled at all, so add it explicitly.
-      systemd.additionalUpstreamSystemUnits = [
+      additionalUpstreamSystemUnits = [
         "systemd-udev-trigger.service"
       ];
-      systemd.services.systemd-udev-trigger.serviceConfig.ExecStart = [
+      services.systemd-udev-trigger.serviceConfig.ExecStart = [
         ""
         "-udevadm trigger --subsystem-match=net --action=add"
       ];
