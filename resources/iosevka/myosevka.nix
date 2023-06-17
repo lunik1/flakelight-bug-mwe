@@ -12,7 +12,7 @@
       capital-k = "symmetric-touching-serifless";
       capital-m = "slanted-sides-hanging-serifless";
       caret = "high";
-      eight = "two-circles";
+      eight = "crossing-asymmetric";
       eszet = "longs-s-lig";
       f = "flat-hook-serifless";
       five = "oblique-upper-left-bar";
