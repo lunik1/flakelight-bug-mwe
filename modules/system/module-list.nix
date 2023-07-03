@@ -10,6 +10,7 @@
   ./laptop.nix
   ./locate.nix
   ./network.nix
+  ./oci.nix
   ./pulp-io.nix
   ./sound.nix
   ./ssh-server.nix

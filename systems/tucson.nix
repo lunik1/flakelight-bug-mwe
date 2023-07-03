@@ -40,6 +40,8 @@ overlays:
             kernelModules = [ "dm-snapshot" "i2c-dev" "i2c-piix4" ];
           };
 
+          binfmt.emulatedSystems = [ "aarch64-linux" ];
+
           tmp.useTmpfs = true;
         };
 
