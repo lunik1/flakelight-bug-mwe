@@ -21,8 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     bach = {
-      # latest master needs rustc 1.70, not in nixpkgs yet
-      url = "gitlab:lunik1/bach/89ae65ab28ab32c911e455f3d36a5633213f5fb2";
+      url = "gitlab:lunik1/bach";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         flake-utils.follows = "flake-utils";
