@@ -40,7 +40,7 @@ in {
     programs.emacs =
       let
         settings = {
-          inherit (cfg) nativeComp;
+          withNativeCompilation = cfg.nativeComp;
           withX = false;
           withNS = false;
           withGTK2 = false;
