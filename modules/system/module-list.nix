@@ -6,11 +6,11 @@
   ./containers.nix
   ./graphical.nix
   ./grub.nix
+  ./hetzner.nix
   ./kde.nix
   ./laptop.nix
   ./locate.nix
   ./network.nix
-  ./oci.nix
   ./pulp-io.nix
   ./sound.nix
   ./ssh-server.nix

@@ -12,14 +12,27 @@ overlays:
         ]
         ++ import ../modules/system/module-list.nix;
 
-        fileSystems = {
-          "/" = { device = "/dev/mapper/ocivolume-root"; fsType = "xfs"; };
-          "/boot" = { device = "/dev/sda1"; fsType = "vfat"; };
+        boot.loader = {
+          systemd-boot.enable = true;
+          efi.canTouchEfiVariables = true;
         };
 
-        nixpkgs.overlays = overlays;
+        fileSystems = {
+          "/" = { device = "/dev/disk/by-label/nixos"; fsType = "xfs"; };
+          "/boot" = { device = "/dev/disk/by-label/boot"; fsType = "vfat"; };
+          "/var/lib" = { device = "/dev/disk/by-label/state"; fsType = "xfs"; };
+        };
 
-        networking.hostName = "mercury";
+        swapDevices = [
+          { device = "/dev/disk/by-label/swap"; }
+        ];
+
+        nixpkgs = {
+          overlays = overlays;
+          hostPlatform = lib.mkDefault "aarch64-linux";
+        };
+
+        networking.hostName = "mercury2";
         system.stateVersion = "23.05";
         nix.settings = {
           max-jobs = 2;
@@ -31,7 +44,6 @@ overlays:
           backup.enable = true;
           containers.enable = true;
           network.resolved.enable = true;
-          oci.enable = true;
           ssh-server.enable = true;
         };
       })

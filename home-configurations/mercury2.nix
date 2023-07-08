@@ -9,7 +9,7 @@ rec {
     home = {
       username = "corin";
       homeDirectory = "/home/corin";
-      stateVersion = "21.11";
+      stateVersion = "23.05";
     };
 
     lunik1.home = {
