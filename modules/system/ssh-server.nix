@@ -31,5 +31,10 @@ in
 
     # Also allow access with et
     services.eternal-terminal.enable = true;
+
+    networking.firewall.allowedTCPPorts = [
+      1002 # ssh
+      2022 # eternal terminal
+    ];
   };
 }

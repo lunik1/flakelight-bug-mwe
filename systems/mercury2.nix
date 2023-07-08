@@ -32,7 +32,23 @@ overlays:
           hostPlatform = lib.mkDefault "aarch64-linux";
         };
 
-        networking.hostName = "mercury2";
+        networking = {
+          hostName = "mercury2";
+          firewall = {
+            enable = lib.mkForce true;
+            allowedUDPPorts = [
+              53 # dns
+              21027 # syncthing
+            ];
+            allowedTCPPorts = [
+              53
+              80 # http
+              443 # https
+              5432
+              22000 # syncthing
+            ];
+          };
+        };
         system.stateVersion = "23.05";
         nix.settings = {
           max-jobs = 2;
