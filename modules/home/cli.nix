@@ -304,31 +304,6 @@ in {
 
     systemd.user = {
       services = {
-        nix-index = {
-          Unit.Description = "nix-locate index update";
-
-          Service = {
-            Type = "oneshot";
-            ExecStart = "${pkgs.nix-index}/bin/nix-index";
-            Nice = 19;
-            IOSchedulingPriority = 7;
-            CPUSchedulingPolicy = "batch";
-
-            KeyringMode = "private";
-            LockPersonality = true;
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = true;
-            PrivateTmp = true;
-            ProtectSystem = "full";
-            RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
-            SystemCallArchitectures = "native";
-            SystemCallErrorNumber = "EPERM";
-            SystemCallFilter = "@system-service";
-          };
-        };
         tldr = {
           Unit.Description = "tldr cache update";
 
@@ -356,17 +331,6 @@ in {
         };
       };
       timers = {
-        nix-index = {
-          Unit = { Description = "nix-locate cache update"; };
-
-          Timer = {
-            OnCalendar = "*-*-* 00:00";
-            Persistent = true;
-            Unit = "tldr.service";
-          };
-
-          Install = { WantedBy = [ "timers.target" ]; };
-        };
         tldr = {
           Unit = { Description = "tldr cache update"; };
 
