@@ -19,7 +19,7 @@ fi
 
 # Build environment
 mkdir -p "${HOME}/.config"
-ln --symbolic --no-dereference --force "${DIR}" "${HOME}/.config"
+ln -s -n -f "${DIR}" "${HOME}/.config"
 nix --experimental-features 'nix-command flakes' build -o "${DIR}/result" "${DIR}#homeConfigurations.${HOST}"
 
 # remove old home manager profiles b/c of https://github.com/nix-community/home-manager/issues/2848
