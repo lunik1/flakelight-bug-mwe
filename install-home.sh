@@ -30,4 +30,4 @@ rm -f "${HOME}/.config/mimeapps.list"
 
 # Activate new environment
 # shellcheck disable=SC1091
-. "${DIR}/result/activate"
+./result/activate
