@@ -8,24 +8,19 @@ in {
     home = {
       packages = with pkgs; [
         (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
-        bach
         bat-extras.batgrep
         cargo
         copier
         croc
         duf
-        efficient-compression-tool
         emv
         eternal-terminal
-        fast-cli
         fd
         ffmpeg-full
         file
         fontconfig
         ghostscript
         imagemagick
-        pb_cli
-        kopia
         libarchive
         lrzip
         lz4
@@ -33,8 +28,6 @@ in {
         nix-tree
         p7zip
         parallel
-        parted
-        psmisc
         q
         ranger
         rename
@@ -42,18 +35,26 @@ in {
         rmlint
         rsync
         sd
-        smartmontools
         streamlink
         stress-ng
         unrar
         unzip
+        kopia
         webwormhole
         wget
-        xfsdump
         xxHash
         zsh-completions
 
         ripgrep-all # heavy dependencies, optional/own module?
+      ] ++ lib.optionals stdenv.isLinux [
+        bach
+        efficient-compression-tool
+        fast-cli
+        pb_cli
+        parted
+        psmisc
+        smartmontools
+        xfsdump
       ];
 
       sessionVariables = {

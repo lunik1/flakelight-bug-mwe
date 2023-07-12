@@ -10,10 +10,8 @@ in {
     home = {
       packages = with pkgs; [
         # Core utils (installed by default on NixOS)
-        acl
         bashInteractive
         bzip2
-        coreutils-full
         cpio
         curl
         diffutils
@@ -27,19 +25,24 @@ in {
         gnutar
         gzip
         less
-        libcap
         mkpasswd
         nano
         nix
         openssh
         netcat
-        procps
-        su
         time
-        util-linux
         which
         xz
         zstd
+      ] ++ lib.optionals stdenv.isLinux [
+        acl
+        coreutils-full
+        libcap
+        procps
+        su
+        util-linux
+      ] ++ lib.optionals stdenv.isDarwin [
+        coreutils-prefixed
       ];
 
       sessionVariables.AWK_HASH = "fnv1a";
