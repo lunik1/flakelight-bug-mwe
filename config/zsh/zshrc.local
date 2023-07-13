@@ -222,19 +222,19 @@ abk[NN]=">/dev/null 2>&1"
 
 # Show public ip
 function myip() {
-  local api
+  local flag
   case "$1" in
   "-4")
-    api="http://v4.ipv6-test.com/api/myip.php"
+    flag=""
     ;;
   "-6")
-    api="http://v6.ipv6-test.com/api/myip.php"
+    flag="-6"
     ;;
   *)
-    api="http://ipv6-test.com/api/myip.php"
+    flag=""
     ;;
   esac
-  echo $(curl -s "$api") # newline
+  printf $(curl -s "${flag}" "https://ifconfig.co/ip")'\n'
 }
 
 
