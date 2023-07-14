@@ -12,9 +12,12 @@ overlays:
         ]
         ++ import ../modules/system/module-list.nix;
 
-        boot.loader = {
-          systemd-boot.enable = true;
-          efi.canTouchEfiVariables = true;
+        boot = {
+          kernelPackages = pkgs.linuxPackages_hardened;
+          loader = {
+            systemd-boot.enable = true;
+            efi.canTouchEfiVariables = true;
+          };
         };
 
         fileSystems = {
