@@ -7,9 +7,11 @@ if type thefuck >/dev/null 2>&1; then
 fi
 
 # Set up virtualenvwrapper
-if [ -f /usr/bin/virtualenvwrapper_lazy.sh ]; then
+if type virtualenvwrapper.sh > /dev/null 2>&1; then
   export WORKON_HOME=~/.virtualenvs
-  source /usr/bin/virtualenvwrapper_lazy.sh
+  export PROJECT_HOME=~/code/python
+  mkdir -p ${WORKON_HOME} ${PROJECT_HOME}
+  source virtualenvwrapper.sh
 fi
 
 # Disable flow control
