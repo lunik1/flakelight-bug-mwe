@@ -5,7 +5,15 @@ in {
   options.lunik1.home.gpg.enable = lib.mkEnableOption "gpg";
 
   config = lib.mkIf cfg.enable {
-    home.sessionVariables.GPG_TTY = "$(tty)";
+    home = {
+      sessionVariables.GPG_TTY = "$(tty)";
+      file.sshcontrol = {
+        text = ''
+          83AFE963DC1577DCAB2E51C68CF90C0A55FDA32E
+        '';
+        target = ".gnupg/sshcontrol";
+      };
+    };
 
     programs = {
       git.signing = {
