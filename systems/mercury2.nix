@@ -34,6 +34,7 @@ overlays:
 
         networking = {
           hostName = "mercury2";
+          nftables.enable = true;
           firewall = {
             enable = lib.mkForce true;
             allowedUDPPorts = [
