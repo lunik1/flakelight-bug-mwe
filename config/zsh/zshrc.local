@@ -234,7 +234,7 @@ function myip() {
     flag=""
     ;;
   esac
-  printf $(curl -s "${flag}" "https://ifconfig.co/ip")'\n'
+  printf $(curl -s "${flag}" "https://icanhazip.com")'\n'
 }
 
 
