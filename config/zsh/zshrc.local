@@ -385,23 +385,17 @@ bindkey -M isearch . self-insert
 bindkey '\eq' push-line-or-edit
 
 # emit OSC 7, see https://codeberg.org/dnkl/foot/wiki#user-content-bash-and-zsh
-_urlencode() {
-  local length="${#1}"
-  for (( i = 0; i < length; i++ )); do
-    local c="${1:$i:1}"
-    case $c in
-      %) printf '%%%02X' "'$c" ;;
-      *) printf "%s" "$c" ;;
-    esac
-  done
+function osc7-pwd() {
+    emulate -L zsh # also sets localoptions for us
+    setopt extendedglob
+    local LC_ALL=C
+    printf '\e]7;file://%s%s\e\' $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
 }
 
-osc7_cwd() {
-	printf '\e]7;file://%s%s\e\\' "$HOSTNAME" "$(_urlencode "$PWD")"
+function chpwd-osc7-pwd() {
+    (( ZSH_SUBSHELL )) || osc7-pwd
 }
-
-autoload -Uz add-zsh-hook
-add-zsh-hook -Uz chpwd osc7_cwd
+add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 
 ## changed completer settings
 zstyle ':completion:*' completer _complete _correct _approximate
