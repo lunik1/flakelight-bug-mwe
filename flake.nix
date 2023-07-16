@@ -25,6 +25,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         flake-utils.follows = "flake-utils";
+        pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
     flake-utils.url = "github:numtide/flake-utils";
