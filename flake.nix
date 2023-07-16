@@ -51,6 +51,7 @@
       url = "github:nix-community/emacs-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
+        nixpkgs-stable.follows = "nixos";
         flake-utils.follows = "flake-utils";
       };
     };
