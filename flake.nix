@@ -93,7 +93,7 @@
             iosevka24 = self.iosevka.override
               rec {
                 buildNpmPackage = args: super.buildNpmPackage
-                  (args // {
+                  (args // rec {
                     version = "24.1.3";
                     src = super.fetchFromGitHub {
                       owner = "be5invis";
