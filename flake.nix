@@ -90,36 +90,36 @@
         (self: super:
           # TODO: move to NUR
           {
-            iosevka24 = self.iosevka.override
+            iosevka25 = self.iosevka.override
               rec {
                 buildNpmPackage = args: super.buildNpmPackage
                   (args // rec {
-                    version = "24.1.3";
+                    version = "25.0.1";
                     src = super.fetchFromGitHub {
                       owner = "be5invis";
                       repo = "iosevka";
                       rev = "v${version}";
-                      hash = "sha256-LM47tiFZ5rDGgRqvGZEoCSpij4ZEoulnsAiM2ZlP7fY=";
+                      hash = "sha256-clbqr4hGtIkbgPYovYXHGW+FUTEjAn3Oq7aoPFMgGJU=";
                     };
-                    npmDepsHash = "sha256-jW1g4n66AFP6fjp0vXKZiBQzDkWamSWQprIE+VkZ6rk=";
+                    npmDepsHash = "sha256-TxMmUgwQPbSV+1qe0FEtSPAYwJRnpuQ+qOmWvrq9xKY=";
                   });
               };
-            myosevka = self.iosevka24.override {
+            myosevka = self.iosevka25.override {
               privateBuildPlan = import resources/iosevka/myosevka.nix;
               set = "myosevka";
             };
-            myosevka-proportional = self.iosevka24.override {
+            myosevka-proportional = self.iosevka25.override {
               privateBuildPlan =
                 import resources/iosevka/myosevka-proportional.nix;
               set = "myosevka-proportional";
             };
-            myosevka-aile = self.iosevka24.override {
+            myosevka-aile = self.iosevka25.override {
               privateBuildPlan = (import resources/iosevka/myosevka-aile.nix) {
                 inherit (super) lib;
               };
               set = "myosevka-aile";
             };
-            myosevka-etoile = self.iosevka24.override {
+            myosevka-etoile = self.iosevka25.override {
               privateBuildPlan = (import resources/iosevka/myosevka-etoile.nix) {
                 inherit (super) lib;
               };
