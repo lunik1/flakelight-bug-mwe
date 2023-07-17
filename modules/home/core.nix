@@ -62,7 +62,9 @@ in {
       settings = {
         auto-optimise-store = true;
         experimental-features = [ "nix-command" "flakes" ];
-        sandbox = "relaxed";
+        # Sandbox is a little bit broken on darwin
+        # https://github.com/NixOS/nix/issues/4119
+        sandbox = if pkgs.stdenv.isDarwin then false else "relaxed";
         substituters =
           [ "https://cache.nixos.org" "https://lunik1-nix-config.cachix.org" ];
         trusted-public-keys = [
