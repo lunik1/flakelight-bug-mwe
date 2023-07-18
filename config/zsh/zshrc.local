@@ -110,6 +110,7 @@ alias pip2date='sh -c "pip2 freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1 
 if [ "${TERM}" = "xterm-kitty" ]; then
   alias ssh="kitty +kitten ssh"
   alias hrg="kitty +kitten hyperlinked_grep"
+  alias icat="kitty +kitten icat"
 fi
 
 # different behaviour inside emacs
