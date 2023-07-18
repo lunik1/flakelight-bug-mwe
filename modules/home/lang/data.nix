@@ -16,6 +16,9 @@ in {
 
       # TOML
       taplo
+
+      # csv
+      xsv
     ];
   };
 }
