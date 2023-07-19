@@ -24,11 +24,10 @@ in
         package = pkgs.myosevka;
         size = 11.0;
       };
+      theme = "Gruvbox Dark";
       shellIntegration.enableZshIntegration = true;
       settings =
-        let gruvbox = import ../../resources/colourschemes/gruvbox.nix;
-        in
-        rec {
+        {
           bold_font = "Myosevka Semibold";
           italic_font = "Myosevka Light Italic";
           bold_italic_font = "Myosevka Semibold Italic";
@@ -49,29 +48,6 @@ in
           tab_switch_strategy = "right";
           tab_bar_min_tabs = 1;
           tab_bar_edge = "top";
-
-          foreground = gruvbox.dark.fg;
-          background = gruvbox.dark.bg;
-          color0 = gruvbox.dark.black.normal;
-          color1 = gruvbox.dark.red.normal;
-          color2 = gruvbox.dark.green.normal;
-          color3 = gruvbox.dark.yellow.normal;
-          color4 = gruvbox.dark.blue.normal;
-          color5 = gruvbox.dark.purple.normal;
-          color6 = gruvbox.dark.cyan.normal;
-          color7 = gruvbox.dark.white.normal;
-          color8 = gruvbox.dark.black.bright;
-          color9 = gruvbox.dark.red.bright;
-          color10 = gruvbox.dark.green.bright;
-          color11 = gruvbox.dark.yellow.bright;
-          color12 = gruvbox.dark.blue.bright;
-          color13 = gruvbox.dark.purple.bright;
-          color14 = gruvbox.dark.cyan.bright;
-          color15 = gruvbox.dark.white.bright;
-          selection_foreground = background;
-          selection_background = foreground;
-          url_color = gruvbox.dark.orange.normal;
-          cursor = foreground;
         };
       keybindings = {
         "kitty_mod+'" = "detach_window ask";
