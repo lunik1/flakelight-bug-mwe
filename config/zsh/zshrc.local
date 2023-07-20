@@ -100,8 +100,10 @@ else
 fi
 
 # rsync
-alias rsync='rsync -avzhPHA --checksum-choice=xxh3 --compress-choice=lz4 --info=progress2'
-alias srsync='rsync --checksum-choice=xxh3 --compress-choice=zstd --info=progress2 -avzPhHAe ssh'
+export RSYNC_CHECKSUM_LIST="xxh3 xxh128 xxh64 sha1 md5 md4 none"
+export RSYNC_COMPRESS_LIST="lz4 zstd zlibx zlib none"
+alias rsync='rsync -avzhPHA --info=progress2'
+alias srsync='rsync --info=progress2 -avzPhHAe ssh'
 
 # update all python packages at once with pip
 alias pipdate='sh -c "pip freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1  | xargs -n1 pip install -U"'
