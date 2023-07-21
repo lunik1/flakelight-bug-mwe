@@ -100,8 +100,6 @@ else
 fi
 
 # rsync
-export RSYNC_CHECKSUM_LIST="xxh3 xxh128 xxh64 sha1 md5 md4 none"
-export RSYNC_COMPRESS_LIST="lz4 zstd zlibx zlib none"
 alias rsync='rsync -avzhPHA --info=progress2'
 alias srsync='rsync --info=progress2 -avzPhHAe ssh'
 
