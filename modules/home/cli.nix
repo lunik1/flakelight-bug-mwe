@@ -62,6 +62,7 @@ in {
         CARGO_REGISTRIES_CRATES_IO_PROTOCO = "sparse";
         RSYNC_CHECKSUM_LIST = "xxh3 xxh128 xxh64 sha1 md5 md4 none";
         RSYNC_COMPRESS_LIST = "lz4 zstd zlibx zlib none";
+        MANWIDTH = 80;
       };
 
       # Add a personal aspell dict if it does not already exist
