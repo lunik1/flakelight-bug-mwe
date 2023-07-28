@@ -18,7 +18,6 @@ rec {
       core.enable = true;
       cli.enable = true;
 
-      emacs.enable = true;
       git.enable = true;
       gpg.enable = true;
       neovim.enable = true;

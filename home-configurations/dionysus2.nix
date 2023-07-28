@@ -51,7 +51,6 @@ rec {
       core.enable = true;
       cli.enable = true;
 
-      emacs.enable = true;
       git.enable = true;
       gpg.enable = true;
       media-management.enable = true;
