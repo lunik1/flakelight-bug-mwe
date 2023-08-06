@@ -19,6 +19,7 @@ in
           gnome3.gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
+          jftui
           jitsi-meet-electron
           plex-media-player
           qdirstat
