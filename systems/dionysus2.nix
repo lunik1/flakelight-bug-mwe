@@ -35,13 +35,6 @@ overlays:
           kernelModules = [ "kvm-intel" "bfq" ];
           kernelPackages = pkgs.linuxPackages_hardened;
           kernelParams = [ "mce=0" ]; # Panic on uncorrectable ECC ram error
-          kernelPatches = [{
-            name = "xfs-online-scrub";
-            patch = null;
-            extraConfig = ''
-              XFS_ONLINE_SCRUB y
-            '';
-          }];
           kernel.sysctl = {
             "kernel.yama.ptrace_scope" = 1; # will break strace, gdb etc.
           };
