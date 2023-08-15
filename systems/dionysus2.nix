@@ -42,6 +42,11 @@ overlays:
           extraModulePackages = [ ];
         };
 
+        console = {
+          packages = [ pkgs.terminus_font ];
+          font = "ter-132n";
+        };
+
         ## We shouldn't need to replace the kernel image, so don't allow it
         security = {
           protectKernelImage = true;
