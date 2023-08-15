@@ -11,11 +11,6 @@ in {
       description = "Whether to enable Emacs' gui.";
       type = types.bool;
     };
-    nativeComp = mkOption {
-      default = true;
-      description = "Whether to enable nativecomp.";
-      type = types.bool;
-    };
   };
 
   config = mkIf cfg.enable {
@@ -40,15 +35,13 @@ in {
     programs.emacs =
       let
         settings = {
-          withNativeCompilation = cfg.nativeComp;
-          withX = false;
-          withNS = false;
-          withGTK2 = false;
+          withNativeCompilation = true;
           withGTK3 = cfg.gui;
           withPgtk = cfg.gui;
-          withWebP = true;
         };
-        emacs-package = pkgs.emacs.override settings;
+        emacs-package = with pkgs;
+          if stdenv.isDarwin then emacs29-macport
+          else emacs29.override settings;
       in
       {
         enable = true;

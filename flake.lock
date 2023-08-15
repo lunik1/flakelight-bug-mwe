@@ -44,32 +44,6 @@
         "type": "gitlab"
       }
     },
-    "emacs-overlay": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ],
-        "nixpkgs-stable": [
-          "nixos"
-        ]
-      },
-      "locked": {
-        "lastModified": 1692125006,
-        "narHash": "sha256-D3UuE9aiKBFmNuzRfZLmNUlwujXDFeD8/ZSSaNwAuAs=",
-        "owner": "nix-community",
-        "repo": "emacs-overlay",
-        "rev": "ff4dba8979ddc3bfa40867d4f256cc7f0e635d75",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "emacs-overlay",
-        "type": "github"
-      }
-    },
     "firefox-lepton": {
       "flake": false,
       "locked": {
@@ -399,7 +373,6 @@
       "inputs": {
         "LS_COLORS": "LS_COLORS",
         "bach": "bach",
-        "emacs-overlay": "emacs-overlay",
         "firefox-lepton": "firefox-lepton",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",

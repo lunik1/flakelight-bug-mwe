@@ -48,14 +48,6 @@
         flake-utils.follows = "flake-utils";
       };
     };
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        nixpkgs-stable.follows = "nixos";
-        flake-utils.follows = "flake-utils";
-      };
-    };
     nixpkgs-lint = {
       url = "github:nix-community/nixpkgs-lint";
       inputs = {
@@ -137,7 +129,6 @@
           };
         })
         (self: super: { inherit nixos-logo-gruvbox-wallpaper; })
-        emacs-overlay.overlays.default
         nixpkgs-lint.overlays.default
       ];
     in
