@@ -25,6 +25,7 @@ in {
           myosevka-aile
           myosevka-etoile
           zip # for org odt export
+          (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
         ];
 
       sessionVariables = {
