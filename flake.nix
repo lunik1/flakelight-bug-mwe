@@ -8,7 +8,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         flake-utils.follows = "flake-utils";
-        nixpkgs-lint.follows = "nixpkgs-lint";
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
@@ -46,13 +45,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         flake-utils.follows = "flake-utils";
-      };
-    };
-    nixpkgs-lint = {
-      url = "github:nix-community/nixpkgs-lint";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        utils.follows = "flake-utils";
       };
     };
   };
@@ -129,7 +121,6 @@
           };
         })
         (self: super: { inherit nixos-logo-gruvbox-wallpaper; })
-        nixpkgs-lint.overlays.default
       ];
     in
     {
@@ -171,7 +162,7 @@
             jq
             nixpkgs-fmt
             nix-info
-            nixpkgs-lint
+            nixpkgs-lint-community
             pre-commit
             shellcheck
             statix

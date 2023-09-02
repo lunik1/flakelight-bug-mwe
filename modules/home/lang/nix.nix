@@ -12,7 +12,7 @@ in {
       # nixops_unstable # does not build, insecure
       nixos-shell
       nixpkgs-fmt
-      nixpkgs-lint
+      nixpkgs-lint-community
       nixpkgs-review
       nurl
       rnix-lsp

@@ -159,9 +159,7 @@
         "nixpkgs": [
           "nixpkgs-unstable"
         ],
-        "nixpkgs-lint": [
-          "nixpkgs-lint"
-        ],
+        "nixpkgs-lint": "nixpkgs-lint",
         "pre-commit-hooks": [
           "pre-commit-hooks"
         ]
@@ -201,6 +199,7 @@
     "naersk_2": {
       "inputs": {
         "nixpkgs": [
+          "lunik1-nur-unstable",
           "nixpkgs-lint",
           "nixpkgs"
         ]
@@ -291,9 +290,11 @@
         "flake-compat": "flake-compat",
         "naersk": "naersk_2",
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "lunik1-nur-unstable",
+          "nixpkgs"
         ],
         "utils": [
+          "lunik1-nur-unstable",
           "flake-utils"
         ]
       },
@@ -380,7 +381,6 @@
         "nix-index-database": "nix-index-database",
         "nixos": "nixos",
         "nixos-logo-gruvbox-wallpaper": "nixos-logo-gruvbox-wallpaper",
-        "nixpkgs-lint": "nixpkgs-lint",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "pre-commit-hooks": "pre-commit-hooks"
       }
