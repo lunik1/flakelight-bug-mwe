@@ -8,6 +8,7 @@ rec {
     home = {
       username = "corin";
       homeDirectory = "/home/corin";
+      packages = with pkgs; [ bach ];
       stateVersion = "21.11";
     };
 

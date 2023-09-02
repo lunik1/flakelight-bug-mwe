@@ -11,6 +11,7 @@ in
     home = {
       packages = with pkgs;
         [
+          bach
           bitwarden
           bleachbit
           discord

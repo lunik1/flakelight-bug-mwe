@@ -45,7 +45,6 @@ in {
         xxHash
         zsh-completions
       ] ++ lib.optionals stdenv.isLinux [
-        bach
         efficient-compression-tool
         fast-cli
         pb_cli
