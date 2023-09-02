@@ -21,7 +21,6 @@ in
           krita
           jftui
           jitsi-meet-electron
-          plex-media-player
           qdirstat
           thunderbird
           ungoogled-chromium
