@@ -44,8 +44,6 @@ in {
         wget
         xxHash
         zsh-completions
-
-        ripgrep-all # heavy dependencies, optional/own module?
       ] ++ lib.optionals stdenv.isLinux [
         bach
         efficient-compression-tool
