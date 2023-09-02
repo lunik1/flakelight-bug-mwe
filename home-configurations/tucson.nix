@@ -29,6 +29,7 @@ rec {
         enable = true;
         profile = "placebo";
       };
+      music.enable = true;
       neovim.enable = true;
       pulp-io.enable = true;
       syncthing.enable = true;
