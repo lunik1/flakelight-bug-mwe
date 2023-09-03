@@ -12,7 +12,7 @@ in {
   options.lunik1.system.backup = with types; {
     enable = mkEnableOption "regular backups via Kopia";
     interval = mkOption {
-      default = "00:00";
+      default = "03:46";
       type = str;
     };
   };
