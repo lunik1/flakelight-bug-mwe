@@ -1,4 +1,4 @@
-overlays:
+{ overlays, modules }:
 
 {
   system = "x86_64-linux";
@@ -110,5 +110,5 @@ overlays:
           extraPackages = [ ];
         };
       })
-  ];
+  ] ++ modules;
 }

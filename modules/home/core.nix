@@ -73,5 +73,10 @@ in {
         ];
       };
     };
+
+    sops = {
+      age.keyFile = "${config.home.homeDirectory}/.age-key.txt";
+      defaultSopsFile = ../../secrets/user/secrets.yaml;
+    };
   };
 }

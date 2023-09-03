@@ -157,6 +157,25 @@
       Storage=persistent
       SystemMaxUse=1G
     '';
+
+    # generate a key for encrypting sops secrets
+  };
+
+  system.activationScripts = {
+    # Generate aed25519 for usage with age/sops
+    genereate-sops-ed25519 = let sopsKeyFile = "/etc/ssh/sops_key"; in
+      ''
+        if [ ! -f ${sopsKeyFile} ]; then
+          ${pkgs.coreutils}/bin/mkdir \
+            -p \
+            $(${pkgs.coreutils}/bin/dirname ${sopsKeyFile})
+          ${pkgs.openssh}/bin/ssh-keygen \
+            -t ed25519 \
+            -f ${sopsKeyFile} \
+            -C "sops-${config.networking.hostName}" \
+            -N ""
+        fi
+      '';
   };
 
   users.users.corin = {

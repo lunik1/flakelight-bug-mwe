@@ -1,4 +1,4 @@
-overlays:
+{ overlays, modules }:
 
 {
   system = "aarch64-linux";
@@ -67,5 +67,5 @@ overlays:
           ssh-server.enable = true;
         };
       })
-  ];
+  ] ++ modules;
 }

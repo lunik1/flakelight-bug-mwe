@@ -1,4 +1,4 @@
-overlays:
+{ overlays, modules }:
 
 {
   system = "x86_64-linux";
@@ -41,5 +41,5 @@ overlays:
           vpsadminos.enable = true;
         };
       })
-  ];
+  ] ++ modules;
 }
