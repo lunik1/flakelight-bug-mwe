@@ -2,6 +2,7 @@
 
 { config, lib, pkgs, ... }:
 
+let sopsKeyFile = "/etc/ssh/sops_key"; in
 {
   boot = {
     tmp.cleanOnBoot = true;
@@ -161,9 +162,10 @@
     # generate a key for encrypting sops secrets
   };
 
+  # Sops
   system.activationScripts = {
-    # Generate aed25519 for usage with age/sops
-    genereate-sops-ed25519 = let sopsKeyFile = "/etc/ssh/sops_key"; in
+    # Generate an ed25519 key for usage with age/sops
+    genereate-sops-ed25519 =
       ''
         if [ ! -f ${sopsKeyFile} ]; then
           ${pkgs.coreutils}/bin/mkdir \
@@ -176,6 +178,15 @@
             -N ""
         fi
       '';
+  };
+
+  sops = {
+    age.sshKeyPaths = [ sopsKeyFile ];
+    defaultSopsFile = ../../secrets/test.yaml;
+    secrets.test = {
+      owner = config.users.users.corin.name;
+      group = config.users.users.corin.group;
+    };
   };
 
   users.users.corin = {

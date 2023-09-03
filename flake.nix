@@ -85,7 +85,6 @@
           };
         };
       overlays = [
-        (import ./lib/overlay.nix)
         (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
         (self: super:
           # TODO: move to NUR

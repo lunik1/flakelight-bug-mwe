@@ -351,6 +351,10 @@ in {
       };
     };
 
+    sops.secrets.ssh_config = {
+      path = ".ssh/config";
+    };
+
     xdg = {
       enable = true;
       dataFile = {

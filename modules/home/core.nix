@@ -48,15 +48,6 @@ in {
       sessionVariables.AWK_HASH = "fnv1a";
     };
 
-    programs.ssh =
-      let
-        sshConfig = ../../config/ssh/config.nix;
-      in
-      if pkgs.lib.lunik1.isEncrypted sshConfig then
-        builtins.trace "Warning: ssh config is encrypted, not building" { }
-      else
-        import sshConfig;
-
     nix = {
       package = pkgs.nix;
       settings = {
