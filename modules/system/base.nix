@@ -182,18 +182,14 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
 
   sops = {
     age.sshKeyPaths = [ sopsKeyFile ];
-    defaultSopsFile = ../../secrets/test.yaml;
-    secrets.test = {
-      owner = config.users.users.corin.name;
-      group = config.users.users.corin.group;
-    };
+    defaultSopsFile = ../../secrets/host/secrets.yaml;
+    secrets.corin_password.neededForUsers = true;
   };
 
   users.users.corin = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "video" "networkmanager" ];
     shell = pkgs.zsh;
-    initialHashedPassword =
-      "$6$bE72miJzM$j2sh4WuC1UG1cdo3kkOVzuNTQ0V1LGGBVwz3nBWKiXzlkCm1IbgHEoMVDChsO2ccTP7VUNFg4I.qYW7FfBNQw.";
+    passwordFile = config.sops.secrets.corin_password.path;
   };
 }
