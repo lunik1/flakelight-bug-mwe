@@ -8,7 +8,6 @@ with lib;
 
 let cfg = config.lunik1.system.backup;
 in {
-
   options.lunik1.system.backup = with types; {
     enable = mkEnableOption "regular backups via Kopia";
     interval = mkOption {
@@ -17,15 +16,22 @@ in {
     };
   };
 
+
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ pkgs.kopia ];
+
+    sops.secrets = {
+      kopia_environment = { };
+      kopia_connection_config = { };
+    };
 
     systemd.services.kopia-create = {
       description = "Backup to kopia repository";
       startAt = cfg.interval;
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${pkgs.kopia}/bin/kopia snapshot create /";
+        ExecStart = "${pkgs.kopia}/bin/kopia snapshot create --config-file ${config.sops.secrets.kopia_connection_config.path} --no-persist-credentials --no-use-keyring /";
+        EnvironmentFile = config.sops.secrets.kopia_environment.path;
         Nice = 19;
         IOSchedulingPriority = 7;
         CPUSchedulingPolicy = "batch";
@@ -44,7 +50,6 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = true;
-        # RestrictAddressFamilies = "none";
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
