@@ -15,6 +15,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-stable.follows = "nixos";
+    };
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -53,7 +58,10 @@
     with inputs;
     with nixpkgs-unstable.lib;
     let
-      hmModules = [ nix-index-database.hmModules.nix-index ];
+      hmModules = [
+        nix-index-database.hmModules.nix-index
+        sops-nix.homeManagerModule
+      ];
       homeConfigDir = ./home-configurations;
       systemConfigDir = ./systems;
       isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
@@ -69,7 +77,6 @@
           };
         };
       overlays = [
-        (import ./lib/overlay.nix)
         (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
         (self: super:
           # TODO: move to NUR
@@ -128,7 +135,11 @@
         (file: _: {
           name = removeSuffix ".nix" file;
           value = inputs.nixos.lib.nixosSystem
-            ((import (systemConfigDir + "/${file}")) overlays);
+            ((import (systemConfigDir + "/${file}"))
+              {
+                inherit overlays;
+                modules = [ inputs.sops-nix.nixosModules.sops ];
+              });
         })
         (filterAttrs isNixFile (builtins.readDir systemConfigDir));
       homeConfigurations = mapAttrs'
@@ -165,6 +176,7 @@
             nixpkgs-lint-community
             pre-commit
             shellcheck
+            sops
             statix
           ];
         };

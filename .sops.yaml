@@ -1,0 +1,21 @@
+keys:
+  - &host_vegas age1xx8jk50h4vq4tfuynpvtvlsczp3lyquhlktw08xtugehqg9w9epq8n3u6u
+  - &host_dionysus2 age14w3w8hxxzt0x67k8u65htz5fpalmzzyr8amfd9uk90xnynj4ds0qxd3hgp
+  - &host_mercury2 age1wxng9x4wz25qqudfr2ancyg063kfaty83zmplj8h2rxlm490ms3swuwhdq
+  - &user_corin age1zahu84jw8v8zfnz58hwe9gt38w0rtlehqv92lrvjj5zlmqf2zqyswdj7km
+  - &pgp_corin AB22E0E737C61F1D99F4F71083CA400B5B08DE9E
+creation_rules:
+  - path_regex: ^secrets/host/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *host_vegas
+          - *host_dionysus2
+          - *host_mercury2
+        pgp:
+          - *pgp_corin
+  - path_regex: ^secrets/user/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *user_corin
+        pgp:
+          - *pgp_corin

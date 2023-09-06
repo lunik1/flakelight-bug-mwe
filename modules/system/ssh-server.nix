@@ -11,7 +11,7 @@ in
     services.openssh = {
       enable = true;
       ports = [ 1002 ];
-      startWhenNeeded = lib.mkDefault false;
+      startWhenNeeded = true;
       settings = {
         PermitRootLogin = "no";
         PasswordAuthentication = false;

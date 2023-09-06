@@ -2,6 +2,7 @@
 
 { config, lib, pkgs, ... }:
 
+let sopsKeyFile = "/etc/ssh/sops_key"; in
 {
   boot = {
     tmp.cleanOnBoot = true;
@@ -157,13 +158,38 @@
       Storage=persistent
       SystemMaxUse=1G
     '';
+
+    # generate a key for encrypting sops secrets
+  };
+
+  # Sops
+  system.activationScripts = {
+    # Generate an ed25519 key for usage with age/sops
+    genereate-sops-ed25519 =
+      ''
+        if [ ! -f ${sopsKeyFile} ]; then
+          ${pkgs.coreutils}/bin/mkdir \
+            -p \
+            $(${pkgs.coreutils}/bin/dirname ${sopsKeyFile})
+          ${pkgs.openssh}/bin/ssh-keygen \
+            -t ed25519 \
+            -f ${sopsKeyFile} \
+            -C "sops-${config.networking.hostName}" \
+            -N ""
+        fi
+      '';
+  };
+
+  sops = {
+    age.sshKeyPaths = [ sopsKeyFile ];
+    defaultSopsFile = ../../secrets/host/secrets.yaml;
+    secrets.corin_password.neededForUsers = true;
   };
 
   users.users.corin = {
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "video" "networkmanager" ];
     shell = pkgs.zsh;
-    initialHashedPassword =
-      "$6$bE72miJzM$j2sh4WuC1UG1cdo3kkOVzuNTQ0V1LGGBVwz3nBWKiXzlkCm1IbgHEoMVDChsO2ccTP7VUNFg4I.qYW7FfBNQw.";
+    passwordFile = config.sops.secrets.corin_password.path;
   };
 }

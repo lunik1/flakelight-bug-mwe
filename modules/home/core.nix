@@ -48,15 +48,6 @@ in {
       sessionVariables.AWK_HASH = "fnv1a";
     };
 
-    programs.ssh =
-      let
-        sshConfig = ../../config/ssh/config.nix;
-      in
-      if pkgs.lib.lunik1.isEncrypted sshConfig then
-        builtins.trace "Warning: ssh config is encrypted, not building" { }
-      else
-        import sshConfig;
-
     nix = {
       package = pkgs.nix;
       settings = {
@@ -72,6 +63,11 @@ in {
           "lunik1-nix-config.cachix.org-1:GqZJS5q4NsaZfo2CszuqbB1WrvdyZJqO7e+JqNjtd94="
         ];
       };
+    };
+
+    sops = {
+      age.keyFile = "${config.home.homeDirectory}/.age-key.txt";
+      defaultSopsFile = ../../secrets/user/secrets.yaml;
     };
   };
 }

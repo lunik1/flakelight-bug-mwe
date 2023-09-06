@@ -1,4 +1,4 @@
-overlays:
+{ overlays, modules }:
 
 {
   system = "x86_64-linux";
@@ -232,5 +232,5 @@ overlays:
           zswap.enable = true;
         };
       })
-  ];
+  ] ++ modules;
 }

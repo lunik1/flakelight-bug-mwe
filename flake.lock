@@ -382,7 +382,8 @@
         "nixos": "nixos",
         "nixos-logo-gruvbox-wallpaper": "nixos-logo-gruvbox-wallpaper",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "pre-commit-hooks": "pre-commit-hooks"
+        "pre-commit-hooks": "pre-commit-hooks",
+        "sops-nix": "sops-nix"
       }
     },
     "rust-overlay": {
@@ -407,6 +408,29 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "nixpkgs-stable": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1693404499,
+        "narHash": "sha256-cx/7yvM/AP+o/3wPJmA9W9F+WHemJk5t+Xcr+Qwkqhg=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "d9c5dc41c4b1f74c77f0dbffd0f3a4ebde447b7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },

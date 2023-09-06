@@ -12,6 +12,9 @@ rec {
       packages = with pkgs; [ vial openrgb ];
     };
 
+    # Secrets
+    sops.secrets.cachix_auth_token = { };
+
     lunik1.home = {
       core.enable = true;
       cli.enable = true;
