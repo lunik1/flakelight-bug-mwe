@@ -31,6 +31,7 @@
         lunik1.system = {
           backup.enable = true;
           containers.enable = true;
+          munin.enable = true;
           network = {
             resolved.enable = true;
             nameservers =

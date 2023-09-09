@@ -10,6 +10,7 @@
   ./kde.nix
   ./laptop.nix
   ./locate.nix
+  ./munin.nix
   ./network.nix
   ./pulp-io.nix
   ./sound.nix

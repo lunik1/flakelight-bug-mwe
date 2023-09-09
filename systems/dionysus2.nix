@@ -226,6 +226,7 @@
           backup.enable = true;
           containers.enable = true;
           grub.enable = true;
+          munin.enable = true;
           locate.enable = true;
           network.resolved.enable = true;
           ssh-server.enable = true;
