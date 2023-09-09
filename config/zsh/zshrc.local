@@ -43,6 +43,7 @@ alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
 alias doom='~/.emacs.d/bin/doom'
 alias emacs='emacs & disown'
 alias s='sudo $(fc -ln -1)'
+alias killgpg='gpgconf --kill gpg-agent'
 
 # easy sedding with perl
 alias pie='perl -pi -e'
