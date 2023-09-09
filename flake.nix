@@ -174,6 +174,7 @@
             nixpkgs-fmt
             nix-info
             nixpkgs-lint-community
+            nodePackages_latest.yaml-language-server
             pre-commit
             shellcheck
             sops
