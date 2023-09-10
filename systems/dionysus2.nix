@@ -3,8 +3,7 @@
 {
   system = "x86_64-linux";
   modules = [
-    ({ pkgs, modulesPath, ... }:
-
+    ({ config, pkgs, modulesPath, ... }:
       {
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ]
           ++ import ../modules/system/module-list.nix;
@@ -181,6 +180,49 @@
               IOSchedulingClass = "best-effort";
               IOSchedulingPriority = "6";
             };
+          };
+
+        };
+
+        ## Sync kopia to remote
+        sops.secrets = {
+          kopia_connection_config_remote = { };
+          kopia_connection_config = { };
+          kopia_environment = { };
+        };
+
+        systemd.services.kopia-sync = {
+          description = "Sync to remote kopia repository";
+          startAt = "Tue 06:41";
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${pkgs.kopia}/bin/kopia repository sync-to from-config --config-file ${config.sops.secrets.kopia_connection_config.path} --file ${config.sops.secrets.kopia_connection_config_remote.path} --delete --parallel 8 --times";
+            EnvironmentFile = config.sops.secrets.kopia_environment.path;
+            Nice = 18;
+            IOSchedulingPriority = 6;
+            CPUSchedulingPolicy = "batch";
+
+            User = "root";
+
+            LockPersonality = true;
+            MemoryDenyWriteExecute = true;
+            NoNewPrivileges = true;
+            PrivateDevices = true;
+            PrivateTmp = true;
+            ProtectClock = true;
+            ProtectControlGroups = true;
+            ProtectHostname = true;
+            ProtectKernelLogs = true;
+            ProtectKernelModules = true;
+            ProtectKernelTunables = true;
+            ProtectProc = true;
+            RestrictNamespaces = true;
+            RestrictRealtime = true;
+            RestrictSUIDSGID = true;
+            SystemCallArchitectures = "native";
+            SystemCallFilter = "@system-service";
+            SystemCallErrorNumber = "EPERM";
+            CapabilityBoundingSet = "CAP_DAC_OVERRIDE";
           };
         };
 
