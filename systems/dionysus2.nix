@@ -163,25 +163,17 @@
         services.vnstat.enable = true;
 
         ## Back up permissions info on /storage
-        systemd = {
-          timers.storage-permissions-backup = {
-            description =
-              "Back up permissions of files on /mnt/storage every day at 2pm";
-            wantedBy = [ "timers.target" ];
-            timerConfig = { OnCalendar = "*-*-* 14:00:00"; };
+        systemd.services.storage-permissions-backup = {
+          description = "Backup permissions on /mnt/storage";
+          startAt = "14:07";
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart =
+              "/bin/sh -c '{ ${pkgs.acl}/bin/getfacl -p -R /mnt/storage | ${pkgs.zstd}/bin/zstd -T0 -10 > /root/storage_permissions.acl.zst.tmp ; } && ${pkgs.busybox}/bin/mv /root/storage_permissions.acl.zst.tmp /root/storage_permissions.acl.zst'";
+            Nice = "15";
+            IOSchedulingClass = "best-effort";
+            IOSchedulingPriority = "6";
           };
-          services.storage-permissions-backup = {
-            description = "Backup permissions on /mnt/storage";
-            serviceConfig = {
-              Type = "oneshot";
-              ExecStart =
-                "/bin/sh -c '{ ${pkgs.acl}/bin/getfacl -p -R /mnt/storage | ${pkgs.zstd}/bin/zstd -T0 -10 > /root/storage_permissions.acl.zst.tmp ; } && ${pkgs.busybox}/bin/mv /root/storage_permissions.acl.zst.tmp /root/storage_permissions.acl.zst'";
-              Nice = "15";
-              IOSchedulingClass = "best-effort";
-              IOSchedulingPriority = "6";
-            };
-          };
-
         };
 
         ## Sync kopia to remote
