@@ -182,7 +182,7 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
 
   sops = {
     age.sshKeyPaths = [ sopsKeyFile ];
-    defaultSopsFile = ../../secrets/host/secrets.yaml;
+    defaultSopsFile = ../../secrets/host/all/secrets.yaml;
     secrets.corin_password.neededForUsers = true;
   };
 

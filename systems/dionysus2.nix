@@ -178,7 +178,9 @@
 
         ## Sync kopia to remote
         sops.secrets = {
-          kopia_connection_config_remote = { };
+          kopia_connection_config_remote = {
+            sopsFile = ../secrets/host/dionysus2/secrets.yaml;
+          };
           kopia_connection_config = { };
           kopia_environment = { };
         };
