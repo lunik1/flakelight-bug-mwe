@@ -257,11 +257,22 @@
           ];
         };
 
+        sops.secrets = {
+          "inadyn.conf" = {
+            sopsFile = ../secrets/host/dionysus2/secrets.yaml;
+          };
+        };
+
         ## Config modules to use
         lunik1.system = {
           backup.enable = true;
           containers.enable = true;
           grub.enable = true;
+          inadyn = {
+            enable = true;
+            interval = "*:0/15";
+            configFile = config.sops.secrets."inadyn.conf".path;
+          };
           munin.enable = true;
           locate.enable = true;
           network.resolved.enable = true;
