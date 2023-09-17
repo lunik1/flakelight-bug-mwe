@@ -49,7 +49,7 @@ in {
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        ProtectProc = true;
+        ProtectProc = "invisible";
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
