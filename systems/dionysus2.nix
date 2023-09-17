@@ -52,7 +52,10 @@
           # lockKernelModules = true;  # breaks docker
         };
 
-        environment.variables = { "KOPIA_CHECK_FOR_UPDATES" = "false"; };
+        environment.variables = {
+          "KOPIA_CHECK_FOR_UPDATES" = "false";
+          "KOPIA_BYTES_STRING_BASE_2" = "true";
+        };
 
         networking = {
           # Set DHCP on specific interface, as recommened in docstring
