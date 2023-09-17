@@ -7,7 +7,7 @@ in {
   options.lunik1.home.bluetooth.enable = lib.mkEnableOption "bluetooth";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ blueman bluezFull ];
+    home.packages = with pkgs; [ blueman bluez ];
     lunik1.home.waybar.bluetoothModule = true;
 
     # KDE has its own applet
