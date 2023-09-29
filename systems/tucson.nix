@@ -3,7 +3,7 @@
 {
   system = "x86_64-linux";
   modules = [
-    ({ pkgs, modulesPath, ... }:
+    ({ config, pkgs, modulesPath, ... }:
 
       {
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ]
@@ -53,6 +53,18 @@
         fileSystems."/boot" = {
           device = "/dev/disk/by-uuid/99D0-07B0";
           fsType = "vfat";
+        };
+
+        sops.secrets = {
+          samba-credentials = {
+            sopsFile = ../secrets/host/tucson/secrets.yaml;
+          };
+        };
+        fileSystems."/mnt/storage" = {
+          device = "//192.168.0.20/storage";
+          fsType = "cifs";
+          noCheck = true;
+          options = [ "x-systemd.automount" "x-systemd.mount-timeout=30" "noauto" "nofail" "_netdev" "credentials=${config.sops.secrets.samba-credentials.path}" ];
         };
 
         swapDevices = [{

@@ -19,6 +19,12 @@ creation_rules:
           - *host_dionysus2
         pgp:
           - *pgp_corin
+  - path_regex: ^secrets/host/tucson/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *host_tucson
+        pgp:
+          - *pgp_corin
   - path_regex: ^secrets/user/[^/]+\.yaml$
     key_groups:
       - age:
