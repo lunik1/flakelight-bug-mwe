@@ -10,11 +10,11 @@ in {
   config = lib.mkIf cfg.enable {
     hardware.sane = {
       enable = true;
-      extraBackends = with pkgs; [ epson-escpr ];
+      extraBackends = with pkgs; [ sane-airscan ];
     };
     services.printing = {
       enable = true;
-      drivers = with pkgs; [ epson-escpr ];
+      drivers = with pkgs; [ brlaser ];
     };
 
     users.users.corin.extraGroups = [ "scanner" "lp" ];
