@@ -116,3 +116,11 @@ endif
 nnoremap <silent> <leader>tl :setlocal list!<cr>
 nnoremap <silent> <leader>ts :setlocal spell!<cr>
 nnoremap <silent> <leader>tw :setlocal wrap!<cr>
+
+"" Filetpes
+
+" recognise .bb as clojure
+augroup bb_ft
+  autocmd!
+  autocmd BufNewFile,BufRead *.bb set filetype=clojure
+augroup END
