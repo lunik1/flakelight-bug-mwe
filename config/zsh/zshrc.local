@@ -85,6 +85,7 @@ if type bat >/dev/null 2>&1; then
   # bat-powered less
   alias bless='bat -p --paging=always'
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export MANROFFOPT="-c"
 
   # bat-powered ripgrep
   if type batgrep >/dev/null 2>&1; then
