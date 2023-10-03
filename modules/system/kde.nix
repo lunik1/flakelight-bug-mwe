@@ -21,6 +21,7 @@ in {
       kio-fuse # TODO broken?
       libsForQt5.kdeconnect-kde
       libsForQt5.plasma-browser-integration
+      latte-dock
     ];
 
     # SDDM
