@@ -52,4 +52,5 @@
     menu = 5;
     css = "normal";
   };
+  export-glyph-names = true;
 }
