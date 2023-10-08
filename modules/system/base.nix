@@ -130,6 +130,7 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
       git-crypt
       neovim
 
+      cloud-utils
       foot.terminfo
       htop
       libarchive
