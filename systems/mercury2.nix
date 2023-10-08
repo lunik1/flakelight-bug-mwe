@@ -13,7 +13,7 @@
         ++ import ../modules/system/module-list.nix;
 
         boot = {
-          kernelPackages = pkgs.linuxPackages_hardened;
+          kernelPackages = pkgs.linuxPackages;
           loader = {
             systemd-boot.enable = true;
             efi.canTouchEfiVariables = true;
