@@ -13,9 +13,9 @@
       capital-m = "slanted-sides-hanging-serifless";
       caret = "high";
       eight = "crossing-asymmetric";
-      eszet = "longs-s-lig";
+      eszet = "longs-s-lig-serifless";
       f = "flat-hook-serifless";
-      five = "oblique-upper-left-bar";
+      five = "oblique-arched";
       four = "closed";
       g = "double-storey-open";
       j = "flat-hook-serifed";
@@ -37,13 +37,13 @@
     };
     italic = {
       capital-j = "descending-serifed";
-      eszet = "longs-s-lig-tailed";
+      eszet = "longs-s-lig-tailed-serifless";
       f = "flat-hook-tailed";
       g = "single-storey-serifless";
       j = "serifed";
       k = "cursive-serifless";
       long-s = "flat-hook-descending";
-      t = "standard";
+      t = "bent-hook";
       y = "cursive-flat-hook-serifless";
     };
   };

@@ -19,7 +19,7 @@ in lib.recursiveUpdate myosevka {
     cyrl-ka = "symmetric-connected-serifless";
     d = "toothed-serifless";
     e = "flat-crossbar";
-    eszet = "longs-s-lig";
+    eszet = "longs-s-lig-serifless";
     f = "flat-hook-serifless";
     g = "single-storey-serifless";
     i = "serifless";
