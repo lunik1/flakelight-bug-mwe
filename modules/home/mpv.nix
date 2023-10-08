@@ -44,6 +44,7 @@ in
           vlang = "enGB,en-GB,eng,en,english,enUS,en-US,jpn,jp";
           hwdec-codecs = "all";
           gpu-api = "vulkan";
+          gpu-context = "x11vk"; # makes drag+drop work more consistently
           video-latency-hacks = "yes";
           temporal-dither = "yes";
           dither-depth = "auto";
