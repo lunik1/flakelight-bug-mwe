@@ -308,49 +308,6 @@ in {
       };
     };
 
-    systemd.user = {
-      services = {
-        tldr = {
-          Unit.Description = "tldr cache update";
-
-          Service = {
-            Type = "oneshot";
-            ExecStart = "${pkgs.tealdeer}/bin/tldr --update";
-            Nice = 19;
-            IOSchedulingPriority = 7;
-            CPUSchedulingPolicy = "batch";
-
-            KeyringMode = "private";
-            LockPersonality = true;
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = true;
-            PrivateTmp = true;
-            ProtectSystem = "full";
-            RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
-            SystemCallArchitectures = "native";
-            SystemCallErrorNumber = "EPERM";
-            SystemCallFilter = "@system-service";
-          };
-        };
-      };
-      timers = {
-        tldr = {
-          Unit = { Description = "tldr cache update"; };
-
-          Timer = {
-            OnCalendar = "*-*-* 00:00";
-            Persistent = true;
-            Unit = "tldr.service";
-          };
-
-          Install = { WantedBy = [ "timers.target" ]; };
-        };
-      };
-    };
-
     sops.secrets.ssh_config = {
       path = ".ssh/config";
     };
