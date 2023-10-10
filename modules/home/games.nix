@@ -28,9 +28,9 @@ in {
         libretro.thepowdertoy
       ];
     }) ++ lib.optionals cfg.cli.enable [ crawl nethack ]
-      ++ lib.optional cfg.freeciv.enable freeciv_gtk
+      ++ lib.optional cfg.freeciv.enable (if config.lunik1.home.kde.enable then freeciv_qt else freeciv_gtk)
       ++ lib.optional cfg.df.enable dwarf-fortress-packages.dwarf-fortress-full
-      ++ lib.optional cfg.minecraft.enable prismlauncher
+      ++ lib.optional cfg.minecraft.enable (if config.lunik1.home.kde.enable then prismlauncher-qt5 else prismlauncher)
       ++ lib.optional cfg.openrct2.enable openrct2
       ++ lib.optional cfg.wesnoth.enable wesnoth
       ++ lib.optionals cfg.dcss.enable [ crawl crawlTiles ]);
