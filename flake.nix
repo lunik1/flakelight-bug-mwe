@@ -41,10 +41,6 @@
       url = "github:trapd00r/LS_COLORS";
       flake = false;
     };
-    firefox-lepton = {
-      url = "github:black7375/Firefox-UI-Fix";
-      flake = false;
-    };
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
@@ -120,7 +116,6 @@
         (self: super: {
           inherit LS_COLORS;
         })
-        (self: super: { inherit firefox-lepton; })
         (self: super: {
           neovim = super.neovim.override {
             vimAlias = true;

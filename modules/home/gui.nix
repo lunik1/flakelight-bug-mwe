@@ -39,11 +39,6 @@ in
         ]);
 
       sessionVariables = { MOZ_WEBRENDER = "1"; };
-
-      file.firefox-lepton = {
-        source = "${pkgs.firefox-lepton}";
-        target = ".mozilla/firefox/corin/chrome";
-      };
     };
 
     programs = {
@@ -57,7 +52,6 @@ in
         };
         profiles.corin = {
           isDefault = true;
-          extraConfig = builtins.readFile "${pkgs.firefox-lepton}/user.js";
           settings = {
             "svg.context-properties.content.enabled" = true;
 

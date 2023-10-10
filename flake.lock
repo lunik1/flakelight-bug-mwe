@@ -44,22 +44,6 @@
         "type": "gitlab"
       }
     },
-    "firefox-lepton": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1695566830,
-        "narHash": "sha256-8756SKp8drd0jPnLGMpAwN1BOpbXGjjat57nl1bbg+Q=",
-        "owner": "black7375",
-        "repo": "Firefox-UI-Fix",
-        "rev": "66e114d8755ba053e1fc9becd0460c1535b190e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "black7375",
-        "repo": "Firefox-UI-Fix",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -374,7 +358,6 @@
       "inputs": {
         "LS_COLORS": "LS_COLORS",
         "bach": "bach",
-        "firefox-lepton": "firefox-lepton",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "lunik1-nur-unstable": "lunik1-nur-unstable",
