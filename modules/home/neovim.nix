@@ -17,7 +17,7 @@ in {
     programs.neovim =
       let
         nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
-        idris2-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+        idris2-nvim = pkgs.vimUtils.buildVimPlugin {
           pname = "idris2-nvim";
           version = "2022-12-01";
           src = pkgs.fetchFromGitHub {
