@@ -17,12 +17,17 @@ in {
 
     # KDE
     services.xserver.desktopManager.plasma5.enable = cfg.kde.enable;
-    environment.systemPackages = with pkgs; [
-      kio-fuse # TODO broken?
-      libsForQt5.kdeconnect-kde
-      libsForQt5.plasma-browser-integration
-      latte-dock
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        kio-fuse # TODO broken?
+        libsForQt5.kdeconnect-kde
+        libsForQt5.plasma-browser-integration
+        latte-dock
+      ];
+      plasma5.excludePackages = with pkgs.libsForQt5; [
+        elisa
+      ];
+    };
 
     # SDDM
     services.xserver.enable = true;
