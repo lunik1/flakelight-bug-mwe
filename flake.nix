@@ -81,14 +81,14 @@
               rec {
                 buildNpmPackage = args: super.buildNpmPackage
                   (args // rec {
-                    version = "27.2.0";
+                    version = "27.3.0";
                     src = super.fetchFromGitHub {
                       owner = "be5invis";
                       repo = "iosevka";
                       rev = "v${version}";
-                      hash = "sha256-jRUwXnsYzM4BH+tEM6xuoB3/MFqbnR0deT3Slgkemvs=";
+                      hash = "sha256-UNGPYcCAsJpg/EvLs2FDCTX0ihwEul66y8m5VwKnoKc=";
                     };
-                    npmDepsHash = "sha256-6ikjJScy6iL8lZ9eE2JBz7+egRCNli4XC9hnEalX408=";
+                    npmDepsHash = "sha256-CcnXQzVdWmWdE5uTo3L/ABtwOusCOOD2Dpx37yfIcQM=";
                   });
               };
             myosevka = self.iosevka27.override {
