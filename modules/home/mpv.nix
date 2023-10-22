@@ -100,6 +100,7 @@ in
           demuxer-max-bytes = "10GiB";
           force-window = "yes";
           no-resume-playback = "";
+          drag-and-drop = "append";
         } // optionalAttrs (profile == "potato") {
           vo = "gpu";
           scale = "bicubic_fast";
