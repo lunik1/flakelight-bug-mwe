@@ -6,7 +6,11 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs;
-      [ feishin playerctl spotify ]
+      [
+        # feishin # uses EOL electron
+        playerctl
+        spotify
+      ]
       ++ lib.optional config.lunik1.home.gui.enable spotify;
     programs = {
       ncmpcpp = {

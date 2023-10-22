@@ -12,7 +12,7 @@ in
       packages = with pkgs;
         [
           bach
-          bitwarden
+          # bitwarden # uses EOL electron https://github.com/NixOS/nixpkgs/issues/262730
           bleachbit
           discord
           element-desktop
