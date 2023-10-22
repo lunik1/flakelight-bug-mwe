@@ -20,7 +20,7 @@ in
           gnome3.gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
-          jftui
+          jellyfin-media-player
           jitsi-meet-electron
           qdirstat
           thunderbird
