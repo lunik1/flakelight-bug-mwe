@@ -23,6 +23,7 @@ in
           jellyfin-media-player
           jitsi-meet-electron
           qdirstat
+          signal-desktop
           thunderbird
           ungoogled-chromium
           xdg_utils
