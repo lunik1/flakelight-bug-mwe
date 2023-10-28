@@ -20,7 +20,7 @@
       g = "double-storey-open";
       j = "flat-hook-serifed";
       k = "symmetric-touching-serifless";
-      l = "tailed-serifed";
+      l = "serifed-semi-tailed";
       long-s = f;
       lower-lambda = "straight-turn";
       nine = "closed-contour";
