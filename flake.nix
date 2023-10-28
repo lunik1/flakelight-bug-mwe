@@ -81,7 +81,7 @@
               rec {
                 buildNpmPackage = args: super.buildNpmPackage
                   (args // rec {
-                    version = "27.3.0";
+                    version = "27.3.1";
                     src = super.fetchFromGitHub {
                       owner = "be5invis";
                       repo = "iosevka";
