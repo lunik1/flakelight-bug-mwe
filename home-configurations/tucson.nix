@@ -41,6 +41,7 @@ rec {
         emu.enable = true;
         minecraft.enable = true;
         steam.enable = true;
+        osu.enable = true;
       };
 
       lang = {
