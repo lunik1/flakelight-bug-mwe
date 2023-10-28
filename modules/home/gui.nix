@@ -26,6 +26,7 @@ in
           signal-desktop
           thunderbird
           ungoogled-chromium
+          ventoy
           xdg_utils
 
           myosevka-aile
