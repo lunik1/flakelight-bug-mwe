@@ -10,6 +10,7 @@ in lib.recursiveUpdate myosevka {
     at = "fourfold";
     capital-g = "toothless-corner-serifed-hooked";
     capital-k = "straight-serifed";
+    capital-m = "slanted-sides-hanging-serifed";
     capital-w = "straight-flat-top-serifed";
     f = "flat-hook-serifed";
     j = "flat-hook-serifed";
