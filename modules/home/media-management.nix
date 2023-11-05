@@ -23,7 +23,6 @@ in
       package = (pkgs.beets.override {
         pluginOverrides.alternatives = {
           enable = true;
-          propagatedBuildInputs = [ pkgs.beetsPackages.alternatives ];
         };
       });
       settings = {
