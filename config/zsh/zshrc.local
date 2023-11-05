@@ -178,6 +178,23 @@ if [ "${INSIDE_EMACS}" = "vterm" ]; then
     vterm_cmd ranger ${patharg}
   }
 
+  yazi () {
+    local patharg
+    patharg="$(realpath -eq "${@:-.}")"
+
+    if [ $? -eq 1 ]; then
+       printf "No such file or directory\n"
+       return 1
+    fi
+
+    # ranger needs a trailing slash to open the directory
+    if [ -d "${patharg}" ]; then
+       patharg="${patharg}/"
+    fi
+
+    vterm_cmd ranger ${patharg}
+  }
+
   alias find-file='find_file'
   alias ff='find_file'
   alias emacs='find_file'

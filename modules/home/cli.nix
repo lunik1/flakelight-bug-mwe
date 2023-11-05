@@ -29,7 +29,6 @@ in {
         p7zip
         parallel
         q
-        ranger
         rename
         ripgrep
         rmlint
@@ -43,6 +42,7 @@ in {
         webwormhole
         wget
         xxHash
+        yazi
         zsh-completions
       ] ++ lib.optionals stdenv.isLinux [
         efficient-compression-tool
@@ -324,10 +324,6 @@ in {
         "neofetch" = {
           source = ../../config/neofetch/config.conf;
           target = "neofetch/config.conf";
-        };
-        "rc.conf" = {
-          source = ../../config/ranger/rc.conf;
-          target = "ranger/rc.conf";
         };
       };
     };
