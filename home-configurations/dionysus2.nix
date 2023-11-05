@@ -29,7 +29,7 @@ rec {
         library = "/opt/appdata/beets/musiclibrary.db";
         alternatives.transcoded = {
           query = "";
-          directory = "/mnt/storage/excluded/transcoded-music";
+          directory = "/mnt/data2/excluded/transcoded-music";
           formats = "opus aac mp3 speex vorbis";
           removable = true;
         };
