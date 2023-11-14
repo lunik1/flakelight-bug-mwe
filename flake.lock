@@ -223,6 +223,32 @@
         "type": "github"
       }
     },
+    "nix-wallpaper": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixos"
+        ],
+        "pre-commit-hooks": [
+          "pre-commit-hooks"
+        ]
+      },
+      "locked": {
+        "lastModified": 1682599883,
+        "narHash": "sha256-3RLfNhq8decb2VOTJLboloPX1M7Rwy3iGZL4DV7aLd0=",
+        "owner": "lunik1",
+        "repo": "nix-wallpaper",
+        "rev": "e1dfc3e671f9af843721c32ed7c08ea9966426c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lunik1",
+        "repo": "nix-wallpaper",
+        "type": "github"
+      }
+    },
     "nixos": {
       "locked": {
         "lastModified": 1699548876,
@@ -362,6 +388,7 @@
         "home-manager": "home-manager",
         "lunik1-nur-unstable": "lunik1-nur-unstable",
         "nix-index-database": "nix-index-database",
+        "nix-wallpaper": "nix-wallpaper",
         "nixos": "nixos",
         "nixos-logo-gruvbox-wallpaper": "nixos-logo-gruvbox-wallpaper",
         "nixpkgs-unstable": "nixpkgs-unstable",

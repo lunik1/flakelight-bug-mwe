@@ -32,6 +32,14 @@
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
+    nix-wallpaper = {
+      url = "github:lunik1/nix-wallpaper";
+      inputs = {
+        nixpkgs.follows = "nixos";
+        flake-utils.follows = "flake-utils";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+    };
     flake-utils.url = "github:numtide/flake-utils";
     nixos-logo-gruvbox-wallpaper = {
       url = "github:lunik1/nixos-logo-gruvbox-wallpaper";
@@ -69,6 +77,7 @@
             packageOverrides = pkgs: {
               lunik1-nur = import lunik1-nur-unstable { inherit pkgs; };
               bach = bach.packages.${system}.bach;
+              nix-wallpaper = nix-wallpaper.packages.${system}.default;
             };
           };
         };

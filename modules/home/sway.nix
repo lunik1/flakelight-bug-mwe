@@ -377,7 +377,7 @@ in
           output = {
             "*" = {
               bg =
-                "${pkgs.nixos-logo-gruvbox-wallpaper}/png/gruvbox-light-rainbow.png stretch";
+                "${pkgs.nix-wallpaper.override{ preset = "gruvbox-light-rainbow"; }}/share/wallpapers/nixos-wallpaper.png stretch";
             };
           };
           startup = [
