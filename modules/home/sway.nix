@@ -37,7 +37,7 @@ in
         server.enable = true;
         settings = {
           main = {
-            font = "Myosevka Light:size=6.8";
+            font = "Myosevka Light:size=14.0";
             box-drawings-uses-font-glyphs = true;
           };
           scrollback.lines = 5000;
