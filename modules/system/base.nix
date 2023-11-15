@@ -67,6 +67,9 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
 
       # Reboot after 20 sec if the kernel panics
       "panic=20"
+
+      # Enable delay accounting
+      "delayacct"
     ];
   };
 
@@ -128,6 +131,7 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
     systemPackages = with pkgs; [
       gitMinimal
       git-crypt
+      iotop
       neovim
 
       cloud-utils
