@@ -31,8 +31,8 @@ in {
     services.xserver.layout = "gb";
 
     fonts = {
-      enableDefaultFonts = true;
-      fonts = with pkgs; [
+      enableDefaultPackages = true;
+      packages = with pkgs; [
         julia-mono
         material-design-icons
         noto-fonts-emoji

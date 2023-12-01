@@ -195,6 +195,6 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "video" "networkmanager" ];
     shell = pkgs.zsh;
-    passwordFile = config.sops.secrets.corin_password.path;
+    hashedPasswordFile = config.sops.secrets.corin_password.path;
   };
 }

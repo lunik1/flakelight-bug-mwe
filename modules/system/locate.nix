@@ -18,7 +18,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.locate = {
       enable = true;
-      locate = pkgs.mlocate;
+      package = pkgs.mlocate;
       inherit (cfg) interval;
       localuser = null;
     };

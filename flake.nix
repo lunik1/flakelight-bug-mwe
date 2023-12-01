@@ -1,7 +1,7 @@
 {
 
   inputs = {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.05-small";
+    nixos.url = "github:NixOS/nixpkgs/nixos-23.11-small";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     lunik1-nur-unstable = {
       url = "github:lunik1/nur-packages";
