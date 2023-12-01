@@ -48,9 +48,7 @@ in
       firefox = {
         enable = true;
         package = pkgs.firefox.override {
-          cfg = {
-            enablePlasmaBrowserIntegration = config.lunik1.home.kde.enable;
-          };
+          cfg.nativeMessagingHosts.packages = [ pkgs.plasma5Packages.plasma-browser-integration ];
         };
         profiles.corin = {
           isDefault = true;
