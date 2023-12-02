@@ -114,7 +114,7 @@ in
 
           hwdec = "auto-safe";
 
-          ytdl-format = "bestvideo[height<=1080]+bestaudio/best[height<=1080]";
+          ytdl-format = "bestvideo[height<=1080]*+bestaudio/best[height<=1080]";
         } // optionalAttrs (profile == "placebo") {
           profile = "gpu-hq";
           scale = "ewa_lanczos";
@@ -137,7 +137,7 @@ in
             "${ssim-downscaler}/share/ssim-downscaler/SSimDownscaler.glsl"
           ];
 
-          ytdl-format = "bestvideo+bestaudio/best";
+          ytdl-format = "bestvideo*+bestaudio/best";
         };
       bindings = {
         "F" = "script-binding quality_menu/video_formats_toggle";
