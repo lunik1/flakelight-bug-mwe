@@ -17,15 +17,17 @@ in
   config = lib.mkIf cfg.sway.enable {
     home = {
       packages = with pkgs; [
-        myosevka
-        myosevka-proportional
-        material-design-icons
-        wev
-
         foot
         networkmanager_dmenu
         networkmanagerapplet
+        wev
         xfce.thunar
+
+        # Fonts
+        material-design-icons
+
+        lunik1-nur.myosevka.mono
+        lunik1-nur.myosevka.proportional
       ];
 
       sessionVariables = { MOZ_ENABLE_WAYLAND = "1"; };

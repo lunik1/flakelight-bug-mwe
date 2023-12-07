@@ -1,15 +1,19 @@
-{ overlays, modules }:
+{ pkgsForSystem, modules }:
 
-{
+let
   system = "x86_64-linux";
+  pkgs = pkgsForSystem system;
+in
+{
+  inherit system;
   modules = [
-    ({ pkgs, lib, modulesPath, ... }:
+    ({ lib, modulesPath, ... }:
 
       {
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ]
           ++ import ../modules/system/module-list.nix;
 
-        nixpkgs.overlays = overlays;
+        nixpkgs.pkgs = pkgs;
 
         ## System-specific config incl. hardware scan
         networking.hostName = "foureightynine";

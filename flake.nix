@@ -11,6 +11,14 @@
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
+    lunik1-nur = {
+      url = "github:lunik1/nur-packages";
+      inputs = {
+        nixpkgs.follows = "nixos";
+        flake-utils.follows = "flake-utils";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -70,6 +78,20 @@
       systemConfigDir = ./systems;
       isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
       pkgsForSystem = system:
+        import inputs.nixos {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            packageOverrides = pkgs: {
+              lunik1-nur = import lunik1-nur { inherit pkgs; };
+            };
+            neovim = pkgs.neovim.override {
+              vimAlias = true;
+              viAlias = true;
+            };
+          };
+        };
+      pkgsForHome = system:
         import nixpkgs-unstable {
           inherit overlays system;
           config = {
@@ -83,45 +105,6 @@
         };
       overlays = [
         (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
-        (self: super:
-          # TODO: move to NUR
-          {
-            iosevka27 = self.iosevka.override
-              rec {
-                buildNpmPackage = args: super.buildNpmPackage
-                  (args // rec {
-                    version = "27.3.1";
-                    src = super.fetchFromGitHub {
-                      owner = "be5invis";
-                      repo = "iosevka";
-                      rev = "v${version}";
-                      hash = "sha256-UNGPYcCAsJpg/EvLs2FDCTX0ihwEul66y8m5VwKnoKc=";
-                    };
-                    npmDepsHash = "sha256-CcnXQzVdWmWdE5uTo3L/ABtwOusCOOD2Dpx37yfIcQM=";
-                  });
-              };
-            myosevka = self.iosevka27.override {
-              privateBuildPlan = import resources/iosevka/myosevka.nix;
-              set = "myosevka";
-            };
-            myosevka-proportional = self.iosevka27.override {
-              privateBuildPlan =
-                import resources/iosevka/myosevka-proportional.nix;
-              set = "myosevka-proportional";
-            };
-            myosevka-aile = self.iosevka27.override {
-              privateBuildPlan = (import resources/iosevka/myosevka-aile.nix) {
-                inherit (super) lib;
-              };
-              set = "myosevka-aile";
-            };
-            myosevka-etoile = self.iosevka27.override {
-              privateBuildPlan = (import resources/iosevka/myosevka-etoile.nix) {
-                inherit (super) lib;
-              };
-              set = "myosevka-etoile";
-            };
-          })
         (self: super: {
           inherit LS_COLORS;
         })
@@ -141,7 +124,7 @@
           value = inputs.nixos.lib.nixosSystem
             ((import (systemConfigDir + "/${file}"))
               {
-                inherit overlays;
+                inherit pkgsForSystem;
                 modules = [ inputs.sops-nix.nixosModules.sops ];
               });
         })
@@ -151,11 +134,11 @@
           name = removeSuffix ".nix" file;
           value = (home-manager.lib.homeManagerConfiguration
             ((import (homeConfigDir + "/${file}"))
-              { inherit hmModules pkgsForSystem; })).activationPackage;
+              { inherit hmModules pkgsForHome; })).activationPackage;
         })
         (filterAttrs isNixFile (builtins.readDir homeConfigDir));
     } // flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = pkgsForSystem system;
+      let pkgs = pkgsForHome system;
       in
       {
         checks = {

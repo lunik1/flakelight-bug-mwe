@@ -106,18 +106,6 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
     };
   };
 
-  ## Nixpkgs
-  nixpkgs.config = {
-    allowUnfree = true;
-    # Package overrides
-    packageOverrides = pkgs: {
-      neovim = pkgs.neovim.override {
-        vimAlias = true;
-        viAlias = true;
-      };
-    };
-  };
-
   environment = {
     variables = {
       AWK_HASH = "fnv1a";
@@ -142,6 +130,8 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
       ntfs3g
       psmisc
       wget
+
+      lunik1-nur.myosevka.mono
     ];
   };
 

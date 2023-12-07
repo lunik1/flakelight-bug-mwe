@@ -29,9 +29,8 @@ in
           ventoy
           xdg_utils
 
-          myosevka-aile
-
           lunik1-nur.amazing-marvin
+          lunik1-nur.myosevka.aile
         ] ++ (if config.lunik1.home.kde.enable then [
           libreoffice-qt
           pavucontrol

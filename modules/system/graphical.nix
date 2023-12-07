@@ -37,9 +37,10 @@ in {
         material-design-icons
         noto-fonts-emoji
         sarasa-gothic
-        myosevka
-        myosevka-aile
-        myosevka-etoile
+
+        lunik1-nur.myosevka.mono
+        lunik1-nur.myosevka.aile
+        lunik1-nur.myosevka.etoile
       ];
       fontconfig = {
         defaultFonts.monospace = [

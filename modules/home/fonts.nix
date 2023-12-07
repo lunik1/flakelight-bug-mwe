@@ -17,10 +17,11 @@ in {
       source-code-pro
       source-sans-pro
       source-serif-pro
-      myosevka
-      myosevka-aile
-      myosevka-etoile
-      myosevka-proportional
+
+      lunik1-nur.myosevka.mono
+      lunik1-nur.myosevka.aile
+      lunik1-nur.myosevka.etoile
+      lunik1-nur.myosevka.proportional
     ];
 
     fonts.fontconfig.enable = true;

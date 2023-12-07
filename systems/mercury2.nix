@@ -1,9 +1,13 @@
-{ overlays, modules }:
+{ pkgsForSystem, modules }:
 
-{
+let
   system = "aarch64-linux";
+  pkgs = pkgsForSystem system;
+in
+{
+  inherit system;
   modules = [
-    ({ pkgs, lib, modulesPath, ... }:
+    ({ lib, modulesPath, ... }:
 
       {
         require = [
@@ -11,6 +15,8 @@
           (modulesPath + "/profiles/qemu-guest.nix")
         ]
         ++ import ../modules/system/module-list.nix;
+
+        nixpkgs.pkgs = pkgs;
 
         boot = {
           kernelPackages = pkgs.linuxPackages;
@@ -29,11 +35,6 @@
         swapDevices = [
           { device = "/dev/disk/by-label/swap"; }
         ];
-
-        nixpkgs = {
-          overlays = overlays;
-          hostPlatform = lib.mkDefault "aarch64-linux";
-        };
 
         networking = {
           hostName = "mercury2";
