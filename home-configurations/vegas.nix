@@ -8,7 +8,7 @@ rec {
     home = {
       username = "corin";
       homeDirectory = "/home/corin";
-      packages = with pkgs; [ bach ];
+      packages = with pkgs; [ lunik1-nur.bach ];
       stateVersion = "21.11";
     };
 

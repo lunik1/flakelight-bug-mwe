@@ -11,7 +11,6 @@ in
     home = {
       packages = with pkgs;
         [
-          bach
           # bitwarden # uses EOL electron https://github.com/NixOS/nixpkgs/issues/262730
           bleachbit
           discord
@@ -30,6 +29,7 @@ in
           xdg_utils
 
           lunik1-nur.amazing-marvin
+          lunik1-nur.bach
           lunik1-nur.myosevka.aile
         ] ++ (if config.lunik1.home.kde.enable then [
           libreoffice-qt

@@ -16,34 +16,6 @@
         "type": "github"
       }
     },
-    "bach": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "naersk": "naersk",
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ],
-        "pre-commit-hooks": [
-          "pre-commit-hooks"
-        ],
-        "rust-overlay": "rust-overlay"
-      },
-      "locked": {
-        "lastModified": 1687727819,
-        "narHash": "sha256-t0usWsfuXSWBi63V7tDindIvrBwDgyO9euMjIUf/bMI=",
-        "owner": "lunik1",
-        "repo": "bach",
-        "rev": "acb5120fd16b188f9214eb1fabfc1c49dbd0b138",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "lunik1",
-        "repo": "bach",
-        "type": "gitlab"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -207,24 +179,6 @@
     },
     "naersk": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1686572087,
-        "narHash": "sha256-jXTut7ZSYqLEgm/nTk7TuVL2ExahTip605bLINklAnQ=",
-        "owner": "nix-community",
-        "repo": "naersk",
-        "rev": "8507af04eb40c5520bd35d9ce6f9d2342cea5ad1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
-    "naersk_2": {
-      "inputs": {
         "nixpkgs": [
           "lunik1-nur",
           "nixpkgs-lint",
@@ -246,7 +200,7 @@
         "type": "github"
       }
     },
-    "naersk_3": {
+    "naersk_2": {
       "inputs": {
         "nixpkgs": [
           "lunik1-nur-unstable",
@@ -347,24 +301,10 @@
         "type": "github"
       }
     },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1687103638,
-        "narHash": "sha256-dwy/TK6Db5W7ivcgmcxUykhFwodIg0jrRzOFt7H5NUc=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "91430887645a0953568da2f3e9a3a3bb0a0378ac",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
     "nixpkgs-lint": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "naersk": "naersk_2",
+        "naersk": "naersk",
         "nixpkgs": [
           "lunik1-nur",
           "nixpkgs"
@@ -391,7 +331,7 @@
     "nixpkgs-lint_2": {
       "inputs": {
         "flake-compat": "flake-compat_2",
-        "naersk": "naersk_3",
+        "naersk": "naersk_2",
         "nixpkgs": [
           "lunik1-nur-unstable",
           "nixpkgs"
@@ -476,7 +416,6 @@
     "root": {
       "inputs": {
         "LS_COLORS": "LS_COLORS",
-        "bach": "bach",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "lunik1-nur": "lunik1-nur",
@@ -488,31 +427,6 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "pre-commit-hooks": "pre-commit-hooks",
         "sops-nix": "sops-nix"
-      }
-    },
-    "rust-overlay": {
-      "inputs": {
-        "flake-utils": [
-          "bach",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "bach",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1687055571,
-        "narHash": "sha256-UvLoO6u5n9TzY80BpM4DaacxvyJl7u9mm9CA72d309g=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "2de557c780dcb127128ae987fca9d6c2b0d7dc0f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
       }
     },
     "sops-nix": {

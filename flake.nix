@@ -32,14 +32,6 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    bach = {
-      url = "gitlab:lunik1/bach";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        flake-utils.follows = "flake-utils";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-      };
-    };
     nix-wallpaper = {
       url = "github:lunik1/nix-wallpaper";
       inputs = {
@@ -98,7 +90,6 @@
             allowUnfree = true;
             packageOverrides = pkgs: {
               lunik1-nur = import lunik1-nur-unstable { inherit pkgs; };
-              bach = bach.packages.${system}.bach;
               nix-wallpaper = nix-wallpaper.packages.${system}.default;
             };
           };
