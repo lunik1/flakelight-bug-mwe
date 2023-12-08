@@ -41,10 +41,6 @@
       };
     };
     flake-utils.url = "github:numtide/flake-utils";
-    nixos-logo-gruvbox-wallpaper = {
-      url = "github:lunik1/nixos-logo-gruvbox-wallpaper";
-      flake = false;
-    };
     LS_COLORS = {
       url = "github:trapd00r/LS_COLORS";
       flake = false;
@@ -105,7 +101,6 @@
             viAlias = true;
           };
         })
-        (self: super: { inherit nixos-logo-gruvbox-wallpaper; })
       ];
     in
     {

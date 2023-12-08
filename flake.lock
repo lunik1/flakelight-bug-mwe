@@ -285,22 +285,6 @@
         "type": "github"
       }
     },
-    "nixos-logo-gruvbox-wallpaper": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1682600451,
-        "narHash": "sha256-XWNpkINlHbsa1TC6ZPu9rylN69/Z7fuiGqgnLdG5QNU=",
-        "owner": "lunik1",
-        "repo": "nixos-logo-gruvbox-wallpaper",
-        "rev": "d4937c424fad79c1136a904599ba689fcf8d0fad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lunik1",
-        "repo": "nixos-logo-gruvbox-wallpaper",
-        "type": "github"
-      }
-    },
     "nixpkgs-lint": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -423,7 +407,6 @@
         "nix-index-database": "nix-index-database",
         "nix-wallpaper": "nix-wallpaper",
         "nixos": "nixos",
-        "nixos-logo-gruvbox-wallpaper": "nixos-logo-gruvbox-wallpaper",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "pre-commit-hooks": "pre-commit-hooks",
         "sops-nix": "sops-nix"
