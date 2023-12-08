@@ -116,7 +116,10 @@
             ((import (systemConfigDir + "/${file}"))
               {
                 inherit pkgsForSystem;
-                modules = [ inputs.sops-nix.nixosModules.sops ];
+                modules = [
+                  inputs.sops-nix.nixosModules.sops
+                  lunik1-nur.nixosModules.inadyn
+                ];
               });
         })
         (filterAttrs isNixFile (builtins.readDir systemConfigDir));

@@ -7,7 +7,6 @@
   ./graphical.nix
   ./grub.nix
   ./hetzner.nix
-  ./inadyn.nix
   ./kde.nix
   ./laptop.nix
   ./locate.nix

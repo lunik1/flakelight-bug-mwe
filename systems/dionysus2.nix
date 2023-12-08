@@ -183,6 +183,13 @@ in
           };
         };
 
+        ## Update DNS records reguarly
+        services.inadyn = {
+          enable = true;
+          interval = "*:0/15";
+          configFile = config.sops.secrets."inadyn.conf".path;
+        };
+
         ## Sync kopia to remote
         sops.secrets = {
           kopia_connection_config_remote = {
@@ -275,11 +282,6 @@ in
           backup.enable = true;
           containers.enable = true;
           grub.enable = true;
-          inadyn = {
-            enable = true;
-            interval = "*:0/15";
-            configFile = config.sops.secrets."inadyn.conf".path;
-          };
           munin.enable = true;
           locate.enable = true;
           network.resolved.enable = true;
