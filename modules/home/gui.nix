@@ -11,7 +11,7 @@ in
     home = {
       packages = with pkgs;
         [
-          # bitwarden # uses EOL electron https://github.com/NixOS/nixpkgs/issues/262730
+          bitwarden
           bleachbit
           discord
           element-desktop
