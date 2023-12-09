@@ -130,8 +130,6 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
       ntfs3g
       psmisc
       wget
-
-      lunik1-nur.myosevka.mono
     ];
   };
 
