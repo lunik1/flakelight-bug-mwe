@@ -86,6 +86,13 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
     daemonCPUSchedPolicy = "batch";
     daemonIOSchedPriority = 3;
 
+    # automatic garbage collection
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+
     # enable flakes
     extraOptions = ''
       experimental-features = nix-command flakes
