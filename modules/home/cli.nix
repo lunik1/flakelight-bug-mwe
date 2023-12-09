@@ -210,7 +210,7 @@ in {
       dircolors = {
         enable = true;
         enableZshIntegration = true;
-        extraConfig = builtins.readFile "${pkgs.LS_COLORS}/LS_COLORS";
+        extraConfig = builtins.readFile "${pkgs.lunik1-nur.ls-colors}/share/ls-colors/LS_COLORS";
       };
       direnv = {
         enable = true;

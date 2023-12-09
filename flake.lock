@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "LS_COLORS": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1701370191,
-        "narHash": "sha256-gf7mXbtKIMGB4K7/M4OzsQLWNdHUaB/TMsC1sS0eBWw=",
-        "owner": "trapd00r",
-        "repo": "LS_COLORS",
-        "rev": "bcf78f74be4788ef224eadc7376ca780ae741e1e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "trapd00r",
-        "repo": "LS_COLORS",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -137,11 +121,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1702077725,
-        "narHash": "sha256-WDR25mTOPgeXkhz7HktsVfDtJNTuvXyd7YFbuBgHviU=",
+        "lastModified": 1702080971,
+        "narHash": "sha256-k97ZNmWqj8MkLrBdJFQaOZMepT5tPEGAP2ZA5N3cz68=",
         "owner": "lunik1",
         "repo": "nur-packages",
-        "rev": "d1e7396e37f9692444e3de47a5278cb5174702c8",
+        "rev": "6ed81b50441a25c2356a148d3203ce9943ee4c41",
         "type": "github"
       },
       "original": {
@@ -164,11 +148,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1701909443,
-        "narHash": "sha256-6njcpTmjRf8atX0oLkGC0QyJP5KlwmyjUaLQYRFZ9wY=",
+        "lastModified": 1702080971,
+        "narHash": "sha256-k97ZNmWqj8MkLrBdJFQaOZMepT5tPEGAP2ZA5N3cz68=",
         "owner": "lunik1",
         "repo": "nur-packages",
-        "rev": "d3aec65b23ddce2957dbd487bedb9f71a495c9fc",
+        "rev": "6ed81b50441a25c2356a148d3203ce9943ee4c41",
         "type": "github"
       },
       "original": {
@@ -399,7 +383,6 @@
     },
     "root": {
       "inputs": {
-        "LS_COLORS": "LS_COLORS",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "lunik1-nur": "lunik1-nur",

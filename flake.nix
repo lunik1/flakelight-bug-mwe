@@ -41,10 +41,6 @@
       };
     };
     flake-utils.url = "github:numtide/flake-utils";
-    LS_COLORS = {
-      url = "github:trapd00r/LS_COLORS";
-      flake = false;
-    };
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
@@ -92,9 +88,6 @@
         };
       overlays = [
         (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
-        (self: super: {
-          inherit LS_COLORS;
-        })
         (self: super: {
           neovim = super.neovim.override {
             vimAlias = true;
