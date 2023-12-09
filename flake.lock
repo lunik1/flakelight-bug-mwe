@@ -121,11 +121,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1702080971,
-        "narHash": "sha256-k97ZNmWqj8MkLrBdJFQaOZMepT5tPEGAP2ZA5N3cz68=",
+        "lastModified": 1702084709,
+        "narHash": "sha256-zCWhNG1jCdviJGjwezB3t/mzbd6jx8BcNii/hEyvQMw=",
         "owner": "lunik1",
         "repo": "nur-packages",
-        "rev": "6ed81b50441a25c2356a148d3203ce9943ee4c41",
+        "rev": "b39ad4c8fdc549645ee0bb88b7a8cca4a86a70fe",
         "type": "github"
       },
       "original": {
@@ -148,11 +148,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1702080971,
-        "narHash": "sha256-k97ZNmWqj8MkLrBdJFQaOZMepT5tPEGAP2ZA5N3cz68=",
+        "lastModified": 1702084709,
+        "narHash": "sha256-zCWhNG1jCdviJGjwezB3t/mzbd6jx8BcNii/hEyvQMw=",
         "owner": "lunik1",
         "repo": "nur-packages",
-        "rev": "6ed81b50441a25c2356a148d3203ce9943ee4c41",
+        "rev": "b39ad4c8fdc549645ee0bb88b7a8cca4a86a70fe",
         "type": "github"
       },
       "original": {
