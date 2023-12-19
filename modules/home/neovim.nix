@@ -133,19 +133,6 @@ in {
             config =
               builtins.readFile ../../config/nvim/plugins/nvim-treesitter.lua;
           }
-          {
-            plugin = nvim-ts-rainbow;
-            type = "lua";
-            config = ''
-              require'nvim-treesitter.configs'.setup {
-                rainbow = {
-                  enable = true,
-                  extended_mode = true,
-                  max_file_lines = nil,
-                }
-              }
-            '';
-          }
           nvim-treesitter-textobjects
           # nvim-web-devicons
           luasnip
@@ -162,6 +149,19 @@ in {
               nnoremap <leader>iy <cmd>Telescope registers<cr>
               nnoremap <leader>ss <cmd>Telescope current_buffer_fuzzy_find<cr>
               nnoremap <leader>fr <cmd>Telescope oldfiles<cr>
+            '';
+          }
+          {
+            plugin = rainbow-delimiters-nvim;
+            type = "lua";
+            config = ''
+              require'nvim-treesitter.configs'.setup {
+                rainbow = {
+                  enable = true,
+                  extended_mode = true,
+                  max_file_lines = nil,
+                }
+              }
             '';
           }
           {
