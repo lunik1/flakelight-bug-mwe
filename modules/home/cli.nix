@@ -279,11 +279,8 @@ in {
 
           # read sops secrets
           # secrets
-          [ -f "$${XDG_RUNTIME_DIR}/secrets/cachix_auth_token" ] \
-            && export CACHIX_AUTH_TOKEN=$(<"$${XDG_RUNTIME_DIR}/secrets/cachix_auth_token")
-
-          [ -f "$${XDG_RUNTIME_DIR}/secrets/gh_token" ] \
-            && export GH_TOKEN=$(<"$${XDG_RUNTIME_DIR}/secrets/gh_token")
+          [ -f "''${XDG_RUNTIME_DIR}/secrets/cachix_auth_token" ] \
+            && export CACHIX_AUTH_TOKEN=$(<"''${XDG_RUNTIME_DIR}/secrets/cachix_auth_token")
         '';
         # Make TRAMP and zsh play nice
         # https://www.emacswiki.org/emacs/TrampMode#h5o-9

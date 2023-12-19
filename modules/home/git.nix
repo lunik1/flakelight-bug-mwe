@@ -1,17 +1,21 @@
 { config, lib, pkgs, ... }:
 
 let cfg = config.lunik1.home.git;
-in {
+in
+{
   options.lunik1.home.git.enable = lib.mkEnableOption "git";
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = with pkgs; [ git-crypt pre-commit ];
+      packages = with pkgs; [ git-crypt glab pre-commit ];
 
       sessionVariables = { PRE_COMMIT_ALLOW_NO_CONFIG = "1"; };
     };
 
-    sops.secrets.gh_token = { };
+    sops.secrets = {
+      gh_token = { };
+      gitlab_token = { };
+    };
 
     programs = {
       git = {
@@ -101,6 +105,15 @@ in {
       gh = {
         enable = true;
         settings.git_protocol = "ssh";
+      };
+      zsh = {
+        envExtra = ''
+          [ -f "''${XDG_RUNTIME_DIR}/secrets/gh_token" ] \
+            && export GH_TOKEN=$(<"''${XDG_RUNTIME_DIR}/secrets/gh_token")
+
+          [ -f "''${XDG_RUNTIME_DIR}/secrets/gitlab_token" ] \
+            && export GITLAB_TOKEN=$(<"''${XDG_RUNTIME_DIR}/secrets/gitlab_token")
+        '';
       };
     };
   };
