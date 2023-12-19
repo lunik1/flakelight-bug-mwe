@@ -25,10 +25,6 @@ WORDCHARS='${WORDCHARS:s@/@}'
 HISTSIZE=50000
 SAVEHIST=100000
 
-# secrets
-[ -f "${XDG_RUNTIME_DIR}/secrets/cachix_auth_token" ] \
-  && export CACHIX_AUTH_TOKEN=$(<"${XDG_RUNTIME_DIR}/secrets/cachix_auth_token")
-
 ## Aliases
 
 # Easy access to full zsh manual
