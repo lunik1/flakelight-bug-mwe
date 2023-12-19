@@ -11,6 +11,8 @@ in {
       sessionVariables = { PRE_COMMIT_ALLOW_NO_CONFIG = "1"; };
     };
 
+    sops.secrets.gh_token = { };
+
     programs = {
       git = {
         enable = true;
