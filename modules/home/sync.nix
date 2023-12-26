@@ -33,6 +33,7 @@ in {
             Restart = "on-failure";
             ProtectSystem = "full";
             Nice = 10;
+            CPUSchedulingPolicy = "batch";
             IOSchedulingClass = "best-effort";
             IOSchedulingPriority = 5;
           };
