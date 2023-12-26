@@ -31,7 +31,6 @@ in {
             Environment = [ "HOME=${config.home.homeDirectory}" ];
             ExecStart = "${pkgs.megacmd}/bin/mega-cmd-server";
             Restart = "on-failure";
-            PrivateTmp = true;
             ProtectSystem = "full";
             Nice = 10;
             IOSchedulingClass = "best-effort";
