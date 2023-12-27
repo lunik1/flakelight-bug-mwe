@@ -14,13 +14,11 @@ in
           bitwarden
           bleachbit
           discord
-          element-desktop
           gimp
           gnome3.gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
           jellyfin-media-player
-          jitsi-meet-electron
           qdirstat
           signal-desktop
           thunderbird
