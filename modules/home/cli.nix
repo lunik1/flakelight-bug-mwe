@@ -45,8 +45,8 @@ in {
         yazi
         zsh-completions
       ] ++ lib.optionals stdenv.isLinux [
+        cfspeedtest
         efficient-compression-tool
-        fast-cli
         pb_cli
         parted
         psmisc
