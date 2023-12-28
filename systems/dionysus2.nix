@@ -36,7 +36,7 @@ in
           tmp.useTmpfs = false;
 
           kernelModules = [ "kvm-intel" "bfq" ];
-          kernelPackages = pkgs.linuxPackages_hardened;
+          kernelPackages = pkgs.linuxPackages;
           kernelParams = [ "mce=0" ]; # Panic on uncorrectable ECC ram error
           kernel.sysctl = {
             "kernel.yama.ptrace_scope" = 1; # will break strace, gdb etc.
