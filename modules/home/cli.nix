@@ -46,12 +46,13 @@ in {
         zsh-completions
       ] ++ lib.optionals stdenv.isLinux [
         cfspeedtest
-        efficient-compression-tool
         pb_cli
         parted
         psmisc
         smartmontools
         xfsdump
+
+        lunik1-nur.efficient-compression-tool
       ];
 
       sessionVariables = {
