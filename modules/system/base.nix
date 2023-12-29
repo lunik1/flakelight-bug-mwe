@@ -150,7 +150,6 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
   services = {
     fstrim.enable = true;
     fwupd.enable = true;
-    irqbalance.enable = true;
 
     nscd.enableNsncd = true;
 
