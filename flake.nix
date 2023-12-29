@@ -147,6 +147,7 @@
             pre-commit
             shellcheck
             sops
+            ssh-to-age
             statix
           ];
         };
