@@ -117,7 +117,7 @@ in
               "func.getattr=newest"
               "cache.files=auto-full"
               "category.create=mfs"
-              "cache.writeback=true"
+              # "cache.writeback=true"
               "cache.symlinks=true"
               "ignorepponrename=true"
               "cache.readdir=true"
