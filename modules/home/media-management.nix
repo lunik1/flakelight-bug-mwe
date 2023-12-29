@@ -20,9 +20,10 @@ in
 
     programs.beets = {
       enable = true;
-      package = (pkgs.beets.override {
+      package = with pkgs; (beets.override {
         pluginOverrides.alternatives = {
           enable = true;
+          propagatedBuildInputs = [ beetsPackages.alternatives ];
         };
       });
       settings = {
