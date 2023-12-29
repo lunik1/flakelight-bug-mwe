@@ -2,6 +2,7 @@ keys:
   - &host_tucson age1xx8jk50h4vq4tfuynpvtvlsczp3lyquhlktw08xtugehqg9w9epq8n3u6u
   - &host_dionysus2 age14w3w8hxxzt0x67k8u65htz5fpalmzzyr8amfd9uk90xnynj4ds0qxd3hgp
   - &host_mercury2 age1wxng9x4wz25qqudfr2ancyg063kfaty83zmplj8h2rxlm490ms3swuwhdq
+  - &host_foureightynine age1606qlz9aw8c2zsevryz2zyxzu9wznp3yjrjv3m4cy4498uyt9ucscjpsg0
   - &user_corin age1zahu84jw8v8zfnz58hwe9gt38w0rtlehqv92lrvjj5zlmqf2zqyswdj7km
   - &pgp_corin AB22E0E737C61F1D99F4F71083CA400B5B08DE9E
 creation_rules:
@@ -11,6 +12,7 @@ creation_rules:
           - *host_tucson
           - *host_dionysus2
           - *host_mercury2
+          - *host_foureightynine
         pgp:
           - *pgp_corin
   - path_regex: ^secrets/host/dionysus2/[^/]+\.yaml$
