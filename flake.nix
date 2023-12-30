@@ -68,10 +68,10 @@
             allowUnfree = true;
             packageOverrides = pkgs: {
               lunik1-nur = import lunik1-nur { inherit pkgs; };
-            };
-            neovim = pkgs.neovim.override {
-              vimAlias = true;
-              viAlias = true;
+              neovim = pkgs.neovim.override {
+                vimAlias = true;
+                viAlias = true;
+              };
             };
           };
         };
