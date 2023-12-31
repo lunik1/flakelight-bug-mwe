@@ -55,6 +55,7 @@ in
           ".nfs*"
           ".org-id-locations"
           ".projectile"
+          ".stfolder"
           ".~lock.*#"
           "/.emacs.desktop"
           "/.emacs.desktop.lock"
