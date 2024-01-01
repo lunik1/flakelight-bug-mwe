@@ -36,7 +36,7 @@ in {
         sd
         streamlink
         stress-ng
-        unrar
+        unar
         unzip
         kopia
         webwormhole
