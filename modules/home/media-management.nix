@@ -40,6 +40,10 @@ in
           comments = [ "ripped by" ];
           update_database = true;
         };
+        lastgenre = {
+          canonical = true;
+          source = "track";
+        };
         lyrics.sources = "lyricwiki musixmatch genius";
         convert = {
           format = "flac";
