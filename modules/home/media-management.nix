@@ -20,12 +20,7 @@ in
 
     programs.beets = {
       enable = true;
-      package = with pkgs; (beets.override {
-        pluginOverrides.alternatives = {
-          enable = true;
-          propagatedBuildInputs = [ beetsPackages.alternatives ];
-        };
-      });
+      package = pkgs.beets;
       settings = {
         plugins = "acousticbrainz alternatives badfiles bpd chroma convert deezer discogs duplicates fetchart keyfinder lastgenre lyrics mbsync replaygain scrub web zero embedart";
         import.move = true;

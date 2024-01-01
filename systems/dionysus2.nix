@@ -277,6 +277,8 @@ in
           };
         };
 
+        users.users.corin.linger = true;
+
         ## Config modules to use
         lunik1.system = {
           backup.enable = true;
