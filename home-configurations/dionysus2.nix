@@ -95,10 +95,9 @@ rec {
                   "${pkgs.beets}/bin/beet lastgenre"
                   "${pkgs.beets}/bin/beet lyrics"
                   "${pkgs.beets}/bin/beet mbsync"
-                  "${pkgs.beets}/bin/beet alt update transcoded"
                 ];
                 ExecStartPost = [
-                  "${pkgs.beets}/bin/beet alt update transcode"
+                  "${pkgs.beets}/bin/beet alt update transcoded"
                 ];
                 Type = "oneshot";
                 ProtectSystem = "full";

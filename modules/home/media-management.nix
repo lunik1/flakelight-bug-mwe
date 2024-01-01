@@ -76,6 +76,9 @@ in
           max_bitrate = 320;
           never_convert_lossy_files = true;
         };
+        badfiles = {
+          check_on_import = true;
+        };
       };
     };
 
