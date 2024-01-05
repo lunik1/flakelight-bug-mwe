@@ -32,6 +32,10 @@ in {
         Type = "oneshot";
         ExecStart = "${pkgs.kopia}/bin/kopia snapshot create --config-file ${config.sops.secrets.kopia_connection_config.path} --no-persist-credentials --no-use-keyring /";
         EnvironmentFile = config.sops.secrets.kopia_environment.path;
+
+        # can get stuck if connection fails
+        TimeoutStartSec = "18h";
+
         Nice = 19;
         IOSchedulingPriority = 7;
         CPUSchedulingPolicy = "batch";
