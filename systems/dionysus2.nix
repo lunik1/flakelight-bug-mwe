@@ -206,6 +206,9 @@ in
             Type = "oneshot";
             ExecStart = "${pkgs.kopia}/bin/kopia repository sync-to from-config --config-file ${config.sops.secrets.kopia_connection_config.path} --file ${config.sops.secrets.kopia_connection_config_remote.path} --delete --parallel 8 --times";
             EnvironmentFile = config.sops.secrets.kopia_environment.path;
+
+            TimeoutStartSec = "6d";
+
             Nice = 18;
             IOSchedulingPriority = 6;
             CPUSchedulingPolicy = "batch";
