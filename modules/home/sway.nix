@@ -429,7 +429,7 @@ in
             nf = ${gruvbox.dark.fg}
             sb = ${gruvbox.light.bg}
             sf =  ${gruvbox.light.fg}
-            pinentry = ${pkgs.pinentry-gtk2}/bin/pinentry-gtk-2
+            pinentry = ${pkgs.pinentry.gnome3}/bin/pinentry-gnome3
             wifi_chars = ▂▄▆█
 
             [editor]
