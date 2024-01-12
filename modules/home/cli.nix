@@ -51,7 +51,7 @@ in {
         psmisc
         smartmontools
         xfsdump
-
+      ] ++ lib.optionals (stdenv.isLinux && stdenv.isx86_64) [
         lunik1-nur.efficient-compression-tool
       ];
 
