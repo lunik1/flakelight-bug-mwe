@@ -44,7 +44,7 @@ in
       feh.enable = true;
       firefox = {
         enable = true;
-        package = pkgs.firefox.override {
+        package = pkgs.floorp.override {
           cfg.nativeMessagingHosts.packages = [ pkgs.plasma5Packages.plasma-browser-integration ];
         };
         profiles.corin = {
@@ -127,12 +127,12 @@ in
       mimeApps = {
         enable = true;
         defaultApplications = {
-          "text/html" = [ "firefox.desktop" ];
-          "text/xhtml_xml" = [ "firefox.desktop" ];
-          "x-scheme-handler/about" = [ "firefox.desktop" ];
-          "x-scheme-handler/http" = [ "firefox.desktop" ];
-          "x-scheme-handler/https" = [ "firefox.desktop" ];
-          "x-scheme-handler/unknown" = [ "firefox.desktop" ];
+          "text/html" = [ "floorp.desktop" ];
+          "text/xhtml_xml" = [ "floorp.desktop" ];
+          "x-scheme-handler/about" = [ "floorp.desktop" ];
+          "x-scheme-handler/http" = [ "floorp.desktop" ];
+          "x-scheme-handler/https" = [ "floorp.desktop" ];
+          "x-scheme-handler/unknown" = [ "floorp.desktop" ];
 
           "x-scheme-handler/msteams" = [ "teams.desktop" ];
 
