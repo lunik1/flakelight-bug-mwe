@@ -16,7 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ playerctl xdg_utils ];
+    home.packages = with pkgs; [ playerctl xdg_utils open-in-mpv ];
 
     programs.mpv = rec {
       enable = true;
@@ -101,6 +101,9 @@ in
           force-window = "yes";
           no-resume-playback = "";
           drag-and-drop = "append";
+
+          # IPC
+          input-ipc-server = "/tmp/mpvsocket";
         } // optionalAttrs (profile == "potato") {
           vo = "gpu";
           scale = "bicubic_fast";
