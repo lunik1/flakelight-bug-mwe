@@ -44,7 +44,6 @@ in
           vlang = "enGB,en-GB,eng,en,english,enUS,en-US,jpn,jp";
           hwdec-codecs = "all";
           gpu-api = "vulkan";
-          gpu-context = "x11vk"; # makes drag+drop work more consistently
           video-latency-hacks = "yes";
           temporal-dither = "yes";
           dither-depth = "auto";
@@ -100,7 +99,6 @@ in
           demuxer-max-bytes = "10GiB";
           force-window = "yes";
           no-resume-playback = "";
-          drag-and-drop = "append";
 
           # IPC
           input-ipc-server = "/tmp/mpvsocket";
