@@ -81,7 +81,7 @@ in
         '';
 
         nix.settings = {
-          max-jobs = 16;
+          max-jobs = 4;
           cores = 8;
         };
 
