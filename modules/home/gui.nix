@@ -31,10 +31,10 @@ in
           lunik1-nur.myosevka.aile
         ] ++ (if config.lunik1.home.kde.enable then [
           libreoffice-qt
-          pavucontrol
+          lxqt.pavucontrol-qt
         ] else [
           libreoffice-fresh
-          lxqt.pavucontrol-qt
+          pavucontrol
         ]);
 
       sessionVariables = { MOZ_WEBRENDER = "1"; };
