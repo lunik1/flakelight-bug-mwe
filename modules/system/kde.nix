@@ -10,10 +10,16 @@ in {
   };
 
   config = lib.mkIf (cfg.kde.enable || cfg.sddm.enable) {
-    assertions = [{
-      assertion = config.lunik1.system.graphical.enable;
-      message = "KDE/SDDM can only be used on graphical systems";
-    }];
+    assertions = [
+      {
+        assertion = config.lunik1.system.graphical.enable;
+        message = "KDE/SDDM can only be used on graphical systems";
+      }
+      {
+        assertion = !config.lunik1.system.gnome.enable;
+        message = "Can only enable GNOME or KDE";
+      }
+    ];
 
     # KDE
     services.xserver.desktopManager.plasma5.enable = cfg.kde.enable;

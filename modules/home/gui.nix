@@ -46,7 +46,11 @@ in
       firefox = {
         enable = true;
         package = pkgs.floorp.override {
-          cfg.nativeMessagingHosts.packages = [ pkgs.plasma5Packages.plasma-browser-integration ];
+          cfg.nativeMessagingHosts.packages =
+            lib.optionals config.lunik1.kde.enable
+              [ pkgs.plasma5Packages.plasma-browser-integration ]
+            ++ lib.optionals config.lunik1.gnome.enable
+              [ pkgs.gnome-browser-connector ];
         };
         profiles.corin = {
           isDefault = true;

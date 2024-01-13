@@ -11,12 +11,13 @@ in
     home.packages = with pkgs; [
       bluez
     ]
-    ++ lib.optionals (!config.lunik1.home.kde.enable) [
+    ++ lib.optionals (!(config.lunik1.home.kde.enable || config.lunik1.home.gnome.enable)) [
       blueman
     ];
     lunik1.home.waybar.bluetoothModule = true;
 
-    # KDE has its own applet
-    services.blueman-applet.enable = !config.lunik1.home.kde.enable;
+    # KDE/GNOME has its own applet
+    services.blueman-applet.enable =
+      !(config.lunik1.home.kde.enable || config.lunik1.home.gnome.enable);
   };
 }

@@ -20,6 +20,7 @@ in
         foot
         networkmanager_dmenu
         networkmanagerapplet
+        ungoogled-chromium
         wev
         xfce.thunar
 

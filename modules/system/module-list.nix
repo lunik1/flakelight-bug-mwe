@@ -6,6 +6,7 @@
   ./containers.nix
   ./graphical.nix
   ./grub.nix
+  ./gnome.nix
   ./hetzner.nix
   ./kde.nix
   ./laptop.nix

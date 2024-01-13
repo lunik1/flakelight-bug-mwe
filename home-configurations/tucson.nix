@@ -26,7 +26,7 @@ rec {
       games.cli.enable = true;
       git.enable = true;
       gpg.enable = true;
-      kde.enable = true;
+      gnome.enable = true;
       megasync.enable = true;
       mpv = {
         enable = true;

@@ -9,8 +9,8 @@ in {
   config = lib.mkIf cfg.enable {
     hardware.bluetooth.enable = true;
 
-    # KDE has its own applet
-    services.blueman.enable = !config.lunik1.system.kde.enable;
+    # KDE/GNOME has its own applet
+    services.blueman.enable = !(config.lunik1.system.kde.enable || config.lunik1.system.gnome.enable);
 
     # passwordless access to rfkill without sudo so bluetooth can be toggled
     security.sudo.extraRules = [{

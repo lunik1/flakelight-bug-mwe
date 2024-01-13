@@ -113,13 +113,12 @@ in
           bluetooth.enable = true;
           containers.enable = true;
           graphical.enable = true;
-          kde.enable = true;
+          gnome.enable = true;
           network = {
             resolved.enable = true;
             networkmanager.enable = true;
           };
           pulp-io.enable = true;
-          sddm.enable = true;
           sound.enable = true;
           systemd-boot.enable = true;
           zswap.enable = true;
