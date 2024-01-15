@@ -406,6 +406,9 @@ setopt interactivecomments
 # enable calculator
 autoload zcalc
 
+# enable zargs
+autoload -U zargs
+
 ## Misc
 
 # just type '...' to get '../..'
