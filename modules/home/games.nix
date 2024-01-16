@@ -17,7 +17,9 @@ in {
   };
 
   config.home.packages = with pkgs;
-    ([ ] ++ lib.optionals cfg.steam.enable [ steam steam-run ]
+    ([
+      ludusavi
+    ] ++ lib.optionals cfg.steam.enable [ steam steam-run ]
     ++ lib.optional cfg.emu.enable (retroarch.override {
       cores = [
         libretro.beetle-psx
