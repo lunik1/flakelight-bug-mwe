@@ -134,26 +134,36 @@ in
           [{ device = "/dev/disk/by-id/ata-TS240GMTS420S_G377480650-part2"; }];
 
         # and make /storage accessible over samba
-        services.samba = {
-          enable = true;
-          extraConfig = ''
-            workgroup = WORKGROUP
-            server string = dionysus
-            security = user
-            guest ok = yes
-            map to guest = Bad Password
-            wins support = yes
-            local master = yes
-            preferred master = yes
-          '';
-          shares = {
-            storage = {
-              path = "/mnt/storage";
-              browseable = "yes";
-              "read only" = "no";
-              "guest ok" = "no";
-              "force user" = "corin";
-              "force group" = "users";
+        services = {
+          nfs = {
+            server = {
+              enable = true;
+              exports = ''
+                /mnt/storage 192.168.0.0/16(rw,insecure,fsid=0)
+              '';
+            };
+          };
+          samba = {
+            enable = true;
+            extraConfig = ''
+              workgroup = WORKGROUP
+              server string = dionysus
+              security = user
+              guest ok = yes
+              map to guest = Bad Password
+              wins support = yes
+              local master = yes
+              preferred master = yes
+            '';
+            shares = {
+              storage = {
+                path = "/mnt/storage";
+                browseable = "yes";
+                "read only" = "no";
+                "guest ok" = "no";
+                "force user" = "corin";
+                "force group" = "users";
+              };
             };
           };
         };
