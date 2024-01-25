@@ -15,7 +15,7 @@ in
 
         nixpkgs.pkgs = pkgs;
 
-        environment.systemPackages = with pkgs; [ cifs-utils ];
+        environment.systemPackages = with pkgs; [ nfs-utils cifs-utils ];
 
         ## System-specific config incl. hardware scan
         networking.hostName = "tucson";
