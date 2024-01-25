@@ -90,6 +90,13 @@ in
           enableAllFirmware = true;
         };
 
+        services.hardware = {
+          openrgb = {
+            enable = true;
+            motherboard = "amd";
+          };
+        };
+
         ## Config modules to use
         lunik1.system = {
           amdgpu = {

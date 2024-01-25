@@ -9,7 +9,7 @@ rec {
       username = "corin";
       homeDirectory = "/home/corin";
       stateVersion = "21.05";
-      packages = with pkgs; [ vial openrgb ];
+      packages = with pkgs; [ vial ];
     };
 
     # Secrets
