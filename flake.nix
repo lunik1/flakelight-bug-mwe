@@ -94,6 +94,12 @@
             viAlias = true;
           };
         })
+        (self: super: {
+          vivaldi = super.vivaldi.override {
+            proprietaryCodecs = true;
+            commandLineArgs = "--enable-blink-features=MiddleClickAutoscroll";
+          };
+        })
       ];
     in
     {
