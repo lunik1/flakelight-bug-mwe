@@ -97,6 +97,11 @@ in
           };
         };
 
+        services.udisks2 = {
+          enable = true;
+          mountOnMedia = true;
+        };
+
         ## Config modules to use
         lunik1.system = {
           amdgpu = {
