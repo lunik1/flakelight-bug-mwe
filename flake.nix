@@ -89,12 +89,6 @@
             });
           });
         })
-        (self: super: {
-          vivaldi = super.vivaldi.override {
-            proprietaryCodecs = true;
-            commandLineArgs = "--enable-blink-features=MiddleClickAutoscroll";
-          };
-        })
       ];
       pkgsForSystem = system:
         import inputs.nixos {

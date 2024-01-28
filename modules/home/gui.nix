@@ -23,8 +23,8 @@ in
           qdirstat
           signal-desktop
           thunderbird
+          ungoogled-chromium
           ventoy
-          vivaldi
           xdg_utils
 
           lunik1-nur.amazing-marvin
@@ -132,12 +132,12 @@ in
       mimeApps = {
         enable = true;
         defaultApplications = {
-          "text/html" = [ "vivaldi.desktop" ];
-          "text/xhtml_xml" = [ "vivaldi.desktop" ];
-          "x-scheme-handler/about" = [ "vivaldi.desktop" ];
-          "x-scheme-handler/http" = [ "vivaldi.desktop" ];
-          "x-scheme-handler/https" = [ "vivaldi.desktop" ];
-          "x-scheme-handler/unknown" = [ "vivaldi.desktop" ];
+          "text/html" = [ "floorp.desktop" ];
+          "text/xhtml_xml" = [ "floorp.desktop" ];
+          "x-scheme-handler/about" = [ "floorp.desktop" ];
+          "x-scheme-handler/http" = [ "floorp.desktop" ];
+          "x-scheme-handler/https" = [ "floorp.desktop" ];
+          "x-scheme-handler/unknown" = [ "floorp.desktop" ];
 
           "x-scheme-handler/msteams" = [ "teams.desktop" ];
 
