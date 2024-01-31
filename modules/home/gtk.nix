@@ -21,6 +21,10 @@ in {
         package = pkgs.qogir-icon-theme;
         name = "Qogir";
       };
+      cursorTheme = {
+        name = "Adwaita";
+        package = pkgs.gnome.adwaita-icon-theme;
+      };
       gtk2.extraConfig = ''
         gtk-error-bell = 0
       '';
@@ -29,7 +33,8 @@ in {
 
     qt = {
       enable = true;
-      platformTheme = "gtk";
+      platformTheme = if config.lunik1.home.gnome.enable then "gnome" else
+      (if config.lunik1.home.kde.enable then "kde" else "gtk3");
       style = {
         package = pkgs.arc-kde-theme;
         name = "Arc";

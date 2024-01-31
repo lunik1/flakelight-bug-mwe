@@ -3,6 +3,7 @@
   ./cli.nix
   ./gui.nix
   ./git.nix
+  ./gnome.nix
   ./neovim.nix
   ./options.nix
   ./emacs.nix

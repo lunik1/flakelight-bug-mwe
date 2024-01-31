@@ -61,9 +61,38 @@
       homeConfigDir = ./home-configurations;
       systemConfigDir = ./systems;
       isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
+      overlays = [
+        (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
+        (self: super: {
+          neovim = super.neovim.override {
+            vimAlias = true;
+            viAlias = true;
+          };
+        })
+        (self: super: {
+          gnome = super.gnome.overrideScope' (gnomeFinal: gnomePrev: {
+            mutter = gnomePrev.mutter.overrideAttrs (old: {
+              patches = (old.patches or [ ]) ++ [
+                (super.fetchpatch {
+                  url = "https://gist.githubusercontent.com/lunik1/3428ca679d5c7c0bd3b791f8b4a605c4/raw/234f3717047e8d90fc2d386192526bac1ee54c98/mutter-vrr.patch";
+                  sha256 = "sha256-YpX+DK7BvHAnVSfOvtudb3bpMcU6bsNw8PI+b4hj/eU=";
+                })
+              ];
+            });
+            gnome-control-center = gnomePrev.gnome-control-center.overrideAttrs (old: {
+              patches = (old.patches or [ ]) ++ [
+                (super.fetchpatch {
+                  url = "https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/734.diff";
+                  sha256 = "sha256-8FGPLTDWbPjY1ulVxJnWORmeCdWKvNKcv9OqOQ1k/bE=";
+                })
+              ];
+            });
+          });
+        })
+      ];
       pkgsForSystem = system:
         import inputs.nixos {
-          inherit system;
+          inherit overlays system;
           config = {
             allowUnfree = true;
             packageOverrides = pkgs: {
@@ -86,21 +115,6 @@
             };
           };
         };
-      overlays = [
-        (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
-        (self: super: {
-          neovim = super.neovim.override {
-            vimAlias = true;
-            viAlias = true;
-          };
-        })
-        (self: super: {
-          vivaldi = super.vivaldi.override {
-            proprietaryCodecs = true;
-            commandLineArgs = "--enable-blink-features=MiddleClickAutoscroll";
-          };
-        })
-      ];
     in
     {
       nixosConfigurations = mapAttrs'
