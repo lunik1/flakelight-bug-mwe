@@ -96,9 +96,6 @@ rec {
                   "${pkgs.beets}/bin/beet lyrics"
                   "${pkgs.beets}/bin/beet mbsync"
                 ];
-                ExecStartPost = [
-                  "${pkgs.beets}/bin/beet alt update transcoded"
-                ];
                 Type = "oneshot";
                 ProtectSystem = "full";
                 PrivateTmp = true;
