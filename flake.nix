@@ -83,7 +83,7 @@
               patches = (old.patches or [ ]) ++ [
                 (super.fetchpatch {
                   url = "https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/734.diff";
-                  sha256 = "sha256-8FGPLTDWbPjY1ulVxJnWORmeCdWKvNKcv9OqOQ1k/bE=";
+                  sha256 = "sha256-uLGdWpkrNYxaKCHYH1gBBBF9QKxSroQIMYjaJpkV+kc=";
                 })
               ];
             });
