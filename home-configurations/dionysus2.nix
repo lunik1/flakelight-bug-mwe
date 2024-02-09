@@ -24,16 +24,6 @@ rec {
               # withLTO = true; # broken https://github.com/NixOS/nixpkgs/issues/139168
             };
           })
-          (self: super: {
-            beets = super.beets.override {
-              pluginOverrides = {
-                alternatives = {
-                  enable = true;
-                  propagatedBuildInputs = [ super.beetsPackages.alternatives ];
-                };
-              };
-            };
-          })
         ];
 
         programs = {
