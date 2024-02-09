@@ -55,7 +55,7 @@ rec {
           timers = {
             beet-update = {
               Unit = {
-                Description = "Update music collection metadats with beets every month";
+                Description = "Update music collection metadata with beets every month";
               };
               Timer = {
                 OnCalendar = "*-*-13 23:00:00";
