@@ -23,7 +23,6 @@ in
           qdirstat
           signal-desktop
           thunderbird
-          ungoogled-chromium
           ventoy
           xdg_utils
 
