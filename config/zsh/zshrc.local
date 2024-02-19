@@ -2,7 +2,7 @@
 # vi:ft=zsh
 
 # Set up thefuck
-if type thefuck >/dev/null 2>&1; then
+if (( $+commands[thefuck] )); then
   eval $(thefuck --alias yikes)
 fi
 
@@ -30,16 +30,20 @@ SAVEHIST=100000
 # Easy access to full zsh manual
 alias manzsh='man zshall'
 
-# Emacs client
-alias ec="emacsclient -a '' -t"
+# Emacs
+if (( $+commands[emacs] )); then
+  alias ec="emacsclient -a '' -t"
+  alias emacs='emacs & disown'
+  alias doom='~/.emacs.d/bin/doom'
+fi
 
 ## get top 10 shell commands:
 alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
-
-alias doom='~/.emacs.d/bin/doom'
-alias emacs='emacs & disown'
 alias s='sudo $(fc -ln -1)'
-alias killgpg='gpgconf --kill gpg-agent'
+
+if (( $+commands[gpgconf] )); then
+  alias killgpg='gpgconf --kill gpg-agent'
+fi
 
 # easy sedding with perl
 alias pie='perl -pi -e'
@@ -61,36 +65,40 @@ alias tctest='awk '\''BEGIN{
 }'\'''
 
 # Julia daemon
-alias juliad="julia --startup-file=no -e 'using DaemonMode; serve()'"
-alias juliac='julia --startup-file=no -e "using DaemonMode; runargs()"'
-
-# Cheatsheet
-alias cs="bat -p ~/.local/share/zsh/zsh_cheatsheet.md"
+if (( $+commands[julia] )); then
+  alias juliad="julia --startup-file=no -e 'using DaemonMode; serve()'"
+  alias juliac='julia --startup-file=no -e "using DaemonMode; runargs()"'
+fi
 
 # nixpkgs pr check
-alias nixpkgs-revhead='nix-shell -p nixpkgs-review --run "nixpkgs-review rev HEAD"'
+if (( $+commands[nix-shell] )); then
+  alias nixpkgs-revhead='nix-shell -p nixpkgs-review --run "nixpkgs-review rev HEAD"'
+fi
 
 # Arion
-if type arion >/dev/null 2>&1; then
+if (( $+commands[arion] )); then
   salias adown="arion down"
   salias apull="ionice -n 5 arion pull"
   salias aup="ionice -n 5 arion up -d"
 fi
 
-if type bat >/dev/null 2>&1; then
+if (( $+commands[bat] )); then
   # bat-powered less
   alias bless='bat --paging=always -p'
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
   export MANROFFOPT="-c"
 
+  # Cheatsheet
+  alias cs="bat -p ~/.local/share/zsh/zsh_cheatsheet.md"
+
   # bat-powered ripgrep
-  if type batgrep >/dev/null 2>&1; then
+  if (( $+commands[batgrep] )); then
     alias brg='batgrep'
   fi
 fi
 
 # use neovim if it exists
-if type nvim >/dev/null 2>&1; then
+if (( $+commands[nvim] )); then
   alias vim='nvim'
   alias vi='nvim -u NONE'
   export EDITOR=nvim
@@ -99,8 +107,10 @@ else
 fi
 
 # rsync
-alias rsync='rsync -avzhPHA --no-inc-recursive --info=progress2'
-alias srsync='rsync --no-inc-recursive --info=progress2 -avzPhHAe ssh'
+if (( $+commands[rsync] )); then
+  alias rsync='rsync -avzhPHA --no-inc-recursive --info=progress2'
+  alias srsync='rsync --no-inc-recursive --info=progress2 -avzPhHAe ssh'
+fi
 
 # update all python packages at once with pip
 alias pipdate='sh -c "pip freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1  | xargs -n1 pip install -U"'
@@ -206,7 +216,7 @@ if [ -n "${INSIDE_EMACS}" ]; then
   export EDITOR="false"
 fi
 
-if type pacman >/dev/null 2>&1; then
+if (( $+commands[pacman] )); then
   # run pacman as root
   salias pacman=pacman
 
@@ -214,14 +224,16 @@ if type pacman >/dev/null 2>&1; then
   salias deorphan='pacman -Rns $(pacman -Qtdq)'
 
   # find .pacnew, .pacsave, and pacorig files
-  if type fd >/dev/null 2>&1; then
+  if (( $+commands[fd] )); then
     salias pacfiles='fd --xdev ".+\.pac(new|save|orig)" /'
   else
     salias pacfiles='find / -xdev -regextype posix-extended -regex ".+\.pac(new|save|orig)"'
   fi
 
   # sort installed packages by size
-  alias pacsize='expac "%m\t%n" | sort -h'
+  if (( $+commands[expac] )); then
+    alias pacsize='expac "%m\t%n" | sort -h'
+  fi
 fi
 
 # find broken symlinks
@@ -231,12 +243,14 @@ alias brokenlinks='find /var -path /proc -prune -o -type l -! -exec test -e {} \
 alias sudodiff='VISUAL="$EDITOR -d" sudoedit'
 
 # shutdown and the like
-alias poweroff='systemctl poweroff'
-alias shutdown='systemctl poweroff'
-alias reboot='systemctl reboot'
-alias suspend='systemctl suspend'
-alias hibernate='systemctl hibernate'
-alias hybrid-sleep='systemctl hybrid-sleep'
+if (( $+commands[systemctl] )); then
+  alias poweroff='systemctl poweroff'
+  alias shutdown='systemctl poweroff'
+  alias reboot='systemctl reboot'
+  alias suspend='systemctl suspend'
+  alias hibernate='systemctl hibernate'
+  alias hybrid-sleep='systemctl hybrid-sleep'
+fi
 
 ## Abk
 
