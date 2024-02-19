@@ -112,10 +112,6 @@ if (( $+commands[rsync] )); then
   alias srsync='rsync --no-inc-recursive --info=progress2 -avzPhHAe ssh'
 fi
 
-# update all python packages at once with pip
-alias pipdate='sh -c "pip freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1  | xargs -n1 pip install -U"'
-alias pip2date='sh -c "pip2 freeze --local | ag -v '\''^\-e'\'' | cut -d = -f 1  | xargs -n1 pip install -U"'
-
 if [ "${TERM}" = "xterm-kitty" ]; then
   alias ssh="kitty +kitten ssh"
   alias hrg="kitty +kitten hyperlinked_grep"
