@@ -42,6 +42,7 @@ rec {
         minecraft.enable = true;
         steam.enable = true;
         osu.enable = true;
+        saves.enable = true;
       };
 
       lang = {

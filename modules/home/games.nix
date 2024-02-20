@@ -3,6 +3,7 @@
 let cfg = config.lunik1.home.games;
 in {
   options.lunik1.home.games = {
+    saves.enable = lib.mkEnableOption "tools to manage game saves";
     steam.enable = lib.mkEnableOption "Enable Steam?";
     emu.enable = lib.mkEnableOption "Enable emulation? (RetroArch)";
     cli.enable =
@@ -17,9 +18,10 @@ in {
   };
 
   config.home.packages = with pkgs;
-    ([
+    (lib.optionals cfg.saves.enable [
       ludusavi
-    ] ++ lib.optionals cfg.steam.enable [ steam steam-run ]
+    ]
+    ++ lib.optionals cfg.steam.enable [ steam steam-run ]
     ++ lib.optional cfg.emu.enable (retroarch.override {
       cores = [
         libretro.beetle-psx
