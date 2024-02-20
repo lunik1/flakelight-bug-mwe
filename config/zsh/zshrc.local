@@ -19,7 +19,7 @@ stty -ixon
 
 ## Environment
 
-WORDCHARS='${WORDCHARS:s@/@}'
+WORDCHARS="${WORDCHARS:s@/@}"
 
 # Increase history size 10×
 HISTSIZE=50000
