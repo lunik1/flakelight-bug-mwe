@@ -23,7 +23,6 @@ rec {
       bluetooth.enable = true;
       emacs.enable = true;
       fonts.enable = true;
-      games.cli.enable = true;
       git.enable = true;
       gpg.enable = true;
       gnome.enable = true;
