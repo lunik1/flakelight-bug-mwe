@@ -33,8 +33,11 @@ alias manzsh='man zshall'
 # Emacs
 if (( $+commands[emacs] )); then
   alias ec="emacsclient -a '' -t"
-  alias emacs='emacs & disown'
   alias doom='~/.emacs.d/bin/doom'
+
+  if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+    alias emacs='emacs & disown'
+  fi
 fi
 
 ## get top 10 shell commands:
