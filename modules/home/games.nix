@@ -20,6 +20,7 @@ in {
   config.home.packages = with pkgs;
     (lib.optionals cfg.saves.enable [
       ludusavi
+      rclone
     ]
     ++ lib.optionals cfg.steam.enable [ steam steam-run ]
     ++ lib.optional cfg.emu.enable (retroarch.override {
