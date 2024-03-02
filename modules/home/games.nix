@@ -23,17 +23,20 @@ in {
       rclone
     ]
     ++ lib.optionals cfg.steam.enable [ steam steam-run ]
-    ++ lib.optional cfg.emu.enable (retroarch.override {
-      cores = [
-        libretro.beetle-psx
-        libretro.bsnes-mercury
-        libretro.mesen
-        libretro.mgba
-        libretro.nestopia
-        libretro.sameboy
-        libretro.thepowdertoy
-      ];
-    }) ++ lib.optionals cfg.cli.enable [ crawl nethack ]
+    ++ lib.optionals cfg.emu.enable [
+      yuzu-early-access
+      (retroarch.override {
+        cores = [
+          libretro.beetle-psx
+          libretro.bsnes-mercury
+          libretro.mesen
+          libretro.mgba
+          libretro.nestopia
+          libretro.sameboy
+          libretro.thepowdertoy
+        ];
+      })
+    ] ++ lib.optionals cfg.cli.enable [ crawl nethack ]
     ++ lib.optional cfg.freeciv.enable (if config.lunik1.home.kde.enable then freeciv_qt else freeciv_gtk)
     ++ lib.optional cfg.df.enable dwarf-fortress-packages.dwarf-fortress-full
     ++ lib.optional cfg.minecraft.enable (if config.lunik1.home.kde.enable then prismlauncher-qt5 else prismlauncher)
