@@ -1,41 +1,42 @@
 {
 
   inputs = {
-    nixos.url = "github:NixOS/nixpkgs/nixos-23.11-small";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    lunik1-nur-unstable = {
-      url = "github:lunik1/nur-packages";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        flake-utils.follows = "flake-utils";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-      };
-    };
+    # nixos.url = "github:NixOS/nixpkgs/nixos-23.11-small";
+    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # lunik1-nur-unstable = {
+    #   url = "github:lunik1/nur-packages";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     flake-utils.follows = "flake-utils";
+    #     pre-commit-hooks.follows = "pre-commit-hooks";
+    #   };
+    # };
     lunik1-nur = {
       url = "github:lunik1/nur-packages";
       inputs = {
-        nixpkgs.follows = "nixos";
+        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-stable.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
     };
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-wallpaper = {
       url = "github:lunik1/nix-wallpaper";
       inputs = {
-        nixpkgs.follows = "nixos";
+        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
@@ -44,7 +45,7 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
+        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -52,7 +53,7 @@
 
   outputs = inputs@{ self, ... }:
     with inputs;
-    with nixpkgs-unstable.lib;
+    with nixpkgs.lib;
     let
       hmModules = [
         nix-index-database.hmModules.nix-index
@@ -91,27 +92,21 @@
         })
       ];
       pkgsForSystem = system:
-        import inputs.nixos {
+        import nixpkgs {
           inherit overlays system;
           config = {
+            # Needed for MEGAcmd/sync, unfortunately
+            permittedInsecurePackages = [
+              "freeimage-unstable-2021-11-01"
+            ];
             allowUnfree = true;
             packageOverrides = pkgs: {
               lunik1-nur = import lunik1-nur { inherit pkgs; };
+              nix-wallpaper = nix-wallpaper.packages.${system}.default;
               neovim = pkgs.neovim.override {
                 vimAlias = true;
                 viAlias = true;
               };
-            };
-          };
-        };
-      pkgsForHome = system:
-        import nixpkgs-unstable {
-          inherit overlays system;
-          config = {
-            allowUnfree = true;
-            packageOverrides = pkgs: {
-              lunik1-nur = import lunik1-nur-unstable { inherit pkgs; };
-              nix-wallpaper = nix-wallpaper.packages.${system}.default;
             };
           };
         };
@@ -120,7 +115,7 @@
       nixosConfigurations = mapAttrs'
         (file: _: {
           name = removeSuffix ".nix" file;
-          value = inputs.nixos.lib.nixosSystem
+          value = nixpkgs.lib.nixosSystem
             ((import (systemConfigDir + "/${file}"))
               {
                 inherit pkgsForSystem;
@@ -136,11 +131,11 @@
           name = removeSuffix ".nix" file;
           value = (home-manager.lib.homeManagerConfiguration
             ((import (homeConfigDir + "/${file}"))
-              { inherit hmModules pkgsForHome; })).activationPackage;
+              { inherit hmModules pkgsForSystem; })).activationPackage;
         })
         (filterAttrs isNixFile (builtins.readDir homeConfigDir));
     } // flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = pkgsForHome system;
+      let pkgs = pkgsForSystem system;
       in
       {
         checks = {

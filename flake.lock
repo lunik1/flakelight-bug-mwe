@@ -19,22 +19,6 @@
     "flake-compat_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1696426674,
-        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
-    "flake-compat_3": {
-      "flake": false,
-      "locked": {
         "lastModified": 1673956053,
         "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
         "owner": "edolstra",
@@ -90,7 +74,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -113,36 +97,9 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixos"
+          "nixpkgs"
         ],
         "nixpkgs-lint": "nixpkgs-lint",
-        "pre-commit-hooks": [
-          "pre-commit-hooks"
-        ]
-      },
-      "locked": {
-        "lastModified": 1708180029,
-        "narHash": "sha256-HdqBHjhDGALXfKRYrczfaIkf8I1unOces7EIt18RHzU=",
-        "owner": "lunik1",
-        "repo": "nur-packages",
-        "rev": "3a969fcf21dd4f4ddea2038ba94d5d9087a4103d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lunik1",
-        "repo": "nur-packages",
-        "type": "github"
-      }
-    },
-    "lunik1-nur-unstable": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ],
-        "nixpkgs-lint": "nixpkgs-lint_2",
         "pre-commit-hooks": [
           "pre-commit-hooks"
         ]
@@ -184,33 +141,10 @@
         "type": "github"
       }
     },
-    "naersk_2": {
-      "inputs": {
-        "nixpkgs": [
-          "lunik1-nur-unstable",
-          "nixpkgs-lint",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1697664192,
-        "narHash": "sha256-nRTG3rYEGFV2+putRiC96+kNXDyKaPJgT6K/1FWN7yo=",
-        "owner": "nix-community",
-        "repo": "naersk",
-        "rev": "636a9b5dd7f2ad7d7c3af929ecf95e4d4fab9e97",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "master",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -233,7 +167,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixos"
+          "nixpkgs"
         ],
         "pre-commit-hooks": [
           "pre-commit-hooks"
@@ -253,18 +187,18 @@
         "type": "github"
       }
     },
-    "nixos": {
+    "nixpkgs": {
       "locked": {
-        "lastModified": 1705044370,
-        "narHash": "sha256-QmzSiphBSOCvhzMNUzhtZT/HpK4VyXqWEYRRPNtIfMQ=",
-        "owner": "NixOS",
+        "lastModified": 1709237383,
+        "narHash": "sha256-cy6ArO4k5qTx+l5o+0mL9f5fa86tYUX3ozE1S+Txlds=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "76fc2dd7efd18cb4251db2f35ab6655ee746e961",
+        "rev": "1536926ef5621b09bba54035ae2bb6d806d72ac8",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-23.11-small",
+        "owner": "nixos",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -279,33 +213,6 @@
         ],
         "utils": [
           "lunik1-nur",
-          "flake-utils"
-        ]
-      },
-      "locked": {
-        "lastModified": 1698027922,
-        "narHash": "sha256-3Zsty5a/LNBtM36W7HQZkaSpMK8bJEFTUEX4tpxKFJ8=",
-        "owner": "nix-community",
-        "repo": "nixpkgs-lint",
-        "rev": "39e2a6d3747eda0f9ae987d8d55a150c4225487f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs-lint",
-        "type": "github"
-      }
-    },
-    "nixpkgs-lint_2": {
-      "inputs": {
-        "flake-compat": "flake-compat_2",
-        "naersk": "naersk_2",
-        "nixpkgs": [
-          "lunik1-nur-unstable",
-          "nixpkgs"
-        ],
-        "utils": [
-          "lunik1-nur-unstable",
           "flake-utils"
         ]
       },
@@ -339,31 +246,15 @@
         "type": "github"
       }
     },
-    "nixpkgs-unstable": {
-      "locked": {
-        "lastModified": 1704842529,
-        "narHash": "sha256-OTeQA+F8d/Evad33JMfuXC89VMetQbsU4qcaePchGr4=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "eabe8d3eface69f5bb16c18f8662a702f50c20d5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
+        "flake-compat": "flake-compat_2",
         "flake-utils": [
           "flake-utils"
         ],
         "gitignore": "gitignore",
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ],
         "nixpkgs-stable": "nixpkgs-stable"
       },
@@ -386,11 +277,9 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "lunik1-nur": "lunik1-nur",
-        "lunik1-nur-unstable": "lunik1-nur-unstable",
         "nix-index-database": "nix-index-database",
         "nix-wallpaper": "nix-wallpaper",
-        "nixos": "nixos",
-        "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs": "nixpkgs",
         "pre-commit-hooks": "pre-commit-hooks",
         "sops-nix": "sops-nix"
       }
@@ -398,10 +287,10 @@
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ],
         "nixpkgs-stable": [
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {

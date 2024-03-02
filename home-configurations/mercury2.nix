@@ -1,7 +1,7 @@
-{ hmModules, pkgsForHome }:
+{ hmModules, pkgsForSystem }:
 
 rec {
-  pkgs = pkgsForHome "aarch64-linux";
+  pkgs = pkgsForSystem "aarch64-linux";
 
   modules = [{
     require = import ../modules/home/module-list.nix;

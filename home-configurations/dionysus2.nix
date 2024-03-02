@@ -1,7 +1,7 @@
-{ hmModules, pkgsForHome }:
+{ hmModules, pkgsForSystem }:
 
 rec {
-  pkgs = pkgsForHome "x86_64-linux";
+  pkgs = pkgsForSystem "x86_64-linux";
 
   modules = [
     (
