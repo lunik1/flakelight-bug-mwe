@@ -251,6 +251,7 @@ in {
           merge-output-format = "mkv";
           embed-subs = true;
           convert-subs = "ass";
+          netrc = true;
           external-downloader = "${pkgs.aria2}/bin/aria2c";
         };
       };
