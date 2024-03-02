@@ -192,6 +192,7 @@ in
             command:theaters:script-binding quality_menu/video_formats_toggle#@vformats>1?Video
             command:graphic_eq:script-binding quality_menu/audio_formats_toggle#@aformats>1?Audio
           '';
+          target = "mpv/script-opts/uosc.conf";
         };
         "ytdl_hook.conf" = {
           text = "ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
