@@ -82,8 +82,8 @@
             gnome-control-center = gnomePrev.gnome-control-center.overrideAttrs (old: {
               patches = (old.patches or [ ]) ++ [
                 (super.fetchpatch {
-                  url = "https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/734.diff";
-                  sha256 = "sha256-uLGdWpkrNYxaKCHYH1gBBBF9QKxSroQIMYjaJpkV+kc=";
+                  url = "https://gist.githubusercontent.com/lunik1/43d5d6b114084f087cb248aafea75f2e/raw/26e5c37df85ddf75f2070eafcfc42865b2a164f8/gnome-control-ceter-vrr.patch";
+                  sha256 = "sha256-QSi3KlNA2DSMp7B8lpval+nlCqREK9Ch1Kj2kaGq+QM=";
                 })
               ];
             });
