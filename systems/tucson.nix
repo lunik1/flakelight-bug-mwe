@@ -102,6 +102,11 @@ in
           mountOnMedia = true;
         };
 
+        services.mullvad-vpn = {
+          enable = true;
+          package = pkgs.mullvad-vpn;
+        };
+
         ## Config modules to use
         lunik1.system = {
           amdgpu = {
