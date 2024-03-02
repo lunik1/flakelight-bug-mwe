@@ -191,6 +191,7 @@ in
           text = ''
             command:theaters:script-binding quality_menu/video_formats_toggle#@vformats>1?Video
             command:graphic_eq:script-binding quality_menu/audio_formats_toggle#@aformats>1?Audio
+            top_bar_flash_on=
           '';
           target = "mpv/script-opts/uosc.conf";
         };
