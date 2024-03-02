@@ -1,6 +1,8 @@
 # -*- mode: sh; -*-
 # vi:ft=zsh
 
+set nonomatch
+
 # Set up thefuck
 if (( $+commands[thefuck] )); then
   eval $(thefuck --alias yikes)
