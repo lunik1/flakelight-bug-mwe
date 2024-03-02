@@ -237,7 +237,7 @@ in
           };
         };
 
-        snapraid = {
+        services.snapraid = {
           enable = true;
           scrub.plan = 15;
           parityFiles =

@@ -28,7 +28,7 @@ in {
       dbus.packages = with pkgs; [ dconf ];
     };
 
-    services.xserver.layout = "gb";
+    services.xserver.xkb.layout = "gb";
 
     fonts = {
       enableDefaultPackages = true;
