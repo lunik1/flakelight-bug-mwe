@@ -24,7 +24,7 @@ in {
     ]
     ++ lib.optionals cfg.steam.enable [ steam steam-run ]
     ++ lib.optionals cfg.emu.enable [
-      yuzu-early-access
+      ryujinx
       (retroarch.override {
         cores = [
           libretro.beetle-psx
