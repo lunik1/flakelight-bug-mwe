@@ -36,6 +36,7 @@ in {
         sd
         streamlink
         stress-ng
+        tree
         unar
         unzip
         kopia
