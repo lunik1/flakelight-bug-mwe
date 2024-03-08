@@ -23,7 +23,7 @@ in {
       gpg = {
         enable = true;
         settings = {
-          keyserver = "hkps://keys.openpgp.org";
+          keyserver = "hkps://keyserver.ubuntu.com";
           keyserver-options = "no-honor-keyserver-url";
         };
       };
