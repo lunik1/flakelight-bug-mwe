@@ -14,7 +14,7 @@ in
         [
           bitwarden
           bleachbit
-          discord
+          webcord
           gimp
           gnome3.gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
