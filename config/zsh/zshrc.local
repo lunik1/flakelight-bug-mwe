@@ -32,6 +32,9 @@ SAVEHIST=100000
 # Easy access to full zsh manual
 alias manzsh='man zshall'
 
+# Fast reset
+alias reset='tput reset'
+
 # Emacs
 if (( $+commands[emacs] )); then
   alias ec="emacsclient -a '' -t"
