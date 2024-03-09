@@ -95,12 +95,33 @@ in
         userName = "lunik1";
         extraConfig = {
           init.defaultBranch = "master";
+          commit.verbose = true;
           pull.rebase = "true";
-          push.default = "current";
-          diff.algorithm = "histogram";
+          push = {
+            default = "current";
+            followtags = true;
+          };
+          diff = {
+            algorithm = "histogram";
+            colorMoved = "default";
+          };
+          merge = {
+            conflictstyle = "zdiff3";
+            keepbackup = false;
+          };
+          rebase.autosquash = true;
+          rerere.enabled = true;
           github.user = "lunik1";
           gitlab.user = "lunik1";
           "delta \"magit-delta\"".line-numbers = false;
+          url = {
+            "git@github.com:".pushInsteadOf = "https://github.com/";
+            "git@gitlab.com:".pushInsteadOf = "https://gitlab.com/";
+            "git@codeberg.org:".pushInsteadOf = "https://codeberg.org";
+          };
+          transfer.fsckobjects = true;
+          fetch.fsckobjects = true;
+          receive.fsckObjects = true;
         };
       };
       gh = {
