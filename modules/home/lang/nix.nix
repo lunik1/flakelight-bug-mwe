@@ -15,7 +15,7 @@ in {
       nixpkgs-lint-community
       nixpkgs-review
       nurl
-      rnix-lsp
+      nil
       statix
     ];
   };
