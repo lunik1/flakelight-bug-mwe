@@ -1,17 +1,7 @@
 {
 
   inputs = {
-    # nixos.url = "github:NixOS/nixpkgs/nixos-23.11-small";
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # lunik1-nur-unstable = {
-    #   url = "github:lunik1/nur-packages";
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     flake-utils.follows = "flake-utils";
-    #     pre-commit-hooks.follows = "pre-commit-hooks";
-    #   };
-    # };
     lunik1-nur = {
       url = "github:lunik1/nur-packages";
       inputs = {
