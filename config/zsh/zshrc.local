@@ -131,6 +131,11 @@ if [ "${TERM}" = "xterm-kitty" ]; then
   alias icat="kitty +kitten icat"
 fi
 
+# it's better to use GNU's cp on mac as it will reflink automatically
+if [[ $(uname) == 'Darwin' ]] && (( $+command[gcp] )); then
+  alias cp=gcp
+fi
+
 # different behaviour inside emacs
 # courtesey of elken
 if [ "${INSIDE_EMACS}" = "vterm" ]; then
