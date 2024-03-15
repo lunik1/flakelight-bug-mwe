@@ -61,7 +61,7 @@
           };
         })
         (self: super: {
-          gnome = super.gnome.overrideScope' (gnomeFinal: gnomePrev: {
+          gnome = super.gnome.overrideScope (gnomeFinal: gnomePrev: {
             mutter = gnomePrev.mutter.overrideAttrs (old: {
               patches = (old.patches or [ ]) ++ [
                 (super.fetchpatch {
