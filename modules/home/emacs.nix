@@ -21,6 +21,7 @@ in {
         [ fd glslang gnuplot graphviz pandoc ripgrep sqlite.bin ]
         ++ optionals cfg.gui [
           emacs-all-the-icons-fonts
+          emacs-lsp-booster
           zip # for org odt export
           (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
 
