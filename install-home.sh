@@ -31,3 +31,5 @@ rm -f "${HOME}/.config/mimeapps.list"
 # Activate new environment
 # shellcheck disable=SC1091
 ./result/activate
+
+command -v fc-cache &> /dev/null || fc-cache

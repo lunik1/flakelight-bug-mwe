@@ -20,3 +20,5 @@ fi
 sudo rm -rf /etc/nixos
 sudo cp -r "${DIR}" /etc/nixos
 sudo nixos-rebuild switch --flake "/etc/nixos#${HOST}"
+
+command -v fc-cache &> /dev/null || sudo fc-cache
