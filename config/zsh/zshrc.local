@@ -129,6 +129,10 @@ if [ "${TERM}" = "xterm-kitty" ]; then
   alias ssh="kitty +kitten ssh"
   alias hrg="kitty +kitten hyperlinked_grep"
   alias icat="kitty +kitten icat"
+  alias transfer="kitten transfer"
+  alias download="kitten transfer --direction download"
+  alias upload="kitten transfer --direction upload"
+  alias show-key="kitten show-key"
 fi
 
 # it's better to use GNU's cp on mac as it will reflink automatically
