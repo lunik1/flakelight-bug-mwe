@@ -134,6 +134,7 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
       htop
       libarchive
       kitty.terminfo
+      kitty.kitten
       ntfs3g
       psmisc
       wget
