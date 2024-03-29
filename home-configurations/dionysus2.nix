@@ -82,7 +82,6 @@ rec {
                 ];
                 ExecStart = [
                   "${pkgs.beets}/bin/beet fetchart"
-                  "${pkgs.beets}/bin/beet lastgenre"
                   "${pkgs.beets}/bin/beet lyrics"
                   "${pkgs.beets}/bin/beet mbsync"
                 ];
