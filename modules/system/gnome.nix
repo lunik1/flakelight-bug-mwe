@@ -47,6 +47,7 @@ in
       systemPackages = with pkgs; [
         blanket
         gnome.gnome-tweaks
+        gnome.dconf-editor
         cartridges
       ] ++ (with pkgs.gnomeExtensions; [
         appindicator
