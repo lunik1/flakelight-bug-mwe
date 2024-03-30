@@ -80,11 +80,6 @@
             });
           });
         })
-        (self: super: {
-          munin = super.munin.override {
-            jre = super.jre8;
-          };
-        })
       ];
       pkgsForSystem = system:
         import nixpkgs {
