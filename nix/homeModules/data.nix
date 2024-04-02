@@ -18,6 +18,7 @@ in
       nodePackages_latest.vscode-json-languageserver-bin
 
       # YAML
+      dyff
       yamllint
       nodePackages_latest.yaml-language-server
 
