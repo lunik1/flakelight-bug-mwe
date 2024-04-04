@@ -52,7 +52,7 @@ in
           su
           util-linux
         ]
-        ++ lib.optionals stdenv.isDarwin [ coreutils-prefixed ];
+        ++ lib.optionals stdenv.isDarwin [ coreutils ];
 
       sessionVariables.AWK_HASH = "fnv1a";
     };
