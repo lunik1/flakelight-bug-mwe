@@ -1,2 +1,0 @@
-secretfile filter=git-crypt diff=git-crypt
-config/ssh/config.nix filter=git-crypt diff=git-crypt
