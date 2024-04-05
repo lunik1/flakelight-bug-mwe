@@ -50,7 +50,6 @@ in
           sigmoid-upscaling = "yes";
           scaler-resizes-only = "yes";
           sws-scaler = "x";
-          scaler-lut-size = 10;
 
           # Audio
           ao = "pipewire";
@@ -63,7 +62,7 @@ in
           # Subtitles
           sub-ass-vsfilter-color-compat = "full";
           sub-ass-vsfilter-aspect-compat = "no";
-          sub-ass-force-style = "Kerning=yes";
+          sub-ass-style-overrides = "Kerning=yes";
           demuxer-mkv-subtitle-preroll = "yes";
           sub-auto = "fuzzy";
           slang = "enGB,en-GB,eng,en,english,enUS,en-US";
@@ -94,7 +93,7 @@ in
           idle = "yes";
           cache = "auto";
           cache-on-disk = "yes";
-          cache-dir = "/tmp";
+          demuxer-cache-dir = "/tmp";
           demuxer-readahead-secs = 20;
           demuxer-max-bytes = "10GiB";
           force-window = "yes";
