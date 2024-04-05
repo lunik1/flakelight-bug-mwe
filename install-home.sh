@@ -20,7 +20,7 @@ fi
 # Build environment
 mkdir -p "${HOME}/.config"
 ln -s -n -f "${DIR}" "${HOME}/.config"
-nix --experimental-features 'nix-command flakes' build -o "${DIR}/result" "${DIR}#homeConfigurations.${HOST}"
+nix --experimental-features 'nix-command flakes' build -o "${DIR}/result" "${DIR}#homeConfigurations.${HOST}.activationPackage"
 
 # remove old home manager profiles b/c of https://github.com/nix-community/home-manager/issues/2848
 nix --experimental-features nix-command profile list | awk '$4 ~ "/nix/store/[0-9a-z]{32}-home-manager-path" { print $1 }' | xargs -r nix --experimental-features nix-command profile remove

@@ -20,7 +20,7 @@ basename() {
 
 tobuild=()
 
-tobuild+=("${DIR}#devShell.${SYSTEM}")
+tobuild+=("${DIR}#devShells.${SYSTEM}.default")
 
 for i in "${DIR}"/systems/*.nix; do
   name=$(basename "${i}" .nix)
@@ -29,7 +29,7 @@ done
 
 for i in "${DIR}"/home-configurations/*.nix; do
   name=$(basename "${i}" .nix)
-  tobuild+=("${DIR}#homeConfigurations.${name}")
+  tobuild+=("${DIR}#homeConfigurations.${name}.activationPackage")
 done
 
 nix --experimental-features 'nix-command flakes' build "${tobuild[@]}"

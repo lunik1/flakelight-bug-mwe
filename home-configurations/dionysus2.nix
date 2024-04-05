@@ -1,8 +1,7 @@
-{ hmModules, pkgsForSystem }:
+{ moduleArgs }:
 
-rec {
-  pkgs = pkgsForSystem "x86_64-linux";
-
+{
+  system = "x86_64-linux";
   modules = [
     (
       { config, lib, pkgs, ... }:
@@ -110,5 +109,5 @@ rec {
         };
       }
     )
-  ] ++ hmModules;
+  ];
 }

@@ -1,19 +1,12 @@
-{ pkgsForSystem, modules }:
+{ moduleArgs }:
 
-let
-  system = "x86_64-linux";
-  pkgs = pkgsForSystem system;
-in
 {
-  inherit system;
+  system = "x86_64-linux";
   modules = [
-    ({ config, modulesPath, ... }:
-
+    ({ config, pkgs, modulesPath, ... }:
       {
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ]
           ++ import ../modules/system/module-list.nix;
-
-        nixpkgs.pkgs = pkgs;
 
         environment.systemPackages = with pkgs; [ nfs-utils cifs-utils ];
 
@@ -129,5 +122,5 @@ in
           zswap.enable = true;
         };
       })
-  ] ++ modules;
+  ];
 }

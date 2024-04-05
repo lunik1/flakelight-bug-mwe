@@ -54,7 +54,7 @@ nix --experimental-features 'nix-command flakes' flake archive --json |
 
 tobuild=()
 
-tobuild+=("${DIR}#devShell.${SYSTEM}")
+tobuild+=("${DIR}#devShells.${SYSTEM}.default")
 
 for i in "${DIR}"/systems/*.nix; do
   name=$(basename "${i}" .nix)

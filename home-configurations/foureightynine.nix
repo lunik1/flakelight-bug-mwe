@@ -1,7 +1,7 @@
-{ hmModules, pkgsForSystem }:
+{ moduleArgs }:
 
-rec {
-  pkgs = pkgsForSystem "x86_64-linux";
+{
+  system = "x86_64-linux";
   modules = [{
     require = import ../modules/home/module-list.nix;
 
@@ -43,5 +43,5 @@ rec {
         sh.enable = true;
       };
     };
-  }] ++ hmModules;
+  }];
 }
