@@ -1,10 +1,7 @@
-{ moduleArgs }:
-
 {
   system = "x86_64-linux";
   modules = [
     ({ pkgs, ... }: {
-      require = import ../modules/home/module-list.nix;
 
       home = {
         username = "corin";

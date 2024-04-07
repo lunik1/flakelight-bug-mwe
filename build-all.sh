@@ -22,13 +22,21 @@ tobuild=()
 
 tobuild+=("${DIR}#devShells.${SYSTEM}.default")
 
-for i in "${DIR}"/systems/*.nix; do
+for i in "${DIR}"/nix/nixosConfigurations/*.nix; do
   name=$(basename "${i}" .nix)
+
+  if [[ ${name} == "default" ]]; then
+    continue
+  fi
   tobuild+=("${DIR}#nixosConfigurations.${name}.config.system.build.toplevel")
 done
 
-for i in "${DIR}"/home-configurations/*.nix; do
-  name=$(basename "${i}" .nix)
+for i in "${DIR}"/nix/homeConfigurations/*.nix; do
+  name=$(basename "${name}" .nix)
+
+  if [[ ${i} == "default" ]]; then
+    continue
+  fi
   tobuild+=("${DIR}#homeConfigurations.${name}.activationPackage")
 done
 

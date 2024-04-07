@@ -1,12 +1,9 @@
-{ moduleArgs }:
-
 {
   system = "x86_64-linux";
   modules = [
     ({ config, pkgs, modulesPath, ... }:
       {
-        require = [ (modulesPath + "/installer/scan/not-detected.nix") ]
-          ++ import ../modules/system/module-list.nix;
+        require = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
         environment.systemPackages = with pkgs; [ nfs-utils cifs-utils ];
 
@@ -54,7 +51,7 @@
 
         sops.secrets = {
           samba-credentials = {
-            sopsFile = ../secrets/host/tucson/secrets.yaml;
+            sopsFile = ../../secrets/host/tucson/secrets.yaml;
           };
         };
         fileSystems."/mnt/storage" = {

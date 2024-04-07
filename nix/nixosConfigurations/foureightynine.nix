@@ -1,17 +1,10 @@
-{ moduleArgs }:
-
-let
-  system = "x86_64-linux";
-  pkgs = moduleArgs.pkgsFor.${system};
-in
 {
-  inherit system;
+  system = "x86_64-linux";
   modules = [
-    ({ lib, modulesPath, ... }:
+    ({ lib, modulesPath, pkgs, ... }:
 
       {
-        require = [ (modulesPath + "/installer/scan/not-detected.nix") ]
-          ++ import ../modules/system/module-list.nix;
+        require = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
         ## System-specific config incl. hardware scan
         networking.hostName = "foureightynine";

@@ -1,12 +1,9 @@
-{ moduleArgs }:
-
 {
   system = "x86_64-linux";
   modules = [
     ({ config, pkgs, modulesPath, ... }:
       {
-        require = [ (modulesPath + "/installer/scan/not-detected.nix") ]
-          ++ import ../modules/system/module-list.nix;
+        require = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
         ### System-specific config incl. hardware scan
         networking.hostName = "dionysus2";
@@ -197,7 +194,7 @@
         ## Sync kopia to remote
         sops.secrets = {
           kopia_connection_config_remote = {
-            sopsFile = ../secrets/host/dionysus2/secrets.yaml;
+            sopsFile = ../../secrets/host/dionysus2/secrets.yaml;
           };
           kopia_connection_config = { };
           kopia_environment = { };
@@ -280,7 +277,7 @@
 
         sops.secrets = {
           "inadyn.conf" = {
-            sopsFile = ../secrets/host/dionysus2/secrets.yaml;
+            sopsFile = ../../secrets/host/dionysus2/secrets.yaml;
           };
         };
 

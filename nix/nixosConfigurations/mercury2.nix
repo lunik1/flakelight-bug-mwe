@@ -1,5 +1,3 @@
-{ moduleArgs }:
-
 {
   system = "aarch64-linux";
   modules = [
@@ -9,8 +7,7 @@
         require = [
           (modulesPath + "/installer/scan/not-detected.nix")
           (modulesPath + "/profiles/qemu-guest.nix")
-        ]
-        ++ import ../modules/system/module-list.nix;
+        ];
 
         boot = {
           kernelPackages = pkgs.linuxPackages;

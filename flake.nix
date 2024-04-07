@@ -45,21 +45,6 @@
   outputs = { flakelight, ... }:
     flakelight ./. ({ lib, inputs, ... }:
       with lib;
-      let
-        isNixFile = file: type: (hasSuffix ".nix" file && type == "regular");
-
-        systemConfigDir = ./systems;
-        homeConfigDir = ./home-configurations;
-
-        nixosModules = with inputs; [
-          sops-nix.nixosModules.sops
-          lunik1-nur.nixosModules.inadyn
-        ];
-        homeManagerModules = with inputs; [
-          nix-index-database.hmModules.nix-index
-          sops-nix.homeManagerModule
-        ];
-      in
       {
         flakelight.builtinFormatters = false;
 
@@ -101,38 +86,6 @@
             };
           })
         ];
-
-        nixosConfigurations = moduleArgs: mapAttrs'
-          (file: _: {
-            name = removeSuffix ".nix" file;
-            value =
-              let
-                nixosOptions' = (import (systemConfigDir + "/${file}"))
-                  {
-                    inherit moduleArgs;
-                  };
-              in
-              nixosOptions' // {
-                modules = nixosOptions'.modules ++ nixosModules;
-              };
-          })
-          (filterAttrs isNixFile (builtins.readDir systemConfigDir));
-
-        homeConfigurations = moduleArgs: mapAttrs'
-          (file: _: {
-            name = removeSuffix ".nix" file;
-            value =
-              let
-                homeMangerOptions' = (import (homeConfigDir + "/${file}"))
-                  {
-                    inherit moduleArgs;
-                  };
-              in
-              homeMangerOptions' // {
-                modules = homeMangerOptions'.modules ++ homeManagerModules;
-              };
-          })
-          (filterAttrs isNixFile (builtins.readDir homeConfigDir));
 
         formatters = pkgs: with pkgs; {
           "*.nix" = "${nixpkgs-fmt}/bin/nixpkgs-fmt";
