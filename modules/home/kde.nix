@@ -26,7 +26,7 @@ in
     ];
 
     programs = {
-      kitty = ((import ../../config/kitty/kitty.nix) { inherit config lib pkgs; });
+      kitty = (import ../../config/kitty/kitty.nix) { inherit config lib pkgs; };
       mpv.config = {
         drag-and-drop = "append";
         gpu-context = "x11vk";

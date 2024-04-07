@@ -9,7 +9,7 @@ in
     gnome.enable = lib.mkEnableOption "GNOME";
   };
 
-  config = lib.mkIf (cfg.gnome.enable) {
+  config = lib.mkIf cfg.gnome.enable {
     assertions = [
       {
         assertion = config.lunik1.system.graphical.enable;

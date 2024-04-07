@@ -12,7 +12,7 @@ in {
 
   config = {
     home.packages = with pkgs;
-      [ ] ++ lib.optional cfg.megacmd.enable megacmd
+      lib.optional cfg.megacmd.enable megacmd
       ++ lib.optional cfg.megasync.enable megasync;
 
     services =
