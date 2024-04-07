@@ -6,11 +6,9 @@ with lib;
 
 let cfg = config.lunik1.system.apcups;
 in {
-  options.lunik1.system.enable = mkEnableOption "APC UPS integration";
+  options.lunik1.system.apcups.enable = mkEnableOption "APC UPS integration";
 
   config = lib.mkIf cfg.enable {
-    services.apcupsd.locate = true;
-
-    users.users.corin.extraGroups = [ "mlocate" ];
+    services.apcupsd.enable = true;
   };
 }
