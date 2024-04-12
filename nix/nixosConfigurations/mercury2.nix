@@ -1,22 +1,13 @@
-{ pkgsForSystem, modules }:
-
-let
-  system = "aarch64-linux";
-  pkgs = pkgsForSystem system;
-in
 {
-  inherit system;
+  system = "aarch64-linux";
   modules = [
-    ({ lib, modulesPath, ... }:
+    ({ pkgs, lib, modulesPath, ... }:
 
       {
         require = [
           (modulesPath + "/installer/scan/not-detected.nix")
           (modulesPath + "/profiles/qemu-guest.nix")
-        ]
-        ++ import ../modules/system/module-list.nix;
-
-        nixpkgs.pkgs = pkgs;
+        ];
 
         boot = {
           kernelPackages = pkgs.linuxPackages;
@@ -69,5 +60,5 @@ in
           ssh-server.enable = true;
         };
       })
-  ] ++ modules;
+  ];
 }

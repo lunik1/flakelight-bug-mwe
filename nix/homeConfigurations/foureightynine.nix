@@ -1,10 +1,6 @@
-{ hmModules, pkgsForSystem }:
-
-rec {
-  pkgs = pkgsForSystem "x86_64-linux";
+{
+  system = "x86_64-linux";
   modules = [{
-    require = import ../modules/home/module-list.nix;
-
     home = {
       username = "corin";
       homeDirectory = "/home/corin";
@@ -43,5 +39,5 @@ rec {
         sh.enable = true;
       };
     };
-  }] ++ hmModules;
+  }];
 }
