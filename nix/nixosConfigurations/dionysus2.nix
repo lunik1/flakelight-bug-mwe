@@ -287,7 +287,7 @@
         sops.secrets = {
           namecheap_credentials = {
             owner = config.services.inadyn.user;
-            sopsFile = ../secrets/host/dionysus2/secrets.yaml;
+            sopsFile = ../../secrets/host/dionysus2/secrets.yaml;
           };
         };
 
