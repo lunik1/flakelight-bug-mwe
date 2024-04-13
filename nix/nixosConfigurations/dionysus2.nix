@@ -188,7 +188,16 @@
         services.inadyn = {
           enable = true;
           interval = "*:0/15";
-          configFile = config.sops.secrets."inadyn.conf".path;
+          logLevel = "debug";
+          settings = {
+            forced-update = 86400;
+            custom.namecheap = {
+              include = config.sops.secrets.namecheap_credentials.path;
+              ddns-server = "dynamicdns.park-your-domain.com";
+              ddns-path = "/update?domain=%u&password=%p&host=%h&ip=%i";
+              hostname = [ "@" "*" ];
+            };
+          };
         };
 
         ## Sync kopia to remote
@@ -276,8 +285,9 @@
         };
 
         sops.secrets = {
-          "inadyn.conf" = {
-            sopsFile = ../../secrets/host/dionysus2/secrets.yaml;
+          namecheap_credentials = {
+            owner = config.services.inadyn.user;
+            sopsFile = ../secrets/host/dionysus2/secrets.yaml;
           };
         };
 
