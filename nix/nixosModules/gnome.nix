@@ -23,11 +23,11 @@ in
 
     # GNOME
     services = {
+      displayManager.defaultSession = "gnome";
       xserver = {
         enable = true;
         desktopManager.gnome.enable = true;
         displayManager = {
-          defaultSession = "gnome"; # will sometimes use x11 without this
           gdm = {
             enable = true;
             wayland = true;
