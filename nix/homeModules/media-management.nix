@@ -15,7 +15,7 @@ in
       mediainfo
       mkvtoolnix-cli
       vobsub2srt
-      # ytmdl  # build failure
+      ytmdl
     ];
 
     programs.beets = {
