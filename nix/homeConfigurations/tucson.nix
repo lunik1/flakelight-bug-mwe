@@ -19,7 +19,10 @@
         gui.enable = true;
 
         bluetooth.enable = true;
-        emacs.enable = true;
+        emacs = {
+          enable = true;
+          daemon = true;
+        };
         fonts.enable = true;
         git.enable = true;
         gpg.enable = true;
