@@ -17,6 +17,8 @@ in {
     };
     services.xserver.videoDrivers = [ "amdgpu" ];
 
+    nixpkgs.config.rocmSupport = true;
+
     hardware.opengl = {
       driSupport = true;
       driSupport32Bit = cfg.support32Bit;
