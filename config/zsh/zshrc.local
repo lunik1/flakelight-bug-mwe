@@ -531,14 +531,6 @@ function annotate_entities() {
 
 alias xsvt="xsv table"
 
-## Syntax highlighting
-
-# MUST be done last!
-if [ -f "/usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]; then
-  # Arch linux if zsh-fast-syntax-highlighting is installed
-  source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-fi
-
 ## Customise highlighting (if enabled)
 if typeset -f fast-theme > /dev/null; then
   # on NixOS we are spammed with complains about a ro fs, so redirect everything to /dev/null

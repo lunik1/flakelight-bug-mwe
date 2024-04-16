@@ -266,12 +266,12 @@ in {
           code = "$HOME/code";
         };
         initExtraFirst = ''
-          source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
           source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
           source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
         '';
         initExtra = ''
           xsource ${../../config/zsh/zshrc.local}
+          source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
         '';
         envExtra = ''
           export PATH=$HOME/bin:$HOME/.cargo/bin/:$PATH
