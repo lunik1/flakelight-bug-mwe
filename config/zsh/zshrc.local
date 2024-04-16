@@ -473,64 +473,6 @@ fi
 
 fpath+=~/.zfunc
 
-## Work stuff
-
-# Functions for interacting with annotation server
-function get_content() {
-    curl -s 'localhost:14100/extract/content' -X POST -F file=@"${1}" -H 'Accept: application/json' | jq
-}
-
-function _wrap_content() {
-    local id language
-
-    # deterministically calculate an ID from the content.json hash
-    id="$(xxhsum "${1}")"
-    id=-$((16#${ID%% *}))
-
-    language="en"
-
-    jq "{\"annotations\": [{\"content\": {\"language\": \"${language}\"}, \"position\": [\"0\", null], \"updated_by\": \"2\", \"id\": \"lang_ann\", \"type\": \"language\"}], \"content\": ., \"media_type\": null, \"room_id\": 1000, \"id\": ${id}}" "${1}"
-}
-
-function _compute_cbert_vectors() {
-    _wrap_content "${1}" | curl -s 'localhost:4400/annotate/sentence_vectors?user_id=2' -X POST -T - -H 'Accept: application/json' -H 'Content-Type: application/json'
-}
-
-function annotate_contracttypes() {
-    _compute_cbert_vectors "${1}" > /dev/null
-    _wrap_content "${1}" | curl -s 'localhost:4400/annotate/concepts?user_id=2&type=contracttype' -X POST -T - -H 'Accept: application/json' -H 'Content-Type: application/json' | jq
-}
-
-function annotate_clauses() {
-    _compute_cbert_vectors "${1}" > /dev/null
-    _wrap_content "${1}" | curl -s 'localhost:4400/annotate/concepts?user_id=2&type=fragment:clause' -X POST -T - -H 'Accept: application/json' -H 'Content-Type: application/json' | jq
-}
-
-function annotate_entities() {
-    _compute_cbert_vectors "${1}" > /dev/null
-    local content query
-    local -a entities
-
-    content="${1}"
-
-    shift
-
-    if [ ${#@[@]} -eq 0 ]; then
-        entities=( "area" "currency" "datetime" "identifier" "law" "location" "paty" "percent" "timeperiod" "titles" "structure" )
-    else
-        entities=( "$@" )
-    fi
-
-    query=""
-    for entity in $entities; do
-        query+="&type=entity:${entity}"
-    done
-
-    _wrap_content "${content}" | curl -s "localhost:4400/annotate/entities?user_id=2${query}" -X POST -T - -H 'Accept: application/json' -H 'Content-Type: application/json' | jq
-}
-
-alias xsvt="xsv table"
-
 ## Customise highlighting (if enabled)
 if typeset -f fast-theme > /dev/null; then
   # on NixOS we are spammed with complains about a ro fs, so redirect everything to /dev/null
