@@ -32,6 +32,9 @@ in
           settings.linux_display_server = "x11"; # for window decorations
         }
       ];
+      zsh.shellAliases = {
+        open = "gio open";
+      };
     };
 
     services = {
