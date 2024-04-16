@@ -270,7 +270,7 @@ in {
           source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
         '';
         initExtra = ''
-          xsource ${../../config/zsh/zshrc.local}
+          source ${../../config/zsh/zshrc.local}
           source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
         '';
         envExtra = ''
