@@ -10,6 +10,8 @@
         packages = with pkgs; [ vial ];
       };
 
+      nixpkgs.config.rocmSupport = true;
+
       # Secrets
       sops.secrets.cachix_auth_token = { };
 
