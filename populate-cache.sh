@@ -38,12 +38,6 @@ git clone "${DIR}"
 
 cd nix-config
 
-if git-crypt lock; then
-  :
-else
-  [ $? -ne 1 ] && exit 2
-fi
-
 # Push all inputs
 nix --experimental-features 'nix-command flakes' flake archive --json |
   jq -r '.path,(.inputs|to_entries[].value.path)' |
