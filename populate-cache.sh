@@ -60,9 +60,9 @@ for i in "${DIR}"/nix/nixosConfigurations/*.nix; do
 done
 
 for i in "${DIR}"/nix/homeConfigurations/*.nix; do
-  name=$(basename "${name}" .nix)
+  name=$(basename "${i}" .nix)
 
-  if [[ ${i} == "default" ]]; then
+  if [[ ${name} == "default" ]]; then
     continue
   fi
   tobuild+=("${DIR}#homeConfigurations.${name}.activationPackage")
