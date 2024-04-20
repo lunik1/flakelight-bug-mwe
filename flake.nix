@@ -82,6 +82,12 @@
               viAlias = true;
             };
           })
+          # https://github.com/NixOS/nixpkgs/pull/305521
+          (self: super: {
+            gvisor = super.gvisor.overrideAttrs (old: {
+              meta.platforms = old.meta.platforms ++ [ "aarch64-linux" ];
+            });
+          })
         ];
 
         formatters = pkgs: with pkgs; {
