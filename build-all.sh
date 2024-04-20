@@ -3,6 +3,7 @@
 set -Eeuo pipefail
 
 # dir of this script
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 SYSTEM=$(nix-info | awk -v RS=, '{if ($1 == "system:") {gsub(/"/, "", $2); print $2;}}')
@@ -32,9 +33,9 @@ for i in "${DIR}"/nix/nixosConfigurations/*.nix; do
 done
 
 for i in "${DIR}"/nix/homeConfigurations/*.nix; do
-  name=$(basename "${name}" .nix)
+  name=$(basename "${i}" .nix)
 
-  if [[ ${i} == "default" ]]; then
+  if [[ ${name} == "default" ]]; then
     continue
   fi
   tobuild+=("${DIR}#homeConfigurations.${name}.activationPackage")
