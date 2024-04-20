@@ -33,7 +33,7 @@ in {
 
     qt = {
       enable = true;
-      platformTheme = if config.lunik1.home.gnome.enable then "gnome" else
+      platformTheme.name = if config.lunik1.home.gnome.enable then "gnome" else
       (if config.lunik1.home.kde.enable then "kde" else "gtk3");
       style = {
         package = pkgs.arc-kde-theme;
