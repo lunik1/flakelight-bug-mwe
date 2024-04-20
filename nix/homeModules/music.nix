@@ -7,9 +7,10 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs;
       [
-        feishin
         playerctl
         spotify
+
+        lunik1-nur.feishin-appimage
       ]
       ++ lib.optional config.lunik1.home.gui.enable spotify;
     programs = {
