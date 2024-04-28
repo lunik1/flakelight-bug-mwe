@@ -21,6 +21,12 @@ creation_rules:
           - *host_dionysus2
         pgp:
           - *pgp_corin
+  - path_regex: ^secrets/host/mercury2/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *host_mercury2
+        pgp:
+          - *pgp_corin
   - path_regex: ^secrets/host/tucson/[^/]+\.yaml$
     key_groups:
       - age:
