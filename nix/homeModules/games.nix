@@ -22,7 +22,7 @@ in {
       ludusavi
       rclone
     ]
-    ++ lib.optionals cfg.steam.enable [ steam steam-run ]
+    ++ lib.optionals cfg.steam.enable [ protontricks steam steam-run ]
     ++ lib.optionals cfg.emu.enable [
       ryujinx
       (retroarch.override {
