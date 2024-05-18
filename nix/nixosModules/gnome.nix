@@ -49,6 +49,7 @@ in
         gnome.gnome-tweaks
         gnome.dconf-editor
         cartridges
+        papers
       ] ++ (with pkgs.gnomeExtensions; [
         appindicator
         dash-to-dock
@@ -59,6 +60,7 @@ in
         lock-keys
       ]);
       gnome.excludePackages = (with pkgs; [
+        evince
         gedit
         gnome-connections
         gnome-console
