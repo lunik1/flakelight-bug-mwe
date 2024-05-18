@@ -46,9 +46,9 @@ in
     environment = {
       systemPackages = with pkgs; [
         blanket
+        cartridges
         gnome.gnome-tweaks
         gnome.dconf-editor
-        cartridges
         papers
       ] ++ (with pkgs.gnomeExtensions; [
         appindicator
