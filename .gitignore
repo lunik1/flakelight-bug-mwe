@@ -7,3 +7,7 @@
 # Nix
 result
 result-*
+
+# Babashka
+.clj-kondo/
+.lsp
