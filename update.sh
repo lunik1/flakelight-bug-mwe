@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -Eeuo pipefail
-
-# dir of this script
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-
-nix --experimental-features 'nix-command flakes' flake update "${DIR}" --commit-lock-file

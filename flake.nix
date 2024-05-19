@@ -12,6 +12,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wbba.url = "github:sohalt/write-babashka-application";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,6 +54,7 @@
         };
 
         withOverlays = [
+          inputs.wbba.overlays.default
           (self: super: { lunik1-nur = import inputs.lunik1-nur { pkgs = super; }; })
           (self: super: { nix-wallpaper = super.inputs'.nix-wallpaper.packages.default; })
           (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
@@ -66,6 +68,7 @@
 
         formatters = pkgs: with pkgs; {
           "*.nix" = "${nixpkgs-fmt}/bin/nixpkgs-fmt";
+          "*.bb" = "${cljfmt}/bin/cljfmt";
         };
 
         checks = {
@@ -81,6 +84,8 @@
         devShell = pkgs: {
           inherit (pkgs.outputs'.checks.pre-commit-check) shellHook;
           packages = with pkgs; [
+            outputs'.packages.ploy
+
             cachix
             coreutils
             gawk
@@ -95,6 +100,11 @@
             sops
             ssh-to-age
             statix
+
+            babashka
+            clojure-lsp
+            clj-kondo
+            cljfmt
           ];
         };
 

@@ -1,0 +1,183 @@
+#!/usr/bin/env bb
+;; mode: clojure -*-
+
+(ns ploy
+  (:require
+   [babashka.cli :as cli]
+   [babashka.fs :as fs]
+   [babashka.process :refer [shell process]]
+   [clojure.string :as str]
+   [cheshire.core :as json]))
+
+(def ^:private CACHIX-CACHE "lunik1-nix-config")
+
+(defn- get-home
+  []
+  (System/getProperty "user.home"))
+
+(defn- get-hostname
+  []
+  (.getHostName (java.net.InetAddress/getLocalHost)))
+
+(defn- nix
+  {:arglists '([opts? & args])}
+  [& args]
+  (let [[opts args] (if (map? (first args))
+                      [(first args) (rest args)]
+                      [{} args])]
+    (apply shell opts "nix" "--experimental-features" "nix-command flakes" args)))
+
+(defn- uncomitted-changes?
+  []
+  (-> (process "git" "diff" "--quiet" "HEAD")
+      deref
+      :exit
+      (not= 0)))
+
+(defn command-exists?
+  [cmd]
+  (-> (process ["which" cmd])
+      deref
+      :exit
+      (= 0)))
+
+(defn- super-user? []
+  (or (= "root" (System/getProperty "user.name"))
+      (= "0" (System/getenv "UID"))))
+
+(def ^:private flake-outputs
+  (json/parse-string (:out (nix {:out :string :err :string} "flake" "show" "--json")) true))
+
+(def ^:private devshell-outputs
+  (map #(format ".#devShells.%s.default" (name %))
+       (->> flake-outputs :devShells keys)))
+
+(defn- host->output
+  [host]
+  (format ".#nixosConfigurations.%s.config.system.build.toplevel" host))
+
+(defn- home->output
+  [home]
+  (format ".#homeConfigurations.%s.activationPackage" home))
+
+(def ^:private hosts
+  (->> flake-outputs
+       :nixosConfigurations
+       keys
+       (map name)
+       set))
+
+(def ^:private homes
+  ;; home configurations are not exposed by `nix flake show` but we can find
+  ;; them in :checks when using flakelight
+  (->> flake-outputs
+       :checks
+       vals
+       (reduce merge)
+       keys
+       (map name)
+       (filter #(str/starts-with? % "home-"))
+       (map #(str/replace % #"^home-" ""))
+       set))
+
+(def ^:private outputs
+  (concat devshell-outputs
+          (map host->output hosts)
+          (map home->output homes)))
+
+(def ^:private push-to-cachix
+  (partial
+   shell
+   "cachix" "push"
+   CACHIX-CACHE
+   "-j" (str (.availableProcessors (Runtime/getRuntime)))))
+
+(defn- maybe-update-font-cache
+  []
+  (when (command-exists? "fc-cache")
+    (println "Updating font cache.")
+    (shell "fc-cache")))
+
+(defn build-all
+  [_]
+  (apply nix "build" outputs))
+
+(defn install-home
+  [{{hostname :hostname} :opts}]
+  (nix "build" "-o" "./result" (home->output hostname))
+
+  ;; mimeapps.list has a bad habit of being modified and getting in the way
+  (fs/delete-if-exists (format "%s/.config/mimeapps.list" (get-home)))
+
+  ;; activate the new configuration
+  (shell "./result/activate")
+
+  (maybe-update-font-cache))
+
+(defn install-system
+  [{{hostname :hostname} :opts}]
+  (if (super-user?)
+    (do
+      (fs/delete-tree "/etc/nixos")
+      (fs/copy-tree "." "/etc/nixos")
+      (shell "nixos-rebuild" "switch" "--flake" (format "/etc/nixos#%s" hostname))
+      (maybe-update-font-cache))
+    (do
+      (println "Requires super user, aborting.")
+      (System/exit 19))))
+
+(defn populate-cache
+  [_]
+  (if (uncomitted-changes?)
+    (do
+      (println "Refusing to populate cache with uncommitted changes.")
+      (System/exit 1))
+    (as-> outputs $
+      (apply nix {:out :string} "build" "--json" $)
+      (:out $)
+      (json/parse-string $ true)
+      (map #(get-in % [:outputs :out]) $)
+      (apply push-to-cachix $))))
+
+(defn nix-check
+  [_]
+  (-> (nix {:continue true} "flake" "check")
+      :exit
+      System/exit))
+
+(defn update-lockfile [_]
+  (nix "flake" "update" "." "--commit-lock-file"))
+
+(defn default [_]
+  (println "Invalid command.")
+  (System/exit 1))
+
+(def table
+  [{:cmds ["update"] :fn update-lockfile}
+   {:cmds ["build-all"] :fn build-all}
+   {:cmds ["cache"] :fn populate-cache}
+   {:cmds ["check"] :fn nix-check}
+   {:cmds ["home"]
+    :fn install-home
+    :args->opts [:hostname]
+    :spec {:hostname {:default (let [hostname (get-hostname)]
+                                 (println (format "No hostname provided, using %s" hostname))
+                                 hostname)
+                      :validate #(contains? homes %)}}}
+   {:cmds ["system"]
+    :fn install-system
+    :args->opts [:hostname]
+    :spec {:hostname {:default (let [hostname (get-hostname)]
+                                 (println (format "No hostname provided, using %s" hostname))
+                                 hostname)
+                      :validate #(contains? homes %)}
+           :operation {:default "switch"
+                       :alias :p
+                       :validate #(contains? #{"switch" "boot" "test" "build"} %)}}}
+   {:cmds [] :fn default}])
+
+(defn -main [args]
+  ;; use :restrict true in next release https://github.com/babashka/cli/issues/98
+  (cli/dispatch table args {:error-fn #(println (:msg %))}))
+
+(-main *command-line-args*)
