@@ -283,8 +283,8 @@ in {
 
           # read sops secrets
           # secrets
-          [ -f "''${XDG_RUNTIME_DIR}/secrets/cachix_auth_token" ] \
-            && export CACHIX_AUTH_TOKEN=$(<"''${XDG_RUNTIME_DIR}/secrets/cachix_auth_token")
+          [ -f "${config.sops.secrets.cachix_auth_token.path}" ] \
+            && export CACHIX_AUTH_TOKEN=$(<"${config.sops.secrets.cachix_auth_token.path}")
         '';
         # Make TRAMP and zsh play nice
         # https://www.emacswiki.org/emacs/TrampMode#h5o-9
@@ -312,8 +312,11 @@ in {
       };
     };
 
-    sops.secrets.ssh_config = {
-      path = ".ssh/config";
+    sops.secrets = {
+      ssh_config = {
+        path = ".ssh/config";
+      };
+      cachix_auth_token = { };
     };
 
     xdg = {
