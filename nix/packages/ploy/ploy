@@ -104,27 +104,35 @@
 
 (defn install-home
   [{{hostname :hostname} :opts}]
-  (nix "build" "-o" "./result" (home->output hostname))
+  (let [hostname (or hostname
+                     (let [hostname (get-hostname)]
+                       (println (format "No hostname providedm using '%s'" hostname))
+                       hostname))]
+    (nix "build" "-o" "./result" (home->output hostname))
 
-  ;; mimeapps.list has a bad habit of being modified and getting in the way
-  (fs/delete-if-exists (format "%s/.config/mimeapps.list" (get-home)))
+    ;; mimeapps.list has a bad habit of being modified and getting in the way
+    (fs/delete-if-exists (format "%s/.config/mimeapps.list" (get-home)))
 
-  ;; activate the new configuration
-  (shell "./result/activate")
+    ;; activate the new configuration
+    (shell "./result/activate")
 
-  (maybe-update-font-cache))
+    (maybe-update-font-cache)))
 
 (defn install-system
   [{{hostname :hostname} :opts}]
-  (if (super-user?)
-    (do
-      (fs/delete-tree "/etc/nixos")
-      (fs/copy-tree "." "/etc/nixos")
-      (shell "nixos-rebuild" "switch" "--flake" (format "/etc/nixos#%s" hostname))
-      (maybe-update-font-cache))
-    (do
-      (println "Requires super user, aborting.")
-      (System/exit 19))))
+  (let [hostname (or hostname
+                     (let [hostname (get-hostname)]
+                       (println (format "No hostname providedm using '%s'" hostname))
+                       hostname))]
+    (if (super-user?)
+      (do
+        (fs/delete-tree "/etc/nixos")
+        (fs/copy-tree "." "/etc/nixos")
+        (shell "nixos-rebuild" "switch" "--flake" (format "/etc/nixos#%s" hostname))
+        (maybe-update-font-cache))
+      (do
+        (println "Requires super user, aborting.")
+        (System/exit 19)))))
 
 (defn populate-cache
   [_]
@@ -160,17 +168,11 @@
    {:cmds ["home"]
     :fn install-home
     :args->opts [:hostname]
-    :spec {:hostname {:default (let [hostname (get-hostname)]
-                                 (println (format "No hostname provided, using %s" hostname))
-                                 hostname)
-                      :validate #(contains? homes %)}}}
+    :spec {:hostname {:validate #(contains? homes %)}}}
    {:cmds ["system"]
     :fn install-system
     :args->opts [:hostname]
-    :spec {:hostname {:default (let [hostname (get-hostname)]
-                                 (println (format "No hostname provided, using %s" hostname))
-                                 hostname)
-                      :validate #(contains? homes %)}
+    :spec {:hostname {:validate #(contains? homes %)}
            :operation {:default "switch"
                        :alias :p
                        :validate #(contains? #{"switch" "boot" "test" "build"} %)}}}
