@@ -46,13 +46,7 @@
   outputs = { flakelight, ... }:
     flakelight ./. ({ lib, inputs, ... }:
       with lib;
-      {
-        flakelight.builtinFormatters = false;
-
-        nixpkgs.config = {
-          allowUnfree = true;
-        };
-
+      let
         withOverlays = [
           inputs.wbba.overlays.default
           (self: super: { lunik1-nur = import inputs.lunik1-nur { pkgs = super; }; })
@@ -65,6 +59,17 @@
             };
           })
         ];
+      in
+      {
+        flakelight.builtinFormatters = false;
+
+        nixpkgs.config = {
+          allowUnfree = true;
+        };
+
+        inherit withOverlays;
+
+        overlay = foldl' lib.composeExtensions (_: _: { }) withOverlays;
 
         formatters = pkgs: with pkgs; {
           "*.nix" = "${nixpkgs-fmt}/bin/nixpkgs-fmt";
