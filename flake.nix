@@ -47,6 +47,10 @@
     flakelight ./. ({ lib, inputs, ... }:
       with lib;
       let
+        nixpkgsConfig = {
+          allowUnfree = true;
+        };
+
         withOverlays = [
           inputs.wbba.overlays.default
           (self: super: { lunik1-nur = import inputs.lunik1-nur { pkgs = super; }; })
@@ -112,6 +116,8 @@
             cljfmt
           ];
         };
+
+        outputs.nixpkgsConfig = nixpkgsConfig;
 
         license = lib.licenses.bsd2Patent;
       });
