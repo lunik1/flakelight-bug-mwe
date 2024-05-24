@@ -10,7 +10,12 @@ in {
       lang.viml.enable = true;
     };
 
-    home = { sessionVariables.EDITOR = "nvim"; };
+    home = {
+      sessionVariables.EDITOR = "nvim";
+      packages = with pkgs; [
+        wl-clipboard
+      ];
+    };
 
     pam.sessionVariables.EDITOR = "nvim";
 
