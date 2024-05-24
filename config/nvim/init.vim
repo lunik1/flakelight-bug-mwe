@@ -1,5 +1,3 @@
-behave xterm
-
 "" Appearance
 set breakindent
 set colorcolumn=80
@@ -32,6 +30,7 @@ set ignorecase
 set incsearch
 set lazyredraw
 set mouse=a
+set mousemodel=extend
 set shiftwidth=4
 set smartcase
 set softtabstop=4
