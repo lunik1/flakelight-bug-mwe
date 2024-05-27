@@ -106,7 +106,7 @@
   [{{hostname :hostname} :opts}]
   (let [hostname (or hostname
                      (let [hostname (get-hostname)]
-                       (println (format "No hostname providedm using '%s'" hostname))
+                       (println (format "No hostname provided using '%s'" hostname))
                        hostname))]
     (nix "build" "-o" "./result" (home->output hostname))
 
@@ -122,7 +122,7 @@
   [{{hostname :hostname} :opts}]
   (let [hostname (or hostname
                      (let [hostname (get-hostname)]
-                       (println (format "No hostname providedm using '%s'" hostname))
+                       (println (format "No hostname provided using '%s'" hostname))
                        hostname))]
     (if (super-user?)
       (do
