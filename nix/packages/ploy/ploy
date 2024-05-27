@@ -63,7 +63,7 @@
 
 (defn- restart-container!
   [container]
-  (shell "podman" "restart" container))
+  (shell "systemctl" "restart" (format "podman-%s.service" container)))
 
 (defn- containers
   []
