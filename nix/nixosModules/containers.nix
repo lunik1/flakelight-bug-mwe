@@ -1,6 +1,6 @@
 # Setup for containers (podman)
 
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let cfg = config.lunik1.system.containers;
 in {
@@ -9,7 +9,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = with pkgs; [ arion ];
       variables = {
         COMPOSE_HTTP_TIMEOUT = "600";
         PGID = "100";

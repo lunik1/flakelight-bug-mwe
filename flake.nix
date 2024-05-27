@@ -46,10 +46,8 @@
   outputs = { flakelight, ... }:
     flakelight ./. ({ lib, inputs, ... }:
       with lib;
-      {
-        flakelight.builtinFormatters = false;
-
-        nixpkgs.config = {
+      let
+        nixpkgsConfig = {
           allowUnfree = true;
         };
 
@@ -65,6 +63,17 @@
             };
           })
         ];
+      in
+      {
+        flakelight.builtinFormatters = false;
+
+        nixpkgs.config = {
+          allowUnfree = true;
+        };
+
+        inherit withOverlays;
+
+        overlay = foldl' lib.composeExtensions (_: _: { }) withOverlays;
 
         formatters = pkgs: with pkgs; {
           "*.nix" = "${nixpkgs-fmt}/bin/nixpkgs-fmt";
@@ -107,6 +116,8 @@
             cljfmt
           ];
         };
+
+        outputs.nixpkgsConfig = nixpkgsConfig;
 
         license = lib.licenses.bsd2Patent;
       });

@@ -41,9 +41,44 @@
       :exit
       (= 0)))
 
-(defn- super-user? []
+(defn- super-user?
+  []
   (or (= "root" (System/getProperty "user.name"))
       (= "0" (System/getenv "UID"))))
+
+(def ^:private container-image
+  (memoize
+   (fn [container]
+     (-> (shell {:out :string} "podman" "inspect" container "--format" "{{.ImageName}}")
+         :out
+         str/trim))))
+
+(defn- image-digest
+  [image]
+  (-> (shell {:out :string} "podman" "inspect" image "--format" "{{index .RepoDigests 0}}")))
+
+(defn- pull-image!
+  [image]
+  (shell "podman" "pull" image))
+
+(defn- restart-container!
+  [container]
+  (shell "podman" "restart" container))
+
+(defn- containers
+  []
+  (->> (shell
+        {:out :string}
+        "systemctl" "list-units" "-t" "service" "--full" "--all" "--plain" "--no-legend" "podman-*")
+       :out
+       str/split-lines
+       (map (comp
+             second
+             first
+             #(re-seq #"^podman-(\w+).service$" %)
+             first
+             #(str/split % #"\s+")))
+       (remove nil?)))
 
 (def ^:private flake-outputs
   (json/parse-string (:out (nix {:out :string :err :string} "flake" "show" "--json")) true))
@@ -147,6 +182,29 @@
       (map #(get-in % [:outputs :out]) $)
       (apply push-to-cachix $))))
 
+(defn update-containers
+  [_]
+  (if (super-user?)
+    (let [containers (containers)
+          current-digests (->> containers
+                               (map (comp #(vector % (image-digest %))
+                                          container-image))
+                               (into {}))
+          images (keys current-digests)]
+      (run! pull-image! images)
+      (let [new-digests (->> images
+                             (map #(vector % (image-digest %)))
+                             (into {}))]
+        (run!
+         restart-container!
+         (filter
+          #(not= (current-digests (container-image %))
+                 (new-digests (container-image %)))
+          containers))))
+    (do
+      (println "Requires super user, aborting.")
+      (System/exit 19))))
+
 (defn nix-check
   [_]
   (-> (nix {:continue true} "flake" "check")
@@ -176,6 +234,7 @@
            :operation {:default "switch"
                        :alias :p
                        :validate #(contains? #{"switch" "boot" "test" "build"} %)}}}
+   {:cmds ["update-containers"] :fn update-containers}
    {:cmds [] :fn default}])
 
 (defn -main [args]
