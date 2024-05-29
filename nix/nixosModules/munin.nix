@@ -1,11 +1,6 @@
 # Munin system monitoring
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg = config.lunik1.system.munin;

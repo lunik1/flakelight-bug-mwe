@@ -1,11 +1,6 @@
 # For systems with sound
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg = config.lunik1.system.sound;

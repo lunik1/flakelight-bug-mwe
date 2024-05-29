@@ -31,7 +31,7 @@ in
       open-in-mpv
     ];
 
-    programs.mpv = rec {
+    programs.mpv = {
       enable = true;
       scripts = with pkgs.mpvScripts; [
         autoload

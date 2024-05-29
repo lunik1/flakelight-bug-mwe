@@ -1,11 +1,6 @@
 # Setup for systemd-boot bootloader
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg = config.lunik1.system.systemd-boot;

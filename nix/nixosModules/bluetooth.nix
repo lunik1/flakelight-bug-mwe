@@ -1,11 +1,6 @@
 # System bluetooth configuration
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg = config.lunik1.system.bluetooth;

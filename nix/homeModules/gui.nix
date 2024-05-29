@@ -6,7 +6,6 @@
 }:
 
 let
-  gruvbox = import ../../resources/colourschemes/gruvbox.nix;
   cfg = config.lunik1.home.gui;
 in
 {

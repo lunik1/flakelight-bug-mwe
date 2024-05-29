@@ -1,11 +1,6 @@
 # Module for machines connected to an APC UPS
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 with lib;
 

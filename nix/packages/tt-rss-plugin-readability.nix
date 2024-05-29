@@ -4,7 +4,7 @@
   fetchgit,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "tt-rss-plugin-readability";
   version = "unstable-2023-04-02";
 

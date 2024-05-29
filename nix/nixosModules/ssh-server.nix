@@ -1,11 +1,6 @@
 # Setup for ssh access
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg = config.lunik1.system.ssh-server;

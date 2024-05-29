@@ -1,6 +1,6 @@
 rec {
   dark = rec {
-    black = rec {
+    black = {
       normal = "#282828";
       bright = "#928374";
     };

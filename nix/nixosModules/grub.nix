@@ -1,12 +1,7 @@
 # Setup for GRUB bootloader
 # You will need to set boot.loader.grub.device!
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg = config.lunik1.system.grub;
