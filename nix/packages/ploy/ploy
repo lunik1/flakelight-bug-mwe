@@ -6,6 +6,7 @@
    [babashka.cli :as cli]
    [babashka.fs :as fs]
    [babashka.process :refer [shell process]]
+   [clojure.set :as set]
    [clojure.string :as str]
    [cheshire.core :as json]))
 
@@ -26,6 +27,15 @@
                       [(first args) (rest args)]
                       [{} args])]
     (apply shell opts "nix" "--experimental-features" "nix-command flakes" args)))
+
+(def ^:private nix-platforms
+  (memoize
+   (fn []
+     (let [nix-config (-> (nix {:out :string} "show-config" "--json")
+                          :out
+                          (json/parse-string true))]
+       (set (conj (-> nix-config :extra-platforms :value)
+                  (-> nix-config :system :value)))))))
 
 (defn- uncomitted-changes?
   []
@@ -84,8 +94,13 @@
   (json/parse-string (:out (nix {:out :string :err :string} "flake" "show" "--json")) true))
 
 (def ^:private devshell-outputs
-  (map #(format ".#devShells.%s.default" (name %))
-       (->> flake-outputs :devShells keys)))
+  (->> flake-outputs
+       :devShells
+       keys
+       (map name)
+       set
+       (set/intersection (nix-platforms))
+       (map #(format ".#devShells.%s.default" (name %)))))
 
 (defn- host->output
   [host]
