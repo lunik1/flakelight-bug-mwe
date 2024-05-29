@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.lang.sh;
-in {
+let
+  cfg = config.lunik1.home.lang.sh;
+in
+{
   options.lunik1.home.lang.sh.enable = lib.mkEnableOption "Shell";
 
   config = lib.mkIf cfg.enable {

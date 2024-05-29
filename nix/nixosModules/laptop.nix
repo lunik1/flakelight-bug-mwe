@@ -1,11 +1,17 @@
 # Settings for laptops
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.system.laptop;
-in {
-  options.lunik1.system.laptop.enable =
-    lib.mkEnableOption "laptop settings and programs";
+let
+  cfg = config.lunik1.system.laptop;
+in
+{
+  options.lunik1.system.laptop.enable = lib.mkEnableOption "laptop settings and programs";
 
   config = lib.mkIf cfg.enable {
     # Backlight

@@ -1,8 +1,14 @@
 # Module for systems that use GNOME
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.system;
+let
+  cfg = config.lunik1.system;
 in
 {
   options.lunik1.system = {
@@ -44,43 +50,48 @@ in
     };
 
     environment = {
-      systemPackages = with pkgs; [
-        blanket
-        cartridges
-        gnome.gnome-tweaks
-        gnome.dconf-editor
-        papers
-      ] ++ (with pkgs.gnomeExtensions; [
-        appindicator
-        dash-to-dock
-        hot-edge
-        fullscreen-avoider
-        gsconnect
-        hibernate-status-button
-        lock-keys
-      ]);
-      gnome.excludePackages = (with pkgs; [
-        evince
-        gedit
-        gnome-connections
-        gnome-console
-        gnome-photos
-        gnome-tour
-        gnome-usage
-        snapshot
-      ]) ++ (with pkgs.gnome; [
-        baobab
-        geary
-        gnome-characters
-        gnome-clocks
-        gnome-disk-utility
-        gnome-logs
-        gnome-maps
-        gnome-music
-        gnome-system-monitor
-        hitori
-        totem
-      ]);
+      systemPackages =
+        with pkgs;
+        [
+          blanket
+          cartridges
+          gnome.gnome-tweaks
+          gnome.dconf-editor
+          papers
+        ]
+        ++ (with pkgs.gnomeExtensions; [
+          appindicator
+          dash-to-dock
+          hot-edge
+          fullscreen-avoider
+          gsconnect
+          hibernate-status-button
+          lock-keys
+        ]);
+      gnome.excludePackages =
+        (with pkgs; [
+          evince
+          gedit
+          gnome-connections
+          gnome-console
+          gnome-photos
+          gnome-tour
+          gnome-usage
+          snapshot
+        ])
+        ++ (with pkgs.gnome; [
+          baobab
+          geary
+          gnome-characters
+          gnome-clocks
+          gnome-disk-utility
+          gnome-logs
+          gnome-maps
+          gnome-music
+          gnome-system-monitor
+          hitori
+          totem
+        ]);
     };
 
     hardware.pulseaudio.enable = false;

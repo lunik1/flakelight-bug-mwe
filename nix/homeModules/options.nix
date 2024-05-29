@@ -1,6 +1,11 @@
 # Global and misc options
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.lunik1.home = with lib; {

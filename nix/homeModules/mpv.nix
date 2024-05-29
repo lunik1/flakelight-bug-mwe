@@ -1,37 +1,50 @@
 # mpv configuration
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.lunik1.home.mpv;
+let
+  cfg = config.lunik1.home.mpv;
 in
 {
   options.lunik1.home.mpv = with types; {
     enable = mkEnableOption "mpv";
     profile = mkOption {
       default = "potato";
-      type = enum [ "potato" "placebo" ];
+      type = enum [
+        "potato"
+        "placebo"
+      ];
     };
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ playerctl xdg_utils open-in-mpv ];
+    home.packages = with pkgs; [
+      playerctl
+      xdg_utils
+      open-in-mpv
+    ];
 
     programs.mpv = rec {
       enable = true;
-      scripts = with pkgs.mpvScripts;
-        [
-          autoload
-          mpris
-          mpv-playlistmanager
-          sponsorblock
-          quality-menu
-          uosc
+      scripts = with pkgs.mpvScripts; [
+        autoload
+        mpris
+        mpv-playlistmanager
+        sponsorblock
+        quality-menu
+        uosc
 
-          pkgs.lunik1-nur.thumbfast
-        ];
-      config = with cfg;
+        pkgs.lunik1-nur.thumbfast
+      ];
+      config =
+        with cfg;
         {
           # Video
           vo = "gpu-next";
@@ -101,7 +114,8 @@ in
 
           # IPC
           input-ipc-server = "/tmp/mpvsocket";
-        } // optionalAttrs (profile == "potato") {
+        }
+        // optionalAttrs (profile == "potato") {
           vo = "gpu";
           scale = "bicubic_fast";
           cscale = "bicubic_fast";
@@ -115,7 +129,8 @@ in
           hwdec = "auto-safe";
 
           ytdl-format = "bestvideo[height<=1080]*+bestaudio/best[height<=1080]";
-        } // optionalAttrs (profile == "placebo") {
+        }
+        // optionalAttrs (profile == "placebo") {
           profile = "gpu-hq";
           scale = "ewa_lanczos";
           cscale = "ewa_lanczos";
@@ -131,11 +146,13 @@ in
           icc-3dlut-size = "266x256x256";
           # icc-cache-dir = "~/.cache/mpv/icc";
 
-          glsl-shaders = with pkgs.lunik1-nur; builtins.concatStringsSep ":" [
-            "${krig-bilateral}/share/krig-bilateral/KrigBilateral.glsl"
-            "${fsrcnnx-x2-16-0-4-1}/share/fsrcnnx/FSRCNNX_x2_16-0-4-1.glsl"
-            "${ssim-downscaler}/share/ssim-downscaler/SSimDownscaler.glsl"
-          ];
+          glsl-shaders =
+            with pkgs.lunik1-nur;
+            builtins.concatStringsSep ":" [
+              "${krig-bilateral}/share/krig-bilateral/KrigBilateral.glsl"
+              "${fsrcnnx-x2-16-0-4-1}/share/fsrcnnx/FSRCNNX_x2_16-0-4-1.glsl"
+              "${ssim-downscaler}/share/ssim-downscaler/SSimDownscaler.glsl"
+            ];
 
           ytdl-format = "bestvideo*+bestaudio/best";
         };
@@ -155,9 +172,15 @@ in
           demuxer-max-bytes = "4000MiB";
           demuxer-max-back-bytes = "4000MiB";
         };
-        "protocol.https" = { profile = "protocol.http"; };
-        "protocol.ytdl" = { profile = "protocol.http"; };
-        "protocol.smb" = { profile = "protocol.http"; };
+        "protocol.https" = {
+          profile = "protocol.http";
+        };
+        "protocol.ytdl" = {
+          profile = "protocol.http";
+        };
+        "protocol.smb" = {
+          profile = "protocol.http";
+        };
       };
     };
 

@@ -1,11 +1,17 @@
 # Settings for graphical systems
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.system.graphical;
-in {
-  options.lunik1.system.graphical.enable =
-    lib.mkEnableOption "graphical settings and programs";
+let
+  cfg = config.lunik1.system.graphical;
+in
+{
+  options.lunik1.system.graphical.enable = lib.mkEnableOption "graphical settings and programs";
 
   config = lib.mkIf cfg.enable {
     programs.dconf.enable = true;
@@ -14,9 +20,7 @@ in {
     environment.etc.xsettingsd = {
       target = "xdg/xsettingsd/xsettingsd.conf";
       text = ''
-        Xft/Hinting ${
-          if config.fonts.fontconfig.hinting.enable then "1" else "0"
-        }
+        Xft/Hinting ${if config.fonts.fontconfig.hinting.enable then "1" else "0"}
         Xft/Antialias ${if config.fonts.fontconfig.antialias then "1" else "0"}
         Xft/RGBA "${config.fonts.fontconfig.subpixel.rgba}"
       '';

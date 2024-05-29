@@ -1,9 +1,16 @@
 # For systems with sound
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.system.sound;
-in {
+let
+  cfg = config.lunik1.system.sound;
+in
+{
   options.lunik1.system.sound.enable = lib.mkEnableOption "sound";
 
   config = lib.mkIf cfg.enable {

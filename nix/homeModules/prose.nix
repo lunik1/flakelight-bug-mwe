@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.lang.prose;
-in {
+let
+  cfg = config.lunik1.home.lang.prose;
+in
+{
   options.lunik1.home.lang.prose.enable = lib.mkEnableOption "prose";
 
   config = lib.mkIf cfg.enable {

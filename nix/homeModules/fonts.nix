@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.fonts;
-in {
+let
+  cfg = config.lunik1.home.fonts;
+in
+{
   options.lunik1.home.fonts.enable = lib.mkEnableOption "fonts";
 
   config = lib.mkIf cfg.enable {

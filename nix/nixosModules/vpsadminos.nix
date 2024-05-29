@@ -4,14 +4,20 @@
 #
 # It may need to be synced with the upstream version if issues arise
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
-let cfg = config.lunik1.system.vpsadminos;
-in {
-  options.lunik1.system.vpsadminos.enable =
-    lib.mkEnableOption "vpsAdminOS compatibility";
+let
+  cfg = config.lunik1.system.vpsadminos;
+in
+{
+  options.lunik1.system.vpsadminos.enable = lib.mkEnableOption "vpsAdminOS compatibility";
 
   config = lib.mkIf cfg.enable {
     networking.dhcpcd.extraConfig = "noipv4ll";
@@ -24,18 +30,18 @@ in {
         oomd.enable = mkForce false;
       };
       sockets."systemd-journald-audit".enable = false;
-      mounts = [{
-        where = "/sys/kernel/debug";
-        enable = false;
-      }];
+      mounts = [
+        {
+          where = "/sys/kernel/debug";
+          enable = false;
+        }
+      ];
 
       # Due to our restrictions in /sys, the default systemd-udev-trigger fails
       # on accessing PCI devices, etc. Override it to match only network devices.
       # In addition, boot.isContainer prevents systemd-udev-trigger.service from
       # being enabled at all, so add it explicitly.
-      additionalUpstreamSystemUnits = [
-        "systemd-udev-trigger.service"
-      ];
+      additionalUpstreamSystemUnits = [ "systemd-udev-trigger.service" ];
       services.systemd-udev-trigger.serviceConfig.ExecStart = [
         ""
         "-udevadm trigger --subsystem-match=net --action=add"
@@ -47,8 +53,7 @@ in {
       enableContainers = mkDefault true;
       loader.initScript.enable = true;
       specialFileSystems."/run/keys".fsType = lib.mkForce "tmpfs";
-      systemdExecutable = mkDefault
-        "/run/current-system/systemd/lib/systemd/systemd systemd.unified_cgroup_hierarchy=0";
+      systemdExecutable = mkDefault "/run/current-system/systemd/lib/systemd/systemd systemd.unified_cgroup_hierarchy=0";
     };
 
     # Overrides for <nixpkgs/nixos/modules/virtualisation/container-config.nix>
@@ -61,8 +66,7 @@ in {
 
     # Bring up the network, /ifcfg.{add,del} are supplied by the vpsAdminOS host
     systemd.services.networking-setup = {
-      description =
-        "Load network configuration provided by the vpsAdminOS host";
+      description = "Load network configuration provided by the vpsAdminOS host";
       before = [ "network.target" ];
       wantedBy = [ "network.target" ];
       after = [ "network-pre.target" ];

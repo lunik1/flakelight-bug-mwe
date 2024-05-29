@@ -1,9 +1,16 @@
 # Module for systems that use the KDE DE
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.system;
-in {
+let
+  cfg = config.lunik1.system;
+in
+{
   options.lunik1.system = {
     kde.enable = lib.mkEnableOption "KDE";
     sddm.enable = lib.mkEnableOption "SDDM greeter";
@@ -30,9 +37,7 @@ in {
         libsForQt5.plasma-browser-integration
         latte-dock
       ];
-      plasma5.excludePackages = with pkgs.libsForQt5; [
-        elisa
-      ];
+      plasma5.excludePackages = with pkgs.libsForQt5; [ elisa ];
     };
 
     # SDDM

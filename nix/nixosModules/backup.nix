@@ -2,12 +2,19 @@
 # Will need to connect as root to Kopia backup server before with
 # kopia repositoty connect
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.lunik1.system.backup;
-in {
+let
+  cfg = config.lunik1.system.backup;
+in
+{
   options.lunik1.system.backup = with types; {
     enable = mkEnableOption "regular backups via Kopia";
     interval = mkOption {
@@ -15,7 +22,6 @@ in {
       type = str;
     };
   };
-
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ pkgs.kopia ];

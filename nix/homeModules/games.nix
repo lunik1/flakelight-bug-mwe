@@ -1,13 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.games;
-in {
+let
+  cfg = config.lunik1.home.games;
+in
+{
   options.lunik1.home.games = {
     saves.enable = lib.mkEnableOption "tools to manage game saves";
     steam.enable = lib.mkEnableOption "Enable Steam?";
     emu.enable = lib.mkEnableOption "Enable emulation? (RetroArch)";
-    cli.enable =
-      lib.mkEnableOption "Add games that can be played on a terminal";
+    cli.enable = lib.mkEnableOption "Add games that can be played on a terminal";
     freeciv.enable = lib.mkEnableOption "Enable Freeciv";
     df.enable = lib.mkEnableOption "Enable Dwarf Fortress";
     minecraft.enable = lib.mkEnableOption "Enable Minecraft";
@@ -17,31 +23,49 @@ in {
     osu.enable = lib.mkEnableOption "osu";
   };
 
-  config.home.packages = with pkgs;
-    (lib.optionals cfg.saves.enable [
-      ludusavi
-      rclone
-    ]
-    ++ lib.optionals cfg.steam.enable [ protontricks steam steam-run ]
-    ++ lib.optionals cfg.emu.enable [
-      ryujinx
-      (retroarch.override {
-        cores = [
-          libretro.beetle-psx
-          libretro.bsnes-mercury
-          libretro.mesen
-          libretro.mgba
-          libretro.nestopia
-          libretro.sameboy
-          libretro.thepowdertoy
-        ];
-      })
-    ] ++ lib.optionals cfg.cli.enable [ crawl nethack ]
-    ++ lib.optional cfg.freeciv.enable (if config.lunik1.home.kde.enable then freeciv_qt else freeciv_gtk)
-    ++ lib.optional cfg.df.enable dwarf-fortress-packages.dwarf-fortress-full
-    ++ lib.optional cfg.minecraft.enable (if config.lunik1.home.kde.enable then prismlauncher-qt5 else prismlauncher)
-    ++ lib.optional cfg.openrct2.enable openrct2
-    ++ lib.optional cfg.wesnoth.enable wesnoth
-    ++ lib.optionals cfg.dcss.enable [ crawl crawlTiles ])
+  config.home.packages =
+    with pkgs;
+    (
+      lib.optionals cfg.saves.enable [
+        ludusavi
+        rclone
+      ]
+      ++ lib.optionals cfg.steam.enable [
+        protontricks
+        steam
+        steam-run
+      ]
+      ++ lib.optionals cfg.emu.enable [
+        ryujinx
+        (retroarch.override {
+          cores = [
+            libretro.beetle-psx
+            libretro.bsnes-mercury
+            libretro.mesen
+            libretro.mgba
+            libretro.nestopia
+            libretro.sameboy
+            libretro.thepowdertoy
+          ];
+        })
+      ]
+      ++ lib.optionals cfg.cli.enable [
+        crawl
+        nethack
+      ]
+      ++ lib.optional cfg.freeciv.enable (
+        if config.lunik1.home.kde.enable then freeciv_qt else freeciv_gtk
+      )
+      ++ lib.optional cfg.df.enable dwarf-fortress-packages.dwarf-fortress-full
+      ++ lib.optional cfg.minecraft.enable (
+        if config.lunik1.home.kde.enable then prismlauncher-qt5 else prismlauncher
+      )
+      ++ lib.optional cfg.openrct2.enable openrct2
+      ++ lib.optional cfg.wesnoth.enable wesnoth
+      ++ lib.optionals cfg.dcss.enable [
+        crawl
+        crawlTiles
+      ]
+    )
     ++ lib.optionals cfg.osu.enable [ osu-lazer-bin ];
 }

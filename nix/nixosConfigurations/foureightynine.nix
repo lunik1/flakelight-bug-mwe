@@ -1,7 +1,13 @@
 {
   system = "x86_64-linux";
   modules = [
-    ({ lib, modulesPath, pkgs, ... }:
+    (
+      {
+        lib,
+        modulesPath,
+        pkgs,
+        ...
+      }:
 
       {
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ];
@@ -21,11 +27,13 @@
               "sdhci_pci"
               "rtsx_usb_sdmmc"
             ];
-            kernelModules = [ "dm-snapshot" "i915" ];
+            kernelModules = [
+              "dm-snapshot"
+              "i915"
+            ];
             luks.devices = {
               root = {
-                device =
-                  "/dev/disk/by-uuid/6a10e5fa-0a63-49cf-9c88-f3fa3ff78a83";
+                device = "/dev/disk/by-uuid/6a10e5fa-0a63-49cf-9c88-f3fa3ff78a83";
                 preLVM = true;
                 allowDiscards = true;
               };
@@ -34,7 +42,10 @@
 
           kernelModules = [ "kvm-intel" ];
           blacklistedKernelModules = [ "iCTO_wdt" ]; # watchdog module
-          kernelParams = [ "intel_pstate=active" "nowatchdog" ];
+          kernelParams = [
+            "intel_pstate=active"
+            "nowatchdog"
+          ];
           extraModulePackages = [ ];
         };
 
@@ -48,9 +59,7 @@
           fsType = "vfat";
         };
 
-        swapDevices = [{
-          device = "/dev/disk/by-uuid/23df6352-3bba-47ce-96fb-2c98ba1580e7";
-        }];
+        swapDevices = [ { device = "/dev/disk/by-uuid/23df6352-3bba-47ce-96fb-2c98ba1580e7"; } ];
 
         # No scheduler for non-rotational disks
         services.udev.extraRules = ''
@@ -104,6 +113,7 @@
           wrapperFeatures.gtk = true;
           extraPackages = [ ];
         };
-      })
+      }
+    )
   ];
 }

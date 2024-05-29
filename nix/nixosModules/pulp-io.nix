@@ -1,11 +1,17 @@
 # System printing and scanning configuration
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.system.pulp-io;
-in {
-  options.lunik1.system.pulp-io.enable =
-    lib.mkEnableOption "printing and scanning support";
+let
+  cfg = config.lunik1.system.pulp-io;
+in
+{
+  options.lunik1.system.pulp-io.enable = lib.mkEnableOption "printing and scanning support";
 
   config = lib.mkIf cfg.enable {
     hardware.sane = {
@@ -17,6 +23,9 @@ in {
       drivers = with pkgs; [ brlaser ];
     };
 
-    users.users.corin.extraGroups = [ "scanner" "lp" ];
+    users.users.corin.extraGroups = [
+      "scanner"
+      "lp"
+    ];
   };
 }

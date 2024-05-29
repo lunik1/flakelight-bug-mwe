@@ -1,9 +1,16 @@
 # GTK settings
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.gtk;
-in {
+let
+  cfg = config.lunik1.home.gtk;
+in
+{
   options.lunik1.home.gtk.enable = lib.mkEnableOption "GTK settings";
 
   config = lib.mkIf cfg.enable {
@@ -33,8 +40,11 @@ in {
 
     qt = {
       enable = true;
-      platformTheme.name = if config.lunik1.home.gnome.enable then "gnome" else
-      (if config.lunik1.home.kde.enable then "kde" else "gtk3");
+      platformTheme.name =
+        if config.lunik1.home.gnome.enable then
+          "gnome"
+        else
+          (if config.lunik1.home.kde.enable then "kde" else "gtk3");
       style = {
         package = pkgs.arc-kde-theme;
         name = "Arc";

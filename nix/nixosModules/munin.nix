@@ -1,12 +1,17 @@
 # Munin system monitoring
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.system.munin;
+let
+  cfg = config.lunik1.system.munin;
 in
 {
-  options.lunik1.system.munin.enable =
-    lib.mkEnableOption "munin";
+  options.lunik1.system.munin.enable = lib.mkEnableOption "munin";
 
   config = lib.mkIf cfg.enable {
     services = {

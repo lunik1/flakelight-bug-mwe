@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   gruvbox = import ../../resources/colourschemes/gruvbox.nix;
@@ -10,7 +15,8 @@ in
   config = lib.mkIf cfg.enable {
     home = {
       sessionVariables.NIXOS_OZONE_WL = "1";
-      packages = with pkgs;
+      packages =
+        with pkgs;
         [
           bitwarden
           bleachbit
@@ -29,15 +35,23 @@ in
           lunik1-nur.amazing-marvin
           lunik1-nur.bach
           lunik1-nur.myosevka.aile
-        ] ++ (if config.lunik1.home.kde.enable then [
-          libreoffice-qt
-          lxqt.pavucontrol-qt
-        ] else [
-          libreoffice-fresh
-          pavucontrol
-        ]);
+        ]
+        ++ (
+          if config.lunik1.home.kde.enable then
+            [
+              libreoffice-qt
+              lxqt.pavucontrol-qt
+            ]
+          else
+            [
+              libreoffice-fresh
+              pavucontrol
+            ]
+        );
 
-      sessionVariables = { MOZ_WEBRENDER = "1"; };
+      sessionVariables = {
+        MOZ_WEBRENDER = "1";
+      };
     };
 
     programs = {
@@ -46,10 +60,8 @@ in
         enable = true;
         package = pkgs.floorp.override {
           cfg.nativeMessagingHosts.packages =
-            lib.optionals config.lunik1.kde.enable
-              [ pkgs.plasma5Packages.plasma-browser-integration ]
-            ++ lib.optionals config.lunik1.gnome.enable
-              [ pkgs.gnome-browser-connector ];
+            lib.optionals config.lunik1.kde.enable [ pkgs.plasma5Packages.plasma-browser-integration ]
+            ++ lib.optionals config.lunik1.gnome.enable [ pkgs.gnome-browser-connector ];
         };
         profiles.corin = {
           isDefault = true;
@@ -155,21 +167,16 @@ in
           "x-scheme-handler/vnd.libreoffice.cmis" = [ "startcenter.desktop" ];
 
           "application/vnd.oasis.opendocument.spreadsheet" = [ "calc.desktop" ];
-          "application/vnd.oasis.opendocument.spreadsheet-template" =
-            [ "calc.desktop" ];
+          "application/vnd.oasis.opendocument.spreadsheet-template" = [ "calc.desktop" ];
           "application/vnd.sun.xml.calc" = [ "calc.desktop" ];
           "application/vnd.sun.xml.calc.template" = [ "calc.desktop" ];
           "application/msexcel" = [ "calc.desktop" ];
           "application/vnd.ms-excel" = [ "calc.desktop" ];
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" =
-            [ "calc.desktop" ];
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = [ "calc.desktop" ];
           "application/vnd.ms-excel.sheet.macroEnabled.12" = [ "calc.desktop" ];
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.template" =
-            [ "calc.desktop" ];
-          "application/vnd.ms-excel.template.macroEnabled.12" =
-            [ "calc.desktop" ];
-          "application/vnd.ms-excel.sheet.binary.macroEnabled.12" =
-            [ "calc.desktop" ];
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.template" = [ "calc.desktop" ];
+          "application/vnd.ms-excel.template.macroEnabled.12" = [ "calc.desktop" ];
+          "application/vnd.ms-excel.sheet.binary.macroEnabled.12" = [ "calc.desktop" ];
           "text/csv" = [ "calc.desktop" ];
           "application/x-dbf" = [ "calc.desktop" ];
           "text/spreadsheet" = [ "calc.desktop" ];
@@ -178,8 +185,7 @@ in
           "application/tab-separated-values" = [ "calc.desktop" ];
           "application/vnd.lotus-1-2-3" = [ "calc.desktop" ];
           "application/vnd.oasis.opendocument.chart" = [ "calc.desktop" ];
-          "application/vnd.oasis.opendocument.chart-template" =
-            [ "calc.desktop" ];
+          "application/vnd.oasis.opendocument.chart-template" = [ "calc.desktop" ];
           "application/x-dbase" = [ "calc.desktop" ];
           "application/x-dos_ms_excel" = [ "calc.desktop" ];
           "application/x-excel" = [ "calc.desktop" ];
@@ -191,49 +197,35 @@ in
           "text/tab-separated-values" = [ "calc.desktop" ];
           "text/x-comma-separated-values" = [ "calc.desktop" ];
           "text/x-csv" = [ "calc.desktop" ];
-          "application/vnd.oasis.opendocument.spreadsheet-flat-xml" =
-            [ "calc.desktop" ];
+          "application/vnd.oasis.opendocument.spreadsheet-flat-xml" = [ "calc.desktop" ];
           "application/x-iwork-numbers-sffnumbers" = [ "calc.desktop" ];
           "application/x-starcalc" = [ "calc.desktop" ];
 
-          "application/vnd.oasis.opendocument.presentation" =
-            [ "impress.desktop" ];
-          "application/vnd.oasis.opendocument.presentation-template" =
-            [ "impress.desktop" ];
+          "application/vnd.oasis.opendocument.presentation" = [ "impress.desktop" ];
+          "application/vnd.oasis.opendocument.presentation-template" = [ "impress.desktop" ];
           "application/vnd.sun.xml.impress" = [ "impress.desktop" ];
           "application/vnd.sun.xml.impress.template" = [ "impress.desktop" ];
           "application/mspowerpoint" = [ "impress.desktop" ];
           "application/vnd.ms-powerpoint" = [ "impress.desktop" ];
-          "application/vnd.openxmlformats-officedocument.presentationml.presentation" =
-            [ "impress.desktop" ];
-          "application/vnd.ms-powerpoint.presentation.macroEnabled.12" =
-            [ "impress.desktop" ];
-          "application/vnd.openxmlformats-officedocument.presentationml.template" =
-            [ "impress.desktop" ];
-          "application/vnd.ms-powerpoint.template.macroEnabled.12" =
-            [ "impress.desktop" ];
-          "application/vnd.openxmlformats-officedocument.presentationml.slide" =
-            [ "impress.desktop" ];
-          "application/vnd.openxmlformats-officedocument.presentationml.slideshow" =
-            [ "impress.desktop" ];
-          "application/vnd.ms-powerpoint.slideshow.macroEnabled.12" =
-            [ "impress.desktop" ];
-          "application/vnd.oasis.opendocument.presentation-flat-xml" =
-            [ "impress.desktop" ];
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [ "impress.desktop" ];
+          "application/vnd.ms-powerpoint.presentation.macroEnabled.12" = [ "impress.desktop" ];
+          "application/vnd.openxmlformats-officedocument.presentationml.template" = [ "impress.desktop" ];
+          "application/vnd.ms-powerpoint.template.macroEnabled.12" = [ "impress.desktop" ];
+          "application/vnd.openxmlformats-officedocument.presentationml.slide" = [ "impress.desktop" ];
+          "application/vnd.openxmlformats-officedocument.presentationml.slideshow" = [ "impress.desktop" ];
+          "application/vnd.ms-powerpoint.slideshow.macroEnabled.12" = [ "impress.desktop" ];
+          "application/vnd.oasis.opendocument.presentation-flat-xml" = [ "impress.desktop" ];
           "application/x-iwork-keynote-sffkey" = [ "impress.desktop" ];
 
           "application/vnd.oasis.opendocument.formula" = [ "math.desktop" ];
           "application/vnd.sun.xml.math" = [ "math.desktop" ];
-          "application/vnd.oasis.opendocument.formula-template" =
-            [ "math.desktop" ];
+          "application/vnd.oasis.opendocument.formula-template" = [ "math.desktop" ];
           "text/mathml" = [ "math.desktop" ];
           "application/mathml+xml" = [ "math.desktop" ];
 
           "application/vnd.oasis.opendocument.graphics" = [ "draw.desktop" ];
-          "application/vnd.oasis.opendocument.graphics-flat-xml" =
-            [ "draw.desktop" ];
-          "application/vnd.oasis.opendocument.graphics-template" =
-            [ "draw.desktop" ];
+          "application/vnd.oasis.opendocument.graphics-flat-xml" = [ "draw.desktop" ];
+          "application/vnd.oasis.opendocument.graphics-template" = [ "draw.desktop" ];
           "application/vnd.sun.xml.draw" = [ "draw.desktop" ];
           "application/vnd.sun.xml.draw.template" = [ "draw.desktop" ];
           "application/vnd.visio" = [ "draw.desktop" ];
@@ -250,13 +242,10 @@ in
           "application/vnd.sun.xml.base" = [ "base.desktop" ];
 
           "application/vnd.oasis.opendocument.text" = [ "writer.desktop" ];
-          "application/vnd.oasis.opendocument.text-template" =
-            [ "writer.desktop" ];
+          "application/vnd.oasis.opendocument.text-template" = [ "writer.desktop" ];
           "application/vnd.oasis.opendocument.text-web" = [ "writer.desktop" ];
-          "application/vnd.oasis.opendocument.text-master" =
-            [ "writer.desktop" ];
-          "application/vnd.oasis.opendocument.text-master-template" =
-            [ "writer.desktop" ];
+          "application/vnd.oasis.opendocument.text-master" = [ "writer.desktop" ];
+          "application/vnd.oasis.opendocument.text-master-template" = [ "writer.desktop" ];
           "application/vnd.sun.xml.writer" = [ "writer.desktop" ];
           "application/vnd.sun.xml.writer.template" = [ "writer.desktop" ];
           "application/vnd.sun.xml.writer.global" = [ "writer.desktop" ];
@@ -269,20 +258,15 @@ in
           "application/vnd.wordperfect" = [ "writer.desktop" ];
           "application/wordperfect" = [ "writer.desktop" ];
           "application/vnd.lotus-wordpro" = [ "writer.desktop" ];
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
-            [ "writer.desktop" ];
-          "application/vnd.ms-word.document.macroEnabled.12" =
-            [ "writer.desktop" ];
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.template" =
-            [ "writer.desktop" ];
-          "application/vnd.ms-word.template.macroEnabled.12" =
-            [ "writer.desktop" ];
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [ "writer.desktop" ];
+          "application/vnd.ms-word.document.macroEnabled.12" = [ "writer.desktop" ];
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.template" = [ "writer.desktop" ];
+          "application/vnd.ms-word.template.macroEnabled.12" = [ "writer.desktop" ];
           "application/vnd.ms-works" = [ "writer.desktop" ];
           "application/vnd.stardivision.writer-global" = [ "writer.desktop" ];
           "application/x-extension-txt" = [ "writer.desktop" ];
           "application/x-t602" = [ "writer.desktop" ];
-          "application/vnd.oasis.opendocument.text-flat-xml" =
-            [ "writer.desktop" ];
+          "application/vnd.oasis.opendocument.text-flat-xml" = [ "writer.desktop" ];
           "application/x-fictionbook+xml" = [ "writer.desktop" ];
           "application/macwriteii" = [ "writer.desktop" ];
           "application/x-aportisdoc" = [ "writer.desktop" ];

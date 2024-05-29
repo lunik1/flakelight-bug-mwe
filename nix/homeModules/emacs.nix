@@ -1,9 +1,16 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
-let cfg = config.lunik1.home.emacs;
-in {
+let
+  cfg = config.lunik1.home.emacs;
+in
+{
   options.lunik1.home.emacs = {
     enable = mkEnableOption "emacs";
     gui = mkOption {
@@ -21,16 +28,23 @@ in {
         withGTK3 = cfg.gui;
         withPgtk = cfg.gui;
       };
-      emacs-package = with pkgs;
-        if stdenv.isDarwin then emacs29-macport
-        else emacs29.override settings;
+      emacs-package = with pkgs; if stdenv.isDarwin then emacs29-macport else emacs29.override settings;
     in
     {
       lunik1.home.git.enable = true;
 
       home = {
-        packages = with pkgs;
-          [ fd glslang gnuplot graphviz pandoc ripgrep sqlite.bin ]
+        packages =
+          with pkgs;
+          [
+            fd
+            glslang
+            gnuplot
+            graphviz
+            pandoc
+            ripgrep
+            sqlite.bin
+          ]
           ++ optionals cfg.gui [
             emacs-all-the-icons-fonts
             emacs-lsp-booster
@@ -50,8 +64,7 @@ in {
       programs.emacs = {
         enable = true;
         package = emacs-package;
-        extraPackages = epkgs:
-          [ epkgs.vterm ];
+        extraPackages = epkgs: [ epkgs.vterm ];
       };
 
       services = {

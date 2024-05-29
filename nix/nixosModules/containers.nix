@@ -2,10 +2,11 @@
 
 { config, lib, ... }:
 
-let cfg = config.lunik1.system.containers;
-in {
-  options.lunik1.system.containers.enable =
-    lib.mkEnableOption "containerisation";
+let
+  cfg = config.lunik1.system.containers;
+in
+{
+  options.lunik1.system.containers.enable = lib.mkEnableOption "containerisation";
 
   config = lib.mkIf cfg.enable {
     environment = {

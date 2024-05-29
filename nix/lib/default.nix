@@ -5,9 +5,7 @@ let
     environment = {
       TZ = timeZone;
     };
-    volumes = [
-      "/etc/localtime:/etc/localtime:ro"
-    ];
+    volumes = [ "/etc/localtime:/etc/localtime:ro" ];
     extraOptions = [
       "--mount=type=tmpfs,destination=/tmp,tmpfs-mode=777"
       "--mount=type=tmpfs,destination=/run,tmpfs-mode=777"
@@ -30,5 +28,10 @@ rec {
 
   mkPodmanNetwork = mkPodmanResource "network";
 
-  mkPodmanContainer = timeZone: cfg: lib.mkMerge [ (containerDefaults timeZone) cfg ];
+  mkPodmanContainer =
+    timeZone: cfg:
+    lib.mkMerge [
+      (containerDefaults timeZone)
+      cfg
+    ];
 }

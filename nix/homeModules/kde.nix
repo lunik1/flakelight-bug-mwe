@@ -1,12 +1,17 @@
 # Tools and settings for KDE systems
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.kde;
+let
+  cfg = config.lunik1.home.kde;
 in
 {
-  options.lunik1.home.kde.enable =
-    lib.mkEnableOption "user KDE tools and settings";
+  options.lunik1.home.kde.enable = lib.mkEnableOption "user KDE tools and settings";
 
   config = lib.mkIf cfg.enable {
     assertions = [

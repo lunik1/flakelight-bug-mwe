@@ -1,11 +1,20 @@
 {
   system = "x86_64-linux";
   modules = [
-    ({ config, pkgs, modulesPath, ... }:
+    (
+      {
+        config,
+        pkgs,
+        modulesPath,
+        ...
+      }:
       {
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-        environment.systemPackages = with pkgs; [ nfs-utils cifs-utils ];
+        environment.systemPackages = with pkgs; [
+          nfs-utils
+          cifs-utils
+        ];
 
         ## System-specific config incl. hardware scan
         networking.hostName = "tucson";
@@ -31,7 +40,11 @@
               "usbhid"
               "sd_mod"
             ];
-            kernelModules = [ "dm-snapshot" "i2c-dev" "i2c-piix4" ];
+            kernelModules = [
+              "dm-snapshot"
+              "i2c-dev"
+              "i2c-piix4"
+            ];
           };
 
           binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -58,12 +71,17 @@
           device = "//192.168.0.20/storage";
           fsType = "cifs";
           noCheck = true;
-          options = [ "x-systemd.automount" "x-systemd.mount-timeout=30" "noauto" "nofail" "_netdev" "credentials=${config.sops.secrets.samba-credentials.path}" ];
+          options = [
+            "x-systemd.automount"
+            "x-systemd.mount-timeout=30"
+            "noauto"
+            "nofail"
+            "_netdev"
+            "credentials=${config.sops.secrets.samba-credentials.path}"
+          ];
         };
 
-        swapDevices = [{
-          device = "/dev/disk/by-uuid/67f65c58-4d31-4ea4-8b70-44d1e98a48e0";
-        }];
+        swapDevices = [ { device = "/dev/disk/by-uuid/67f65c58-4d31-4ea4-8b70-44d1e98a48e0"; } ];
 
         # No scheduler for non-rotational disks
         services.udev.extraRules = ''
@@ -118,6 +136,7 @@
           systemd-boot.enable = true;
           zswap.enable = true;
         };
-      })
+      }
+    )
   ];
 }

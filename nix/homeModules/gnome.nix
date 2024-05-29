@@ -1,12 +1,17 @@
 # Tools and settings for GNOME systems
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.gnome;
+let
+  cfg = config.lunik1.home.gnome;
 in
 {
-  options.lunik1.home.gnome.enable =
-    lib.mkEnableOption "user GNOME tools and settings";
+  options.lunik1.home.gnome.enable = lib.mkEnableOption "user GNOME tools and settings";
 
   config = lib.mkIf cfg.enable {
     assertions = [
@@ -16,9 +21,7 @@ in
       }
     ];
 
-    home.packages = with pkgs; [
-      mission-center
-    ];
+    home.packages = with pkgs; [ mission-center ];
 
     programs = {
       firefox = {

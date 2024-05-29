@@ -1,9 +1,16 @@
 # # File sync - MEGA and Syncthing
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home;
-in {
+let
+  cfg = config.lunik1.home;
+in
+{
   options.lunik1.home = {
     megacmd.enable = lib.mkEnableOption "MEGAcmd";
     megasync.enable = lib.mkEnableOption "MEGAsync";
@@ -11,12 +18,15 @@ in {
   };
 
   config = {
-    home.packages = with pkgs;
-      lib.optional cfg.megacmd.enable megacmd
-      ++ lib.optional cfg.megasync.enable megasync;
+    home.packages =
+      with pkgs;
+      lib.optional cfg.megacmd.enable megacmd ++ lib.optional cfg.megasync.enable megasync;
 
-    services =
-      lib.mkIf cfg.syncthing.enable { syncthing = { enable = true; }; };
+    services = lib.mkIf cfg.syncthing.enable {
+      syncthing = {
+        enable = true;
+      };
+    };
 
     systemd.user = lib.mkIf cfg.megacmd.enable {
       startServices = "sd-switch";

@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.lang.data;
-in {
+let
+  cfg = config.lunik1.home.lang.data;
+in
+{
   options.lunik1.home.lang.data.enable = lib.mkEnableOption "data formats";
 
   config = lib.mkIf cfg.enable {

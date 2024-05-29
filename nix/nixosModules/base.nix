@@ -1,8 +1,15 @@
 # Base config, common to all machines
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let sopsKeyFile = "/etc/ssh/sops_key"; in
+let
+  sopsKeyFile = "/etc/ssh/sops_key";
+in
 {
   boot = {
     tmp.cleanOnBoot = true;
@@ -73,11 +80,14 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
     ];
   };
 
-  i18n = { defaultLocale = "en_GB.UTF-8"; };
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+  };
   console = {
     keyMap = "uk";
-    font = lib.mkOverride 1499 # option defult prio is 1500
-      "Lat2-Terminus16";
+    font =
+      lib.mkOverride 1499 # option defult prio is 1500
+        "Lat2-Terminus16";
   };
   time.timeZone = "Europe/London";
 
@@ -145,7 +155,10 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
     zsh.enable = true;
     nano.syntaxHighlight = true;
     iftop.enable = true;
-    ssh.hostKeyAlgorithms = [ "ssh-ed25519" "rsa-sha2-512" ];
+    ssh.hostKeyAlgorithms = [
+      "ssh-ed25519"
+      "rsa-sha2-512"
+    ];
   };
 
   services = {
@@ -165,19 +178,18 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
   # Sops
   system.activationScripts = {
     # Generate an ed25519 key for usage with age/sops
-    genereate-sops-ed25519 =
-      ''
-        if [ ! -f ${sopsKeyFile} ]; then
-          ${pkgs.coreutils}/bin/mkdir \
-            -p \
-            $(${pkgs.coreutils}/bin/dirname ${sopsKeyFile})
-          ${pkgs.openssh}/bin/ssh-keygen \
-            -t ed25519 \
-            -f ${sopsKeyFile} \
-            -C "sops-${config.networking.hostName}" \
-            -N ""
-        fi
-      '';
+    genereate-sops-ed25519 = ''
+      if [ ! -f ${sopsKeyFile} ]; then
+        ${pkgs.coreutils}/bin/mkdir \
+          -p \
+          $(${pkgs.coreutils}/bin/dirname ${sopsKeyFile})
+        ${pkgs.openssh}/bin/ssh-keygen \
+          -t ed25519 \
+          -f ${sopsKeyFile} \
+          -C "sops-${config.networking.hostName}" \
+          -N ""
+      fi
+    '';
   };
 
   sops = {
@@ -188,7 +200,12 @@ let sopsKeyFile = "/etc/ssh/sops_key"; in
 
   users.users.corin = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "video" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "audio"
+      "video"
+      "networkmanager"
+    ];
     shell = pkgs.zsh;
     hashedPasswordFile = config.sops.secrets.corin_password.path;
   };

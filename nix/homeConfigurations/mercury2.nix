@@ -1,23 +1,25 @@
 {
   system = "aarch64-linux";
-  modules = [{
-    home = {
-      username = "corin";
-      homeDirectory = "/home/corin";
-      stateVersion = "23.05";
-    };
+  modules = [
+    {
+      home = {
+        username = "corin";
+        homeDirectory = "/home/corin";
+        stateVersion = "23.05";
+      };
 
-    lunik1.home = {
-      vpsAdminOs = true;
+      lunik1.home = {
+        vpsAdminOs = true;
 
-      core.enable = true;
-      cli.enable = true;
+        core.enable = true;
+        cli.enable = true;
 
-      git.enable = true;
-      gpg.enable = true;
-      neovim.enable = true;
+        git.enable = true;
+        gpg.enable = true;
+        neovim.enable = true;
 
-      lang.nix.enable = true;
-    };
-  }];
+        lang.nix.enable = true;
+      };
+    }
+  ];
 }

@@ -1,11 +1,17 @@
 # Settings for WSL systems
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.wsl;
-in {
-  options.lunik1.home.wsl.enable =
-    lib.mkEnableOption "settings for WSL systems";
+let
+  cfg = config.lunik1.home.wsl;
+in
+{
+  options.lunik1.home.wsl.enable = lib.mkEnableOption "settings for WSL systems";
 
   config = lib.mkIf cfg.enable {
     home.sessionVariables.LIBGL_ALWAYS_INDIRECT = 1;

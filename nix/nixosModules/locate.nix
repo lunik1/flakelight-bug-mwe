@@ -1,11 +1,18 @@
 # Enable locate
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.lunik1.system.locate;
-in {
+let
+  cfg = config.lunik1.system.locate;
+in
+{
   options.lunik1.system.locate = with types; {
     enable = mkEnableOption "locate";
     interval = mkOption {

@@ -1,60 +1,75 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.cli;
-in {
+let
+  cfg = config.lunik1.home.cli;
+in
+{
   options.lunik1.home.cli.enable = lib.mkEnableOption "CLI programs";
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = with pkgs; [
-        (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
-        bat-extras.batgrep
-        cargo
-        copier
-        croc
-        duf
-        emv
-        eternal-terminal
-        fd
-        ffmpeg-full
-        file
-        fontconfig
-        ghostscript
-        imagemagick
-        libarchive
-        lrzip
-        lz4
-        ncdu
-        nix-tree
-        p7zip
-        parallel
-        q
-        rename
-        ripgrep
-        rmlint
-        rsync
-        sd
-        streamlink
-        stress-ng
-        tree
-        unar
-        unzip
-        kopia
-        webwormhole
-        wget
-        xxHash
-        yazi
-        zsh-completions
-      ] ++ lib.optionals stdenv.isLinux [
-        cfspeedtest
-        pb_cli
-        parted
-        psmisc
-        smartmontools
-        xfsdump
-      ] ++ lib.optionals (stdenv.isLinux && stdenv.isx86_64) [
-        lunik1-nur.efficient-compression-tool
-      ];
+      packages =
+        with pkgs;
+        [
+          (aspellWithDicts (
+            dicts: with dicts; [
+              en
+              en-computers
+              en-science
+            ]
+          ))
+          bat-extras.batgrep
+          cargo
+          copier
+          croc
+          duf
+          emv
+          eternal-terminal
+          fd
+          ffmpeg-full
+          file
+          fontconfig
+          ghostscript
+          imagemagick
+          libarchive
+          lrzip
+          lz4
+          ncdu
+          nix-tree
+          p7zip
+          parallel
+          q
+          rename
+          ripgrep
+          rmlint
+          rsync
+          sd
+          streamlink
+          stress-ng
+          tree
+          unar
+          unzip
+          kopia
+          webwormhole
+          wget
+          xxHash
+          yazi
+          zsh-completions
+        ]
+        ++ lib.optionals stdenv.isLinux [
+          cfspeedtest
+          pb_cli
+          parted
+          psmisc
+          smartmontools
+          xfsdump
+        ]
+        ++ lib.optionals (stdenv.isLinux && stdenv.isx86_64) [ lunik1-nur.efficient-compression-tool ];
 
       sessionVariables = {
         ET_NO_TELEMETRY = "1";
@@ -84,7 +99,8 @@ in {
         xcompose = {
           # Some applications (emacs, firefox, …) seem to ignore include
           # directives, so let's just concatenate all the files together
-          text = with pkgs.lunik1-nur;
+          text =
+            with pkgs.lunik1-nur;
             (builtins.readFile "${xcompose}/dotXCompose")
             + (builtins.readFile "${xcompose}/frakturcompose")
             + (builtins.readFile "${xcompose}/emoji.compose")
@@ -104,17 +120,19 @@ in {
     programs = {
       aria2 = {
         enable = true;
-        settings = {
-          continue = true;
-          file-allocation = "falloc";
-          max-connection-per-server = 16;
-          min-split-size = "8M";
-          no-file-allocation-limit = "8M";
-          on-download-complete = "exit";
-          split = 32;
-        } // lib.optionalAttrs config.lunik1.home.wsl.enable {
-          ca-certificate = "/etc/ssl/ca-bundle.pem"; #openSUSE location
-        };
+        settings =
+          {
+            continue = true;
+            file-allocation = "falloc";
+            max-connection-per-server = 16;
+            min-split-size = "8M";
+            no-file-allocation-limit = "8M";
+            on-download-complete = "exit";
+            split = 32;
+          }
+          // lib.optionalAttrs config.lunik1.home.wsl.enable {
+            ca-certificate = "/etc/ssl/ca-bundle.pem"; # openSUSE location
+          };
       };
       atuin = {
         enable = true;
@@ -144,70 +162,68 @@ in {
       };
       btop = {
         enable = true;
-        settings = {
-          theme_background = true;
-          truecolor = true;
-          force_tty = false;
-          presets =
-            "cpu:1:default,proc:0:default cpu:0:default,mem:0:default,net:0:default cpu:0:block,net:0:tty";
-          rounded_corners = true;
-          graph_symbol = "braille";
-          graph_symbol_cpu = "default";
-          graph_symbol_mem = "default";
-          graph_symbol_net = "default";
-          graph_symbol_proc = "default";
-          shown_boxes = "cpu mem net proc gpu0";
-          update_ms = 2000;
-          proc_sorting = "cpu lazy";
-          proc_reversed = false;
-          proc_tree = false;
-          proc_colors = true;
-          proc_gradient = true;
-          proc_per_core = true;
-          proc_mem_bytes = true;
-          proc_info_smaps = false;
-          proc_left = true;
-          cpu_graph_upper = "total";
-          cpu_graph_lower = "total";
-          cpu_invert_lower = true;
-          cpu_single_graph = false;
-          cpu_bottom = false;
-          show_uptime = true;
-          check_temp = true;
-          cpu_sensor = "Auto";
-          show_coretemp = true;
-          cpu_core_map = "";
-          temp_scale = "celsius";
-          show_cpu_freq = true;
-          clock_format = "%X";
-          background_update = true;
-          custom_cpu_name = "";
-          disks_filter = "";
-          mem_graphs = true;
-          mem_below_net = true;
-          show_swap = true;
-          swap_disk = false;
-          show_disks = true;
-          only_physical = true;
-          use_fstab = false;
-          show_io_stat = true;
-          io_mode = false;
-          io_graph_combined = false;
-          io_graph_speeds = "";
-          net_download = 100;
-          net_upload = 100;
-          net_auto = true;
-          net_sync = false;
-          net_iface = "";
-          show_battery = true;
-          log_level = "DISABLED";
-          color_theme = "${pkgs.btop}/share/btop/themes/gruvbox_dark.theme";
-        }
-        # btop will crash if it tries to access /sys/class/power_supply
-        # in vpsAdminOS
-        // lib.optionalAttrs config.lunik1.home.vpsAdminOs {
-          show_battery = false;
-        };
+        settings =
+          {
+            theme_background = true;
+            truecolor = true;
+            force_tty = false;
+            presets = "cpu:1:default,proc:0:default cpu:0:default,mem:0:default,net:0:default cpu:0:block,net:0:tty";
+            rounded_corners = true;
+            graph_symbol = "braille";
+            graph_symbol_cpu = "default";
+            graph_symbol_mem = "default";
+            graph_symbol_net = "default";
+            graph_symbol_proc = "default";
+            shown_boxes = "cpu mem net proc gpu0";
+            update_ms = 2000;
+            proc_sorting = "cpu lazy";
+            proc_reversed = false;
+            proc_tree = false;
+            proc_colors = true;
+            proc_gradient = true;
+            proc_per_core = true;
+            proc_mem_bytes = true;
+            proc_info_smaps = false;
+            proc_left = true;
+            cpu_graph_upper = "total";
+            cpu_graph_lower = "total";
+            cpu_invert_lower = true;
+            cpu_single_graph = false;
+            cpu_bottom = false;
+            show_uptime = true;
+            check_temp = true;
+            cpu_sensor = "Auto";
+            show_coretemp = true;
+            cpu_core_map = "";
+            temp_scale = "celsius";
+            show_cpu_freq = true;
+            clock_format = "%X";
+            background_update = true;
+            custom_cpu_name = "";
+            disks_filter = "";
+            mem_graphs = true;
+            mem_below_net = true;
+            show_swap = true;
+            swap_disk = false;
+            show_disks = true;
+            only_physical = true;
+            use_fstab = false;
+            show_io_stat = true;
+            io_mode = false;
+            io_graph_combined = false;
+            io_graph_speeds = "";
+            net_download = 100;
+            net_upload = 100;
+            net_auto = true;
+            net_sync = false;
+            net_iface = "";
+            show_battery = true;
+            log_level = "DISABLED";
+            color_theme = "${pkgs.btop}/share/btop/themes/gruvbox_dark.theme";
+          }
+          # btop will crash if it tries to access /sys/class/power_supply
+          # in vpsAdminOS
+          // lib.optionalAttrs config.lunik1.home.vpsAdminOs { show_battery = false; };
       };
       dircolors = {
         enable = true;
@@ -217,7 +233,9 @@ in {
       direnv = {
         enable = true;
         enableZshIntegration = true;
-        nix-direnv = { enable = true; };
+        nix-direnv = {
+          enable = true;
+        };
       };
       htop = {
         enable = true;
@@ -260,7 +278,9 @@ in {
         enable = true;
         enableCompletion = true;
         enableVteIntegration = true;
-        history = { size = 50000; };
+        history = {
+          size = 50000;
+        };
         dirHashes = {
           conf = "$HOME/nix-config";
           code = "$HOME/code";

@@ -1,15 +1,27 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.git;
+let
+  cfg = config.lunik1.home.git;
 in
 {
   options.lunik1.home.git.enable = lib.mkEnableOption "git";
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = with pkgs; [ git-crypt glab pre-commit ];
+      packages = with pkgs; [
+        git-crypt
+        glab
+        pre-commit
+      ];
 
-      sessionVariables = { PRE_COMMIT_ALLOW_NO_CONFIG = "1"; };
+      sessionVariables = {
+        PRE_COMMIT_ALLOW_NO_CONFIG = "1";
+      };
     };
 
     sops.secrets = {

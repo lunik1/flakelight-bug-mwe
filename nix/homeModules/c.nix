@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.lang.c;
-in {
+let
+  cfg = config.lunik1.home.lang.c;
+in
+{
   options.lunik1.home.lang.c.enable = lib.mkEnableOption "C/C++";
 
   config = lib.mkIf cfg.enable {

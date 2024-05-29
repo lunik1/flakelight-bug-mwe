@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.neovim;
-in {
+let
+  cfg = config.lunik1.home.neovim;
+in
+{
   options.lunik1.home.neovim.enable = lib.mkEnableOption "Neovim";
 
   config = lib.mkIf cfg.enable {
@@ -12,9 +19,7 @@ in {
 
     home = {
       sessionVariables.EDITOR = "nvim";
-      packages = with pkgs; [
-        wl-clipboard
-      ];
+      packages = with pkgs; [ wl-clipboard ];
     };
 
     pam.sessionVariables.EDITOR = "nvim";
@@ -40,7 +45,12 @@ in {
         vimAlias = true;
         vimdiffAlias = true;
         withNodeJs = true;
-        extraPackages = with pkgs; [ fd ripgrep wl-clipboard xclip ];
+        extraPackages = with pkgs; [
+          fd
+          ripgrep
+          wl-clipboard
+          xclip
+        ];
         plugins = with pkgs.vimPlugins; [
           {
             plugin = cmp-nvim-lsp;
@@ -129,14 +139,12 @@ in {
           {
             plugin = nvim-lspconfig;
             type = "lua";
-            config =
-              builtins.readFile ../../config/nvim/plugins/nvim-lspconfig.lua;
+            config = builtins.readFile ../../config/nvim/plugins/nvim-lspconfig.lua;
           }
           {
             plugin = nvim-treesitter;
             type = "lua";
-            config =
-              builtins.readFile ../../config/nvim/plugins/nvim-treesitter.lua;
+            config = builtins.readFile ../../config/nvim/plugins/nvim-treesitter.lua;
           }
           nvim-treesitter-textobjects
           # nvim-web-devicons

@@ -1,7 +1,15 @@
 {
   system = "aarch64-linux";
   modules = [
-    ({ config, pkgs, lib, modulesPath, flake, ... }:
+    (
+      {
+        config,
+        pkgs,
+        lib,
+        modulesPath,
+        flake,
+        ...
+      }:
       let
         boincPort = 8080;
         favaPort = 5000;
@@ -10,9 +18,7 @@
         wallabagPort = 4109;
       in
       {
-        require = [
-          (modulesPath + "/installer/scan/not-detected.nix")
-        ];
+        require = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
         boot = {
           kernelPackages = pkgs.linuxPackages;
@@ -28,14 +34,21 @@
         ];
 
         fileSystems = {
-          "/" = { device = "/dev/disk/by-label/nixos"; fsType = "xfs"; };
-          "/boot" = { device = "/dev/disk/by-label/boot"; fsType = "vfat"; };
-          "/var/lib" = { device = "/dev/disk/by-label/state"; fsType = "xfs"; };
+          "/" = {
+            device = "/dev/disk/by-label/nixos";
+            fsType = "xfs";
+          };
+          "/boot" = {
+            device = "/dev/disk/by-label/boot";
+            fsType = "vfat";
+          };
+          "/var/lib" = {
+            device = "/dev/disk/by-label/state";
+            fsType = "xfs";
+          };
         };
 
-        swapDevices = [
-          { device = "/dev/disk/by-label/swap"; }
-        ];
+        swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
         security.acme = {
           acceptTerms = true;
@@ -90,21 +103,26 @@
         services = {
           nginx =
             let
-              mkNginxProxy = { proxyPass, auth ? true, webSocket ? false, extraConfig ? { } }: {
-                forceSSL = true;
-                quic = true;
-                sslCertificate = "/var/lib/acme/lunik.one/cert.pem";
-                sslCertificateKey = "/var/lib/acme/lunik.one/key.pem";
-                sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                locations."/" = {
-                  inherit proxyPass;
-                  recommendedProxySettings = true;
-                } // lib.optionalAttrs webSocket {
-                  proxyWebsockets = true;
-                };
-              } // lib.optionalAttrs auth {
-                basicAuthFile = config.sops.secrets.htaccess.path;
-              } // extraConfig;
+              mkNginxProxy =
+                {
+                  proxyPass,
+                  auth ? true,
+                  webSocket ? false,
+                  extraConfig ? { },
+                }:
+                {
+                  forceSSL = true;
+                  quic = true;
+                  sslCertificate = "/var/lib/acme/lunik.one/cert.pem";
+                  sslCertificateKey = "/var/lib/acme/lunik.one/key.pem";
+                  sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+                  locations."/" = {
+                    inherit proxyPass;
+                    recommendedProxySettings = true;
+                  } // lib.optionalAttrs webSocket { proxyWebsockets = true; };
+                }
+                // lib.optionalAttrs auth { basicAuthFile = config.sops.secrets.htaccess.path; }
+                // extraConfig;
 
               localhost = port: "http://localhost:${toString port}";
             in
@@ -118,86 +136,88 @@
               recommendedBrotliSettings = true;
               sslProtocols = "TLSv1.2 TLSv1.3";
 
-              virtualHosts = {
-                default = {
-                  default = true;
-                  rejectSSL = true;
-                  locations."/".return = "444";
-                };
-                "lunik.one" = {
-                  forceSSL = true;
-                  quic = true;
-                  locations."/".root = "/srv/www";
-                  sslCertificate = "/var/lib/acme/lunik.one/cert.pem";
-                  sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                  sslCertificateKey = "/var/lib/acme/lunik.one/key.pem";
-                };
-                ${config.services.tt-rss.virtualHost} = {
-                  serverName = "tt-rss.lunik.one";
-                  forceSSL = true;
-                  quic = true;
-                  basicAuthFile = config.sops.secrets.htaccess.path;
-                  sslCertificate = "/var/lib/acme/lunik.one/cert.pem";
-                  sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                  sslCertificateKey = "/var/lib/acme/lunik.one/key.pem";
-                };
-              } // builtins.listToAttrs (map
-                (proxy: {
-                  name = proxy.vhost;
-                  value = mkNginxProxy (builtins.removeAttrs proxy [ "vhost" ]);
-                })
-                [
-                  {
-                    vhost = "atuin.lunik.one";
-                    proxyPass = localhost config.services.atuin.port;
-                    auth = false;
-                  }
-                  {
-                    vhost = "boinc.lunik.one";
-                    proxyPass = localhost boincPort;
-                    webSocket = true;
-                  }
-                  {
-                    vhost = "fava.lunik.one";
-                    proxyPass = localhost favaPort;
-                  }
-                  {
-                    vhost = "rsshub.lunik.one";
-                    proxyPass = localhost rssHubPort;
-                  }
-                  {
-                    vhost = "synapse.lunik.one";
-                    proxyPass = "http://unix:${toString (builtins.head config.services.matrix-synapse.settings.listeners).path}";
-                    auth = false;
-                  }
-                  {
-                    vhost = "syncthing.lunik.one";
-                    proxyPass = "http://unix:${config.services.syncthing.guiAddress}";
-                  }
-                  {
-                    vhost = "quetre.lunik.one";
-                    proxyPass = localhost quetrePort;
-                  }
-                  {
-                    vhost = "thelounge.lunik.one";
-                    proxyPass = localhost config.services.thelounge.port;
-                    auth = false;
-                  }
-                  {
-                    vhost = "wallabag.lunik.one";
-                    proxyPass = localhost wallabagPort;
-                    auth = false;
-                  }
-                ]);
+              virtualHosts =
+                {
+                  default = {
+                    default = true;
+                    rejectSSL = true;
+                    locations."/".return = "444";
+                  };
+                  "lunik.one" = {
+                    forceSSL = true;
+                    quic = true;
+                    locations."/".root = "/srv/www";
+                    sslCertificate = "/var/lib/acme/lunik.one/cert.pem";
+                    sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+                    sslCertificateKey = "/var/lib/acme/lunik.one/key.pem";
+                  };
+                  ${config.services.tt-rss.virtualHost} = {
+                    serverName = "tt-rss.lunik.one";
+                    forceSSL = true;
+                    quic = true;
+                    basicAuthFile = config.sops.secrets.htaccess.path;
+                    sslCertificate = "/var/lib/acme/lunik.one/cert.pem";
+                    sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+                    sslCertificateKey = "/var/lib/acme/lunik.one/key.pem";
+                  };
+                }
+                // builtins.listToAttrs (
+                  map
+                    (proxy: {
+                      name = proxy.vhost;
+                      value = mkNginxProxy (builtins.removeAttrs proxy [ "vhost" ]);
+                    })
+                    [
+                      {
+                        vhost = "atuin.lunik.one";
+                        proxyPass = localhost config.services.atuin.port;
+                        auth = false;
+                      }
+                      {
+                        vhost = "boinc.lunik.one";
+                        proxyPass = localhost boincPort;
+                        webSocket = true;
+                      }
+                      {
+                        vhost = "fava.lunik.one";
+                        proxyPass = localhost favaPort;
+                      }
+                      {
+                        vhost = "rsshub.lunik.one";
+                        proxyPass = localhost rssHubPort;
+                      }
+                      {
+                        vhost = "synapse.lunik.one";
+                        proxyPass = "http://unix:${toString (builtins.head config.services.matrix-synapse.settings.listeners).path}";
+                        auth = false;
+                      }
+                      {
+                        vhost = "syncthing.lunik.one";
+                        proxyPass = "http://unix:${config.services.syncthing.guiAddress}";
+                      }
+                      {
+                        vhost = "quetre.lunik.one";
+                        proxyPass = localhost quetrePort;
+                      }
+                      {
+                        vhost = "thelounge.lunik.one";
+                        proxyPass = localhost config.services.thelounge.port;
+                        auth = false;
+                      }
+                      {
+                        vhost = "wallabag.lunik.one";
+                        proxyPass = localhost wallabagPort;
+                        auth = false;
+                      }
+                    ]
+                );
             };
 
           postgresql = {
             enable = true;
             package = pkgs.postgresql_16_jit;
             enableTCPIP = true;
-            ensureDatabases = [
-              "wallabag"
-            ];
+            ensureDatabases = [ "wallabag" ];
             authentication = ''
               # podman containers
               host all all 10.0.0.0/0 trust
@@ -208,7 +228,12 @@
             startAt = "03:45:00";
             pgdumpOptions = "-Fc -Z zstd";
             compression = "none";
-            databases = [ "atuin" "matrix-synapse" "tt_rss" "wallabag" ];
+            databases = [
+              "atuin"
+              "matrix-synapse"
+              "tt_rss"
+              "wallabag"
+            ];
           };
 
           redis = {
@@ -234,30 +259,43 @@
               public_baseurl = "https://synapse.lunik.one";
               max_upload_size = "100M";
               max_image_pixels = "64M";
-              listeners = [{
-                path = "/run/matrix-synapse/matrix-synapse.sock";
-                mode = "660";
-                type = "http";
-                x_forwarded = true;
-                resources = [{
-                  names = [ "client" "federation" ];
-                  compress = false;
-                }];
-              }];
+              listeners = [
+                {
+                  path = "/run/matrix-synapse/matrix-synapse.sock";
+                  mode = "660";
+                  type = "http";
+                  x_forwarded = true;
+                  resources = [
+                    {
+                      names = [
+                        "client"
+                        "federation"
+                      ];
+                      compress = false;
+                    }
+                  ];
+                }
+              ];
               enable_registration = false;
               suppress_key_server_warning = true;
               trusted_key_servers = [
                 {
                   server_name = "matrix.org";
-                  verify_keys = { "ed25519:auto" = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw"; };
+                  verify_keys = {
+                    "ed25519:auto" = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
+                  };
                 }
                 {
                   server_name = "nixos.org";
-                  verify_keys = { "ed25519:j8tsLm" = "ysJrOC8kica9QA/fOCQT/lHJvcyCDnr1lCvXN0wsxwA"; };
+                  verify_keys = {
+                    "ed25519:j8tsLm" = "ysJrOC8kica9QA/fOCQT/lHJvcyCDnr1lCvXN0wsxwA";
+                  };
                 }
                 {
                   server_name = "mozilla.org";
-                  verify_keys = { "ed25519:0" = "RsDggkM9GntoPcYySc8AsjvGoD0LVz5Ru/B/o5hV9h4"; };
+                  verify_keys = {
+                    "ed25519:0" = "RsDggkM9GntoPcYySc8AsjvGoD0LVz5Ru/B/o5hV9h4";
+                  };
                 }
               ];
             };
@@ -280,7 +318,11 @@
             enable = true;
             selfUrlPath = "https://tt-rss.lunik.one";
             singleUserMode = true;
-            plugins = [ "auth_internal" "cache_starred_images" "toggle_sidebar" ];
+            plugins = [
+              "auth_internal"
+              "cache_starred_images"
+              "toggle_sidebar"
+            ];
             pluginPackages = [ pkgs.tt-rss-plugin-readability ];
             logDestination = "sql";
             database.createLocally = true;
@@ -302,48 +344,32 @@
           {
             boinc = mkPodmanContainer {
               image = "lscr.io/linuxserver/boinc";
-              volumes = [
-                "boinc:/config:rw"
-              ];
-              ports = [
-                "${toString boincPort}:8080"
-              ];
-              extraOptions = [
-                "--security-opt=seccomp:unconfined"
-              ];
+              volumes = [ "boinc:/config:rw" ];
+              ports = [ "${toString boincPort}:8080" ];
+              extraOptions = [ "--security-opt=seccomp:unconfined" ];
             };
 
             quetre = mkPodmanContainer {
               image = "codeberg.org/video-prize-ranch/quetre";
-              volumes = [
-                "/etc/localtime:/etc/localtime:ro"
-              ];
-              ports = [
-                "${toString quetrePort}:3000"
-              ];
+              volumes = [ "/etc/localtime:/etc/localtime:ro" ];
+              ports = [ "${toString quetrePort}:3000" ];
             };
 
             rsshub = mkPodmanContainer {
               image = "diygod/rsshub:chromium-bundled";
               ports = [ "${toString rssHubPort}:1200" ];
-              volumes = [
-                "${config.services.redis.servers.rsshub.unixSocket}:/run/redis/redis.sock"
-              ];
+              volumes = [ "${config.services.redis.servers.rsshub.unixSocket}:/run/redis/redis.sock" ];
               environment = {
                 NODE_ENV = "production";
                 CACHE_TYPE = "redis";
                 REDIS_URL = "unix:///run/redis/redis.sock";
               };
-              extraOptions = [
-                "--network=rss"
-              ];
+              extraOptions = [ "--network=rss" ];
             };
 
             wallabag = mkPodmanContainer {
               image = "wallabag/wallabag";
-              environmentFiles = [
-                config.sops.secrets.wallabag-env.path
-              ];
+              environmentFiles = [ config.sops.secrets.wallabag-env.path ];
               environment = {
                 POSTGRES_USER = "wallabag";
                 SYMFONY__ENV__DATABASE_HOST = "host.containers.internal";
@@ -360,12 +386,8 @@
                 "${config.services.redis.servers.wallabag.unixSocket}:/run/redis/redis.sock"
                 "wallabag-images:/var/www/wallabag/web/assets/images"
               ];
-              ports = [
-                "${builtins.toString wallabagPort}:80"
-              ];
-              extraOptions = [
-                "--network=rss"
-              ];
+              ports = [ "${builtins.toString wallabagPort}:80" ];
+              extraOptions = [ "--network=rss" ];
             };
           };
 
@@ -379,15 +401,18 @@
               fava = {
                 description = "Fava Web UI for Beancount";
                 after = [ "network.target" ];
-                wants = [ "syncthing.service" "nginx.service" ];
+                wants = [
+                  "syncthing.service"
+                  "nginx.service"
+                ];
                 wantedBy = [ "multi-user.target" ];
                 serviceConfig = {
                   Type = "simple";
                   ExecStart =
-                    "${pkgs.fava}/bin/fava " +
-                    "--host 0.0.0.0 " +
-                    "-p ${toString favaPort} " +
-                    "--read-only /var/lib/syncthing/ledger/ledger.beancount";
+                    "${pkgs.fava}/bin/fava "
+                    + "--host 0.0.0.0 "
+                    + "-p ${toString favaPort} "
+                    + "--read-only /var/lib/syncthing/ledger/ledger.beancount";
                   User = "syncthing";
                   UMask = "0177";
                   LockPersonality = true;
@@ -422,7 +447,10 @@
               };
               php-fpm-tt-rss = rec {
                 partOf = [ "rss.target" ];
-                wants = [ "nginx.service" "podman-rsshub.service" ];
+                wants = [
+                  "nginx.service"
+                  "podman-rsshub.service"
+                ];
                 after = wants;
               };
               thelounge = {
@@ -435,10 +463,10 @@
                 startAt = "Sat *-*-8..14 04:47:00"; # second saturday of the month @ 04:47 am
                 serviceConfig = {
                   ExecStart =
-                    "${lib.getExe' pkgs.matrix-synapse-tools.rust-synapse-compress-state "synapse_auto_compressor"} " +
-                    "-p 'user=matrix-synapse dbname=matrix-synapse host=/run/postgresql' " +
-                    "-c 2000 " +
-                    "-n 500";
+                    "${lib.getExe' pkgs.matrix-synapse-tools.rust-synapse-compress-state "synapse_auto_compressor"} "
+                    + "-p 'user=matrix-synapse dbname=matrix-synapse host=/run/postgresql' "
+                    + "-c 2000 "
+                    + "-n 500";
                   User = "matrix-synapse";
                   Type = "oneshot";
                   Nice = 15;
@@ -489,9 +517,15 @@
                 partOf = [ "privacy-frontends.target" ];
               };
               podman-rsshub = {
-                requires = [ "redis-rsshub.service" "podman-network-rss.service" ];
+                requires = [
+                  "redis-rsshub.service"
+                  "podman-network-rss.service"
+                ];
                 partOf = [ "rss.target" ];
-                after = [ "redis-rsshub.service" "podman-network-rss.service" ];
+                after = [
+                  "redis-rsshub.service"
+                  "podman-network-rss.service"
+                ];
               };
               podman-wallabag = {
                 requires = [
@@ -524,19 +558,19 @@
 
           tmpfiles.rules = [
             "L+ /srv/www/.well-known/matrix/server - - - - ${
-                builtins.toFile "server" (builtins.toJSON {
-                  "m.server" = "synapse.lunik.one:443";
-                })
-              }"
+              builtins.toFile "server" (builtins.toJSON { "m.server" = "synapse.lunik.one:443"; })
+            }"
             "L+ /srv/www/.well-known/matrix/client - - - - ${
-                builtins.toFile "client" (builtins.toJSON {
-                  "m.homeserver".base_url = "https://lunik.one";
-                })
-              }"
+              builtins.toFile "client" (builtins.toJSON { "m.homeserver".base_url = "https://lunik.one"; })
+            }"
           ];
         };
 
-        users.users.nginx.extraGroups = [ "acme" "matrix-synapse" "syncthing" ];
+        users.users.nginx.extraGroups = [
+          "acme"
+          "matrix-synapse"
+          "syncthing"
+        ];
 
         lunik1.system = {
           backup.enable = true;

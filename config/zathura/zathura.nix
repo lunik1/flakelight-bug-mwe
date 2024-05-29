@@ -1,5 +1,7 @@
-let gruvbox = import ../../resources/colourschemes/gruvbox.nix;
-in {
+let
+  gruvbox = import ../../resources/colourschemes/gruvbox.nix;
+in
+{
   font = "Myosevka 12";
 
   notification-error-bg = gruvbox.dark.bg;

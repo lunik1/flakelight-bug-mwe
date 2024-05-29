@@ -43,8 +43,10 @@
     };
   };
 
-  outputs = { flakelight, ... }:
-    flakelight ./. ({ lib, inputs, ... }:
+  outputs =
+    { flakelight, ... }:
+    flakelight ./. (
+      { lib, inputs, ... }:
       with lib;
       let
         nixpkgsConfig = {
@@ -81,19 +83,25 @@
 
         overlay = foldl' lib.composeExtensions (_: _: { }) withOverlays;
 
-        formatters = pkgs: with pkgs; {
-          "*.nix" = "${nixpkgs-fmt}/bin/nixpkgs-fmt";
-          "*.bb" = "${cljfmt}/bin/cljfmt";
-        };
+        formatters =
+          pkgs: with pkgs; {
+            "*.nix" = "${nixfmt-rfc-style}/bin/nixfmt";
+            "*.bb" = "${cljfmt}/bin/cljfmt";
+          };
 
         checks = {
-          pre-commit-check = pkgs: pkgs.inputs'.pre-commit-hooks.lib.run {
-            src = ./.;
-            hooks = {
-              nixpkgs-fmt.enable = true;
-              shellcheck.enable = true;
+          pre-commit-check =
+            pkgs:
+            pkgs.inputs'.pre-commit-hooks.lib.run {
+              src = ./.;
+              hooks = {
+                nixfmt = {
+                  enable = true;
+                  package = pkgs.nixfmt-rfc-style;
+                };
+                shellcheck.enable = true;
+              };
             };
-          };
         };
 
         devShell = pkgs: {
@@ -105,7 +113,7 @@
             coreutils
             gawk
             jq
-            nixpkgs-fmt
+            nixfmt-rfc-style
             nix-info
             nixpkgs-lint-community
             nodePackages_latest.prettier
@@ -126,5 +134,6 @@
         outputs.nixpkgsConfig = nixpkgsConfig;
 
         license = lib.licenses.bsd2Patent;
-      });
+      }
+    );
 }

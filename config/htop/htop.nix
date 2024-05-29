@@ -30,8 +30,38 @@
   tree_view = 1;
   update_process_names = true;
   vim_mode = true;
-  left_meters = [ "AllCPUs" "Blank" "CPU" "Blank" "LoadAverage" "Tasks" ];
-  left_meter_modes = [ 1 2 3 2 2 2 ];
-  right_meters = [ "Memory" "Memory" "Blank" "Swap" "Swap" "Blank" "Uptime" ];
-  right_meter_modes = [ 3 2 2 3 2 2 2 ];
+  left_meters = [
+    "AllCPUs"
+    "Blank"
+    "CPU"
+    "Blank"
+    "LoadAverage"
+    "Tasks"
+  ];
+  left_meter_modes = [
+    1
+    2
+    3
+    2
+    2
+    2
+  ];
+  right_meters = [
+    "Memory"
+    "Memory"
+    "Blank"
+    "Swap"
+    "Swap"
+    "Blank"
+    "Uptime"
+  ];
+  right_meter_modes = [
+    3
+    2
+    2
+    3
+    2
+    2
+    2
+  ];
 }

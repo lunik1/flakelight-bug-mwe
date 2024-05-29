@@ -1,8 +1,14 @@
 # Setup for ssh access
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.system.ssh-server;
+let
+  cfg = config.lunik1.system.ssh-server;
 in
 {
   options.lunik1.system.ssh-server.enable = lib.mkEnableOption "ssh access";

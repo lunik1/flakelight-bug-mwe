@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.gpg;
-in {
+let
+  cfg = config.lunik1.home.gpg;
+in
+{
   options.lunik1.home.gpg.enable = lib.mkEnableOption "gpg";
 
   config = lib.mkIf cfg.enable {
@@ -34,8 +41,12 @@ in {
       enableSshSupport = true;
       defaultCacheTtl = 86400;
       maxCacheTtl = 86400;
-      pinentryPackage = with pkgs; if config.lunik1.home.gnome.enable then pinentry-gnome3 else
-      (if config.lunik1.home.gui.enable then pinentry-qt else pinentry);
+      pinentryPackage =
+        with pkgs;
+        if config.lunik1.home.gnome.enable then
+          pinentry-gnome3
+        else
+          (if config.lunik1.home.gui.enable then pinentry-qt else pinentry);
     };
   };
 }

@@ -1,12 +1,17 @@
 # Extra media management utilities
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.lunik1.home.media-management;
+let
+  cfg = config.lunik1.home.media-management;
 in
 {
-  options.lunik1.home.media-management.enable =
-    lib.mkEnableOption "media-management utilities";
+  options.lunik1.home.media-management.enable = lib.mkEnableOption "media-management utilities";
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
