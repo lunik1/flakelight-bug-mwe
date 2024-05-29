@@ -52,14 +52,28 @@
           tmp.useTmpfs = true;
         };
 
-        fileSystems."/" = {
-          device = "/dev/disk/by-uuid/91ba7453-e8af-4bc6-ba40-6444992232f9";
-          fsType = "xfs";
-        };
-
-        fileSystems."/boot" = {
-          device = "/dev/disk/by-uuid/99D0-07B0";
-          fsType = "vfat";
+        fileSystems = {
+          "/" = {
+            device = "/dev/disk/by-uuid/91ba7453-e8af-4bc6-ba40-6444992232f9";
+            fsType = "xfs";
+          };
+          "/boot" = {
+            device = "/dev/disk/by-uuid/99D0-07B0";
+            fsType = "vfat";
+          };
+          "/mnt/storage" = {
+            device = "//192.168.0.20/storage";
+            fsType = "cifs";
+            noCheck = true;
+            options = [
+              "x-systemd.automount"
+              "x-systemd.mount-timeout=30"
+              "noauto"
+              "nofail"
+              "_netdev"
+              "credentials=${config.sops.secrets.samba-credentials.path}"
+            ];
+          };
         };
 
         sops.secrets = {
@@ -67,26 +81,8 @@
             sopsFile = ../../secrets/host/tucson/secrets.yaml;
           };
         };
-        fileSystems."/mnt/storage" = {
-          device = "//192.168.0.20/storage";
-          fsType = "cifs";
-          noCheck = true;
-          options = [
-            "x-systemd.automount"
-            "x-systemd.mount-timeout=30"
-            "noauto"
-            "nofail"
-            "_netdev"
-            "credentials=${config.sops.secrets.samba-credentials.path}"
-          ];
-        };
 
         swapDevices = [ { device = "/dev/disk/by-uuid/67f65c58-4d31-4ea4-8b70-44d1e98a48e0"; } ];
-
-        # No scheduler for non-rotational disks
-        services.udev.extraRules = ''
-          ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
-        '';
 
         nix.settings = {
           max-jobs = 4;
@@ -98,21 +94,25 @@
           enableAllFirmware = true;
         };
 
-        services.hardware = {
-          openrgb = {
-            enable = true;
-            motherboard = "amd";
+        services = {
+          # No scheduler for non-rotational disks
+          udev.extraRules = ''
+            ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+          '';
+          hardware = {
+            openrgb = {
+              enable = true;
+              motherboard = "amd";
+            };
           };
-        };
-
-        services.udisks2 = {
-          enable = true;
-          mountOnMedia = true;
-        };
-
-        services.mullvad-vpn = {
-          enable = true;
-          package = pkgs.mullvad-vpn;
+          udisks2 = {
+            enable = true;
+            mountOnMedia = true;
+          };
+          mullvad-vpn = {
+            enable = true;
+            package = pkgs.mullvad-vpn;
+          };
         };
 
         ## Config modules to use

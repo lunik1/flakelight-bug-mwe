@@ -47,19 +47,21 @@ in
         lunik1-nur.myosevka.etoile
       ];
       fontconfig = {
-        defaultFonts.monospace = [
-          "Myosevka"
-          "Sarasa Fixed CL"
-          "Sarasa Fixed HC"
-          "Sarasa Fixed TC"
-          "Sarasa Fixed J"
-          "Sarasa Fixed K"
-          "Julia Mono"
-          "Material Icons"
-        ];
-        defaultFonts.serif = [ "Myosevka Etoile" ];
-        defaultFonts.sansSerif = [ "Myosevka Aile" ];
-        defaultFonts.emoji = [ "Noto Color Emoji" ];
+        defaultFonts = {
+          monospace = [
+            "Myosevka"
+            "Sarasa Fixed CL"
+            "Sarasa Fixed HC"
+            "Sarasa Fixed TC"
+            "Sarasa Fixed J"
+            "Sarasa Fixed K"
+            "Julia Mono"
+            "Material Icons"
+          ];
+          serif = [ "Myosevka Etoile" ];
+          sansSerif = [ "Myosevka Aile" ];
+          emoji = [ "Noto Color Emoji" ];
+        };
       };
     };
   };

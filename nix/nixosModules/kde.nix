@@ -28,8 +28,6 @@ in
       }
     ];
 
-    # KDE
-    services.xserver.desktopManager.plasma5.enable = cfg.kde.enable;
     environment = {
       systemPackages = with pkgs; [
         kio-fuse # TODO broken?
@@ -40,11 +38,13 @@ in
       plasma5.excludePackages = with pkgs.libsForQt5; [ elisa ];
     };
 
-    # SDDM
-    services.xserver.enable = true;
-    services.xserver.displayManager.sddm = lib.mkIf cfg.sddm.enable {
+    services.xserver = {
+      desktopManager.plasma5.enable = cfg.kde.enable;
       enable = true;
-      autoNumlock = true;
+      displayManager.sddm = lib.mkIf cfg.sddm.enable {
+        enable = true;
+        autoNumlock = true;
+      };
     };
   };
 }
