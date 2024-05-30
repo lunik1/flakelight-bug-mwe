@@ -60,7 +60,8 @@ in
     nix = {
       package = pkgs.nix;
       settings = {
-        auto-optimise-store = true;
+        # causes issues on darwin https://github.com/NixOS/nix/issues/7273
+        auto-optimise-store = !pkgs.stdenv.isDarwin;
         experimental-features = [
           "nix-command"
           "flakes"
