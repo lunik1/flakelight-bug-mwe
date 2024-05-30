@@ -91,16 +91,22 @@
        (remove nil?)))
 
 (def ^:private flake-outputs
-  (json/parse-string (:out (nix {:out :string :err :string} "flake" "show" "--json")) true))
+  (memoize
+   (fn []
+     (-> (nix {:out :string :err :string} "flake" "show" "--json")
+         :out
+         (json/parse-string true)))))
 
 (def ^:private devshell-outputs
-  (->> flake-outputs
-       :devShells
-       keys
-       (map name)
-       set
-       (set/intersection (nix-platforms))
-       (map #(format ".#devShells.%s.default" (name %)))))
+  (memoize
+   (fn []
+     (->> (flake-outputs)
+          :devShells
+          keys
+          (map name)
+          set
+          (set/intersection (nix-platforms))
+          (map #(format ".#devShells.%s.default" (name %)))))))
 
 (defn- host->output
   [host]
@@ -111,29 +117,35 @@
   (format ".#homeConfigurations.%s.activationPackage" home))
 
 (def ^:private hosts
-  (->> flake-outputs
-       :nixosConfigurations
-       keys
-       (map name)
-       set))
+  (memoize
+   (fn []
+     (->> (flake-outputs)
+          :nixosConfigurations
+          keys
+          (map name)
+          set))))
 
 (def ^:private homes
-  ;; home configurations are not exposed by `nix flake show` but we can find
-  ;; them in :checks when using flakelight
-  (->> flake-outputs
-       :checks
-       vals
-       (reduce merge)
-       keys
-       (map name)
-       (filter #(str/starts-with? % "home-"))
-       (map #(str/replace % #"^home-" ""))
-       set))
+  (memoize
+   (fn []
+     ;; home configurations are not exposed by `nix flake show` but we can find
+     ;; them in :checks when using flakelight
+     (->> (flake-outputs)
+          :checks
+          vals
+          (reduce merge)
+          keys
+          (map name)
+          (filter #(str/starts-with? % "home-"))
+          (map #(str/replace % #"^home-" ""))
+          set))))
 
 (def ^:private outputs
-  (concat devshell-outputs
-          (map host->output hosts)
-          (map home->output homes)))
+  (memoize
+   (fn []
+     (concat (devshell-outputs)
+             (map host->output (hosts))
+             (map home->output (homes))))))
 
 (def ^:private push-to-cachix!
   (partial
@@ -150,7 +162,7 @@
 
 (defn build-all
   [_]
-  (apply nix "build" outputs))
+  (apply nix "build" (outputs)))
 
 (defn install-home!
   [{{hostname :hostname} :opts}]
@@ -190,7 +202,7 @@
     (do
       (println "Refusing to populate cache with uncommitted changes.")
       (System/exit 1))
-    (as-> outputs $
+    (as-> (outputs) $
       (apply nix {:out :string} "build" "--json" $)
       (:out $)
       (json/parse-string $ true)
@@ -241,11 +253,11 @@
    {:cmds ["home"]
     :fn install-home!
     :args->opts [:hostname]
-    :spec {:hostname {:validate #(contains? homes %)}}}
+    :spec {:hostname {:validate #(contains? (homes) %)}}}
    {:cmds ["system"]
     :fn install-system!
     :args->opts [:hostname]
-    :spec {:hostname {:validate #(contains? homes %)}
+    :spec {:hostname {:validate #(contains? (hosts) %)}
            :operation {:default "switch"
                        :alias :p
                        :validate #(contains? #{"switch" "boot" "test" "build"} %)}}}
