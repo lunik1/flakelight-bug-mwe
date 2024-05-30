@@ -101,6 +101,7 @@ in
           "~$*.ppt*"
           "~$*.xls*"
           ".direnv/"
+          "*.DS_Store"
         ];
         lfs.enable = true;
         userEmail = "ch.gpg@themaw.xyz";
