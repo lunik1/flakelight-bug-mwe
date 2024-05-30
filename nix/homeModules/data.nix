@@ -15,7 +15,7 @@ in
     home.packages = with pkgs; [
       # Json
       jq
-      nodePackages_latest.vscode-json-languageserver-bin
+      nodePackages_latest.vscode-json-languageserver
 
       # YAML
       dyff
