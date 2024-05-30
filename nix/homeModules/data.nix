@@ -20,7 +20,7 @@ in
       # YAML
       dyff
       yamllint
-      nodePackages_latest.yaml-language-server
+      yaml-language-server
 
       # TOML
       taplo
