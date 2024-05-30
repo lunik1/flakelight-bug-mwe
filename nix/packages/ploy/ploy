@@ -135,14 +135,14 @@
           (map host->output hosts)
           (map home->output homes)))
 
-(def ^:private push-to-cachix
+(def ^:private push-to-cachix!
   (partial
    shell
    "cachix" "push"
    CACHIX-CACHE
    "-j" (str (.availableProcessors (Runtime/getRuntime)))))
 
-(defn- maybe-update-font-cache
+(defn- maybe-update-font-cache!
   []
   (when (command-exists? "fc-cache")
     (println "Updating font cache.")
@@ -152,7 +152,7 @@
   [_]
   (apply nix "build" outputs))
 
-(defn install-home
+(defn install-home!
   [{{hostname :hostname} :opts}]
   (let [hostname (or hostname
                      (let [hostname (get-hostname)]
@@ -166,9 +166,9 @@
     ;; activate the new configuration
     (shell "./result/activate")
 
-    (maybe-update-font-cache)))
+    (maybe-update-font-cache!)))
 
-(defn install-system
+(defn install-system!
   [{{hostname :hostname} :opts}]
   (let [hostname (or hostname
                      (let [hostname (get-hostname)]
@@ -179,12 +179,12 @@
         (fs/delete-tree "/etc/nixos")
         (fs/copy-tree "." "/etc/nixos")
         (shell "nixos-rebuild" "switch" "--flake" (format "/etc/nixos#%s" hostname))
-        (maybe-update-font-cache))
+        (maybe-update-font-cache!))
       (do
         (println "Requires super user, aborting.")
         (System/exit 19)))))
 
-(defn populate-cache
+(defn populate-cache!
   [_]
   (if (uncomitted-changes?)
     (do
@@ -195,9 +195,9 @@
       (:out $)
       (json/parse-string $ true)
       (map #(get-in % [:outputs :out]) $)
-      (apply push-to-cachix $))))
+      (apply push-to-cachix! $))))
 
-(defn update-containers
+(defn update-containers!
   [_]
   (if (super-user?)
     (let [containers (containers)
@@ -226,7 +226,7 @@
       :exit
       System/exit))
 
-(defn update-lockfile [_]
+(defn update-lockfile! [_]
   (nix "flake" "update" "." "--commit-lock-file"))
 
 (defn default [_]
@@ -234,22 +234,22 @@
   (System/exit 1))
 
 (def table
-  [{:cmds ["update"] :fn update-lockfile}
+  [{:cmds ["update"] :fn update-lockfile!}
    {:cmds ["build-all"] :fn build-all}
-   {:cmds ["cache"] :fn populate-cache}
+   {:cmds ["cache"] :fn populate-cache!}
    {:cmds ["check"] :fn nix-check}
    {:cmds ["home"]
-    :fn install-home
+    :fn install-home!
     :args->opts [:hostname]
     :spec {:hostname {:validate #(contains? homes %)}}}
    {:cmds ["system"]
-    :fn install-system
+    :fn install-system!
     :args->opts [:hostname]
     :spec {:hostname {:validate #(contains? homes %)}
            :operation {:default "switch"
                        :alias :p
                        :validate #(contains? #{"switch" "boot" "test" "build"} %)}}}
-   {:cmds ["update-containers"] :fn update-containers}
+   {:cmds ["update-containers"] :fn update-containers!}
    {:cmds [] :fn default}])
 
 (defn -main [args]
