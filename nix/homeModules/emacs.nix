@@ -28,7 +28,7 @@ in
         withGTK3 = cfg.gui;
         withPgtk = cfg.gui;
       };
-      emacs-package = with pkgs; if stdenv.isDarwin then emacs29-macport else emacs29.override settings;
+      emacs-package = pkgs.emacs29.override settings;
     in
     {
       lunik1.home.git.enable = true;
