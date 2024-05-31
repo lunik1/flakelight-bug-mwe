@@ -11,6 +11,8 @@
         ...
       }:
       let
+        domain = "lunik.one";
+
         boincPort = 8080;
         favaPort = 5000;
         quetrePort = 3000;
@@ -53,8 +55,8 @@
         security.acme = {
           acceptTerms = true;
           defaults.email = "xx.acme@themaw.xyz";
-          certs."lunik.one" = {
-            extraDomainNames = [ "*.lunik.one" ];
+          certs."${domain}" = {
+            extraDomainNames = [ "*.${domain}" ];
             dnsProvider = "porkbun";
             environmentFile = config.sops.secrets.acme-env.path;
           };
@@ -113,8 +115,8 @@
                 {
                   forceSSL = true;
                   quic = true;
-                  sslCertificate = "/var/lib/acme/lunik.one/cert.pem";
-                  sslCertificateKey = "/var/lib/acme/lunik.one/key.pem";
+                  sslCertificate = "/var/lib/acme/${domain}/cert.pem";
+                  sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
                   sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
                   locations."/" = {
                     inherit proxyPass;
@@ -143,22 +145,22 @@
                     rejectSSL = true;
                     locations."/".return = "444";
                   };
-                  "lunik.one" = {
+                  ${domain} = {
                     forceSSL = true;
                     quic = true;
                     locations."/".root = "/srv/www";
-                    sslCertificate = "/var/lib/acme/lunik.one/cert.pem";
+                    sslCertificate = "/var/lib/acme/${domain}/cert.pem";
                     sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                    sslCertificateKey = "/var/lib/acme/lunik.one/key.pem";
+                    sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
                   };
                   ${config.services.tt-rss.virtualHost} = {
-                    serverName = "tt-rss.lunik.one";
+                    serverName = "tt-rss.${domain}";
                     forceSSL = true;
                     quic = true;
                     basicAuthFile = config.sops.secrets.htaccess.path;
-                    sslCertificate = "/var/lib/acme/lunik.one/cert.pem";
+                    sslCertificate = "/var/lib/acme/${domain}/cert.pem";
                     sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                    sslCertificateKey = "/var/lib/acme/lunik.one/key.pem";
+                    sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
                   };
                 }
                 // builtins.listToAttrs (
@@ -169,43 +171,43 @@
                     })
                     [
                       {
-                        vhost = "atuin.lunik.one";
+                        vhost = "atuin.${domain}";
                         proxyPass = localhost config.services.atuin.port;
                         auth = false;
                       }
                       {
-                        vhost = "boinc.lunik.one";
+                        vhost = "boinc.${domain}";
                         proxyPass = localhost boincPort;
                         webSocket = true;
                       }
                       {
-                        vhost = "fava.lunik.one";
+                        vhost = "fava.${domain}";
                         proxyPass = localhost favaPort;
                       }
                       {
-                        vhost = "rsshub.lunik.one";
+                        vhost = "rsshub.${domain}";
                         proxyPass = localhost rssHubPort;
                       }
                       {
-                        vhost = "synapse.lunik.one";
+                        vhost = "synapse.${domain}";
                         proxyPass = "http://unix:${toString (builtins.head config.services.matrix-synapse.settings.listeners).path}";
                         auth = false;
                       }
                       {
-                        vhost = "syncthing.lunik.one";
+                        vhost = "syncthing.${domain}";
                         proxyPass = "http://unix:${config.services.syncthing.guiAddress}";
                       }
                       {
-                        vhost = "quetre.lunik.one";
+                        vhost = "quetre.${domain}";
                         proxyPass = localhost quetrePort;
                       }
                       {
-                        vhost = "thelounge.lunik.one";
+                        vhost = "thelounge.${domain}";
                         proxyPass = localhost config.services.thelounge.port;
                         auth = false;
                       }
                       {
-                        vhost = "wallabag.lunik.one";
+                        vhost = "wallabag.${domain}";
                         proxyPass = localhost wallabagPort;
                         auth = false;
                       }
@@ -255,8 +257,8 @@
             enableRegistrationScript = false;
             withJemalloc = true;
             settings = {
-              server_name = "lunik.one";
-              public_baseurl = "https://synapse.lunik.one";
+              server_name = "${domain}";
+              public_baseurl = "https://synapse.${domain}";
               max_upload_size = "100M";
               max_image_pixels = "64M";
               listeners = [
@@ -316,7 +318,7 @@
 
           tt-rss = {
             enable = true;
-            selfUrlPath = "https://tt-rss.lunik.one";
+            selfUrlPath = "https://tt-rss.${domain}";
             singleUserMode = true;
             plugins = [
               "auth_internal"
@@ -379,7 +381,7 @@
                 SYMFONY__ENV__DATABASE_USER = "wallabag";
                 SYMFONY__ENV__REDIS_SCHEME = "unix";
                 SYMFONY__ENV__REDIS_PATH = "/run/redis/redis.sock";
-                SYMFONY__ENV__DOMAIN_NAME = "https://wallabag.lunik.one";
+                SYMFONY__ENV__DOMAIN_NAME = "https://wallabag.${domain}";
               };
               volumes = [
                 "/run/postgresql:/run/postgresql"
@@ -558,10 +560,10 @@
 
           tmpfiles.rules = [
             "L+ /srv/www/.well-known/matrix/server - - - - ${
-              builtins.toFile "server" (builtins.toJSON { "m.server" = "synapse.lunik.one:443"; })
+              builtins.toFile "server" (builtins.toJSON { "m.server" = "synapse.${domain}:443"; })
             }"
             "L+ /srv/www/.well-known/matrix/client - - - - ${
-              builtins.toFile "client" (builtins.toJSON { "m.homeserver".base_url = "https://lunik.one"; })
+              builtins.toFile "client" (builtins.toJSON { "m.homeserver".base_url = "https://${domain}"; })
             }"
           ];
         };
