@@ -29,7 +29,6 @@ in
     };
 
     systemd.user = lib.mkIf cfg.megacmd.enable {
-      startServices = "sd-switch";
       services = {
         mega-cmd-server = {
           Unit = {
