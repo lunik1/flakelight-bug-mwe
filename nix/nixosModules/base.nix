@@ -128,6 +128,7 @@ in
       AWK_HASH = "fnv1a";
       EDITOR = "nvim";
       KOPIA_CHECK_FOR_UPDATES = "false";
+      KOPIA_BYTES_STRING_BASE_2 = "true";
     };
 
     # For zsh completion
