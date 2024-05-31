@@ -185,6 +185,10 @@
                         proxyPass = localhost favaPort;
                       }
                       {
+                        vhost = "netdata.${domain}";
+                        proxyPass = localhost 19999;
+                      }
+                      {
                         vhost = "rsshub.${domain}";
                         proxyPass = localhost rssHubPort;
                       }
@@ -303,6 +307,8 @@
             };
             log.root.level = "WARNING";
           };
+
+          netdata.enable = true;
 
           thelounge = {
             enable = true;
@@ -577,7 +583,6 @@
         lunik1.system = {
           backup.enable = true;
           containers.enable = true;
-          munin.enable = true;
           network.resolved.enable = true;
           ssh-server.enable = true;
         };
