@@ -476,6 +476,7 @@ in
         # Need to use extraConfig to enable i3 titlebar hiding behaviour
         extraConfig = ''
           hide_edge_borders --i3 both
+          workspace 1
         '';
         # systemdIntegration = true;
         # wrapperFeatures.gtk = true;
