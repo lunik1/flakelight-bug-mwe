@@ -26,7 +26,7 @@
   (let [[opts args] (if (map? (first args))
                       [(first args) (rest args)]
                       [{} args])]
-    (apply shell opts "nix" "--experimental-features" "nix-command flakes" args)))
+    (apply shell opts "nix" "--allow-import-from-derivation" "--experimental-features" "nix-command flakes" args)))
 
 (def ^:private nix-platforms
   (memoize
