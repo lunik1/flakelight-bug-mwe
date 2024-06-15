@@ -111,6 +111,13 @@ in
           };
 
           keymaps = [
+            # Disable suspend
+            {
+              key = "<c-z>";
+              action = "<nop>";
+              options.silent = true;
+            }
+
             # Create blank lines with return in normal mode
             {
               key = "<cr>";
