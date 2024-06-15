@@ -934,6 +934,7 @@ in
 
             vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#1d2021' })
             vim.api.nvim_set_hl(0, 'Floatborder', { bg = vim.api.nvim_get_hl_by_name('Normal', true).background })
+            vim.api.nvim_set_hl(0, 'NormalFloat', { bg = vim.api.nvim_get_hl_by_name('Normal', true).background })
 
             vim.api.nvim_set_hl(
               0,
