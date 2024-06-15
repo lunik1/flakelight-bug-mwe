@@ -101,13 +101,19 @@ in
               key = "<cr>";
               action = "o<esc>";
               mode = "n";
-              options.silent = true;
+              options = {
+                silent = true;
+                desc = "Insert empty line below";
+              };
             }
             {
               key = "<s-enter>";
               action = "O<esc>";
               mode = "n";
-              options.silent = true;
+              options = {
+                silent = true;
+                desc = "Insert empty line above";
+              };
             }
 
             # Clear search highlight with Esc
@@ -126,88 +132,112 @@ in
               key = "]b";
               action = cmd "execute 'bnext' . v:count1";
               mode = "n";
-              options.silent = true;
+              options = {
+                silent = true;
+                desc = "Next buffer";
+              };
             }
             {
               key = "[b";
               action = cmd "execute 'bprevious' . v:count1";
               mode = "n";
-              options.silent = true;
+              options = {
+                silent = true;
+                desc = "Previous buffer";
+              };
             }
             {
               key = "]B";
               action = cmd "blast";
               mode = "n";
-              options.silent = true;
+              options = {
+                silent = true;
+                desc = "Last buffer";
+              };
             }
             {
               key = "[B";
               action = cmd "bfirst";
               mode = "n";
-              options.silent = true;
+              options = {
+                silent = true;
+                desc = "First buffer";
+              };
             }
             # tabs
             {
               key = "]<tab>";
               action = cmd "tabnext";
               mode = "n";
+              options.desc = "Next tab";
             }
             {
               key = "[<tab>";
               action = cmd "tabprevious";
               mode = "n";
+              options.desc = "Previous tab";
             }
             {
               key = "<leader>]<tab>";
               action = cmd "tabnext";
               mode = "n";
+              options.desc = "Next tab";
             }
             {
               key = "<leader>[<tab>";
               action = cmd "tabprevious";
               mode = "n";
+              options.desc = "Previous tab";
             }
             {
               key = "]<s-tab>";
               action = cmd "tablast";
               mode = "n";
+              options.desc = "Last tab";
             }
             {
               key = "]<s-tab>";
               action = cmd "tabfirst";
               mode = "n";
+              options.desc = "First tab";
             }
             # quickfix list
             {
               key = "]q";
               action = cmd "execute 'cnext' . v:count1";
               mode = "n";
+              options.desc = "Next quickfix";
             }
             {
               key = "[q";
               action = cmd "execute 'cprevious' . v:count1";
               mode = "n";
+              options.desc = "Previous quickfix";
             }
             {
               key = "]Q";
               action = cmd "clast";
               mode = "n";
+              options.desc = "Last quickfix";
             }
             {
               key = "]Q";
               action = cmd "cfirst";
               mode = "n";
+              options.desc = "First quickfix";
             }
             # diagnostics
             {
               key = "]e";
               action = function "vim.diagnostic.goto_next( { float = false } )";
               mode = "n";
+              options.desc = "Next diagnostic";
             }
             {
               key = "[e";
               action = function "vim.diagnostic.goto_prev( { float = false } )";
               mode = "n";
+              options.desc = "Previous diagnostic";
             }
 
             # Toggles
@@ -218,203 +248,251 @@ in
                   enabled = not require('ibl.config').get_config(0).enabled,
                 })
               '';
+              options.desc = "Indent guides";
             }
             {
               key = "<leader>tl";
               action = cmd "setlocal number! | setlocal relativenumber!";
+              options.desc = "Line numbers";
             }
             {
               key = "<leader>tR"; # R for Rainbow
               action = cmd "ColorizerToggle";
+              options.desc = "Colorizer";
             }
             {
               key = "<leader>tr";
               action = cmd "setlocal readonly!";
+              options.desc = "Read-only";
             }
             {
               key = "<leader>ts";
               action = cmd "setlocal spell!";
+              options.desc = "Spell-checker";
             }
             {
               key = "<leader>tv";
               action = cmd "setlocal list!";
+              options.desc = "Whitespace visibility";
             }
             {
               key = "<leader>tw";
               action = cmd "setlocal wrap!";
+              options.desc = "Soft line wrapping";
             }
 
             # Telescope
             {
               key = "<leader><space>";
               action = cmd "Telescope git_files";
+              options.desc = "Find file in repository";
             }
             {
               key = "<leader>/";
               action = ":Telescope live_grep<cr>";
+              options.desc = "Live grep";
             }
             {
               key = "<leader>bb";
               action = cmd "Telescope buffers";
+              options.desc = "Search buffers";
             }
             {
               key = "<leader>:";
               action = cmd "Telescope commands";
+              options.desc = "Search commands";
             }
             {
               key = "<m-x>";
               action = cmd "Telescope commands";
+              options.desc = "Search commands";
             }
             {
               key = "<leader>iy";
               action = cmd "Telescope registers";
+              options.desc = "Search registers";
             }
             {
               key = "<leader>ss";
               action = cmd "Telescope current_buffer_fuzzy_find";
-            }
-            {
-              key = "<leader>fr";
-              action = cmd "Telescope oldfiles";
+              options.desc = "Search buffer";
             }
 
             # Windows
             {
               key = "<leader>w=";
               action = cmd "wincmd =";
+              options.desc = "Balance windows";
             }
             {
               key = "<leader>wc";
               action = cmd "close";
+              options.desc = "Close window";
             }
             {
               key = "<leader>wd";
               action = cmd "close";
+              options.desc = "Close window";
             }
             {
               key = "<leader>wm";
               action = cmd "only";
+              options.desc = "Maximise window";
             }
             {
               key = "<leader>wR";
               action = cmd "wincmd R";
+              options.desc = "Rotate windows up/leftwards";
             }
             {
               key = "<leader>wr";
               action = cmd "wincmd r";
+              options.desc = "Rotate windows down/rightwards";
             }
             {
               key = "<leader>ws";
               action = cmd "split";
+              options.desc = "Split windows horizontally";
             }
             {
               key = "<leader>wv";
               action = cmd "vsplit";
+              options.desc = "Split windows vertically";
             }
             {
               key = "<leader>wx";
               action = cmd "wincmd x";
+              options.desc = "Exchange window";
             }
 
             {
               key = "<c-w><s-left>";
-              options.silent = true;
               action = cmd "wincmd H";
+              options = {
+                silent = true;
+                desc = "Move window to far left";
+              };
             }
             {
               key = "<c-w><s-right>";
-              options.silent = true;
               action = cmd "wincmd L";
+              options = {
+                silent = true;
+                desc = "Move window to far right";
+              };
             }
             {
               key = "<c-w><s-up>";
-              options.silent = true;
               action = cmd "wincmd K";
+              options = {
+                silent = true;
+                desc = "Move window to top";
+              };
             }
             {
               key = "<c-w><s-down>";
-              options.silent = true;
               action = cmd "wincmd J";
+              options = {
+                silent = true;
+                desc = "Move window to bottom";
+              };
             }
 
             # Tabs
             {
               key = "<leader><tab>`";
               action = cmd "tabnext #";
+              options.desc = "Other tab";
             }
             {
               key = "<leader><tab>c";
               action = cmd "tabclose";
+              options.desc = "Close tab";
             }
             {
               key = "<leader><tab>d";
               action = cmd "tabclose";
+              options.desc = "Close tab";
             }
             {
               key = "<leader><tab>n";
               action = cmd "tabnew";
+              options.desc = "New tab";
             }
 
             # Files
             {
               key = "<leader>fC";
               action = function "require('genghis').duplicateFile()";
+              options.desc = "Copy file";
             }
             {
               key = "<leader>fD";
               action = function "require('genghis').trashFile()";
+              options.desc = "Trash file";
             }
             {
               key = "<leader>fR";
               action = function "require('genghis').moveAndRenameFile()";
+              options.desc = "Rename file";
             }
             {
               key = "<leader>fr";
               action = cmd "Telescope oldfiles";
+              options.desc = "Search recent files";
             }
             {
               key = "<leader>fs";
               action = cmd "write";
+              options.desc = "Save file";
             }
             {
               key = "<leader>fy";
               action = function "require('genghis').copyFilepath()";
+              options.desc = "Yank file path";
             }
 
             # Sessions 
             {
               key = "<leader>pa";
               action = cmd "SessionSave";
+              options.desc = "Create/save session";
             }
             {
               key = "<leader>pd";
               action = cmd "SessionDelete";
+              options.desc = "Delete current session";
             }
             {
               key = "<leader>pP";
               action = cmd "SessionPurgeOrphaned";
+              options.desc = "Purge orphaned sessions";
             }
             {
               key = "<leader>pp";
               action = cmd "Telescope session-lens";
+              options.desc = "Switch session";
             }
 
             # Navbuddy
             {
               key = "<leader>cn";
               action = cmd "Navbuddy";
+              options.desc = "Navbuddy";
             }
 
             # Neogit
             {
               key = "<leader>gg";
               action = cmd "Neogit";
+              options.desc = "Neogit";
             }
 
             # Format
             {
               key = "<leader>cf";
               action = function "vim.lsp.buf.format()";
+              options.desc = "Format buffer/region";
             }
 
             # Intellitab + cmp
@@ -441,16 +519,19 @@ in
             {
               key = "<leader>`";
               action = cmd "buffer#";
+              options.desc = "Other buffer";
             }
 
             # Terminal
             {
               key = "<leader>oT";
               action = cmd ":terminal";
+              options.desc = "Open terminal here";
             }
             {
               key = "<leader>ot";
               action = function "require('FTerm').toggle()";
+              options.desc = "Open floating terminal";
             }
             {
               key = "<s-esc>";
@@ -462,6 +543,7 @@ in
             {
               key = "<leader>o-";
               action = cmd ":Oil";
+              options.desc = "Oil";
             }
 
             # Hop
@@ -469,26 +551,31 @@ in
               key = "gs/";
               action = cmd ":HopPatternMW";
               mode = "n";
+              options.desc = "Hop to pattern";
             }
             {
               key = "gs.";
               action = cmd ":HopAnywhereMW";
               mode = "n";
+              options.desc = "Hop anywhere";
             }
             {
               key = "gsl";
               action = cmd ":HopLineMW";
               mode = "n";
+              options.desc = "Hop to line";
             }
             {
               key = "gss";
               action = cmd ":HopChar2MW";
               mode = "n";
+              options.desc = "Hop to bigram";
             }
             {
               key = "gsw";
               action = cmd ":HopWordMW";
               mode = "n";
+              options.desc = "Hop to word";
             }
           ];
 
@@ -660,36 +747,44 @@ in
                   {
                     key = "<leader>lr";
                     action = "<cmd>LspRestart<enter>";
+                    options.desc = "Restart LSP";
                   }
                   {
                     key = "<c-k>";
                     action = function "vim.lsp.buf.signature_help()";
+                    options.desc = "Show signature help";
                   }
                   {
                     key = "<leader>cd";
                     action = function "vim.lsp.buf.definition()";
+                    options.desc = "Jump to definition";
                   }
                   {
                     key = "<leader>cD";
                     action = function "vim.lsp.buf.references()";
+                    options.desc = "Jump to references";
                   }
                   {
                     key = "<leader>cr";
                     action = function "vim.lsp.buf.rename()";
+                    options.desc = "Rename";
                   }
                   {
                     key = "<leader>ct";
                     action = function "vim.lsp.buf.type_definition()";
+                    options.desc = "Jump to type definition";
                   }
                   {
                     key = "<leader>ca";
                     action = function "vim.lsp.buf.code_action()";
                     mode = "n";
+                    options.desc = "Execute code action";
                   }
                   {
                     key = "<leader>ca";
                     action = function "vim.lsp.buf.range_code_action()";
                     mode = "v";
+                    options.desc = "Execute code action";
                   }
                 ];
               };
