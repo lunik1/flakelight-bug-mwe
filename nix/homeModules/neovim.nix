@@ -195,7 +195,7 @@ in
             }
             {
               key = "]Q";
-              action = cmd "cnext";
+              action = cmd "cfirst";
               mode = "n";
             }
             # diagnostics
