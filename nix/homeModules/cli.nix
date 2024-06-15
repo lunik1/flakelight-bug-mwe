@@ -24,7 +24,6 @@ in
             ]
           ))
           bat-extras.batgrep
-          cargo
           copier
           croc
           duf
@@ -76,7 +75,6 @@ in
 
       sessionVariables = {
         ET_NO_TELEMETRY = "1";
-        CARGO_REGISTRIES_CRATES_IO_PROTOCO = "sparse";
         RSYNC_CHECKSUM_LIST = "xxh3 xxh128 xxh64 sha1 md5 md4 none";
         RSYNC_COMPRESS_LIST = "lz4 zstd zlibx zlib none";
         MANWIDTH = 80;
@@ -297,8 +295,6 @@ in
           source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
         '';
         envExtra = ''
-          export PATH=$HOME/bin:$HOME/.cargo/bin/:$PATH
-
           if [[ "$TERM" == "foot" ]]
           then
             export COLORTERM="truecolor"

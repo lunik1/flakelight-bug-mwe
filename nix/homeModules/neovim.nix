@@ -676,11 +676,11 @@ in
                   extraOptions = { };
                 };
                 ruff-lsp = {
-                  inherit (config.lunik1.home.lang.python) enable;
+                  inherit (config.lunik1.home.lang.rust) enable;
                   package = null;
                 };
                 rust-analyzer = {
-                  enable = true;
+                  inherit (config.lunik1.home.lang.rust) enable;
                   installCargo = true;
                   installRustc = true;
                 };
