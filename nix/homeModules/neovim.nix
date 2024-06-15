@@ -262,7 +262,7 @@ in
               action = cmd "Telescope commands";
             }
             {
-              key = "<a-x>:";
+              key = "<m-x>";
               action = cmd "Telescope commands";
             }
             {
