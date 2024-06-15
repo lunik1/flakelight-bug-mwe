@@ -141,7 +141,7 @@ in
               options.silent = true;
             }
             {
-              key = "]B";
+              key = "[B";
               action = cmd "bfirst";
               mode = "n";
               options.silent = true;
