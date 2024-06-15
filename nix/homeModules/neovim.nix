@@ -221,7 +221,7 @@ in
             }
             {
               key = "<leader>tl";
-              action = cmd "setlocal number!";
+              action = cmd "setlocal number! | setlocal relativenumber!";
             }
             {
               key = "<leader>tR"; # R for Rainbow
