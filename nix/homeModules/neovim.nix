@@ -757,7 +757,7 @@ in
                 "D" = "DiffPopup";
                 "F" = "PullPopup";
                 "M" = "RemotePopup";
-                "V" = "RevertPopup";
+                "_" = "RevertPopup";
                 "X" = "ResetPopup";
                 "Z" = "WorktreePopup";
                 "b" = "BranchPopup";
