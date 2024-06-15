@@ -1044,6 +1044,14 @@ in
               };
             };
 
+            which-key = {
+              enable = true;
+              plugins = {
+                marks = false;
+                registers = false;
+              };
+            };
+
             vim-matchup = {
               enable = true;
               enableSurround = true;
