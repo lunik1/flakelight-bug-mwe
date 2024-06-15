@@ -142,12 +142,12 @@ in
         settings.git_protocol = "ssh";
       };
       zsh = {
-        envExtra = ''
-          [ -f "''${XDG_RUNTIME_DIR}/secrets/gh_token" ] \
-            && export GH_TOKEN=$(<"''${XDG_RUNTIME_DIR}/secrets/gh_token")
+        envExtra = with config.sops.secrets; ''
+          [ -f "${gh_token.path}" ] \
+            && export GH_TOKEN=$(<"${gh_token.path}")
 
-          [ -f "''${XDG_RUNTIME_DIR}/secrets/gitlab_token" ] \
-            && export GITLAB_TOKEN=$(<"''${XDG_RUNTIME_DIR}/secrets/gitlab_token")
+          [ -f "${gitlab_token.path}" ] \
+            && export GITLAB_TOKEN=$(<"${gitlab_token.path}")
         '';
       };
     };
