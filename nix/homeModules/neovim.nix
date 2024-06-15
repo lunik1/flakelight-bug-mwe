@@ -976,6 +976,19 @@ in
                 border = 'rounded',
                 blend = 15,
             })
+
+            if vim.g.neovide then
+                vim.keymap.set(
+                  '!',
+                  '<s-insert>',
+                  function() vim.api.nvim_put({ vim.fn.getreg('*') }, ${"''"}, true, true) end
+                )
+                vim.keymap.set(
+                  '!',
+                  '<c-s-v>',
+                  function() vim.api.nvim_put({ vim.fn.getreg('+') }, ${"''"}, true, true) end
+                )
+            end
           '';
 
           extraPlugins = with pkgs.vimPlugins; [
