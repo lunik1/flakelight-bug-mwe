@@ -629,7 +629,7 @@ in
           plugins = {
             auto-session = {
               enable = true;
-              autoRestore.enabled = false;
+              autoRestore.enabled = true;
               autoSession = {
                 enableLastSession = false;
                 createEnabled = false;
