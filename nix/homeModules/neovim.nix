@@ -19,7 +19,13 @@ in
       lang.viml.enable = true;
     };
 
-    home.packages = with pkgs; lib.optionals config.lunik1.home.gui.enable [ neovide ];
+    home = {
+      sessionVariables = {
+        EDITOR = "nvim";
+      };
+
+      packages = with pkgs; lib.optionals config.lunik1.home.gui.enable [ neovide ];
+    };
 
     programs = {
       nixvim =
