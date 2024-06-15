@@ -14,7 +14,7 @@
         targets.genericLinux.enable = true;
 
         programs.zsh = {
-          ## Machine-specifc dir hashes
+          ## Machine-specific dir hashes
           dirHashes = {
             win = "/mnt/c/Users/chmic";
           };
