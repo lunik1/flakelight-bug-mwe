@@ -459,6 +459,33 @@ in
               key = "<leader>o-";
               action = cmd ":Oil";
             }
+
+            # Hop
+            {
+              key = "gs/";
+              action = cmd ":HopPatternMW";
+              mode = "n";
+            }
+            {
+              key = "gs.";
+              action = cmd ":HopAnywhereMW";
+              mode = "n";
+            }
+            {
+              key = "gsl";
+              action = cmd ":HopLineMW";
+              mode = "n";
+            }
+            {
+              key = "gss";
+              action = cmd ":HopChar2MW";
+              mode = "n";
+            }
+            {
+              key = "gsw";
+              action = cmd ":HopWordMW";
+              mode = "n";
+            }
           ];
 
           opts = {
@@ -596,6 +623,11 @@ in
                   untracked.text = "┆";
                 };
               };
+            };
+
+            hop = {
+              enable = true;
+              settings.jump_on_sole_occurrence = false;
             };
 
             indent-blankline = {
