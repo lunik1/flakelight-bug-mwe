@@ -1067,6 +1067,14 @@ in
               };
             };
 
+            vim-bbye = {
+              enable = true;
+              keymaps = {
+                bdelete = "<leader>bd";
+                bwipeout = "<leader>bw";
+              };
+            };
+
             vim-matchup = {
               enable = true;
               enableSurround = true;
