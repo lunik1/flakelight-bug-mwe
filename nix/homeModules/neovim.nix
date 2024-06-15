@@ -450,7 +450,7 @@ in
 
             # Oil
             {
-              key = "<leader>oT";
+              key = "<leader>o-";
               action = cmd ":Oil";
             }
           ];
