@@ -43,6 +43,17 @@ in
               sha256 = "sha256-qLMJt0GYFv/S9eruGFKBMd26vNZvKf5ynRgE37iKros=";
             };
           };
+
+          quickscope = pkgs.vimUtils.buildVimPlugin {
+            pname = "nvim-genghis";
+            version = "2023-08-08";
+            src = pkgs.fetchFromGitHub {
+              owner = "unblevable";
+              repo = "quick-scope";
+              rev = "256d81e391a22eeb53791ff62ce65f870418fa71";
+              sha256 = "sha256-TcA4jZIdnQd06V+JrXGiCMr0Yhm9gB6OMiTSdzMt/Qw=";
+            };
+          };
         in
         {
           enable = true;
@@ -93,6 +104,10 @@ in
             neovide_cursor_vfx_particle_density = 10.0;
             neovide_cursor_animation_length = 5.0e-2;
             neovide_cursor_animate_in_insert_mode = false;
+            qs_buftype_blacklist = [
+              "nofile"
+              "terminal"
+            ];
           };
 
           keymaps = [
@@ -1108,6 +1123,9 @@ in
                 }
             )
 
+            vim.api.nvim_set_hl(0, 'QuickScopePrimary', { fg = '#fe8019', bold = true, underline = true })
+            vim.api.nvim_set_hl(0, 'QuickScopeSecondary', { fg = '#8ec07c', bold = true, underline = true })
+
             vim.fn.digraph_setlist(
               {
                 {'*e', 'ϵ'},
@@ -1142,6 +1160,7 @@ in
             genghis
             plenary-nvim
             project-nvim
+            quickscope
             vim-lion
             vim-repeat
             vim-sleuth
