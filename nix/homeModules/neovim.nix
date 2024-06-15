@@ -343,6 +343,10 @@ in
               action = cmd "tabnext #";
             }
             {
+              key = "<leader><tab>c";
+              action = cmd "tabclose";
+            }
+            {
               key = "<leader><tab>d";
               action = cmd "tabclose";
             }
