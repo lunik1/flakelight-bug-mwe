@@ -333,8 +333,8 @@ in
             }
             {
               key = "<c-w><s-down>";
-              action = "<c-w>K";
               options.silent = true;
+              action = cmd "wincmd J";
             }
 
             # Tabs
