@@ -1,5 +1,6 @@
 #!/usr/bin/env bb
 ;; mode: clojure -*-
+;; vim: ft=clojure
 
 (ns ploy
   (:require
