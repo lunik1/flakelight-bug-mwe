@@ -318,18 +318,18 @@ in
 
             {
               key = "<c-w><s-left>";
-              action = "<c-w>H";
               options.silent = true;
+              action = cmd "wincmd H";
             }
             {
               key = "<c-w><s-right>";
-              action = "<c-w>L";
               options.silent = true;
+              action = cmd "wincmd L";
             }
             {
               key = "<c-w><s-up>";
-              action = "<c-w>K";
               options.silent = true;
+              action = cmd "wincmd K";
             }
             {
               key = "<c-w><s-down>";
