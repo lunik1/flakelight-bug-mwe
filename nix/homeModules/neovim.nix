@@ -660,7 +660,7 @@ in
                   enable = true;
                   package = null;
                 };
-                clojure-lsp.enable = true;
+                clojure-lsp.enable = config.lunik1.home.lang.clojure.enable;
                 digestif.enable = true;
                 dockerls.enable = true;
                 jsonls.enable = config.lunik1.home.lang.data.enable;
@@ -741,7 +741,6 @@ in
                   statix.enable = true;
                 };
                 diagnostics = {
-                  clj_kondo.enable = true;
                   deadnix.enable = true;
                   markdownlint_cli2.enable = true;
                   statix.enable = config.lunik1.home.lang.nix.enable;
