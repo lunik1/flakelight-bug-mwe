@@ -1167,6 +1167,14 @@ in
                   '<c-s-v>',
                   function() vim.api.nvim_put({ vim.fn.getreg('+') }, ${"''"}, true, true) end
                 )
+
+                -- ⌘ mappings for mac
+                vim.keymap.set('n', '<D-s>', '<cmd>:w<CR>')
+                vim.keymap.set('v', '<D-c>', '"+y')
+                vim.keymap.set('n', '<D-v>', '"+P')
+                vim.keymap.set('v', '<D-v>', '"+P')
+                vim.keymap.set('c', '<D-v>', '<C-r>+')
+                vim.keymap.set('i', '<D-v>', '<Esc>l"+Pli')
             end
           '';
 
