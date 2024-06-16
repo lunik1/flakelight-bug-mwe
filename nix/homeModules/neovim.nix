@@ -303,6 +303,28 @@ in
               options.desc = "Soft line wrapping";
             }
 
+            # Sneak F/f T/t
+            {
+              key = "F";
+              action = "<Plug>Sneak_F";
+              options.desc = "Move to previous char";
+            }
+            {
+              key = "f";
+              action = "<Plug>Sneak_f";
+              options.desc = "Move to next char";
+            }
+            {
+              key = "t";
+              action = "<Plug>Sneak_T";
+              options.desc = "Move before previous char";
+            }
+            {
+              key = "t";
+              action = "<Plug>Sneak_t";
+              options.desc = "Move before next char";
+            }
+
             # Telescope
             {
               key = "<leader><space>";
