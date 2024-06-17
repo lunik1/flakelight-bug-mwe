@@ -379,6 +379,11 @@ in
               options.desc = "Close window";
             }
             {
+              key = "<leader>wo";
+              action = cmd "only";
+              options.desc = "Maximise window";
+            }
+            {
               key = "<leader>wm";
               action = cmd "only";
               options.desc = "Maximise window";
