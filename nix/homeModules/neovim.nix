@@ -621,6 +621,176 @@ in
               mode = "n";
               options.desc = "Hop to word";
             }
+
+            # DAP
+            {
+              key = "<c-cr>";
+              action = function "require('dap').toggle_breakpoint()";
+              mode = "n";
+              options.desc = "Toggle breakpoint";
+            }
+            {
+              key = "<leader>d<up>";
+              action = function "require('dap').up()";
+              mode = "n";
+              options.desc = "Up stacktrace";
+            }
+            {
+              key = "<leader>d<down>";
+              action = function "require('dap').down()";
+              mode = "n";
+              options.desc = "Down stacktrace";
+            }
+            {
+              key = "<leader>d_";
+              action = function "require('dap').run_to_cursor()";
+              mode = "n";
+              options.desc = "Run to cursor";
+            }
+            {
+              key = "<leader>db";
+              action = function "require('dap').toggle_breakpoint()";
+              mode = "n";
+              options.desc = "Toggle breakpoint";
+            }
+            {
+              key = "<leader>dB";
+              action = function "require('dap').list_breakpoints()";
+              mode = "n";
+              options.desc = "List breakpoints";
+            }
+            {
+              key = "<leader>dC";
+              action = function "require('dap').clear_breakpoints()";
+              mode = "n";
+              options.desc = "Clear breakpoints";
+            }
+            {
+              key = "<leader>dd";
+              action = function "require('dap').continue()";
+              mode = "n";
+              options.desc = "Star debugger/Continue execution";
+            }
+            {
+              key = "<leader>dD";
+              action = function "require('dap').reverse_continue()";
+              mode = "n";
+              options.desc = "Reverse continue";
+            }
+            {
+              key = "<leader>de";
+              action = function "require('dap').set_exception_breakpoints()";
+              mode = "n";
+              options.desc = "Set exception breakpoints";
+            }
+            {
+              key = "<leader>df";
+              action = function ''
+                local widgets = require('dap.ui.widgets')
+                widgets.centered_float(widgets.frames)
+              '';
+              mode = "n";
+              options.desc = "Frames";
+            }
+            {
+              key = "<leader>dF";
+              action = function "require('dap').restart_frame()";
+              mode = "n";
+              options.desc = "Frames";
+            }
+            {
+              key = "<leader>dg";
+              action = function "require('dap').focus_frame()";
+              mode = "n";
+              options.desc = "Goto current frame";
+            }
+            {
+              key = "<leader>dh";
+              action = function "require('dap.ui.widgets').hover()";
+              mode = "n";
+              options.desc = "Debugger hover";
+            }
+            {
+              key = "<leader>di";
+              action = function "require('dap').step_into()";
+              mode = "n";
+              options.desc = "Step into";
+            }
+            {
+              key = "<leader>dj";
+              action = function "require('dap').down()";
+              mode = "n";
+              options.desc = "Down stacktrace";
+            }
+            {
+              key = "<leader>dK";
+              action = function "require('dap').terminate()";
+              mode = "n";
+              options.desc = "Terminate debugging session";
+            }
+            {
+              key = "<leader>dk";
+              action = function "require('dap').up()";
+              mode = "n";
+              options.desc = "Up stacktrace";
+            }
+            {
+              key = "<leader>dL";
+              action = function "require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))";
+              mode = "n";
+              options.desc = "Set breakpoint with log";
+            }
+            {
+              key = "<leader>dN";
+              action = function "require('dap').step_back()";
+              mode = "n";
+              options.desc = "Step back";
+            }
+            {
+              key = "<leader>dn";
+              action = function "require('dap').step_over()";
+              mode = "n";
+              options.desc = "Step over";
+            }
+            {
+              key = "<leader>do";
+              action = function "require('dap').step_over()";
+              mode = "n";
+              options.desc = "Step out";
+            }
+            {
+              key = "<leader>dP";
+              action = function "require('dap').run_last()";
+              mode = "n";
+              options.desc = "Run previous config";
+            }
+            {
+              key = "<leader>dp";
+              action = function "require('dap.ui.widgets').preview()";
+              mode = "n";
+              options.desc = "Debugger preview";
+            }
+            {
+              key = "<leader>dR";
+              action = function "require('dap').restart()";
+              mode = "n";
+              options.desc = "Restart debugger";
+            }
+            {
+              key = "<leader>dr";
+              action = function "require('dap').repl.toggle()";
+              mode = "n";
+              options.desc = "Toggle debugger REPL";
+            }
+            {
+              key = "<leader>ds";
+              action = function ''
+                local widgets = require('dap.ui.widgets')
+                widgets.centered_float(widgets.scopes)
+              '';
+              mode = "n";
+              options.desc = "Scopes";
+            }
           ];
 
           opts = {
@@ -726,6 +896,8 @@ in
 
             cmp-cmdline-history.enable = true;
 
+            cmp-dap.enable = true;
+
             cmp-nvim-lsp.enable = true;
 
             cmp-nvim-lsp-document-symbol.enable = true;
@@ -737,6 +909,14 @@ in
             cmp-treesitter.enable = true;
 
             cmp-zsh.enable = true;
+
+            dap = {
+              enable = true;
+              extensions.dap-python = {
+                inherit (config.lunik1.home.lang.python) enable;
+                adapterPythonPath = "python"; # use direnv/virtualenv
+              };
+            };
 
             direnv.enable = true;
 
