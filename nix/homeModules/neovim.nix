@@ -587,6 +587,11 @@ in
               action = "<c-\\><c-n>";
               mode = "t";
             }
+            {
+              key = "<s-bs>";
+              action = "<bs>";
+              mode = "t";
+            }
 
             # Oil
             {
