@@ -159,6 +159,21 @@ in
               };
             }
 
+            # Delete words with ctrl+backspace
+            {
+              key = "<c-bs>";
+              action = "<c-w>";
+              mode = [
+                "i"
+                "c"
+                "t"
+              ];
+              options = {
+                silent = true;
+                noremap = true;
+              };
+            }
+
             # Unimpaired-like mappings (I think the actual package has too many)
             # buffers
             {
