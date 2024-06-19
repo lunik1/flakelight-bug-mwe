@@ -33,6 +33,17 @@ in
           cmd = s: "<cmd>${s}<cr>";
           function = s: { __raw = "function() ${s} end"; };
 
+          agitator = pkgs.vimUtils.buildVimPlugin {
+            pname = "agitator";
+            version = "2024-03-17";
+            src = pkgs.fetchFromGitHub {
+              owner = "emmanueltouzery";
+              repo = "agitator.nvim";
+              rev = "d325ab9966c24d27f2f181078de78c5ce85a3c57";
+              sha256 = "sha256-pQcbG9z+was/h852AdLGiHuiNKnl17jS4gCSqfrGW/w=";
+            };
+          };
+
           genghis = pkgs.vimUtils.buildVimPlugin {
             pname = "nvim-genghis";
             version = "2024-06-04";
@@ -528,6 +539,23 @@ in
               key = "<leader>cn";
               action = cmd "Navbuddy";
               options.desc = "Navbuddy";
+            }
+
+            # Agitator
+            {
+              key = "<leader>gB";
+              action = function "require('agitator').git_blame()";
+              options.desc = "Git blame";
+            }
+            {
+              key = "<leader>gff";
+              action = function "require('agitator').open_file_git_branch()";
+              options.desc = "Find git file";
+            }
+            {
+              key = "<leader>gf/";
+              action = function "require('agitator').search_git_branch()";
+              options.desc = "Search in git branch";
             }
 
             # Neogit
@@ -1394,6 +1422,7 @@ in
           '';
 
           extraPlugins = with pkgs.vimPlugins; [
+            agitator
             FTerm-nvim
             genghis
             plenary-nvim
