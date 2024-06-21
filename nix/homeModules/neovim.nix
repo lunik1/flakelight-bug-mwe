@@ -559,7 +559,7 @@ in
             # Agitator
             {
               key = "<leader>gB";
-              action = function "require('agitator').git_blame()";
+              action = function "require('agitator').git_blame_toggle()";
               options.desc = "Git blame";
             }
             {
