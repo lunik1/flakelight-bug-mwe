@@ -74,6 +74,18 @@ in
             vim.keymap.set('n', '<Space>', '<Nop>', { silent = true, remap = false })
             vim.g.mapleader = ' '
             vim.g.maplocaleader = ' '
+
+            local function toggle_inlay_hints(client, enable)
+              if client.resolved_capabilities.document_highlight then
+                client.notify('workspace/didChangeConfiguration', {
+                  settings = {
+                    inlayHints = {
+                      enabled = enable,
+                    },
+                  },
+                })
+              end
+            end
           '';
 
           autoCmd = [
@@ -289,6 +301,11 @@ in
             }
 
             # Toggles
+            {
+              key = "<leader>tI";
+              action = function "vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())";
+              options.desc = "Inlay hints";
+            }
             {
               key = "<leader>ti";
               action = function ''
