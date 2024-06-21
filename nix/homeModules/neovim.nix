@@ -56,7 +56,7 @@ in
           };
 
           quickscope = pkgs.vimUtils.buildVimPlugin {
-            pname = "nvim-genghis";
+            pname = "quickscope";
             version = "2023-08-08";
             src = pkgs.fetchFromGitHub {
               owner = "unblevable";
