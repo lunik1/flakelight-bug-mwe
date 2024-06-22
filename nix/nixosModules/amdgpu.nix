@@ -26,7 +26,7 @@ in
 
     nixpkgs.config.rocmSupport = true;
 
-    hardware.opengl = {
+    hardware.graphics = {
       enable32Bit = true;
       extraPackages =
         with pkgs;
