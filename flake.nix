@@ -20,11 +20,7 @@
     };
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-        git-hooks.follows = "pre-commit-hooks";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
       url = "github:nix-community/nixvim";
