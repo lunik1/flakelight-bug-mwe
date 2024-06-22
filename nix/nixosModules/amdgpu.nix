@@ -27,9 +27,6 @@ in
     nixpkgs.config.rocmSupport = true;
 
     hardware.opengl = {
-      driSupport = true;
-      driSupport32Bit = cfg.support32Bit;
-
       extraPackages =
         with pkgs;
         [ amdvlk ]
