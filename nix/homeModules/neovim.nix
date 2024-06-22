@@ -65,6 +65,17 @@ in
               sha256 = "sha256-TcA4jZIdnQd06V+JrXGiCMr0Yhm9gB6OMiTSdzMt/Qw=";
             };
           };
+
+          nvim-orgmode = pkgs.vimUtils.buildVimPlugin rec {
+            pname = "nvim-orgmode";
+            version = "0.3.4";
+            src = pkgs.fetchFromGitHub {
+              owner = "nvim-orgmode";
+              repo = "orgmode";
+              rev = version;
+              sha256 = "sha256-SmofuYt4fLhtl5qedYlmCRgOmZaw3nmlnMg0OMzyKnM=";
+            };
+          };
         in
         {
           enable = true;
@@ -1430,6 +1441,10 @@ in
                 blend = 15,
             })
 
+            require('orgmode').setup({
+                mappings = { prefix = '<leader>m' }
+            })
+
             if vim.g.neovide then
                 vim.keymap.set(
                   '!',
@@ -1456,6 +1471,7 @@ in
             agitator
             FTerm-nvim
             genghis
+            nvim-orgmode
             plenary-nvim
             project-nvim
             quickscope
