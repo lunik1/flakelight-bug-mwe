@@ -30,12 +30,10 @@ in
       enable32Bit = true;
       extraPackages =
         with pkgs;
-        [ amdvlk ]
-        ++ lib.optionals cfg.opencl [
+        lib.optionals cfg.opencl [
           rocm-opencl-icd
           rocm-opencl-runtime
         ];
-      extraPackages32 = with pkgs; lib.mkIf cfg.support32Bit [ driversi686Linux.amdvlk ];
     };
   };
 }
