@@ -32,7 +32,7 @@ in
         settings = {
           keyserver = "hkps://keyserver.ubuntu.com";
           keyserver-options = "no-honor-keyserver-url";
-        } // lib.optionalAttrs config.lunik1.home.gui.enable { pinentry-mode = "loopback"; };
+        } // lib.optionalAttrs (!config.lunik1.home.gui.enable) { pinentry-mode = "loopback"; };
       };
     };
 
@@ -47,7 +47,7 @@ in
           if config.lunik1.home.gnome.enable then
             pinentry-gnome3
           else
-            (if config.lunik1.home.gui.enable then pinentry-qt else pinentry);
+            (if (!config.lunik1.home.gui.enable) then pinentry-qt else pinentry);
       }
       // lib.optionalAttrs config.lunik1.home.gui.enable {
         extraConfig = ''
