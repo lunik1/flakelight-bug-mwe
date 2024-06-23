@@ -32,21 +32,27 @@ in
         settings = {
           keyserver = "hkps://keyserver.ubuntu.com";
           keyserver-options = "no-honor-keyserver-url";
-        };
+        } // lib.optionalAttrs config.lunik1.home.gui.enable { pinentry-mode = "loopback"; };
       };
     };
 
-    services.gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      defaultCacheTtl = 86400;
-      maxCacheTtl = 86400;
-      pinentryPackage =
-        with pkgs;
-        if config.lunik1.home.gnome.enable then
-          pinentry-gnome3
-        else
-          (if config.lunik1.home.gui.enable then pinentry-qt else pinentry);
-    };
+    services.gpg-agent =
+      {
+        enable = true;
+        enableSshSupport = true;
+        defaultCacheTtl = 86400;
+        maxCacheTtl = 86400;
+        pinentryPackage =
+          with pkgs;
+          if config.lunik1.home.gnome.enable then
+            pinentry-gnome3
+          else
+            (if config.lunik1.home.gui.enable then pinentry-qt else pinentry);
+      }
+      // lib.optionalAttrs config.lunik1.home.gui.enable {
+        extraConfig = ''
+          allow-loopback-pinentry
+        '';
+      };
   };
 }
