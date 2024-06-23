@@ -16,6 +16,7 @@
 
     # linux_display_server = "x11"; # for window decorations
 
+    clipboard_control = "write-clipboard write-primary read-clipboard read-primary";
     cursor_blink_interval = "0.5";
     cursor_stop_blinking_after = 15;
     enable_audio_bell = false;
