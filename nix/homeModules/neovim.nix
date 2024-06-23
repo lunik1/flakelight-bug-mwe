@@ -123,10 +123,13 @@ in
             }
           ];
 
-          clipboard = {
-            register = "unnamedplus";
-            providers.wl-copy.enable = true;
-          };
+          clipboard =
+            {
+              providers.wl-copy.enable = true;
+            }
+            // lib.optionalAttrs (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin) {
+              register = "unnamedplus";
+            };
 
           colorschemes.gruvbox.enable = true;
 
