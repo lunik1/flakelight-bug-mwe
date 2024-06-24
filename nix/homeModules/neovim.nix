@@ -557,6 +557,11 @@ in
               options.desc = "Save file";
             }
             {
+              key = "<leader>fx";
+              action = function "require('genghis').chmodx()";
+              options.desc = "Set executable bit";
+            }
+            {
               key = "<leader>fy";
               action = function "require('genghis').copyFilepath()";
               options.desc = "Yank file path";
