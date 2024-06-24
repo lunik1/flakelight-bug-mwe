@@ -20,11 +20,15 @@ in
     };
 
     home = {
-      sessionVariables = {
-        EDITOR = "nvim";
-      } // lib.optionalAttrs config.lunik1.home.gui.enable { NEOVIDE_FORK = 1; };
+      sessionVariables =
+        {
+          EDITOR = "nvim";
+        }
+        // lib.optionalAttrs (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin) { NEOVIDE_FORK = 1; };
 
-      packages = with pkgs; lib.optionals config.lunik1.home.gui.enable [ neovide ];
+      packages =
+        with pkgs;
+        lib.optionals (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin) [ neovide ];
     };
 
     programs = {
