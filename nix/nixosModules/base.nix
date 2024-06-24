@@ -142,7 +142,6 @@ in
 
       cloud-utils
       foot.terminfo
-      htop
       libarchive
       kitty.terminfo
       kitty.kitten
