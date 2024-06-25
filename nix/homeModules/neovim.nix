@@ -101,6 +101,14 @@ in
                 })
               end
             end
+
+            local function toggle_transparency()
+              if vim.g.neovide_transparency == 1.0 then
+                vim.g.neovide_transparency = 0.8
+              else
+                vim.g.neovide_transparency = 1.0
+              end
+            end
           '';
 
           autoCmd = [
@@ -1477,6 +1485,9 @@ in
                 vim.keymap.set('v', '<D-v>', '"+P')
                 vim.keymap.set('c', '<D-v>', '<C-r>+')
                 vim.keymap.set('i', '<D-v>', '<Esc>l"+Pli')
+
+                -- toggle transparency
+                vim.keymap.set('n', '<Leader>tT', toggle_transparency, { desc = "Transparency" })
             end
           '';
 
