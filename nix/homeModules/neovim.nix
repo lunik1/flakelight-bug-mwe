@@ -892,7 +892,7 @@ in
             cursorline = true;
             expandtab = true;
             foldlevel = 99;
-            guifont = "Myosevka:h14.0";
+            guifont = "Myosevka:h13.75";
             ignorecase = true;
             incsearch = true;
             lazyredraw = true;
