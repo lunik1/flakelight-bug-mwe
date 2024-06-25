@@ -895,6 +895,7 @@ in
             guifont = "Myosevka:h13.75";
             ignorecase = true;
             incsearch = true;
+            laststatus = 3;
             lazyredraw = true;
             mouse = "a";
             number = true;
