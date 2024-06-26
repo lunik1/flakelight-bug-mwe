@@ -400,7 +400,7 @@ in
           focus.followMouse = false;
           fonts = {
             names = [ "Myosevka Proportional" ];
-            size = 14.0;
+            size = 13.0;
           };
           # gaps = { smartBorders = "on"; };
           input = {

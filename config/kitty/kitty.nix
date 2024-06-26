@@ -5,7 +5,7 @@
   font = {
     name = "Myosevka Light";
     package = pkgs.lunik1-nur.myosevka.mono;
-    size = 11.0;
+    size = 13.0;
   };
   theme = "Gruvbox Dark";
   shellIntegration.enableZshIntegration = true;

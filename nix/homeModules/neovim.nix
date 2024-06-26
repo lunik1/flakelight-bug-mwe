@@ -867,7 +867,7 @@ in
             cursorline = true;
             expandtab = true;
             foldlevel = 99;
-            guifont = "Myosevka:h13.75";
+            guifont = "Myosevka:h13.0";
             ignorecase = true;
             incsearch = true;
             laststatus = 3;
