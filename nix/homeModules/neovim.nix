@@ -58,17 +58,6 @@ in
               sha256 = "sha256-qLMJt0GYFv/S9eruGFKBMd26vNZvKf5ynRgE37iKros=";
             };
           };
-
-          nvim-orgmode = pkgs.vimUtils.buildVimPlugin rec {
-            pname = "nvim-orgmode";
-            version = "0.3.4";
-            src = pkgs.fetchFromGitHub {
-              owner = "nvim-orgmode";
-              repo = "orgmode";
-              rev = version;
-              sha256 = "sha256-SmofuYt4fLhtl5qedYlmCRgOmZaw3nmlnMg0OMzyKnM=";
-            };
-          };
         in
         {
           enable = true;
@@ -1484,7 +1473,7 @@ in
             agitator
             FTerm-nvim
             genghis
-            nvim-orgmode
+            orgmode
             plenary-nvim
             project-nvim
             quick-scope
