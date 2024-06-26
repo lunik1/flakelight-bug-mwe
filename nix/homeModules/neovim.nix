@@ -47,17 +47,6 @@ in
               sha256 = "sha256-pQcbG9z+was/h852AdLGiHuiNKnl17jS4gCSqfrGW/w=";
             };
           };
-
-          genghis = pkgs.vimUtils.buildVimPlugin {
-            pname = "nvim-genghis";
-            version = "2024-06-04";
-            src = pkgs.fetchFromGitHub {
-              owner = "chrisgrieser";
-              repo = "nvim-genghis";
-              rev = "7055134943460d962b4909b43b4c3cd5f011c153";
-              sha256 = "sha256-qLMJt0GYFv/S9eruGFKBMd26vNZvKf5ynRgE37iKros=";
-            };
-          };
         in
         {
           enable = true;
@@ -1472,7 +1461,7 @@ in
           extraPlugins = with pkgs.vimPlugins; [
             agitator
             FTerm-nvim
-            genghis
+            nvim-genghis
             orgmode
             plenary-nvim
             project-nvim
