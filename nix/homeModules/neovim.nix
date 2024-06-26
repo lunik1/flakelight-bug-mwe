@@ -59,17 +59,6 @@ in
             };
           };
 
-          quickscope = pkgs.vimUtils.buildVimPlugin {
-            pname = "quickscope";
-            version = "2023-08-08";
-            src = pkgs.fetchFromGitHub {
-              owner = "unblevable";
-              repo = "quick-scope";
-              rev = "256d81e391a22eeb53791ff62ce65f870418fa71";
-              sha256 = "sha256-TcA4jZIdnQd06V+JrXGiCMr0Yhm9gB6OMiTSdzMt/Qw=";
-            };
-          };
-
           nvim-orgmode = pkgs.vimUtils.buildVimPlugin rec {
             pname = "nvim-orgmode";
             version = "0.3.4";
@@ -1498,7 +1487,7 @@ in
             nvim-orgmode
             plenary-nvim
             project-nvim
-            quickscope
+            quick-scope
             vim-lion
             vim-repeat
             vim-sleuth
