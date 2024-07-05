@@ -90,6 +90,10 @@
         };
 
         hardware = {
+          amdgpu = {
+            initrd.enable = true;
+            opencl.enable = true;
+          };
           cpu.amd.updateMicrocode = true;
           enableAllFirmware = true;
         };
@@ -117,11 +121,6 @@
 
         ## Config modules to use
         lunik1.system = {
-          amdgpu = {
-            enable = true;
-            support32Bit = true;
-            opencl = true;
-          };
           backup.enable = true;
           bluetooth.enable = true;
           containers.enable = true;
