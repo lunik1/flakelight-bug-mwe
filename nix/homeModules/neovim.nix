@@ -219,13 +219,13 @@ in
             }
             # tabs
             {
-              key = "<tab>]";
+              key = "]<tab>";
               action = cmd "tabnext";
               mode = "n";
               options.desc = "Next tab";
             }
             {
-              key = "<tab>[";
+              key = "[<tab>";
               action = cmd "tabprevious";
               mode = "n";
               options.desc = "Previous tab";
