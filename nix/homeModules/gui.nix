@@ -21,7 +21,7 @@ in
           bleachbit
           vesktop
           gimp
-          gnome3.gucharmap
+          gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
           jellyfin-media-player

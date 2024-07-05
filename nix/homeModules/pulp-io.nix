@@ -16,6 +16,6 @@ in
   config = lib.mkIf cfg.enable {
     home.packages =
       with pkgs;
-      [ gnome3.simple-scan ] ++ lib.optionals (!config.lunik1.home.kde.enable) [ system-config-printer ];
+      [ simple-scan ] ++ lib.optionals (!config.lunik1.home.kde.enable) [ system-config-printer ];
   };
 }

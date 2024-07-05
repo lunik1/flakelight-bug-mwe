@@ -55,8 +55,8 @@ in
         [
           blanket
           cartridges
-          gnome.gnome-tweaks
-          gnome.dconf-editor
+          dconf-editor
+          gnome-tweaks
           papers
         ]
         ++ (with pkgs.gnomeExtensions; [
@@ -70,27 +70,27 @@ in
         ]);
       gnome.excludePackages =
         (with pkgs; [
+          baobab
           evince
+          geary
           gedit
           gnome-connections
           gnome-console
+          gnome-disk-utility
           gnome-photos
+          gnome-system-monitor
           gnome-tour
           gnome-usage
           snapshot
+          totem
         ])
         ++ (with pkgs.gnome; [
-          baobab
-          geary
           gnome-characters
           gnome-clocks
-          gnome-disk-utility
           gnome-logs
           gnome-maps
           gnome-music
-          gnome-system-monitor
           hitori
-          totem
         ]);
     };
 
