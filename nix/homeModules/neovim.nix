@@ -164,6 +164,26 @@ in
               };
             }
 
+            # < > retain selection
+            {
+              key = "<";
+              action = "<gv";
+              mode = "v";
+              options = {
+                silent = true;
+                noremap = true;
+              };
+            }
+            {
+              key = ">";
+              action = ">gv";
+              mode = "v";
+              options = {
+                silent = true;
+                noremap = true;
+              };
+            }
+
             # Delete words with ctrl+backspace
             {
               key = "<c-bs>";
