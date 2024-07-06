@@ -78,7 +78,7 @@
           enableAllFirmware = true;
 
           # Intel graphics
-          opengl = {
+          graphics = {
             enable = true;
             extraPackages = with pkgs; [
               vaapiIntel
