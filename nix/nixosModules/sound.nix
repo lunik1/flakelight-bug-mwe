@@ -9,10 +9,6 @@ in
   options.lunik1.system.sound.enable = lib.mkEnableOption "sound";
 
   config = lib.mkIf cfg.enable {
-    sound = {
-      enable = true;
-      mediaKeys.enable = true;
-    };
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
