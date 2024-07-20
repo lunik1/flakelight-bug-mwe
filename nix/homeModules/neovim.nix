@@ -1238,9 +1238,11 @@ in
             treesitter = {
               enable = true;
               folding = true;
-              indent = true;
               nixvimInjections = true;
-              incrementalSelection.enable = true;
+              settings = {
+                indent.enable = true;
+                incrementalSelection.enable = true;
+              };
             };
 
             treesitter-textobjects = {
