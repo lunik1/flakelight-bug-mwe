@@ -1200,6 +1200,7 @@ in
                 };
                 formatting = {
                   shfmt.enable = true;
+                  yamlfmt.enable = true;
                 };
               };
             };
