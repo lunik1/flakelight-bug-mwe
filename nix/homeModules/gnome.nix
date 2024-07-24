@@ -40,13 +40,6 @@ in
       };
     };
 
-    services = {
-      syncthing.tray = {
-        enable = true;
-        command = "syncthingtray --wait";
-      };
-    };
-
     # disable gnome-keyring's ssh agent
     xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
       ${lib.fileContents "${pkgs.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
