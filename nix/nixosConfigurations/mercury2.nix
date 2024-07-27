@@ -14,6 +14,7 @@
         domain = "lunik.one";
 
         boincPort = 8080;
+        breezeWikiPort = 10416;
         favaPort = 5000;
         quetrePort = 3000;
         rssHubPort = 1200;
@@ -179,6 +180,10 @@
                         vhost = "boinc.${domain}";
                         proxyPass = localhost boincPort;
                         webSocket = true;
+                      }
+                      {
+                        vhost = "breezewiki.${domain}";
+                        proxyPass = localhost breezeWikiPort;
                       }
                       {
                         vhost = "fava.${domain}";
@@ -357,6 +362,16 @@
               extraOptions = [ "--security-opt=seccomp:unconfined" ];
             };
 
+            breezewiki = mkPodmanContainer {
+              image = "quay.io/pussthecatorg/breezewiki";
+              ports = [ "${toString breezeWikiPort}:${toString breezeWikiPort}" ];
+              volumes = [ "breezewiki:/config:rw" ];
+              environment = {
+                BW_CANONICAL_ORIGIN = "https://breezewiki.${domain}";
+                BW_PORT = toString breezeWikiPort;
+              };
+            };
+
             quetre = mkPodmanContainer {
               image = "codeberg.org/video-prize-ranch/quetre";
               volumes = [ "/etc/localtime:/etc/localtime:ro" ];
@@ -519,6 +534,9 @@
                 wants = [ "nginx.service" ];
                 requires = [ "podman-volume-boinc.service" ];
                 after = [ "podman-volume-boinc.service" ];
+              };
+              podman-breezewiki = {
+                wants = [ "nginx.service" ];
               };
               podman-quetre = {
                 wants = [ "nginx.service" ];
