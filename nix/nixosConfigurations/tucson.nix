@@ -96,7 +96,7 @@
           };
           cpu.amd.updateMicrocode = true;
           enableAllFirmware = true;
-          opengl.driSupport32Bit = true;
+          graphics.enable32Bit = true;
         };
 
         services = {
