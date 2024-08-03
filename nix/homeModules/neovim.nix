@@ -1456,6 +1456,8 @@ in
                 mappings = { prefix = '<leader>m' }
             })
 
+            require('pqf').setup()
+
             if vim.g.neovide then
                 vim.keymap.set(
                   '!',
@@ -1485,6 +1487,7 @@ in
             agitator
             FTerm-nvim
             nvim-genghis
+            nvim-pqf
             orgmode
             plenary-nvim
             project-nvim
