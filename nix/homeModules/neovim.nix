@@ -1362,7 +1362,7 @@ in
 
             which-key = {
               enable = true;
-              plugins = {
+              settings.plugins = {
                 marks = false;
                 registers = false;
               };
