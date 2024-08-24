@@ -122,6 +122,11 @@
                   locations."/" = {
                     inherit proxyPass;
                     recommendedProxySettings = true;
+                    extraConfig = ''
+                      proxy_connect_timeout 600;
+                      proxy_send_timeout 600;
+                      proxy_read_timeout 30m;
+                    '';
                   } // lib.optionalAttrs webSocket { proxyWebsockets = true; };
                 }
                 // lib.optionalAttrs auth { basicAuthFile = config.sops.secrets.htaccess.path; }
