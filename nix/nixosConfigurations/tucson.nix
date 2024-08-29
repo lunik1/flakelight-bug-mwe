@@ -5,6 +5,7 @@
       {
         config,
         pkgs,
+        lib,
         modulesPath,
         ...
       }:
@@ -107,6 +108,7 @@
           hardware = {
             openrgb = {
               enable = true;
+              package = pkgs.openrgb-with-all-plugins;
               motherboard = "amd";
             };
           };
@@ -119,6 +121,10 @@
             package = pkgs.mullvad-vpn;
           };
         };
+
+        systemd.services.openrgb.serviceConfig.ExecStart =
+          with config.services.hardware.openrgb;
+          lib.mkForce "${package}/bin/openrgb --server --server-port ${toString server.port} --profile ${../../resources/io.orp}";
 
         ## Config modules to use
         lunik1.system = {

@@ -2,7 +2,7 @@
   system = "x86_64-linux";
   modules = [
     (
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
       {
 
         home = {
@@ -61,6 +61,18 @@
             sh.enable = true;
           };
         };
+
+        xdg.configFile."autostart/OpenRGB.desktop".text = ''
+          [Desktop Entry]
+          Categories=Utility;
+          Comment=OpenRGB 0.9, for controlling RGB lighting.
+          Icon=OpenRGB
+          Name=OpenRGB
+          StartupNotify=true
+          Terminal=false
+          Type=Application
+          Exec=openrgb --startminimized
+        '';
       }
     )
   ];
