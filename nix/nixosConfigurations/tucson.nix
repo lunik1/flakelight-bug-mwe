@@ -126,6 +126,10 @@
           with config.services.hardware.openrgb;
           lib.mkForce "${package}/bin/openrgb --server --server-port ${toString server.port} --profile ${../../resources/io.orp}";
 
+        powerManagement.resumeCommands = ''
+          systemctl restart openrgb.service
+        '';
+
         ## Config modules to use
         lunik1.system = {
           backup.enable = true;
