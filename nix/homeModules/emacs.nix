@@ -37,11 +37,19 @@ in
         packages =
           with pkgs;
           [
+            beancount-language-server
+            dockerfile-language-server-nodejs
             fd
             glslang
             gnuplot
             graphviz
+            lua-language-server
+            lua54Packages.digestif
+            markdownlint-cli2
+            marksman
+            nodePackages_latest.bash-language-server
             pandoc
+            proselint
             ripgrep
             sqlite.bin
           ]
@@ -54,6 +62,20 @@ in
             lunik1-nur.myosevka.mono
             lunik1-nur.myosevka.aile
             lunik1-nur.myosevka.etoile
+          ]
+          ++ optionals config.lunik1.home.lang.clojure.enable [
+            clojure-lsp
+          ]
+          ++ optionals config.lunik1.home.lang.data.enable [
+            nodePackages_latest.vscode-json-languageserver
+            taplo
+            yaml-language-server
+            yamllint
+            yamlfmt
+          ]
+          ++ optionals config.lunik1.home.lang.nix.enable [
+            nil
+            statix
           ];
 
         sessionVariables = {
