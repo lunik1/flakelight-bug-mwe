@@ -100,6 +100,11 @@ in
               event = [ "CursorHold" ];
               callback = function "vim.diagnostic.open_float(0, {scope='cursor'})";
             }
+            {
+              event = [ "FileType" ];
+              pattern = "qf";
+              callback = function "vim.api.nvim_buf_set_keymap(0, 'n', '<CR>', ':<C-u>.cc<CR>', { noremap = true, silent = true })";
+            }
           ];
 
           clipboard =
