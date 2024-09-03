@@ -9,7 +9,10 @@
           username = "corin";
           homeDirectory = "/home/corin";
           stateVersion = "21.05";
-          packages = with pkgs; [ vial ];
+          packages = with pkgs; [
+            r2modman
+            vial
+          ];
         };
 
         nixpkgs.config.rocmSupport = true;
