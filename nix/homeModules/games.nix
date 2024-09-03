@@ -11,14 +11,14 @@ in
 {
   options.lunik1.home.games = {
     saves.enable = lib.mkEnableOption "tools to manage game saves";
-    emu.enable = lib.mkEnableOption "Enable emulation? (RetroArch)";
-    cli.enable = lib.mkEnableOption "Add games that can be played on a terminal";
-    freeciv.enable = lib.mkEnableOption "Enable Freeciv";
-    df.enable = lib.mkEnableOption "Enable Dwarf Fortress";
-    minecraft.enable = lib.mkEnableOption "Enable Minecraft";
-    openrct2.enable = lib.mkEnableOption "Enable Roller Coaster Tycoon 2";
-    wesnoth.enable = lib.mkEnableOption "Enable The Battle for Wesnoth";
-    dcss.enable = lib.mkEnableOption "Enable Dungeon Crawl Stone Soup";
+    emu.enable = lib.mkEnableOption "emulation";
+    cli.enable = lib.mkEnableOption "terminal games";
+    freeciv.enable = lib.mkEnableOption "Freeciv";
+    df.enable = lib.mkEnableOption "Dwarf Fortress";
+    minecraft.enable = lib.mkEnableOption "Minecraft";
+    openrct2.enable = lib.mkEnableOption "Roller Coaster Tycoon 2";
+    wesnoth.enable = lib.mkEnableOption "The Battle for Wesnoth";
+    dcss.enable = lib.mkEnableOption "Dungeon Crawl Stone Soup";
     osu.enable = lib.mkEnableOption "osu";
   };
 
