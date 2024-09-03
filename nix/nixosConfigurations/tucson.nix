@@ -97,7 +97,6 @@
           };
           cpu.amd.updateMicrocode = true;
           enableAllFirmware = true;
-          graphics.enable32Bit = true;
         };
 
         services = {
@@ -135,6 +134,7 @@
           backup.enable = true;
           bluetooth.enable = true;
           containers.enable = true;
+          games.steam.enable = true;
           graphical.enable = true;
           gnome.enable = true;
           network = {

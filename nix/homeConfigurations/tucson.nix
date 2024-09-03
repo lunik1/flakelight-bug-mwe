@@ -44,7 +44,6 @@
           games = {
             emu.enable = true;
             minecraft.enable = true;
-            steam.enable = true;
             osu.enable = true;
             saves.enable = true;
           };

@@ -11,7 +11,6 @@ in
 {
   options.lunik1.home.games = {
     saves.enable = lib.mkEnableOption "tools to manage game saves";
-    steam.enable = lib.mkEnableOption "Enable Steam?";
     emu.enable = lib.mkEnableOption "Enable emulation? (RetroArch)";
     cli.enable = lib.mkEnableOption "Add games that can be played on a terminal";
     freeciv.enable = lib.mkEnableOption "Enable Freeciv";
@@ -29,11 +28,6 @@ in
       lib.optionals cfg.saves.enable [
         ludusavi
         rclone
-      ]
-      ++ lib.optionals cfg.steam.enable [
-        protontricks
-        steam
-        steam-run
       ]
       ++ lib.optionals cfg.emu.enable [
         ryujinx
