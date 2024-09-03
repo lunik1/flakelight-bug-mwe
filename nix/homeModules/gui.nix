@@ -38,7 +38,7 @@ in
         ++ (
           if config.lunik1.home.kde.enable then
             [
-              libreoffice-qt
+              libreoffice-qt-fresh
               lxqt.pavucontrol-qt
             ]
           else
