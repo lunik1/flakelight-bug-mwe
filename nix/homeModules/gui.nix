@@ -28,7 +28,6 @@ in
           qdirstat
           signal-desktop
           thunderbird
-          ventoy
           xdg_utils
 
           lunik1-nur.amazing-marvin
@@ -40,11 +39,19 @@ in
             [
               libreoffice-qt-fresh
               lxqt.pavucontrol-qt
+              (ventoy.override {
+                withQt5 = true;
+                defaultGuiType = "qt5";
+              })
             ]
           else
             [
               libreoffice-fresh
               pavucontrol
+              (ventoy.override {
+                withGtk3 = true;
+                defaultGuiType = "gtk3";
+              })
             ]
         );
 
