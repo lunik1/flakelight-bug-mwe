@@ -1129,10 +1129,7 @@ in
                   inherit (config.lunik1.home.lang.python) enable;
                   package = null;
                   extraOptions = { };
-                };
-                ruff-lsp = {
-                  inherit (config.lunik1.home.lang.python) enable;
-                  package = null;
+                  settings.plugins.ruff.enabled = true;
                 };
                 rust-analyzer = {
                   inherit (config.lunik1.home.lang.rust) enable;
