@@ -99,10 +99,7 @@
             pkgs.inputs'.pre-commit-hooks.lib.run {
               src = ./.;
               hooks = {
-                nixfmt = {
-                  enable = true;
-                  package = pkgs.nixfmt-rfc-style;
-                };
+                nixfmt-rfc-style.enable = true;
                 shellcheck.enable = true;
               };
             };
