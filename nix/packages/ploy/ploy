@@ -21,18 +21,35 @@
   []
   (.getHostName (java.net.InetAddress/getLocalHost)))
 
+(defn- exit-on-fail
+  [procfn]
+  (fn
+    [& args]
+    (try
+      (apply procfn args)
+      (catch clojure.lang.ExceptionInfo e
+        (prn (ex-data e))
+        (-> e ex-data :exit System/exit)))))
+
+(def ^:private try-shell
+  (exit-on-fail shell))
+
 (defn- nix
   {:arglists '([opts? & args])}
+
   [& args]
   (let [[opts args] (if (map? (first args))
                       [(first args) (rest args)]
                       [{} args])]
-    (apply shell opts "nix" "--allow-import-from-derivation" "--experimental-features" "nix-command flakes" args)))
+    (apply try-shell opts "nix" "--allow-import-from-derivation" "--experimental-features" "nix-command flakes" args)))
+
+(def ^:private try-nix
+  (exit-on-fail nix))
 
 (def ^:private nix-platforms
   (memoize
    (fn []
-     (let [nix-config (-> (nix {:out :string} "show-config" "--json")
+     (let [nix-config (-> (try-nix {:out :string} "show-config" "--json")
                           :out
                           (json/parse-string true))]
        (set (conj (-> nix-config :extra-platforms :value)
@@ -60,26 +77,26 @@
 (def ^:private container-image
   (memoize
    (fn [container]
-     (-> (shell {:out :string} "podman" "inspect" container "--format" "{{.ImageName}}")
+     (-> (try-shell {:out :string} "podman" "inspect" container "--format" "{{.ImageName}}")
          :out
          str/trim))))
 
 (defn- image-digest
   [image]
-  (-> (shell {:out :string} "podman" "inspect" image "--format" "{{index .RepoDigests 0}}")))
+  (-> (try-shell {:out :string} "podman" "inspect" image "--format" "{{index .RepoDigests 0}}")))
 
 (defn- pull-image!
   [image]
-  (shell "podman" "pull" image))
+  (try-shell "podman" "pull" image))
 
 (defn- restart-container!
   [container]
   (println (format "Restarting %s" container))
-  (shell "systemctl" "restart" (format "podman-%s.service" container)))
+  (try-shell "systemctl" "restart" (format "podman-%s.service" container)))
 
 (defn- containers
   []
-  (->> (shell
+  (->> (try-shell
         {:out :string}
         "systemctl" "list-units" "-t" "service" "--full" "--all" "--plain" "--no-legend" "podman-*")
        :out
@@ -95,7 +112,7 @@
 (def ^:private flake-outputs
   (memoize
    (fn []
-     (-> (nix {:out :string :err :string} "flake" "show" "--json")
+     (-> (try-nix {:out :string :err :string} "flake" "show" "--json")
          :out
          (json/parse-string true)))))
 
@@ -151,7 +168,7 @@
 
 (def ^:private push-to-cachix!
   (partial
-   shell
+   try-shell
    "cachix" "push"
    CACHIX-CACHE
    "-j" (str (.availableProcessors (Runtime/getRuntime)))))
@@ -160,11 +177,15 @@
   []
   (when (command-exists? "fc-cache")
     (println "Updating font cache.")
-    (shell "fc-cache")))
+    (try
+      (shell "fc-cache")
+      (catch clojure.lang.ExceptionInfo _
+        (binding [*out* *err*]
+          (println "fc-cache failed"))))))
 
 (defn build-all
   [_]
-  (apply nix "build" (outputs)))
+  (apply try-nix "build" (outputs)))
 
 (defn install-home!
   [{{hostname :hostname} :opts}]
@@ -172,13 +193,13 @@
                      (let [hostname (get-hostname)]
                        (println (format "No hostname provided using '%s'" hostname))
                        hostname))]
-    (nix "build" "-o" "./result" (home->output hostname))
+    (try-nix "build" "-o" "./result" (home->output hostname))
 
     ;; mimeapps.list has a bad habit of being modified and getting in the way
     (fs/delete-if-exists (format "%s/.config/mimeapps.list" (get-home)))
 
     ;; activate the new configuration
-    (shell "./result/activate")
+    (try-shell "./result/activate")
 
     (maybe-update-font-cache!)))
 
@@ -192,7 +213,7 @@
       (do
         (fs/delete-tree "/etc/nixos")
         (fs/copy-tree "." "/etc/nixos")
-        (shell "nixos-rebuild" "switch" "--flake" (format "/etc/nixos#%s" hostname))
+        (try-shell "nixos-rebuild" "switch" "--flake" (format "/etc/nixos#%s" hostname))
         (maybe-update-font-cache!))
       (do
         (println "Requires super user, aborting.")
@@ -205,7 +226,7 @@
       (println "Refusing to populate cache with uncommitted changes.")
       (System/exit 1))
     (as-> (outputs) $
-      (apply nix {:out :string} "build" "--json" $)
+      (apply try-nix {:out :string} "build" "--json" $)
       (:out $)
       (json/parse-string $ true)
       (map #(get-in % [:outputs :out]) $)
@@ -236,12 +257,12 @@
 
 (defn nix-check
   [_]
-  (-> (nix {:continue true} "flake" "check")
+  (-> (try-nix {:continue true} "flake" "check")
       :exit
       System/exit))
 
 (defn update-lockfile! [_]
-  (nix "flake" "update" "." "--commit-lock-file"))
+  (try-nix "flake" "update" "." "--commit-lock-file"))
 
 (defn default [_]
   (println "Invalid command.")
