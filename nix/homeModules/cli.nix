@@ -38,6 +38,7 @@ in
           libarchive
           lrzip
           lz4
+          ncdu
           nix-tree
           p7zip
           parallel
@@ -61,17 +62,13 @@ in
         ]
         ++ lib.optionals stdenv.isLinux [
           cfspeedtest
-          ncdu
           pb_cli
           parted
           psmisc
           smartmontools
           xfsdump
         ]
-        ++ lib.optionals (stdenv.isLinux && stdenv.isx86_64) [ lunik1-nur.efficient-compression-tool ]
-        ++ lib.optionals stdenv.isDarwin [
-          ncdu_1 # zig likes to break often on darwin, so use ncdu 1.0
-        ];
+        ++ lib.optionals (stdenv.isLinux && stdenv.isx86_64) [ lunik1-nur.efficient-compression-tool ];
 
       sessionVariables = {
         ET_NO_TELEMETRY = "1";
