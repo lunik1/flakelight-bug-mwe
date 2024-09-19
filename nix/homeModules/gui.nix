@@ -13,14 +13,17 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      sessionVariables.NIXOS_OZONE_WL = "1";
+      sessionVariables.NIXOS_OZONE_WL = lib.mkIf pkgs.stdenv.isLinux "1";
       packages =
         with pkgs;
         [
-          bitwarden
           bleachbit
           vesktop
           gimp
+          lunik1-nur.myosevka.aile
+        ]
+        ++ lib.optionals stdenv.isLinux [
+          bitwarden
           gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
@@ -32,7 +35,6 @@ in
 
           lunik1-nur.amazing-marvin
           lunik1-nur.bach
-          lunik1-nur.myosevka.aile
         ]
         ++ (
           if config.lunik1.home.kde.enable then
@@ -44,7 +46,7 @@ in
                 defaultGuiType = "qt5";
               })
             ]
-          else
+          else if pkgs.stdenv.isLinux then
             [
               libreoffice-fresh
               pavucontrol
@@ -53,6 +55,8 @@ in
                 defaultGuiType = "gtk3";
               })
             ]
+          else
+            [ ]
         );
 
       sessionVariables = {
@@ -61,9 +65,9 @@ in
     };
 
     programs = {
-      feh.enable = true;
+      feh.enable = pkgs.stdenv.isLinux;
       firefox = {
-        enable = true;
+        enable = pkgs.stdenv.isLinux;
         package = pkgs.floorp.override {
           cfg.nativeMessagingHosts.packages =
             lib.optionals config.lunik1.kde.enable [ pkgs.plasma5Packages.plasma-browser-integration ]
@@ -141,10 +145,10 @@ in
       };
     };
 
-    services.playerctld.enable = true;
+    services.playerctld.enable = pkgs.stdenv.isLinux;
 
     xdg = {
-      enable = true;
+      enable = pkgs.stdenv.isLinux;
       mime.enable = true;
       mimeApps = {
         enable = true;
