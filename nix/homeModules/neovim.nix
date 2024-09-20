@@ -1225,6 +1225,8 @@ in
               };
             };
 
+            nvim-surround.enable = true;
+
             rainbow-delimiters.enable = true;
 
             telescope = {
@@ -1235,8 +1237,6 @@ in
             };
 
             sleuth.enable = true;
-
-            surround.enable = true;
 
             treesitter = {
               enable = true;
