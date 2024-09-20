@@ -7,7 +7,7 @@
     package = pkgs.lunik1-nur.myosevka.mono;
     size = 13.0;
   };
-  theme = "Gruvbox Dark";
+  themeFile = "gruvbox-dark";
   shellIntegration.enableZshIntegration = true;
   settings = {
     bold_font = "Myosevka Semibold";
