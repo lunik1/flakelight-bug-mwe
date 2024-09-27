@@ -1151,6 +1151,12 @@ in
 
             oil.enable = true;
 
+            mini = {
+              enable = true;
+              modules.icons = { };
+              mockDevIcons = true;
+            };
+
             navbuddy = {
               enable = true;
               keymapsSilent = true;
