@@ -20,15 +20,9 @@ in
     };
 
     home = {
-      sessionVariables =
-        {
-          EDITOR = "nvim";
-        }
-        // lib.optionalAttrs (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin) { NEOVIDE_FORK = 1; };
-
-      packages =
-        with pkgs;
-        lib.optionals (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin) [ neovide ];
+      sessionVariables = {
+        EDITOR = "nvim";
+      };
     };
 
     programs = {
@@ -567,7 +561,7 @@ in
               options.desc = "Yank file path";
             }
 
-            # Sessions 
+            # Sessions
             {
               key = "<leader>pa";
               action = cmd "SessionSave";
@@ -1511,6 +1505,13 @@ in
         neogit = "nvim +Neogit";
         vimdiff = "nvim -d";
         nvimdiff = vimdiff;
+      };
+
+      neovide = {
+        enable = (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin);
+        settings = {
+          fork = true;
+        };
       };
     };
   };
