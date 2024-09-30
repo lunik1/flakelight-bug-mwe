@@ -147,7 +147,7 @@ in
 
     services.playerctld.enable = pkgs.stdenv.isLinux;
 
-    xdg = cfg.mkIf pkgs.stdenv.isLinux {
+    xdg = lib.mkIf pkgs.stdenv.isLinux {
       enable = true;
       mime.enable = true;
       mimeApps = {
