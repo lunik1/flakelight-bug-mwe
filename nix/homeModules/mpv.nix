@@ -74,7 +74,7 @@ in
 
           # Subtitles
           sub-ass-vsfilter-color-compat = "full";
-          sub-ass-vsfilter-aspect-compat = "no";
+          sub-ass-use-video-data = "aspect-ratio";
           sub-ass-style-overrides = "Kerning=yes";
           demuxer-mkv-subtitle-preroll = "yes";
           sub-auto = "fuzzy";
