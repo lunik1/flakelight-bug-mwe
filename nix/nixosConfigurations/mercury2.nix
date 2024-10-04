@@ -594,6 +594,10 @@
             "L+ /srv/www/.well-known/matrix/client - - - - ${
               builtins.toFile "client" (builtins.toJSON { "m.homeserver".base_url = "https://${domain}"; })
             }"
+            "L+ /srv/www/robots.txt - - - - ${builtins.toFile "robots.txt" ''
+              User-agent: *
+              Disallow: /
+            ''}"
           ];
         };
 
