@@ -22,7 +22,7 @@
         system.stateVersion = "21.05";
 
         boot = {
-          kernelPackages = pkgs.linuxPackages_latest;
+          kernelPackages = pkgs.linuxPackages;
 
           blacklistedKernelModules = [ "iCTO_wdt" ]; # watchdog module
 
