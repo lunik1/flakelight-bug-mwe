@@ -1109,13 +1109,13 @@ in
                   enable = true;
                   package = null;
                 };
-                clojure-lsp.enable = config.lunik1.home.lang.clojure.enable;
+                clojure_lsp.enable = config.lunik1.home.lang.clojure.enable;
                 digestif.enable = true;
                 dockerls.enable = true;
                 jsonls.enable = config.lunik1.home.lang.data.enable;
-                lua-ls.enable = true;
+                lua_ls.enable = true;
                 marksman.enable = true;
-                nil-ls = {
+                nil_ls = {
                   inherit (config.lunik1.home.lang.nix) enable;
                   settings.formatting.command = [ "nixfmt" ];
                 };
@@ -1125,13 +1125,13 @@ in
                   extraOptions = { };
                   settings.plugins.ruff.enabled = true;
                 };
-                rust-analyzer = {
+                rust_analyzer = {
                   inherit (config.lunik1.home.lang.rust) enable;
                   installCargo = true;
                   installRustc = true;
                 };
                 taplo.enable = config.lunik1.home.lang.data.enable;
-                typos-lsp.enable = true;
+                typos_lsp.enable = true;
                 yamlls.enable = config.lunik1.home.lang.data.enable;
               };
             };
