@@ -916,11 +916,13 @@ in
           plugins = {
             auto-session = {
               enable = true;
-              autoRestore.enabled = true;
-              autoSession = {
-                enableLastSession = false;
-                createEnabled = false;
-                useGitBranch = false;
+              settings = {
+                auto_session = {
+                  auto_restore = true;
+                  enable_last_session = false;
+                  create_enabled = false;
+                  use_git_branch = false;
+                };
               };
             };
 
