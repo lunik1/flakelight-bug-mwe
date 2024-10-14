@@ -117,8 +117,9 @@
             coreutils
             gawk
             jq
-            nixfmt-rfc-style
             nix-info
+            nix-output-monitor
+            nixfmt-rfc-style
             nixpkgs-lint-community
             nodePackages_latest.prettier
             nodePackages_latest.yaml-language-server

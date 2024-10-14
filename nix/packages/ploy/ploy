@@ -43,8 +43,20 @@
                       [{} args])]
     (apply try-shell opts "nix" "--allow-import-from-derivation" "--experimental-features" "nix-command flakes" args)))
 
+(defn- nom
+  {:arglists '([opts? & args])}
+
+  [& args]
+  (let [[opts args] (if (map? (first args))
+                      [(first args) (rest args)]
+                      [{} args])]
+    (apply try-shell opts "nom" args)))
+
 (def ^:private try-nix
   (exit-on-fail nix))
+
+(def ^:private try-nom
+  (exit-on-fail nom))
 
 (def ^:private nix-platforms
   (memoize
@@ -185,7 +197,7 @@
 
 (defn build-all
   [_]
-  (apply try-nix "build" (outputs)))
+  (apply try-nom "build" (outputs)))
 
 (defn install-home!
   [{{hostname :hostname} :opts}]
@@ -193,7 +205,7 @@
                      (let [hostname (get-hostname)]
                        (println (format "No hostname provided using '%s'" hostname))
                        hostname))]
-    (try-nix "build" "-o" "./result" (home->output hostname))
+    (try-nom "build" "-o" "./result" (home->output hostname))
 
     ;; mimeapps.list has a bad habit of being modified and getting in the way
     (fs/delete-if-exists (format "%s/.config/mimeapps.list" (get-home)))
@@ -226,7 +238,7 @@
       (println "Refusing to populate cache with uncommitted changes.")
       (System/exit 1))
     (as-> (outputs) $
-      (apply try-nix {:out :string} "build" "--json" $)
+      (apply try-nom {:out :string} "build" "--json" $)
       (:out $)
       (json/parse-string $ true)
       (map #(get-in % [:outputs :out]) $)
