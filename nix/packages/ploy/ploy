@@ -41,7 +41,7 @@
   (let [[opts args] (if (map? (first args))
                       [(first args) (rest args)]
                       [{} args])]
-    (apply try-shell opts "nix" "--allow-import-from-derivation" "--experimental-features" "nix-command flakes" args)))
+    (apply try-shell opts "nix" "--experimental-features" "nix-command flakes" args)))
 
 (defn- nom
   {:arglists '([opts? & args])}
