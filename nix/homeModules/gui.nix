@@ -13,7 +13,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      sessionVariables.NIXOS_OZONE_WL = lib.mkIf pkgs.stdenv.isLinux "1";
+      sessionVariables.NIXOS_OZONE_WL = if pkgs.stdenv.isLinux then "1" else "";
       packages =
         with pkgs;
         [
