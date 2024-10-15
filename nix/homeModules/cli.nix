@@ -29,7 +29,6 @@ in
           duf
           emv
           eternal-terminal
-          fd
           ffmpeg-full
           file
           fontconfig
@@ -249,6 +248,7 @@ in
         };
       };
       tmux = import ../../config/tmux/tmux.nix { inherit (pkgs) tmuxPlugins; };
+      fd.enable = true;
       fzf = rec {
         enable = true;
         enableFishIntegration = false;
