@@ -4,6 +4,19 @@ in
 {
   font = "Myosevka 12";
 
+  guioptions = "sv";
+
+  # C-r
+  recolor-lightcolor = gruvbox.dark.bg;
+  recolor-darkcolor = gruvbox.dark.fg;
+  # recolor = true;
+  # set recolor-keephue             true      # keep original color
+
+  # use CLIPBOARD, not PRIMARY
+  selection-clipboard = "clipboard";
+
+  # Colours
+
   notification-error-bg = gruvbox.dark.bg;
   notification-error-fg = gruvbox.dark.red.bright;
   notification-warning-bg = gruvbox.dark.bg;
@@ -37,13 +50,4 @@ in
   render-loading = true;
   render-loading-bg = gruvbox.dark.bg;
   render-loading-fg = gruvbox.dark.fg;
-
-  # C-r
-  recolor-lightcolor = gruvbox.dark.bg;
-  recolor-darkcolor = gruvbox.dark.fg;
-  # recolor = true;
-  # set recolor-keephue             true      # keep original color
-
-  # use CLIPBOARD, not PRIMARY
-  selection-clipboard = "clipboard";
 }
