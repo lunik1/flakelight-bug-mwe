@@ -29,8 +29,8 @@ in
   statusbar-bg = gruvbox.dark.bg0_s;
   statusbar-fg = gruvbox.dark.fg;
 
-  highlight-color = gruvbox.dark.yellow.bright;
-  highlight-active-color = gruvbox.dark.orange.bright;
+  highlight-color = "rgba(214, 93, 14, 0.5)";
+  highlight-active-color = "rgba(250, 189, 47, 0.5)";
 
   default-bg = gruvbox.dark.bg0_h;
   default-fg = gruvbox.dark.fg;
