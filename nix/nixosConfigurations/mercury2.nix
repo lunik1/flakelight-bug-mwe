@@ -13,7 +13,6 @@
       let
         domain = "lunik.one";
 
-        boincPort = 8080;
         breezeWikiPort = 10416;
         favaPort = 5000;
         quetrePort = 3000;
@@ -180,11 +179,6 @@
                         vhost = "atuin.${domain}";
                         proxyPass = localhost config.services.atuin.port;
                         auth = false;
-                      }
-                      {
-                        vhost = "boinc.${domain}";
-                        proxyPass = localhost boincPort;
-                        webSocket = true;
                       }
                       {
                         vhost = "breezewiki.${domain}";
@@ -360,13 +354,6 @@
             mkPodmanContainer = flake.outputs.lib.mkPodmanContainer config.time.timeZone;
           in
           {
-            boinc = mkPodmanContainer {
-              image = "lscr.io/linuxserver/boinc";
-              volumes = [ "boinc:/config:rw" ];
-              ports = [ "${toString boincPort}:8080" ];
-              extraOptions = [ "--security-opt=seccomp:unconfined" ];
-            };
-
             breezewiki = mkPodmanContainer {
               image = "quay.io/pussthecatorg/breezewiki";
               ports = [ "${toString breezeWikiPort}:${toString breezeWikiPort}" ];
@@ -535,11 +522,6 @@
                 partOf = [ "rss.target" ];
               };
 
-              podman-boinc = {
-                wants = [ "nginx.service" ];
-                requires = [ "podman-volume-boinc.service" ];
-                after = [ "podman-volume-boinc.service" ];
-              };
               podman-breezewiki = {
                 wants = [ "nginx.service" ];
               };
@@ -574,7 +556,6 @@
 
               podman-network-rss = mkPodmanNetwork "rss";
 
-              podman-volume-boinc = mkPodmanVolume "boinc";
               podman-volume-wallabag_images = mkPodmanVolume "wallabag_images";
             };
 
