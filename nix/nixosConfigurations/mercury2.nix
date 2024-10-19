@@ -134,7 +134,7 @@
               localhost = port: "http://localhost:${toString port}";
             in
             {
-              package = pkgs.nginxQuic;
+              package = pkgs.angieQuic;
 
               recommendedOptimisation = true;
               recommendedTlsSettings = true;
@@ -147,7 +147,9 @@
                 {
                   default = {
                     default = true;
-                    rejectSSL = true;
+                    extraConfig = ''
+                      ssl_reject_handshake on;
+                    '';
                     locations."/".return = "444";
                   };
                   ${domain} = {
