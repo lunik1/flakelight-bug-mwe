@@ -593,6 +593,7 @@
           containers.enable = true;
           network.resolved.enable = true;
           ssh-server.enable = true;
+          zswap.enable = true;
         };
       }
     )
