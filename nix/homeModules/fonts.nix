@@ -18,7 +18,7 @@ in
       material-design-icons
       montserrat
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       sarasa-gothic
       source-code-pro
