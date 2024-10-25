@@ -274,7 +274,7 @@
       System/exit))
 
 (defn update-lockfile! [_]
-  (try-nix "flake" "update" "." "--commit-lock-file"))
+  (try-nix "flake" "update" "--flake" "." "--commit-lock-file"))
 
 (defn default [_]
   (println "Invalid command.")
