@@ -94,7 +94,9 @@ in
   nix = {
     # try to make the system a bit more responsive while nix is operating
     daemonCPUSchedPolicy = "batch";
-    daemonIOSchedPriority = 3;
+    daemonIOSchedPriority = 5;
+
+    channel.enable = false;
 
     # automatic garbage collection
     gc = {
