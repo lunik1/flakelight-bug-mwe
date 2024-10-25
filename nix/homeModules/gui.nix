@@ -31,7 +31,7 @@ in
           qdirstat
           signal-desktop
           thunderbird
-          xdg_utils
+          xdg-utils
 
           lunik1-nur.amazing-marvin
           lunik1-nur.bach

@@ -27,7 +27,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       playerctl
-      xdg_utils
+      xdg-utils
       open-in-mpv
     ];
 
