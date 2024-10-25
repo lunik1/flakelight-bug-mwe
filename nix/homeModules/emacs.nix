@@ -28,7 +28,7 @@ in
         withGTK3 = cfg.gui;
         withPgtk = cfg.gui;
       };
-      emacs-package = pkgs.emacs29.override settings;
+      emacs-package = pkgs.emacs.override settings;
     in
     {
       lunik1.home.git.enable = true;
