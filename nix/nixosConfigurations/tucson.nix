@@ -85,9 +85,13 @@
 
         swapDevices = [ { device = "/dev/disk/by-uuid/67f65c58-4d31-4ea4-8b70-44d1e98a48e0"; } ];
 
-        nix.settings = {
-          max-jobs = 4;
-          cores = 8;
+        nix = {
+          daemonIOSchedClass = "idle";
+          daemonCPUSchedPolicy = lib.mkForce "batch";
+          settings = {
+            max-jobs = 4;
+            cores = 8;
+          };
         };
 
         hardware = {

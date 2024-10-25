@@ -70,7 +70,11 @@
         # filesystem errors
         services.fwupd.enable = lib.mkForce false;
 
-        nix.settings.max-jobs = 4;
+        nix = {
+          daemonIOSchedClass = "idle";
+          daemonCPUSchedPolicy = lib.mkForce "batch";
+          settings.max-jobs = 4;
+        };
         powerManagement.cpuFreqGovernor = "ondemand";
 
         hardware = {
