@@ -6,7 +6,7 @@
   (:require
    [babashka.cli :as cli]
    [babashka.fs :as fs]
-   [babashka.process :refer [shell process]]
+   [babashka.process :refer [check shell pb pipeline process]]
    [clojure.set :as set]
    [clojure.string :as str]
    [cheshire.core :as json]))
@@ -225,7 +225,12 @@
       (do
         (fs/delete-tree "/etc/nixos")
         (fs/copy-tree "." "/etc/nixos")
-        (try-shell "nixos-rebuild" "switch" "--flake" (format "/etc/nixos#%s" hostname))
+
+        (exit-on-fail
+         (run! check
+               (pipeline (pb {:err :out} "nixos-rebuild" "switch" "--flake" (format "/etc/nixos#%s" hostname))
+                         (pb {:out :inherit :err :inherit} "nom"))))
+
         (maybe-update-font-cache!))
       (do
         (println "Requires super user, aborting.")
