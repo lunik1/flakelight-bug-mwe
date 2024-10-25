@@ -57,28 +57,7 @@ in
       sessionVariables.AWK_HASH = "fnv1a";
     };
 
-    nix = {
-      package = pkgs.nix;
-      settings = {
-        # causes issues on darwin https://github.com/NixOS/nix/issues/7273
-        auto-optimise-store = !pkgs.stdenv.isDarwin;
-        experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
-        # Sandbox is a little bit broken on darwin
-        # https://github.com/NixOS/nix/issues/4119
-        sandbox = if pkgs.stdenv.isDarwin then false else "relaxed";
-        substituters = [
-          "https://cache.nixos.org"
-          "https://lunik1-nix-config.cachix.org"
-        ];
-        trusted-public-keys = [
-          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-          "lunik1-nix-config.cachix.org-1:GqZJS5q4NsaZfo2CszuqbB1WrvdyZJqO7e+JqNjtd94="
-        ];
-      };
-    };
+    nix.package = pkgs.nix;
 
     systemd.user.startServices = "sd-switch";
 
