@@ -61,7 +61,7 @@
 (def ^:private nix-platforms
   (memoize
    (fn []
-     (let [nix-config (-> (try-nix {:out :string} "show-config" "--json")
+     (let [nix-config (-> (try-nix {:out :string} "config" "show" "--json")
                           :out
                           (json/parse-string true))]
        (set (conj (-> nix-config :extra-platforms :value)
