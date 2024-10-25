@@ -216,7 +216,7 @@
     (maybe-update-font-cache!)))
 
 (defn install-system!
-  [{{hostname :hostname} :opts}]
+  [{{hostname :hostname operation :operation} :opts}]
   (let [hostname (or hostname
                      (let [hostname (get-hostname)]
                        (println (format "No hostname provided using '%s'" hostname))
@@ -228,7 +228,7 @@
 
         (exit-on-fail
          (run! check
-               (pipeline (pb {:err :out} "nixos-rebuild" "switch" "--flake" (format "/etc/nixos#%s" hostname))
+               (pipeline (pb {:err :out} "nixos-rebuild" operation "--flake" (format "/etc/nixos#%s" hostname))
                          (pb {:out :inherit :err :inherit} "nom"))))
 
         (maybe-update-font-cache!))
