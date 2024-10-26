@@ -18,7 +18,10 @@
         ];
 
         ## System-specific config incl. hardware scan
-        networking.hostName = "tucson";
+        networking = {
+          hostName = "tucson";
+          enableIPv6 = false;
+        };
         system.stateVersion = "21.05";
 
         boot = {
