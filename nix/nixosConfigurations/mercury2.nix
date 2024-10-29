@@ -23,6 +23,10 @@
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
         boot = {
+          kernel.sysctl = {
+            "net.core.default_qdisc" = "fq";
+            "net.ipv4.tcp_congestion_control" = "bbr";
+          };
           kernelModules = [ "softdog" ];
           kernelPackages = pkgs.linuxPackages;
           kernelParams = [ "console=tty" ];
