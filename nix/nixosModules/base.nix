@@ -100,7 +100,10 @@ in
     '';
   };
 
-  networking.firewall.logRefusedConnections = false;
+  networking = {
+    firewall.logRefusedConnections = false;
+    useNetworkd = true;
+  };
 
   nix = {
     # try to make the system a bit more responsive while nix is operating
