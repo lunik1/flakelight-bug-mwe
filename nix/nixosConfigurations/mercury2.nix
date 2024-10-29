@@ -25,6 +25,9 @@
         boot = {
           kernelModules = [ "softdog" ];
           kernelPackages = pkgs.linuxPackages;
+          kernelParams = [ "console=tty" ];
+          initrd.kernelModules = [ "virtio_gpu" ];
+
           loader = {
             systemd-boot.enable = true;
             efi.canTouchEfiVariables = true;
