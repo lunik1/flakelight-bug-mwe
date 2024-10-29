@@ -38,10 +38,9 @@ in
         mpris
         mpv-playlistmanager
         sponsorblock
+        thumbfast
         quality-menu
         uosc
-
-        pkgs.lunik1-nur.thumbfast
       ];
       config =
         with cfg;
