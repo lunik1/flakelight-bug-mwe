@@ -187,20 +187,23 @@ in
   };
 
   # Sops
-  system.activationScripts = {
-    # Generate an ed25519 key for usage with age/sops
-    genereate-sops-ed25519 = ''
-      if [ ! -f ${sopsKeyFile} ]; then
-        ${pkgs.coreutils}/bin/mkdir \
-          -p \
-          $(${pkgs.coreutils}/bin/dirname ${sopsKeyFile})
-        ${pkgs.openssh}/bin/ssh-keygen \
-          -t ed25519 \
-          -f ${sopsKeyFile} \
-          -C "sops-${config.networking.hostName}" \
-          -N ""
-      fi
-    '';
+  system = {
+    activationScripts = {
+      # Generate an ed25519 key for usage with age/sops
+      genereate-sops-ed25519 = ''
+        if [ ! -f ${sopsKeyFile} ]; then
+          ${pkgs.coreutils}/bin/mkdir \
+            -p \
+            $(${pkgs.coreutils}/bin/dirname ${sopsKeyFile})
+          ${pkgs.openssh}/bin/ssh-keygen \
+            -t ed25519 \
+            -f ${sopsKeyFile} \
+            -C "sops-${config.networking.hostName}" \
+            -N ""
+        fi
+      '';
+    };
+    switch.enableNg = true;
   };
 
   sops = {
