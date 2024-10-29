@@ -91,6 +91,8 @@ in
   };
   time.timeZone = "Europe/London";
 
+  security.sudo.execWheelOnly = true;
+
   nix = {
     # try to make the system a bit more responsive while nix is operating
     daemonCPUSchedPolicy = "batch";
