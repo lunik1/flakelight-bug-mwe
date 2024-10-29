@@ -23,6 +23,7 @@
         require = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
         boot = {
+          kernelModules = [ "softdog" ];
           kernelPackages = pkgs.linuxPackages;
           loader = {
             systemd-boot.enable = true;
