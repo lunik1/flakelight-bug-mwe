@@ -100,6 +100,8 @@ in
     '';
   };
 
+  networking.firewall.logRefusedConnections = false;
+
   nix = {
     # try to make the system a bit more responsive while nix is operating
     daemonCPUSchedPolicy = "batch";
