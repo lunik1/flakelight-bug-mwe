@@ -91,7 +91,12 @@ in
   };
   time.timeZone = "Europe/London";
 
-  security.sudo.execWheelOnly = true;
+  security.sudo = {
+    execWheelOnly = true;
+    extraConfig = ''
+      Defaults lecture = never
+    '';
+  };
 
   nix = {
     # try to make the system a bit more responsive while nix is operating
