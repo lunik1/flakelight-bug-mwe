@@ -128,9 +128,13 @@
           };
         };
 
-        systemd.services.openrgb.serviceConfig.ExecStart =
-          with config.services.hardware.openrgb;
-          lib.mkForce "${package}/bin/openrgb --server --server-port ${toString server.port} --profile ${../../resources/io.orp}";
+        systemd = {
+          network.wait-online.enable = false;
+
+          services.openrgb.serviceConfig.ExecStart =
+            with config.services.hardware.openrgb;
+            lib.mkForce "${package}/bin/openrgb --server --server-port ${toString server.port} --profile ${../../resources/io.orp}";
+        };
 
         powerManagement.resumeCommands = ''
           systemctl restart openrgb.service

@@ -70,6 +70,8 @@
         # filesystem errors
         services.fwupd.enable = lib.mkForce false;
 
+        systemd.network.wait-online.enable = false;
+
         nix = {
           daemonIOSchedClass = "idle";
           daemonCPUSchedPolicy = lib.mkForce "batch";
