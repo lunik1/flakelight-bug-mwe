@@ -41,6 +41,7 @@ in
       "qnx6"
       "sysv"
     ];
+    initrd.systemd.enable = !config.boot.swraid.enable && !config.boot.isContainer;
     kernel.sysctl = {
       "vm.mmap_min_addr" = 65536;
       "vm.mmap_rnd_bits" = 32;
