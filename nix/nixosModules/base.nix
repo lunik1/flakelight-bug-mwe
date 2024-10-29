@@ -95,6 +95,7 @@ in
     execWheelOnly = true;
     extraConfig = ''
       Defaults lecture = never
+      Defaults insults
     '';
   };
 
