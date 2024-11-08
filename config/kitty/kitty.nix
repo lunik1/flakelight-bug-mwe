@@ -14,7 +14,7 @@
     italic_font = "Myosevka Light Italic";
     bold_italic_font = "Myosevka Semibold Italic";
 
-    # linux_display_server = "x11"; # for window decorations
+    wayland_titlebar_color = "system";
 
     clipboard_control = "write-clipboard write-primary read-clipboard read-primary";
     cursor_blink_interval = "0.5";

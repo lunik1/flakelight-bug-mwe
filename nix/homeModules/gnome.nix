@@ -32,7 +32,7 @@ in
       kitty = lib.mkMerge [
         ((import ../../config/kitty/kitty.nix) { inherit config lib pkgs; })
         {
-          settings.linux_display_server = "x11"; # for window decorations
+          settings.linux_display_server = "wayland"; # for window decorations
         }
       ];
       zsh.shellAliases = {
