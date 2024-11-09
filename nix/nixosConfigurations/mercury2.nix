@@ -601,6 +601,7 @@
         lunik1.system = {
           backup.enable = true;
           containers.enable = true;
+          headless.enable = true;
           network.resolved.enable = true;
           ssh-server.enable = true;
           zswap.enable = true;
