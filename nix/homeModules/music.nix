@@ -9,7 +9,10 @@ let
   cfg = config.lunik1.home.music;
 in
 {
-  options.lunik1.home.music.enable = lib.mkEnableOption "music";
+  options.lunik1.home.music = {
+    enable = lib.mkEnableOption "music";
+    mpd.enable = lib.mkEnableOption "mpd";
+  };
 
   config = lib.mkIf cfg.enable {
     home.packages =
@@ -22,13 +25,13 @@ in
       ++ lib.optional config.lunik1.home.gui.enable spotify;
     programs = {
       ncmpcpp = {
-        enable = true;
+        enable = cfg.mpd.enable;
         package = pkgs.ncmpcpp.override { visualizerSupport = true; };
       };
     };
     services = {
       mpd = {
-        enable = true;
+        enable = cfg.mpd.enable;
         network.startWhenNeeded = true;
         extraConfig = ''
           audio_output {
@@ -43,7 +46,7 @@ in
             format          "44100:16:2"
           }'';
       };
-      mpdris2.enable = true;
+      mpdris2.enable = cfg.mpd.enable;
       playerctld.enable = true;
     };
 

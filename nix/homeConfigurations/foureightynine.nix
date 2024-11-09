@@ -24,7 +24,10 @@
         gtk.enable = true;
         megacmd.enable = true;
         mpv.enable = true;
-        music.enable = true;
+        music = {
+          enable = true;
+          mpd.enable = true;
+        };
         neovim.enable = true;
         pulp-io.enable = true;
         sway.enable = true;
