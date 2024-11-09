@@ -59,9 +59,7 @@ in
             zip # for org odt export
             (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
 
-            lunik1-nur.myosevka.mono
-            lunik1-nur.myosevka.aile
-            lunik1-nur.myosevka.etoile
+            myosevka-bin
           ]
           ++ optionals config.lunik1.home.lang.clojure.enable [
             clojure-lsp

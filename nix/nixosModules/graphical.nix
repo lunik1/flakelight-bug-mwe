@@ -42,9 +42,7 @@ in
         noto-fonts-emoji
         sarasa-gothic
 
-        lunik1-nur.myosevka.mono
-        lunik1-nur.myosevka.aile
-        lunik1-nur.myosevka.etoile
+        myosevka-bin
       ];
       fontconfig = {
         defaultFonts = {
