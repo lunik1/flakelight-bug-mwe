@@ -344,6 +344,15 @@ in
           source = ../../config/neofetch/config.conf;
           target = "neofetch/config.conf";
         };
+        "streamlink" = {
+          target = "streamlink/config";
+          text = ''
+            player=mpv
+
+            twitch-disable-ads
+            twitch-low-latency
+          '';
+        };
       };
     };
   };
