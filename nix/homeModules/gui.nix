@@ -18,9 +18,9 @@ in
         with pkgs;
         [
           bleachbit
-          gimp
-          myosevka-bin
           vesktop
+          gimp
+          lunik1-nur.myosevka.aile
         ]
         ++ lib.optionals stdenv.isLinux [
           bitwarden

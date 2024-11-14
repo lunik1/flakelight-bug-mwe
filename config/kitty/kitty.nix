@@ -4,7 +4,7 @@
   enable = true;
   font = {
     name = "Myosevka Light";
-    package = pkgs.myosevka-bin;
+    package = pkgs.lunik1-nur.myosevka.mono;
     size = 13.0;
   };
   themeFile = "gruvbox-dark";

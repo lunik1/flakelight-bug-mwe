@@ -25,7 +25,10 @@ in
       source-sans-pro
       source-serif-pro
 
-      myosevka-bin
+      lunik1-nur.myosevka.mono
+      lunik1-nur.myosevka.aile
+      lunik1-nur.myosevka.etoile
+      lunik1-nur.myosevka.proportional
     ];
 
     fonts.fontconfig.enable = true;

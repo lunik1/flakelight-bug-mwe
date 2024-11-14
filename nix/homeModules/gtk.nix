@@ -17,7 +17,7 @@ in
     gtk = {
       enable = true;
       font = {
-        package = pkgs.myosevka-bin;
+        package = pkgs.lunik1-nur.myosevka.aile;
         name = "Myosevka Aile 11";
       };
       iconTheme = {

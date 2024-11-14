@@ -31,7 +31,8 @@ in
         # Fonts
         material-design-icons
 
-        myosevka-bin
+        lunik1-nur.myosevka.mono
+        lunik1-nur.myosevka.proportional
       ];
 
       sessionVariables = {
