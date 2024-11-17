@@ -15,6 +15,13 @@ in
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      extraConfig.client = {
+        "10-no-resample" = {
+          "stream.properties" = {
+            "resample.quality" = 10;
+          };
+        };
+      };
     };
   };
 }
