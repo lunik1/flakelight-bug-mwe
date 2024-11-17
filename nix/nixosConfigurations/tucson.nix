@@ -27,6 +27,14 @@
         boot = {
           kernelPackages = pkgs.linuxPackages;
 
+          kernel.sysctl = {
+            # https://wiki.archlinux.org/title/Gaming#Tweaking_kernel_parameters_for_response_time_consistency
+            "vm.compaction_proactiveness" = 0;
+            "vm.watermark_boost_factor" = 1;
+            "vm.min_free_kbytes" = 1048576;
+            "vm.watermark_scale_factor" = 500;
+          };
+
           blacklistedKernelModules = [ "iCTO_wdt" ]; # watchdog module
 
           initrd = {
