@@ -55,6 +55,15 @@ in
         ++ lib.optionals stdenv.isDarwin [ coreutils ];
 
       sessionVariables.AWK_HASH = "fnv1a";
+
+      file = {
+        ".alsoftrc" = {
+          text = ''
+            hrtf = true
+          '';
+          target = ".alsoftrc";
+        };
+      };
     };
 
     nix.package = pkgs.nix;
