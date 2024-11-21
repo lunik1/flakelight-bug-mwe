@@ -74,7 +74,7 @@
 
         nix = {
           daemonIOSchedClass = "idle";
-          daemonCPUSchedPolicy = lib.mkForce "batch";
+          daemonCPUSchedPolicy = lib.mkForce "idle";
           settings.max-jobs = 4;
         };
         powerManagement.cpuFreqGovernor = "ondemand";

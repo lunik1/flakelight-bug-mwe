@@ -98,7 +98,7 @@
 
         nix = {
           daemonIOSchedClass = "idle";
-          daemonCPUSchedPolicy = lib.mkForce "batch";
+          daemonCPUSchedPolicy = lib.mkForce "idle";
           settings = {
             max-jobs = 4;
             cores = 8;
@@ -153,7 +153,10 @@
           backup.enable = true;
           bluetooth.enable = true;
           containers.enable = true;
-          games.steam.enable = true;
+          games = {
+            enable = true;
+            steam.enable = true;
+          };
           graphical.enable = true;
           gnome.enable = true;
           network = {
