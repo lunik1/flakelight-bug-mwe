@@ -9,8 +9,6 @@
       };
 
       lunik1.home = {
-        vpsAdminOs = true;
-
         core.enable = true;
         cli.enable = true;
 
