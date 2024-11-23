@@ -21,6 +21,8 @@
         networking = {
           hostName = "tucson";
           enableIPv6 = false;
+          nftables.enable = true;
+          firewall.enable = lib.mkForce true;
         };
         system.stateVersion = "21.05";
 
@@ -129,10 +131,6 @@
           udisks2 = {
             enable = true;
             mountOnMedia = true;
-          };
-          mullvad-vpn = {
-            enable = true;
-            package = pkgs.mullvad-vpn;
           };
         };
 

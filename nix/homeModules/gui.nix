@@ -35,6 +35,7 @@ in
 
           lunik1-nur.amazing-marvin
           lunik1-nur.bach
+          lunik1-nur.eddie
         ]
         ++ (
           if config.lunik1.home.kde.enable then
