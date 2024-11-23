@@ -44,6 +44,8 @@ in
       };
     };
 
+    services.udev.packages = [ pkgs.game-devices-udev-rules ];
+
     users.users.corin.extraGroups = [ "gamemode" ];
   };
 }
