@@ -24,9 +24,9 @@ in
   };
 
   config = {
-    nixpkgs.config.permittedInsecurePackages = lib.mkIf cfg.runescape.enable [
-      "openssl-1.1.1w"
-    ];
+    nixpkgs.config.permittedInsecurePackages =
+      [ ]
+      ++ lib.optionals cfg.runescape.enable [ "openssl-1.1.1w" ];
 
     home.packages =
       with pkgs;
@@ -37,17 +37,15 @@ in
         ]
         ++ lib.optionals cfg.emu.enable [
           ryujinx
-          (retroarch.override {
-            cores = [
-              libretro.beetle-psx
-              libretro.bsnes-mercury
-              libretro.mesen
-              libretro.mgba
-              libretro.nestopia
-              libretro.sameboy
-              libretro.thepowdertoy
-            ];
-          })
+          (retroarch.withCores (cores: [
+            libretro.beetle-psx
+            libretro.bsnes-mercury
+            libretro.mesen
+            libretro.mgba
+            libretro.nestopia
+            libretro.sameboy
+            libretro.thepowdertoy
+          ]))
         ]
         ++ lib.optionals cfg.cli.enable [
           crawl
