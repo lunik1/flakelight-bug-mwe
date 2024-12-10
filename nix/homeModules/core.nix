@@ -70,6 +70,20 @@ in
 
     systemd.user.startServices = "sd-switch";
 
+    # needed for eddie (doesn't work in gui.nix?)
+    nixpkgs.config.permittedInsecurePackages =
+      [ ]
+      ++ lib.optionals config.lunik1.home.gui.enable [
+        "dotnet-runtime-6.0.36"
+        "dotnet-runtime-7.0.20"
+        "dotnet-runtime-wrapped-6.0.36"
+        "dotnet-runtime-wrapped-7.0.20"
+        "dotnet-sdk-6.0.428"
+        "dotnet-sdk-7.0.410"
+        "dotnet-sdk-wrapped-6.0.428"
+        "dotnet-sdk-wrapped-7.0.410"
+      ];
+
     sops = {
       age.keyFile = "${config.home.homeDirectory}/.age-key.txt";
       defaultSopsFile = ../../secrets/user/secrets.yaml;
