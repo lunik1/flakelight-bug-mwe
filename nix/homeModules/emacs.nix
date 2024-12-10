@@ -56,8 +56,8 @@ in
           ++ optionals cfg.gui [
             emacs-all-the-icons-fonts
             emacs-lsp-booster
+            nerd-fonts.symbols-only
             zip # for org odt export
-            (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
 
             lunik1-nur.myosevka.mono
             lunik1-nur.myosevka.aile
