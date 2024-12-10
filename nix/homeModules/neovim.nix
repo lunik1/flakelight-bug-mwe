@@ -1000,6 +1000,8 @@ in
 
             cmp-zsh.enable = true;
 
+            colorizer.enable = true;
+
             dap = {
               enable = true;
               extensions.dap-python = {
@@ -1217,8 +1219,6 @@ in
             };
 
             nvim-autopairs.enable = true;
-
-            nvim-colorizer.enable = true;
 
             nvim-lightbulb = {
               enable = true;
