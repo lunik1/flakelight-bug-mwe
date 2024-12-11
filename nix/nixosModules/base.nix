@@ -209,7 +209,6 @@ in
         fi
       '';
     };
-    switch.enableNg = true;
   };
 
   sops = {
