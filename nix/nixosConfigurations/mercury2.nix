@@ -77,6 +77,8 @@
             enable = lib.mkForce true;
             trustedInterfaces = [ "podman*" ];
             allowedUDPPorts = [
+              80 # http/3
+              443 # https/3
               21027 # syncthing
             ];
             allowedTCPPorts = [
@@ -133,6 +135,7 @@
                       proxy_connect_timeout 600;
                       proxy_send_timeout 600;
                       proxy_read_timeout 30m;
+                      add_header Alt-Svc 'h3=":$server_port"; ma=86400';
                     '';
                   } // lib.optionalAttrs webSocket { proxyWebsockets = true; };
                 }
