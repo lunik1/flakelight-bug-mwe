@@ -58,6 +58,8 @@ in
           xxHash
           yazi
           zsh-completions
+
+          lunik1-nur.trash-d
         ]
         ++ lib.optionals stdenv.isLinux [
           cfspeedtest
