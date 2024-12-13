@@ -58,8 +58,6 @@ in
           xxHash
           yazi
           zsh-completions
-
-          lunik1-nur.trash-d
         ]
         ++ lib.optionals stdenv.isLinux [
           cfspeedtest
@@ -69,7 +67,10 @@ in
           smartmontools
           xfsdump
         ]
-        ++ lib.optionals (stdenv.isLinux && stdenv.isx86_64) [ lunik1-nur.efficient-compression-tool ];
+        ++ lib.optionals (stdenv.isLinux && stdenv.isx86_64) [
+          lunik1-nur.efficient-compression-tool
+          lunik1-nur.trash-d
+        ];
 
       sessionVariables = {
         ET_NO_TELEMETRY = "1";
