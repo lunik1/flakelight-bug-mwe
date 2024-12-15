@@ -57,8 +57,10 @@ fi
 alias pie='perl -pi -e'
 
 # kid gloves
-alias rm!=\'rm\'
-alias rm=trash
+if (( $+commands[trash] )); then
+  alias rm!=\'rm\'
+  alias rm=trash
+fi
 
 # test for truecolour support in terminal
 # https://gist.github.com/XVilka/8346728
