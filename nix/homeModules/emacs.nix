@@ -27,6 +27,7 @@ in
         withNativeCompilation = true;
         withGTK3 = cfg.gui;
         withPgtk = cfg.gui;
+        withXwidgets = cfg.gui && !config.lunik1.home.sway.enable;
       };
       emacs-package = pkgs.emacs.override settings;
     in
