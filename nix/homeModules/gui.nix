@@ -79,9 +79,6 @@ in
           settings = {
             "svg.context-properties.content.enabled" = true;
 
-            # Disk cache on RAM
-            "browser.cache.disk.parent_directory" = "/run/user/1000/firefox";
-
             # Disable pinch to zoom
             "apz.gtk.touchpad_pinch.enabled" = false;
 
