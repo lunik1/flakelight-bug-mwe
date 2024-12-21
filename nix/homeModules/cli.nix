@@ -58,6 +58,8 @@ in
           xxHash
           yazi
           zsh-completions
+
+          (lib.lowPrio moreutils)
         ]
         ++ lib.optionals stdenv.isLinux [
           cfspeedtest
