@@ -157,10 +157,11 @@
               virtualHosts =
                 {
                   default = {
+                    addSSL = true;
                     default = true;
-                    extraConfig = ''
-                      ssl_reject_handshake on;
-                    '';
+                    sslCertificate = "/var/lib/acme/${domain}/cert.pem";
+                    sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+                    sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
                     locations."/".return = "444";
                   };
                   ${domain} = {
