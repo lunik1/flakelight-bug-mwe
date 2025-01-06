@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    ghostty.url = "github:ghostty-org/ghostty/3f7c3afaf947280bd2852626ff4599c02d9fb07e";
     lunik1-nur = {
       url = "github:lunik1/nur-packages";
       inputs = {
@@ -62,6 +63,7 @@
         withOverlays = [
           inputs.wbba.overlays.default
           (self: super: { lunik1-nur = import inputs.lunik1-nur { pkgs = super; }; })
+          (self: super: { ghostty = super.inputs'.ghostty.packages.ghostty-releasefast; })
           (self: super: { nix-wallpaper = super.inputs'.nix-wallpaper.packages.default; })
           (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
           (self: super: {

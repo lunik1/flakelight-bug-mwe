@@ -133,11 +133,14 @@ fi
 
 if [ "${TERM}" = "xterm-kitty" ]; then
   alias ssh="kitten ssh"
-  alias hrg="kitten hyperlinked_grep"
-  alias icat="kitten icat"
   alias transfer="kitten transfer"
   alias download="kitten transfer --direction download"
   alias upload="kitten transfer --direction upload"
+fi
+
+if [ "${TERM}" = "xterm-kitty" ] || [ "${TERM}" = "xterm-ghostty" ]; then
+  alias icat="kitten icat"
+  alias hrg="kitten hyperlinked_grep"
   alias show-key="kitten show-key"
 fi
 
