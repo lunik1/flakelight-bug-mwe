@@ -24,6 +24,7 @@ in
         ]
         ++ lib.optionals stdenv.isLinux [
           bitwarden
+          eddie
           gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
@@ -35,7 +36,6 @@ in
 
           lunik1-nur.amazing-marvin
           lunik1-nur.bach
-          lunik1-nur.eddie
         ]
         ++ (
           if config.lunik1.home.kde.enable then
