@@ -1383,8 +1383,10 @@ in
 
             vim-matchup = {
               enable = true;
-              enableSurround = true;
-              treesitterIntegration.enable = true;
+              treesitter.enable = true;
+              settings = {
+                surround_enabled = 1;
+              };
             };
           };
 
