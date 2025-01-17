@@ -159,6 +159,7 @@ in
 
       cloud-utils
       foot.terminfo
+      ghostty.terminfo
       libarchive
       kitty.terminfo
       kitty.kitten
