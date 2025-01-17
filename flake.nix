@@ -65,6 +65,18 @@
           (self: super: { lunik1-nur = import inputs.lunik1-nur { pkgs = super; }; })
           (self: super: { ghostty = super.inputs'.ghostty.packages.ghostty-releasefast; })
           (self: super: { nix-wallpaper = super.inputs'.nix-wallpaper.packages.default; })
+          (self: super: {
+            rmlint = super.rmlint.overrideAttrs (
+              final: old: {
+                patches = old.patches ++ [
+                  (super.fetchpatch {
+                    url = "https://github.com/sahib/rmlint/commit/f0ca57ec907f7199e3670038d60b4702d1e1d8e2.patch";
+                    hash = "sha256-715X+R2BcQIaUV76hoO+EXPfNheOfw4OIHsqSoruIUI=";
+                  })
+                ];
+              }
+            );
+          })
           (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
           (self: super: {
             neovim = super.neovim.override {
