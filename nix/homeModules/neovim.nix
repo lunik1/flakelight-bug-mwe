@@ -33,12 +33,13 @@ in
 
           agitator = pkgs.vimUtils.buildVimPlugin {
             pname = "agitator";
-            version = "2024-03-17";
+            version = "2024-12-02";
+            doCheck = false;
             src = pkgs.fetchFromGitHub {
               owner = "emmanueltouzery";
               repo = "agitator.nvim";
-              rev = "d325ab9966c24d27f2f181078de78c5ce85a3c57";
-              sha256 = "sha256-pQcbG9z+was/h852AdLGiHuiNKnl17jS4gCSqfrGW/w=";
+              rev = "dc2843869b8bb9e5096edf53583b1dee1e62aa6b";
+              sha256 = "sha256-9vb8QGJiTmFE77fp8DqaeOI3WtDIthpPW7zvwCQsp4k=";
             };
           };
         in
