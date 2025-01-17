@@ -94,8 +94,6 @@ in
       );
     };
 
-    hardware.pulseaudio.enable = false;
-
     programs = {
       gnome-disks.enable = config.services.udisks2.enable;
       seahorse.enable = true;
