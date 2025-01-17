@@ -50,9 +50,9 @@ in
           Hidden=true
       '';
       "ghostty/config".text = ''
-        font-codepoint-map = U+E000-U+E00A,U+EA60-U+EBEB,U+E0A0-U+E0C8,U+E0CA,U+E0CC-U+E0D4,U+E200-U+E2A9,U+E300-U+E3E3,U+E5FA-U+E6B1,U+E700-U+E7C5,U+F000-U+F2E0,U+F300-U+F372,U+F400-U+F532,U+F0001-U+F1AF0=Symbols Nerd Font Mono
-        font-family = JuliaMono
         font-family = Myosevka
+        font-family = JuliaMono
+        font-codepoint-map = U+E000-U+E00A,U+EA60-U+EBEB,U+E0A0-U+E0C8,U+E0CA,U+E0CC-U+E0D4,U+E200-U+E2A9,U+E300-U+E3E3,U+E5FA-U+E6B1,U+E700-U+E7C5,U+F000-U+F2E0,U+F300-U+F372,U+F400-U+F532,U+F0001-U+F1AF0=Symbols Nerd Font Mono
         font-size = 12
         font-thicken = true
         gtk-single-instance = true
