@@ -82,6 +82,9 @@ in
         "dotnet-sdk-7.0.410"
         "dotnet-sdk-wrapped-6.0.428"
         "dotnet-sdk-wrapped-7.0.410"
+
+        # needed by feishin
+        "electron-31.7.7"
       ];
 
     sops = {
