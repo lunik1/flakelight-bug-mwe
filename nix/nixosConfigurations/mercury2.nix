@@ -164,6 +164,14 @@
                     sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
                     locations."/".return = "444";
                   };
+                  ${domain} = {
+                    forceSSL = true;
+                    quic = true;
+                    locations."/".root = "/srv/www";
+                    sslCertificate = "/var/lib/acme/${domain}/cert.pem";
+                    sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+                    sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
+                  };
                   ${config.services.tt-rss.virtualHost} = {
                     serverName = "tt-rss.${domain}";
                     forceSSL = true;
