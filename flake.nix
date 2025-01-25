@@ -115,6 +115,7 @@
               hooks = {
                 nixfmt-rfc-style.enable = true;
                 shellcheck.enable = true;
+                statix.enable = true;
               };
             };
         };
