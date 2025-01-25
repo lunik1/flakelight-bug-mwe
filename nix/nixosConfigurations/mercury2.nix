@@ -13,6 +13,8 @@
       let
         domain = "lunik.one";
 
+        autheliaSocket = "http://unix:///run/authelia/authelia.sock";
+
         breezeWikiPort = 10416;
         favaPort = 5000;
         quetrePort = 3000;
@@ -96,157 +98,393 @@
           cores = 4;
         };
 
-        sops.secrets = {
-          acme-env = {
-            sopsFile = ../../secrets/host/mercury2/secrets.yaml;
-            owner = "acme";
+        sops.secrets =
+          let
+            mercury2SopsFile = ../../secrets/host/mercury2/secrets.yaml;
+            autheliaUser = config.services.authelia.instances.${domain}.user;
+          in
+          {
+            acme-env = {
+              sopsFile = mercury2SopsFile;
+              owner = "acme";
+            };
+            authelia-jwt-key = {
+              sopsFile = mercury2SopsFile;
+              owner = autheliaUser;
+              restartUnits = [ "authelia-lunik.one.service" ];
+            };
+            authelia-encryption-key = {
+              sopsFile = mercury2SopsFile;
+              owner = autheliaUser;
+              restartUnits = [ "authelia-lunik.one.service" ];
+            };
+            authelia-session-secret = {
+              sopsFile = mercury2SopsFile;
+              owner = autheliaUser;
+              restartUnits = [ "authelia-lunik.one.service" ];
+            };
+            authelia-users = {
+              sopsFile = mercury2SopsFile;
+              owner = autheliaUser;
+              restartUnits = [ "authelia-lunik.one.service" ];
+            };
+            htaccess = {
+              sopsFile = mercury2SopsFile;
+              restartUnits = [ "nginx.service" ];
+              owner = "nginx";
+            };
+            wallabag-env = {
+              sopsFile = mercury2SopsFile;
+              restartUnits = [ "podman-wallabag.service" ];
+            };
           };
-          htaccess = {
-            sopsFile = ../../secrets/host/mercury2/secrets.yaml;
-            restartUnits = [ "nginx.service" ];
-            owner = "nginx";
-          };
-          wallabag-env = {
-            sopsFile = ../../secrets/host/mercury2/secrets.yaml;
-            restartUnits = [ "podman-wallabag.service" ];
-          };
-        };
 
         services = {
-          nginx =
-            let
-              mkNginxProxy =
-                {
-                  proxyPass,
-                  auth ? true,
-                  webSocket ? false,
-                  extraConfig ? { },
-                }:
-                {
-                  forceSSL = true;
-                  quic = true;
-                  sslCertificate = "/var/lib/acme/${domain}/cert.pem";
-                  sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
-                  sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                  locations."/" = {
-                    inherit proxyPass;
-                    recommendedProxySettings = true;
-                    extraConfig = ''
-                      proxy_connect_timeout 600;
-                      proxy_send_timeout 600;
-                      proxy_read_timeout 30m;
-                      add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-                    '';
-                  } // lib.optionalAttrs webSocket { proxyWebsockets = true; };
-                }
-                // lib.optionalAttrs auth { basicAuthFile = config.sops.secrets.htaccess.path; }
-                // extraConfig;
+          authelia.instances = {
+            ${domain} = {
+              enable = true;
+              settings = {
+                default_2fa_method = "totp";
+                authentication_backend.file.path = config.sops.secrets.authelia-users.path;
+                theme = "auto";
+                session = {
+                  cookies = [
+                    {
+                      inherit domain;
+                      authelia_url = "https://auth.${domain}";
+                    }
+                  ];
+                  redis.host = "/run/redis-authelia/redis.sock";
+                };
+                server = {
+                  address = lib.strings.removePrefix "http://" "${autheliaSocket}?umask=0117";
+                  endpoints.authz = {
+                    auth-request.implementation = "AuthRequest";
+                    basic = {
+                      implementation = "AuthRequest";
+                      authn_strategies = [
+                        { name = "HeaderAuthorization"; }
+                      ];
+                    };
+                  };
+                };
+                storage.local.path = "/var/lib/authelia-lunik.one/db.sqlite3";
+                notifier.filesystem.filename = "/dev/null";
+                access_control.default_policy = "one_factor";
+                log = {
+                  level = "info";
+                  format = "text";
+                };
+              };
+              secrets = with config.sops.secrets; {
+                storageEncryptionKeyFile = authelia-encryption-key.path;
+                sessionSecretFile = authelia-session-secret.path;
+                jwtSecretFile = authelia-jwt-key.path;
+              };
+            };
+          };
 
-              localhost = port: "http://localhost:${toString port}";
+          nginx = {
+            package = pkgs.angieQuic;
+
+            recommendedOptimisation = true;
+            recommendedTlsSettings = true;
+            recommendedZstdSettings = true;
+            recommendedGzipSettings = true;
+            recommendedBrotliSettings = true;
+            sslProtocols = "TLSv1.2 TLSv1.3";
+
+            additionalModules = with pkgs.nginxModules; [
+              develkit
+              set-misc
+            ];
+
+            virtualHosts =
+              let
+                quic = true;
+                forceSSL = true;
+
+                sslCertificate = "/var/lib/acme/${domain}/cert.pem";
+                sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
+                sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+
+                internalAuth = "/internal/authelia/authz/auth";
+                internalAuthDetect = "/internal/authelia/authz/detect";
+
+                http3Conf = ''
+                  add_header Alt-Svc 'h3=":$server_port"; ma=86400';
+                '';
+
+                # https://www.authelia.com/integration/proxies/nginx/#authelia-location-basicconf
+                autheliaLocation = {
+                  extraConfig =
+                    http3Conf
+                    + ''
+                      internal;
+                      proxy_pass $upstream_authelia;
+                      proxy_set_header X-Original-Method $request_method;
+                      proxy_set_header X-Original-URL $scheme://$host$request_uri;
+                      proxy_set_header X-Forwarded-For $remote_addr;
+                      proxy_set_header Content-Length "";
+                      proxy_set_header Connection "";
+                      proxy_pass_request_body off;
+                      proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
+                      proxy_redirect http:// $scheme://;
+                      proxy_http_version 1.1;
+                      proxy_cache_bypass $cookie_session;
+                      proxy_no_cache $cookie_session;
+                      proxy_buffers 4 32k;
+                      client_body_buffer_size 128k;
+                      send_timeout 5m;
+                      proxy_read_timeout 240;
+                      proxy_send_timeout 240;
+                      proxy_connect_timeout 240;
+                    '';
+                };
+
+                # https://www.authelia.com/integration/proxies/nginx/#authelia-authrequest-detectconf
+                autheliaLocationDetect = {
+                  extraConfig = ''
+                    internal;
+                    if ($is_basic_auth) {
+                        return 401;
+                    }
+                    return 302 https://auth.${domain}/$is_args$args;
+                  '';
+                };
+
+                # https://www.authelia.com/integration/proxies/nginx/#proxyconf
+                autheliaProxyConf = ''
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Original-URL $scheme://$host$request_uri;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+                  proxy_set_header X-Forwarded-Host $host;
+                  proxy_set_header X-Forwarded-URI $request_uri;
+                  proxy_set_header X-Forwarded-Ssl on;
+                  proxy_set_header X-Forwarded-For $remote_addr;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-Server $host;
+                  client_body_buffer_size 128k;
+                  proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
+                  proxy_redirect  http://  $scheme://;
+                  proxy_http_version 1.1;
+                  proxy_cache_bypass $cookie_session;
+                  proxy_no_cache $cookie_session;
+                  proxy_buffers 64 256k;
+                  real_ip_header X-Forwarded-For;
+                  real_ip_recursive on;
+                  send_timeout 5m;
+                  proxy_read_timeout 360;
+                  proxy_send_timeout 360;
+                  proxy_connect_timeout 360;
+                '';
+
+                # https://www.authelia.com/integration/proxies/nginx/#authelia-authrequest-detectconf
+                autheliaAuthRequestConf = ''
+                  auth_request ${internalAuth};
+                  auth_request_set $user $upstream_http_remote_user;
+                  auth_request_set $groups $upstream_http_remote_groups;
+                  auth_request_set $name $upstream_http_remote_name;
+                  auth_request_set $email $upstream_http_remote_email;
+                  proxy_set_header Remote-User $user;
+                  auth_request_set $redirection_url $upstream_http_location;
+                  proxy_set_header Remote-Groups $groups;
+                  proxy_set_header Remote-Name $name;
+                  proxy_set_header Remote-Email $email;
+                  set_escape_uri $target_url $scheme://$host$request_uri;
+                  error_page 401 =302 ${internalAuthDetect}?rd=$target_url;
+                '';
+
+                autheliaConf = http3Conf + autheliaProxyConf + autheliaAuthRequestConf;
+
+                basicAuthDetect = ''
+                  set $upstream_authelia ${autheliaSocket}:/api/authz/auth-request;
+                  set $is_basic_auth "";
+                  if ($http_authorization ~* "^Basic ") {
+                      # if basic auth was attempted, set $is_basic_auth and use authelia's basic auth endpoint
+                      set $is_basic_auth "t";
+                      set $upstream_authelia ${autheliaSocket}:/api/authz/basic;
+                  }
+                '';
+
+                localhost = port: "http://localhost:${toString port}";
+
+                mkProxyVirtualHost =
+                  { serverName, proxyPass }:
+                  {
+                    inherit
+                      quic
+                      forceSSL
+                      sslCertificate
+                      sslCertificateKey
+                      sslTrustedCertificate
+                      serverName
+                      ;
+                    locations."/" = {
+                      inherit proxyPass;
+                      recommendedProxySettings = true;
+                      extraConfig =
+                        http3Conf
+                        + ''
+                          proxy_connect_timeout 360;
+                          proxy_send_timeout 360;
+                          proxy_read_timeout 360;
+                        '';
+                    };
+                  };
+
+                mkAuthenticatedProxyVirtualHost =
+                  { serverName, proxyPass }:
+                  {
+                    inherit
+                      quic
+                      forceSSL
+                      sslCertificate
+                      sslCertificateKey
+                      sslTrustedCertificate
+                      serverName
+                      ;
+                    extraConfig = basicAuthDetect;
+                    locations = {
+                      "/" = {
+                        inherit proxyPass;
+                        recommendedProxySettings = true;
+                        extraConfig = autheliaConf;
+                      };
+                      ${internalAuth} = autheliaLocation;
+                      ${internalAuthDetect} = autheliaLocationDetect;
+                    };
+                  };
+              in
+              {
+                default = {
+                  inherit sslCertificate sslTrustedCertificate sslCertificateKey;
+                  addSSL = true;
+                  default = true;
+                  locations."/".return = "444";
+                };
+                ${domain} = {
+                  inherit
+                    quic
+                    forceSSL
+                    sslCertificate
+                    sslTrustedCertificate
+                    sslCertificateKey
+                    ;
+                  locations."/".root = "/srv/www";
+                };
+                ${config.services.tt-rss.virtualHost} = {
+                  inherit
+                    quic
+                    forceSSL
+                    sslCertificate
+                    sslTrustedCertificate
+                    sslCertificateKey
+                    ;
+                  serverName = "tt-rss.${domain}";
+                  extraConfig = basicAuthDetect;
+                  locations = {
+                    "/" = {
+                      extraConfig = autheliaConf;
+                    };
+                    ${internalAuth} = autheliaLocation;
+                    ${internalAuthDetect} = autheliaLocationDetect;
+                  };
+                };
+                authelia = {
+                  inherit
+                    quic
+                    forceSSL
+                    sslCertificate
+                    sslTrustedCertificate
+                    sslCertificateKey
+                    ;
+                  serverName = "auth.${domain}";
+                  locations = {
+                    "/" = {
+                      proxyPass = autheliaSocket;
+                      extraConfig = autheliaProxyConf;
+                    };
+                    "/api/verify" = {
+                      proxyPass = autheliaSocket;
+                      extraConfig = http3Conf;
+                    };
+                    "/api/authz" = {
+                      proxyPass = autheliaSocket;
+                      extraConfig = http3Conf;
+                    };
+                  };
+                };
+
+                # virtual hosts with no auth
+                atuin = mkProxyVirtualHost {
+                  serverName = "atuin.${domain}";
+                  proxyPass = localhost config.services.atuin.port;
+                };
+                synapse = mkProxyVirtualHost {
+                  serverName = "synapse.${domain}";
+                  proxyPass = "http://unix:${toString (builtins.head config.services.matrix-synapse.settings.listeners).path}";
+                };
+                thelounge = mkProxyVirtualHost {
+                  serverName = "thelounge.${domain}";
+                  proxyPass = localhost config.services.thelounge.port;
+                };
+                wallabag = mkProxyVirtualHost {
+                  serverName = "wallabag.${domain}";
+                  proxyPass = localhost wallabagPort;
+                };
+
+                # authelia-protected virtual hosts
+                breezewiki = mkAuthenticatedProxyVirtualHost {
+                  serverName = "breezewiki.${domain}";
+                  proxyPass = localhost breezeWikiPort;
+                };
+                fava = mkAuthenticatedProxyVirtualHost {
+                  serverName = "fava.${domain}";
+                  proxyPass = localhost favaPort;
+                };
+                netdata = mkAuthenticatedProxyVirtualHost {
+                  serverName = "netdata.${domain}";
+                  proxyPass = localhost 19999;
+                };
+                quetre = mkAuthenticatedProxyVirtualHost {
+                  serverName = "quetre.${domain}";
+                  proxyPass = localhost quetrePort;
+                };
+                rsshub = mkAuthenticatedProxyVirtualHost {
+                  serverName = "rsshub.${domain}";
+                  proxyPass = localhost rssHubPort;
+                };
+                syncthing = mkAuthenticatedProxyVirtualHost {
+                  serverName = "syncthing.${domain}";
+                  proxyPass = "http://unix:${config.services.syncthing.guiAddress}";
+                };
+              };
+          };
+
+          postgresql =
+            let
+              autheliaUser = config.services.authelia.instances.${domain}.user;
             in
             {
-              package = pkgs.angieQuic;
-
-              recommendedOptimisation = true;
-              recommendedTlsSettings = true;
-              recommendedZstdSettings = true;
-              recommendedGzipSettings = true;
-              recommendedBrotliSettings = true;
-              sslProtocols = "TLSv1.2 TLSv1.3";
-
-              virtualHosts =
+              enable = true;
+              package = pkgs.postgresql_16_jit;
+              enableTCPIP = true;
+              ensureDatabases = [
+                autheliaUser
+                "wallabag"
+              ];
+              ensureUsers = [
                 {
-                  default = {
-                    addSSL = true;
-                    default = true;
-                    sslCertificate = "/var/lib/acme/${domain}/cert.pem";
-                    sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                    sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
-                    locations."/".return = "444";
-                  };
-                  ${domain} = {
-                    forceSSL = true;
-                    quic = true;
-                    locations."/".root = "/srv/www";
-                    sslCertificate = "/var/lib/acme/${domain}/cert.pem";
-                    sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                    sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
-                  };
-                  ${config.services.tt-rss.virtualHost} = {
-                    serverName = "tt-rss.${domain}";
-                    forceSSL = true;
-                    quic = true;
-                    basicAuthFile = config.sops.secrets.htaccess.path;
-                    sslCertificate = "/var/lib/acme/${domain}/cert.pem";
-                    sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                    sslCertificateKey = "/var/lib/acme/${domain}/key.pem";
-                  };
+                  name = autheliaUser;
+                  ensureDBOwnership = true;
                 }
-                // builtins.listToAttrs (
-                  map
-                    (proxy: {
-                      name = proxy.vhost;
-                      value = mkNginxProxy (builtins.removeAttrs proxy [ "vhost" ]);
-                    })
-                    [
-                      {
-                        vhost = "atuin.${domain}";
-                        proxyPass = localhost config.services.atuin.port;
-                        auth = false;
-                      }
-                      {
-                        vhost = "breezewiki.${domain}";
-                        proxyPass = localhost breezeWikiPort;
-                      }
-                      {
-                        vhost = "fava.${domain}";
-                        proxyPass = localhost favaPort;
-                      }
-                      {
-                        vhost = "netdata.${domain}";
-                        proxyPass = localhost 19999;
-                      }
-                      {
-                        vhost = "rsshub.${domain}";
-                        proxyPass = localhost rssHubPort;
-                      }
-                      {
-                        vhost = "synapse.${domain}";
-                        proxyPass = "http://unix:${toString (builtins.head config.services.matrix-synapse.settings.listeners).path}";
-                        auth = false;
-                      }
-                      {
-                        vhost = "syncthing.${domain}";
-                        proxyPass = "http://unix:${config.services.syncthing.guiAddress}";
-                      }
-                      {
-                        vhost = "quetre.${domain}";
-                        proxyPass = localhost quetrePort;
-                      }
-                      {
-                        vhost = "thelounge.${domain}";
-                        proxyPass = localhost config.services.thelounge.port;
-                        auth = false;
-                      }
-                      {
-                        vhost = "wallabag.${domain}";
-                        proxyPass = localhost wallabagPort;
-                        auth = false;
-                      }
-                    ]
-                );
+              ];
+              authentication = ''
+                # podman containers
+                host all all 10.0.0.0/0 trust
+              '';
             };
-
-          postgresql = {
-            enable = true;
-            package = pkgs.postgresql_16_jit;
-            enableTCPIP = true;
-            ensureDatabases = [ "wallabag" ];
-            authentication = ''
-              # podman containers
-              host all all 10.0.0.0/0 trust
-            '';
-          };
           postgresqlBackup = {
             enable = true;
             startAt = "03:45:00";
@@ -263,6 +501,10 @@
           redis = {
             vmOverCommit = true;
             servers = {
+              authelia = {
+                enable = true;
+                group = config.services.authelia.instances.${domain}.group;
+              };
               rsshub.enable = true;
               wallabag.enable = true;
             };
@@ -427,6 +669,13 @@
               mkPodmanNetwork = flake.outputs.lib.mkPodmanNetwork pkgs.podman;
             in
             {
+              "authelia-lunik.one.service" = {
+                requires = [ "postgresql.service" ];
+                after = [ "postgresql.service" ];
+              };
+              nginx = {
+                wants = [ "authelia-lunik.one.service" ];
+              };
               fava = {
                 description = "Fava Web UI for Beancount";
                 after = [ "network.target" ];
@@ -589,6 +838,9 @@
             "L+ /srv/www/.well-known/matrix/client - - - - ${
               builtins.toFile "client" (builtins.toJSON { "m.homeserver".base_url = "https://${domain}"; })
             }"
+            "D /run/authelia - ${config.services.authelia.instances.${domain}.user} ${
+              config.services.authelia.instances.${domain}.group
+            } - -"
             "L+ /srv/www/robots.txt - - - - ${builtins.toFile "robots.txt" ''
               User-agent: *
               Disallow: /
@@ -600,6 +852,7 @@
           "acme"
           "matrix-synapse"
           "syncthing"
+          config.services.authelia.instances.${domain}.group
         ];
 
         lunik1.system = {
