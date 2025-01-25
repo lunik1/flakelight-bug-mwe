@@ -168,7 +168,12 @@
                     };
                   };
                 };
-                storage.local.path = "/var/lib/authelia-lunik.one/db.sqlite3";
+                storage.postgres = rec {
+                  address = "unix:///var/run/postgresql";
+                  database = config.services.authelia.instances.${domain}.user;
+                  username = database;
+                  password = "1"; # has to be something, but doesn't matter what since we use peer auth
+                };
                 notifier.filesystem.filename = "/dev/null";
                 access_control.default_policy = "one_factor";
                 log = {
