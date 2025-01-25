@@ -508,7 +508,7 @@
             servers = {
               authelia = {
                 enable = true;
-                group = config.services.authelia.instances.${domain}.group;
+                inherit (config.services.authelia.instances.${domain}) group;
               };
               rsshub.enable = true;
               wallabag.enable = true;

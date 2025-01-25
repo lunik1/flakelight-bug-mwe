@@ -25,13 +25,13 @@ in
       ++ lib.optional config.lunik1.home.gui.enable spotify;
     programs = {
       ncmpcpp = {
-        enable = cfg.mpd.enable;
+        inherit (cfg.mpd) enable;
         package = pkgs.ncmpcpp.override { visualizerSupport = true; };
       };
     };
     services = {
       mpd = {
-        enable = cfg.mpd.enable;
+        inherit (cfg.mpd) enable;
         network.startWhenNeeded = true;
         extraConfig = ''
           audio_output {

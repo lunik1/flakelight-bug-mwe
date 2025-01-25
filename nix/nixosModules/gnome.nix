@@ -68,30 +68,27 @@ in
           hibernate-status-button
           lock-keys
         ]);
-      gnome.excludePackages = (
-        with pkgs;
-        [
-          baobab
-          evince
-          geary
-          gedit
-          gnome-characters
-          gnome-clocks
-          gnome-connections
-          gnome-console
-          gnome-disk-utility
-          gnome-logs
-          gnome-maps
-          gnome-music
-          gnome-photos
-          gnome-system-monitor
-          gnome-tour
-          gnome-usage
-          hitori
-          snapshot
-          totem
-        ]
-      );
+      gnome.excludePackages = with pkgs; [
+        baobab
+        evince
+        geary
+        gedit
+        gnome-characters
+        gnome-clocks
+        gnome-connections
+        gnome-console
+        gnome-disk-utility
+        gnome-logs
+        gnome-maps
+        gnome-music
+        gnome-photos
+        gnome-system-monitor
+        gnome-tour
+        gnome-usage
+        hitori
+        snapshot
+        totem
+      ];
     };
 
     programs = {

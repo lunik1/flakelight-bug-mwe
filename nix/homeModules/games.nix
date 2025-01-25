@@ -24,9 +24,7 @@ in
   };
 
   config = {
-    nixpkgs.config.permittedInsecurePackages =
-      [ ]
-      ++ lib.optionals cfg.runescape.enable [ "openssl-1.1.1w" ];
+    nixpkgs.config.permittedInsecurePackages = lib.optionals cfg.runescape.enable [ "openssl-1.1.1w" ];
 
     home.packages =
       with pkgs;

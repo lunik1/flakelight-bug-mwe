@@ -1513,7 +1513,7 @@ in
       };
 
       neovide = {
-        enable = (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin);
+        enable = config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin;
         settings = {
           fork = true;
         };
