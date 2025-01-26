@@ -152,6 +152,7 @@
                     {
                       inherit domain;
                       authelia_url = "https://auth.${domain}";
+                      remember_me = "90d";
                     }
                   ];
                   redis.host = "/run/redis-authelia/redis.sock";
