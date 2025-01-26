@@ -260,7 +260,7 @@
 
                 # https://www.authelia.com/integration/proxies/nginx/#proxyconf
                 autheliaProxyConf = ''
-                  proxy_set_header Host $host;
+                  # proxy_set_header Host $host; # this in the authelia config breaks some stuff
                   proxy_set_header X-Original-URL $scheme://$host$request_uri;
                   proxy_set_header X-Forwarded-Proto $scheme;
                   proxy_set_header X-Forwarded-Host $host;
