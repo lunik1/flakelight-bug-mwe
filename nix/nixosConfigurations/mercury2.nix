@@ -260,6 +260,8 @@
 
                 # https://www.authelia.com/integration/proxies/nginx/#proxyconf
                 autheliaProxyConf = ''
+                  proxy_headers_hash_max_size 1024;
+                  proxy_headers_hash_bucket_size 128;
                   # proxy_set_header Host $host; # this in the authelia config breaks some stuff
                   proxy_set_header X-Original-URL $scheme://$host$request_uri;
                   proxy_set_header X-Forwarded-Proto $scheme;
