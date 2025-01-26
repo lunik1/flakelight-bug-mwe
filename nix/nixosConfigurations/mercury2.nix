@@ -111,22 +111,22 @@
             authelia-jwt-key = {
               sopsFile = mercury2SopsFile;
               owner = autheliaUser;
-              restartUnits = [ "authelia-lunik.one.service" ];
+              restartUnits = [ "authelia-${domain}.service" ];
             };
             authelia-encryption-key = {
               sopsFile = mercury2SopsFile;
               owner = autheliaUser;
-              restartUnits = [ "authelia-lunik.one.service" ];
+              restartUnits = [ "authelia-${domain}.service" ];
             };
             authelia-session-secret = {
               sopsFile = mercury2SopsFile;
               owner = autheliaUser;
-              restartUnits = [ "authelia-lunik.one.service" ];
+              restartUnits = [ "authelia-${domain}.service" ];
             };
             authelia-users = {
               sopsFile = mercury2SopsFile;
               owner = autheliaUser;
-              restartUnits = [ "authelia-lunik.one.service" ];
+              restartUnits = [ "authelia-${domain}.service" ];
             };
             htaccess = {
               sopsFile = mercury2SopsFile;
@@ -674,12 +674,12 @@
               mkPodmanNetwork = flake.outputs.lib.mkPodmanNetwork pkgs.podman;
             in
             {
-              "authelia-lunik.one.service" = {
+              "authelia-${domain}.service" = {
                 requires = [ "postgresql.service" ];
                 after = [ "postgresql.service" ];
               };
               nginx = {
-                wants = [ "authelia-lunik.one.service" ];
+                wants = [ "authelia-${domain}.service" ];
               };
               fava = {
                 description = "Fava Web UI for Beancount";
