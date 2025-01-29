@@ -15,6 +15,7 @@
 
         autheliaSocket = "http://unix:///run/authelia/authelia.sock";
 
+        anonymousoverflowPort = 13131;
         breezeWikiPort = 10416;
         favaPort = 5000;
         quetrePort = 3000;
@@ -107,6 +108,10 @@
             acme-env = {
               sopsFile = mercury2SopsFile;
               owner = "acme";
+            };
+            anonymousoverflow-env = {
+              sopsFile = mercury2SopsFile;
+              restartUnits = [ "podman-anonymousoverflow.service" ];
             };
             authelia-jwt-key = {
               sopsFile = mercury2SopsFile;
@@ -443,6 +448,10 @@
                 };
 
                 # authelia-protected virtual hosts
+                anonymousoverflow = mkAuthenticatedProxyVirtualHost {
+                  serverName = "anonymousoverflow.${domain}";
+                  proxyPass = localhost anonymousoverflowPort;
+                };
                 breezewiki = mkAuthenticatedProxyVirtualHost {
                   serverName = "breezewiki.${domain}";
                   proxyPass = localhost breezeWikiPort;
@@ -618,6 +627,15 @@
             mkPodmanContainer = flake.outputs.lib.mkPodmanContainer config.time.timeZone;
           in
           {
+            anonymousoverflow = mkPodmanContainer {
+              image = "ghcr.io/httpjamesm/anonymousoverflow:release";
+              ports = [ "${toString anonymousoverflowPort}:8080" ];
+              environmentFiles = [ config.sops.secrets.anonymousoverflow-env.path ];
+              environment = {
+                APP_URL = "https://anonymousoverflow.${domain}";
+              };
+            };
+
             breezewiki = mkPodmanContainer {
               image = "quay.io/pussthecatorg/breezewiki";
               ports = [ "${toString breezeWikiPort}:${toString breezeWikiPort}" ];
@@ -793,6 +811,9 @@
                 partOf = [ "rss.target" ];
               };
 
+              podman-anonymousoverflow = {
+                wants = [ "nginx.service" ];
+              };
               podman-breezewiki = {
                 wants = [ "nginx.service" ];
               };
