@@ -813,9 +813,11 @@
 
               podman-anonymousoverflow = {
                 wants = [ "nginx.service" ];
+                partOf = [ "privacy-frontends.target" ];
               };
               podman-breezewiki = {
                 wants = [ "nginx.service" ];
+                partOf = [ "privacy-frontends.target" ];
               };
               podman-quetre = {
                 wants = [ "nginx.service" ];
