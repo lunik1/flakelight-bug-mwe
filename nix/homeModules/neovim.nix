@@ -1003,12 +1003,11 @@ in
 
             colorizer.enable = true;
 
-            dap = {
-              enable = true;
-              extensions.dap-python = {
-                inherit (config.lunik1.home.lang.python) enable;
-                adapterPythonPath = "python"; # use direnv/virtualenv
-              };
+            dap.enable = true;
+
+            dap-python = {
+              inherit (config.lunik1.home.lang.python) enable;
+              adapterPythonPath = "python"; # use direnv/virtualenv
             };
 
             direnv.enable = true;
