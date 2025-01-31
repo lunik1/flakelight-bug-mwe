@@ -30,18 +30,6 @@ in
         let
           cmd = s: "<cmd>${s}<cr>";
           function = s: { __raw = "function() ${s} end"; };
-
-          agitator = pkgs.vimUtils.buildVimPlugin {
-            pname = "agitator";
-            version = "2024-12-02";
-            doCheck = false;
-            src = pkgs.fetchFromGitHub {
-              owner = "emmanueltouzery";
-              repo = "agitator.nvim";
-              rev = "dc2843869b8bb9e5096edf53583b1dee1e62aa6b";
-              sha256 = "sha256-9vb8QGJiTmFE77fp8DqaeOI3WtDIthpPW7zvwCQsp4k=";
-            };
-          };
         in
         {
           enable = true;
@@ -1490,7 +1478,6 @@ in
           '';
 
           extraPlugins = with pkgs.vimPlugins; [
-            agitator
             FTerm-nvim
             nvim-genghis
             nvim-pqf
