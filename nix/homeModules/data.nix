@@ -26,7 +26,7 @@ in
       taplo
 
       # csv
-      xsv
+      qsv
     ];
   };
 }
