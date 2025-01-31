@@ -25,10 +25,10 @@ in
   config = lib.mkIf cfg.enable {
     services.locate = {
       enable = true;
-      package = pkgs.mlocate;
+      package = pkgs.plocate;
       inherit (cfg) interval;
     };
 
-    users.users.corin.extraGroups = [ "mlocate" ];
+    users.users.corin.extraGroups = [ "plocate" ];
   };
 }
