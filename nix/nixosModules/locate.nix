@@ -27,7 +27,6 @@ in
       enable = true;
       package = pkgs.mlocate;
       inherit (cfg) interval;
-      localuser = null;
     };
 
     users.users.corin.extraGroups = [ "mlocate" ];
