@@ -30,9 +30,6 @@ in
       environment.systemPackages = [ pkgs.kopia ];
 
       sops.secrets = {
-        kopia-env = {
-          owner = user;
-        };
         kopia_connection_token = {
           owner = user;
         };
@@ -44,11 +41,11 @@ in
         serviceConfig = {
           Type = "oneshot";
 
-          ExecStartPre = "${lib.getExe pkgs.kopia} repository connect from-config --token-file ${config.sops.secrets.kopia_connection_token.path}";
-          ExecStart = "/run/wrappers/bin/kopia snapshot create --no-persist-credentials --no-use-keyring /"; # use wrapped kopia to bypass r/w restrictions
-          ExecStopPost = "${lib.getExe pkgs.kopia} repository disconnect";
+          LoadCredential = "tokenFile:${config.sops.secrets.kopia_connection_token.path}";
 
-          EnvironmentFile = config.sops.secrets.kopia-env.path;
+          ExecStartPre = "${lib.getExe pkgs.kopia} repository connect from-config --token-file \${CREDENTIALS_DIRECTORY}/tokenFile";
+          ExecStart = "/run/wrappers/bin/kopia snapshot create --no-use-keyring /"; # use wrapped kopia to bypass r/w restrictions
+          ExecStopPost = "${lib.getExe pkgs.kopia} repository disconnect";
 
           # can get stuck if connection fails
           TimeoutStartSec = "18h";
