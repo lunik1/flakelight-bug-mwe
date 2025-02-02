@@ -1,6 +1,4 @@
-# Module for regular backups
-# Will need to connect as root to Kopia backup server before with
-# kopia repositoty connect
+# Module for regular backups with kopia
 
 {
   config,
@@ -23,51 +21,83 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.kopia ];
+  config =
+    let
+      user = "kopia";
+      group = "kopia";
+    in
+    lib.mkIf cfg.enable {
+      environment.systemPackages = [ pkgs.kopia ];
 
-    sops.secrets = {
-      kopia_environment = { };
-      kopia_connection_config = { };
-    };
+      sops.secrets = {
+        kopia-env = {
+          owner = user;
+        };
+        kopia_connection_token = {
+          owner = user;
+        };
+      };
 
-    systemd.services.kopia-create = {
-      description = "Backup to kopia repository";
-      startAt = cfg.interval;
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.kopia}/bin/kopia snapshot create --config-file ${config.sops.secrets.kopia_connection_config.path} --no-persist-credentials --no-use-keyring /";
-        EnvironmentFile = config.sops.secrets.kopia_environment.path;
+      systemd.services.kopia-create = {
+        description = "Backup to kopia repository";
+        startAt = cfg.interval;
+        serviceConfig = {
+          Type = "oneshot";
 
-        # can get stuck if connection fails
-        TimeoutStartSec = "18h";
+          ExecStartPre = "${lib.getExe pkgs.kopia} repository connect from-config --token-file ${config.sops.secrets.kopia_connection_token.path}";
+          ExecStart = "/run/wrappers/bin/kopia snapshot create --no-persist-credentials --no-use-keyring /"; # use wrapped kopia to bypass r/w restrictions
+          ExecStopPost = "${lib.getExe pkgs.kopia} repository disconnect";
 
-        Nice = 19;
-        IOSchedulingPriority = 7;
-        CPUSchedulingPolicy = "batch";
+          EnvironmentFile = config.sops.secrets.kopia-env.path;
 
-        User = "root";
+          # can get stuck if connection fails
+          TimeoutStartSec = "18h";
 
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-        PrivateDevices = true;
-        PrivateTmp = true;
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = "@system-service";
-        SystemCallErrorNumber = "EPERM";
-        CapabilityBoundingSet = "CAP_DAC_OVERRIDE";
+          Nice = 19;
+          IOSchedulingPriority = 7;
+          CPUSchedulingPolicy = "batch";
+
+          User = user;
+
+          LockPersonality = true;
+          MemoryDenyWriteExecute = true;
+          NoNewPrivileges = true;
+          PrivateDevices = true;
+          PrivateTmp = true;
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectProc = "invisible";
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          SystemCallArchitectures = "native";
+          SystemCallFilter = "@system-service";
+          SystemCallErrorNumber = "EPERM";
+        };
+      };
+
+      users = {
+        users.${user} = {
+          inherit group;
+          createHome = true;
+          home = "/var/lib/kopia";
+          isSystemUser = true;
+        };
+        groups.kopia = { };
+      };
+
+      security.wrappers = {
+        kopia = {
+          inherit group;
+          source = "${pkgs.kopia}/bin/kopia";
+          owner = user;
+          permissions = "u=rwx,g=,o=";
+          capabilities = "cap_dac_read_search=+ep";
+        };
       };
     };
-  };
 }
