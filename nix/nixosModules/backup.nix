@@ -47,6 +47,11 @@ in
           ExecStart = "/run/wrappers/bin/kopia snapshot create --no-use-keyring /"; # use wrapped kopia to bypass r/w restrictions
           ExecStopPost = "${lib.getExe pkgs.kopia} repository disconnect";
 
+          Environment = [
+            "KOPIA_CHECK_FOR_UPDATES=false"
+            "KOPIA_BYTES_STRING_BASE_2=true"
+          ];
+
           # can get stuck if connection fails
           TimeoutStartSec = "18h";
 
