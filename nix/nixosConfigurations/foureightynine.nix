@@ -110,7 +110,7 @@
           graphical.enable = true;
           kopia-backup = {
             enable = true;
-            interval = "04:07";
+            interval = "10:34";
             urlFile = config.sops.secrets.kopia-repo-url.path;
             passwordFile = config.sops.secrets.kopia-password.path;
           };
