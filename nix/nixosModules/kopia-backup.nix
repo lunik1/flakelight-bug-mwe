@@ -54,7 +54,6 @@ in
             "/bin/sh -c 'KOPIA_PASSWORD=$(< %d/kopia-password) ${lib.getExe pkgs.kopia} repository connect server --url $(< %d/kopia-repo-url)'"
           ];
           ExecStart = "/run/wrappers/bin/kopia snapshot create --no-use-keyring /"; # use wrapped kopia to bypass r/w restrictions
-          ExecStopPost = "${lib.getExe pkgs.kopia} repository disconnect";
 
           Environment = [
             "KOPIA_CHECK_FOR_UPDATES=false"
