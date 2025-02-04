@@ -138,6 +138,10 @@
               restartUnits = [ "nginx.service" ];
               owner = "nginx";
             };
+            kopia-repo-url = { };
+            kopia-password = {
+              sopsFile = mercury2SopsFile;
+            };
             wallabag-env = {
               sopsFile = mercury2SopsFile;
               restartUnits = [ "podman-wallabag.service" ];
@@ -887,9 +891,14 @@
         ];
 
         lunik1.system = {
-          backup.enable = true;
           containers.enable = true;
           headless.enable = true;
+          kopia-backup = {
+            enable = true;
+            interval = "04:07";
+            urlFile = config.sops.secrets.kopia-repo-url.path;
+            passwordFile = config.sops.secrets.kopia-password.path;
+          };
           network.resolved.enable = true;
           ssh-server.enable = true;
           zswap.enable = true;

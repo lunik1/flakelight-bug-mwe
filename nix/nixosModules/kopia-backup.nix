@@ -10,13 +10,23 @@
 with lib;
 
 let
-  cfg = config.lunik1.system.backup;
+  cfg = config.lunik1.system.kopia-backup;
 in
 {
-  options.lunik1.system.backup = with types; {
+  options.lunik1.system.kopia-backup = with types; {
     enable = mkEnableOption "regular backups via Kopia";
+
     interval = mkOption {
       default = "03:46";
+      type = str;
+    };
+
+    urlFile = mkOption {
+      default = "";
+      type = str;
+    };
+
+    passwordFile = mkOption {
       type = str;
     };
   };
@@ -29,21 +39,20 @@ in
     lib.mkIf cfg.enable {
       environment.systemPackages = [ pkgs.kopia ];
 
-      sops.secrets = {
-        kopia_connection_token = {
-          owner = user;
-        };
-      };
-
       systemd.services.kopia-create = {
         description = "Backup to kopia repository";
         startAt = cfg.interval;
         serviceConfig = {
           Type = "oneshot";
 
-          LoadCredential = "tokenFile:${config.sops.secrets.kopia_connection_token.path}";
+          LoadCredential = [
+            "kopia-repo-url:${cfg.urlFile}"
+            "kopia-password:${cfg.passwordFile}"
+          ];
 
-          ExecStartPre = "${lib.getExe pkgs.kopia} repository connect from-config --token-file \${CREDENTIALS_DIRECTORY}/tokenFile";
+          ExecStartPre = [
+            "/bin/sh -c 'KOPIA_PASSWORD=$(< %d/kopia-password) ${lib.getExe pkgs.kopia} repository connect server --url $(< %d/kopia-repo-url)'"
+          ];
           ExecStart = "/run/wrappers/bin/kopia snapshot create --no-use-keyring /"; # use wrapped kopia to bypass r/w restrictions
           ExecStopPost = "${lib.getExe pkgs.kopia} repository disconnect";
 

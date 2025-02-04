@@ -91,7 +91,11 @@
         };
 
         sops.secrets = {
+          kopia-repo-url = { };
           samba-credentials = {
+            sopsFile = ../../secrets/host/tucson/secrets.yaml;
+          };
+          kopia-password = {
             sopsFile = ../../secrets/host/tucson/secrets.yaml;
           };
         };
@@ -148,7 +152,6 @@
 
         ## Config modules to use
         lunik1.system = {
-          backup.enable = true;
           bluetooth.enable = true;
           containers.enable = true;
           games = {
@@ -157,6 +160,12 @@
           };
           graphical.enable = true;
           gnome.enable = true;
+          kopia-backup = {
+            enable = true;
+            interval = "22:07";
+            urlFile = config.sops.secrets.kopia-repo-url.path;
+            passwordFile = config.sops.secrets.kopia-password.path;
+          };
           network = {
             resolved.enable = true;
             networkmanager.enable = true;

@@ -6,6 +6,7 @@
         lib,
         modulesPath,
         pkgs,
+        config,
         ...
       }:
 
@@ -96,11 +97,23 @@
         };
         environment.variables.LIBVA_DRIVER_NAME = "iHD";
 
+        sops.secrets = {
+          kopia-repo-url = { };
+          kopia-password = {
+            sopsFile = ../../secrets/host/foureightynine/secrets.yaml;
+          };
+        };
+
         ## Config modules to use
         lunik1.system = {
-          backup.enable = true;
           bluetooth.enable = true;
           graphical.enable = true;
+          kopia-backup = {
+            enable = true;
+            interval = "04:07";
+            urlFile = config.sops.secrets.kopia-repo-url.path;
+            passwordFile = config.sops.secrets.kopia-password.path;
+          };
           laptop.enable = true;
           network = {
             resolved.enable = true;
