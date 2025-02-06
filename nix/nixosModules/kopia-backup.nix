@@ -51,7 +51,7 @@ in
           ];
 
           ExecStartPre = [
-            "/bin/sh -c 'KOPIA_PASSWORD=$(< %d/kopia-password) ${lib.getExe pkgs.kopia} repository connect server --url $(< %d/kopia-repo-url)'"
+            "${lib.getExe pkgs.bash} -c 'KOPIA_PASSWORD=$(< %d/kopia-password) ${lib.getExe pkgs.kopia} repository connect server --url $(< %d/kopia-repo-url)'"
           ];
           ExecStart = "/run/wrappers/bin/kopia snapshot create --no-use-keyring /"; # use wrapped kopia to bypass r/w restrictions
 
