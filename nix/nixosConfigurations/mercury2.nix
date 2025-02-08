@@ -230,6 +230,10 @@
                   add_header Alt-Svc 'h3=":$server_port"; ma=86400';
                 '';
 
+                noRobots = ''
+                  add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
+                '';
+
                 # https://www.authelia.com/integration/proxies/nginx/#authelia-location-basicconf
                 autheliaLocation = {
                   extraConfig =
@@ -342,6 +346,7 @@
                       recommendedProxySettings = true;
                       extraConfig =
                         http3Conf
+                        + noRobots
                         + ''
                           proxy_connect_timeout 360;
                           proxy_send_timeout 360;
@@ -361,7 +366,7 @@
                       sslTrustedCertificate
                       serverName
                       ;
-                    extraConfig = basicAuthDetect;
+                    extraConfig = basicAuthDetect + noRobots;
                     locations = {
                       "/" = {
                         inherit proxyPass;
@@ -388,6 +393,7 @@
                     sslTrustedCertificate
                     sslCertificateKey
                     ;
+                  extraConfig = noRobots;
                   locations."/".root = "/srv/www";
                 };
                 ${config.services.tt-rss.virtualHost} = {
@@ -399,7 +405,7 @@
                     sslCertificateKey
                     ;
                   serverName = "tt-rss.${domain}";
-                  extraConfig = basicAuthDetect;
+                  extraConfig = basicAuthDetect + noRobots;
                   locations = {
                     "/" = {
                       extraConfig = autheliaConf;
@@ -417,6 +423,7 @@
                     sslCertificateKey
                     ;
                   serverName = "auth.${domain}";
+                  extraConfig = noRobots;
                   locations = {
                     "/" = {
                       proxyPass = autheliaSocket;
