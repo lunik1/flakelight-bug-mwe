@@ -483,6 +483,22 @@
               };
           };
 
+          fail2ban = {
+            enable = true;
+            bantime = "15m";
+            maxretry = 10;
+            bantime-increment = {
+              overalljails = true;
+              rndtime = "12m";
+              formula = "math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
+            };
+            jails = {
+              authelia = {
+                filter = "authelia";
+              };
+            };
+          };
+
           postgresql =
             let
               autheliaUser = config.services.authelia.instances.${domain}.user;
@@ -702,6 +718,7 @@
               "authelia-${domain}.service" = {
                 requires = [ "postgresql.service" ];
                 after = [ "postgresql.service" ];
+                wants = [ "fail2ban.service" ];
               };
               nginx = {
                 wants = [ "authelia-${domain}.service" ];
@@ -870,6 +887,17 @@
             "L+ /srv/www/.well-known/matrix/server - - - - ${
               builtins.toFile "server" (builtins.toJSON { "m.server" = "synapse.${domain}:443"; })
             }"
+            "L+ /etc/fail2ban/filter.d/authelia.conf - - - - ${builtins.toFile "authelia.conf" ''
+              [Definition]
+              journalmatch = _SYSTEMD_UNIT=authelia-${domain}.service
+              failregex = ^.*Unsuccessful (1FA|TOTP|Duo|U2F) authentication attempt by user .*remote_ip"?(:|=)"?<HOST>"?.*$
+                          ^.*user not found.*path=/api/reset-password/identity/start remote_ip"?(:|=)"?<HOST>"?.*$
+                          ^.*Sending an email to user.*path=/api/.*/start remote_ip"?(:|=)"?<HOST>"?.*$
+                          ^.*failed to validate parsed credentials of Authorization header for user .*remote_ip"?(:|=)"?<HOST>"?.*$
+
+              ignoreregex = ^.*level"?(:|=)"?info.*
+                            ^.*level"?(:|=)"?warning.*
+            ''}"
             "L+ /srv/www/.well-known/matrix/client - - - - ${
               builtins.toFile "client" (builtins.toJSON { "m.homeserver".base_url = "https://${domain}"; })
             }"
