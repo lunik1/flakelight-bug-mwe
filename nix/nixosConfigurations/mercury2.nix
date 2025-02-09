@@ -17,7 +17,6 @@
 
         anonymousoverflowPort = 13131;
         breezeWikiPort = 10416;
-        favaPort = 5000;
         quetrePort = 3000;
         rssHubPort = 1200;
         wallabagPort = 4109;
@@ -497,10 +496,6 @@
                   serverName = "breezewiki.${domain}";
                   proxyPass = localhost breezeWikiPort;
                 };
-                fava = mkAuthenticatedProxyVirtualHost {
-                  serverName = "fava.${domain}";
-                  proxyPass = localhost favaPort;
-                };
                 netdata = mkAuthenticatedProxyVirtualHost {
                   serverName = "netdata.${domain}";
                   proxyPass = localhost 19999;
@@ -743,49 +738,6 @@
               };
               nginx = {
                 wants = [ "authelia-${domain}.service" ];
-              };
-              fava = {
-                description = "Fava Web UI for Beancount";
-                after = [ "network.target" ];
-                wants = [
-                  "syncthing.service"
-                  "nginx.service"
-                ];
-                wantedBy = [ "multi-user.target" ];
-                serviceConfig = {
-                  Type = "simple";
-                  ExecStart =
-                    "${pkgs.fava}/bin/fava "
-                    + "--host 0.0.0.0 "
-                    + "-p ${toString favaPort} "
-                    + "--read-only /var/lib/syncthing/ledger/ledger.beancount";
-                  User = "syncthing";
-                  UMask = "0177";
-                  LockPersonality = true;
-                  MemoryDenyWriteExecute = true;
-                  RestrictAddressFamilies = "AF_INET AF_INET6";
-                  NoNewPrivileges = true;
-                  PrivateDevices = true;
-                  PrivateTmp = true;
-                  PrivateUsers = true;
-                  ProtectSystem = "strict";
-                  ProtectProc = "invisible";
-                  ProtectHome = true;
-                  ProtectClock = true;
-                  ProtectControlGroups = true;
-                  ProtectHostname = true;
-                  ProtectKernelLogs = true;
-                  ProtectKernelModules = true;
-                  ProtectKernelTunables = true;
-                  ReadOnlyPaths = "/var/lib/syncthing/ledger";
-                  RestrictNamespaces = true;
-                  RestrictRealtime = true;
-                  RestrictSUIDSGID = true;
-                  SystemCallArchitectures = "native";
-                  SystemCallErrorNumber = "EPERM";
-                  SystemCallFilter = "@system-service";
-                  CapabilityBoundingSet = "";
-                };
               };
               matrix-synapse = rec {
                 requires = [ "nginx.service" ];
