@@ -42,24 +42,27 @@ in
       "sysv"
     ];
     initrd.systemd.enable = !config.boot.swraid.enable && !config.boot.isContainer;
-    kernel.sysctl = {
-      "vm.mmap_min_addr" = 65536;
-      "vm.mmap_rnd_bits" = 32;
-      "vm.mmap_rnd_compat_bits" = 16;
+    kernel.sysctl =
+      {
+        "vm.mmap_min_addr" = 65536;
+        "vm.mmap_rnd_compat_bits" = 16;
 
-      # https://www.phoronix.com/scan.php?page=news_item&px=Dmesg-Unrestricted-2019-So-Far
-      "kernel.dmesg_restrict" = true;
+        # https://www.phoronix.com/scan.php?page=news_item&px=Dmesg-Unrestricted-2019-So-Far
+        "kernel.dmesg_restrict" = true;
 
-      # https://wiki.archlinux.org/title/security
-      "net.core.bpf_jit_harden" = 2;
+        # https://wiki.archlinux.org/title/security
+        "net.core.bpf_jit_harden" = 2;
 
-      # https://wiki.archlinux.org/title/Sysctl
+        # https://wiki.archlinux.org/title/Sysctl
 
-      # Try to make sure we never run up against the inotify user watches limit
-      "fs.inotify.max_user_watches" = 524288;
+        # Try to make sure we never run up against the inotify user watches limit
+        "fs.inotify.max_user_watches" = 524288;
 
-      # see also nixos/modules/profiles/hardened.nix
-    };
+        # see also nixos/modules/profiles/hardened.nix
+      }
+      // lib.optionalAttrs pkgs.stdenv.isx86_64 {
+        "vm.mmap_rnd_bits" = 32;
+      };
     kernelParams = [
       # Improve security
       # https://tails.boum.org/contribute/design/kernel_hardening/
