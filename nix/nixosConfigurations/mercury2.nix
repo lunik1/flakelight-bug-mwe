@@ -99,52 +99,69 @@
           cores = 4;
         };
 
-        sops.secrets =
+        sops =
           let
-            mercury2SopsFile = ../../secrets/host/mercury2/secrets.yaml;
             autheliaUser = config.services.authelia.instances.${domain}.user;
           in
           {
-            acme-env = {
-              sopsFile = mercury2SopsFile;
-              owner = "acme";
-            };
-            anonymousoverflow-env = {
-              sopsFile = mercury2SopsFile;
-              restartUnits = [ "podman-anonymousoverflow.service" ];
-            };
-            authelia-jwt-key = {
-              sopsFile = mercury2SopsFile;
-              owner = autheliaUser;
-              restartUnits = [ "authelia-${domain}.service" ];
-            };
-            authelia-encryption-key = {
-              sopsFile = mercury2SopsFile;
-              owner = autheliaUser;
-              restartUnits = [ "authelia-${domain}.service" ];
-            };
-            authelia-session-secret = {
-              sopsFile = mercury2SopsFile;
-              owner = autheliaUser;
-              restartUnits = [ "authelia-${domain}.service" ];
-            };
-            authelia-users = {
-              sopsFile = mercury2SopsFile;
-              owner = autheliaUser;
-              restartUnits = [ "authelia-${domain}.service" ];
-            };
-            htaccess = {
-              sopsFile = mercury2SopsFile;
-              restartUnits = [ "nginx.service" ];
-              owner = "nginx";
-            };
-            kopia-repo-url = { };
-            kopia-password = {
-              sopsFile = mercury2SopsFile;
-            };
-            wallabag-env = {
-              sopsFile = mercury2SopsFile;
-              restartUnits = [ "podman-wallabag.service" ];
+            secrets =
+              let
+                mercury2SopsFile = ../../secrets/host/mercury2/secrets.yaml;
+              in
+              {
+                acme-env = {
+                  sopsFile = mercury2SopsFile;
+                  owner = "acme";
+                };
+                anonymousoverflow-env = {
+                  sopsFile = mercury2SopsFile;
+                  restartUnits = [ "podman-anonymousoverflow.service" ];
+                };
+                authelia-jwt-key = {
+                  sopsFile = mercury2SopsFile;
+                  owner = autheliaUser;
+                  restartUnits = [ "authelia-${domain}.service" ];
+                };
+                authelia-encryption-key = {
+                  sopsFile = mercury2SopsFile;
+                  owner = autheliaUser;
+                  restartUnits = [ "authelia-${domain}.service" ];
+                };
+                authelia-session-secret = {
+                  sopsFile = mercury2SopsFile;
+                  owner = autheliaUser;
+                  restartUnits = [ "authelia-${domain}.service" ];
+                };
+                authelia-corin-password = {
+                  sopsFile = mercury2SopsFile;
+                  owner = autheliaUser;
+                  restartUnits = [ "authelia-${domain}.service" ];
+                };
+                htaccess = {
+                  sopsFile = mercury2SopsFile;
+                  restartUnits = [ "nginx.service" ];
+                  owner = "nginx";
+                };
+                kopia-repo-url = { };
+                kopia-password = {
+                  sopsFile = mercury2SopsFile;
+                };
+                wallabag-env = {
+                  sopsFile = mercury2SopsFile;
+                  restartUnits = [ "podman-wallabag.service" ];
+                };
+              };
+
+            templates = {
+              "authelia-users.yaml" = {
+                owner = autheliaUser;
+                content = ''
+                  users:
+                      corin:
+                          displayname: "Corin"
+                          password: "${config.sops.placeholder.authelia-corin-password}"
+                '';
+              };
             };
           };
 
@@ -154,7 +171,7 @@
               enable = true;
               settings = {
                 default_2fa_method = "totp";
-                authentication_backend.file.path = config.sops.secrets.authelia-users.path;
+                authentication_backend.file.path = config.sops.templates."authelia-users.yaml".path;
                 theme = "auto";
                 session = {
                   cookies = [
