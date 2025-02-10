@@ -113,7 +113,7 @@
                   sopsFile = mercury2SopsFile;
                   owner = "acme";
                 };
-                anonymousoverflow-env = {
+                anonymousoverflow-jwt-signing-secret = {
                   sopsFile = mercury2SopsFile;
                   restartUnits = [ "podman-anonymousoverflow.service" ];
                 };
@@ -147,16 +147,19 @@
                 };
               };
 
-            templates = {
+            templates = with config.sops.placeholder; {
               "authelia-users.yaml" = {
                 owner = autheliaUser;
                 content = ''
                   users:
                       corin:
                           displayname: "Corin"
-                          password: "${config.sops.placeholder.authelia-corin-password}"
+                          password: "${authelia-corin-password}"
                 '';
               };
+              "anonymousoverflow.env".content = ''
+                JWT_SIGNING_SECRET=${anonymousoverflow-jwt-signing-secret}
+              '';
             };
           };
 
@@ -653,7 +656,7 @@
             anonymousoverflow = mkPodmanContainer {
               image = "ghcr.io/httpjamesm/anonymousoverflow:release";
               ports = [ "${toString anonymousoverflowPort}:8080" ];
-              environmentFiles = [ config.sops.secrets.anonymousoverflow-env.path ];
+              environmentFiles = [ config.sops.templates."anonymousoverflow.env".path ];
               environment = {
                 APP_URL = "https://anonymousoverflow.${domain}";
               };
