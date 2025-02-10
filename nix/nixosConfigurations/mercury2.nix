@@ -137,11 +137,6 @@
                   owner = autheliaUser;
                   restartUnits = [ "authelia-${domain}.service" ];
                 };
-                htaccess = {
-                  sopsFile = mercury2SopsFile;
-                  restartUnits = [ "nginx.service" ];
-                  owner = "nginx";
-                };
                 kopia-repo-url = { };
                 kopia-password = {
                   sopsFile = mercury2SopsFile;
