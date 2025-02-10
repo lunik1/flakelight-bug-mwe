@@ -69,7 +69,7 @@
           certs."${domain}" = {
             extraDomainNames = [ "*.${domain}" ];
             dnsProvider = "porkbun";
-            environmentFile = config.sops.secrets.acme-env.path;
+            environmentFile = config.sops.templates."acme.env".path;
           };
         };
 
@@ -109,7 +109,11 @@
                 mercury2SopsFile = ../../secrets/host/mercury2/secrets.yaml;
               in
               {
-                acme-env = {
+                porkbun-api-key = {
+                  sopsFile = mercury2SopsFile;
+                  owner = "acme";
+                };
+                porkbun-secret-api-key = {
                   sopsFile = mercury2SopsFile;
                   owner = "acme";
                 };
@@ -155,6 +159,13 @@
                       corin:
                           displayname: "Corin"
                           password: "${authelia-corin-password}"
+                '';
+              };
+              "acme.env" = {
+                owner = "acme";
+                content = ''
+                  PORKBUN_API_KEY=${porkbun-api-key}
+                  PORKBUN_SECRET_API_KEY=${porkbun-secret-api-key}
                 '';
               };
               "anonymousoverflow.env".content = ''
