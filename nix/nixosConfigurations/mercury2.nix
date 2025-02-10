@@ -145,7 +145,7 @@
                 kopia-password = {
                   sopsFile = mercury2SopsFile;
                 };
-                wallabag-env = {
+                wallabag-postgres-password = {
                   sopsFile = mercury2SopsFile;
                   restartUnits = [ "podman-wallabag.service" ];
                 };
@@ -170,6 +170,10 @@
               };
               "anonymousoverflow.env".content = ''
                 JWT_SIGNING_SECRET=${anonymousoverflow-jwt-signing-secret}
+              '';
+              "wallabag.env".content = ''
+                POSTGRES_PASSWORD=${wallabag-postgres-password}
+                SYMFONY__ENV__DATABASE_PASSWORD=${wallabag-postgres-password}
               '';
             };
           };
@@ -703,7 +707,7 @@
 
             wallabag = mkPodmanContainer {
               image = "wallabag/wallabag";
-              environmentFiles = [ config.sops.secrets.wallabag-env.path ];
+              environmentFiles = [ config.sops.templates."wallabag.env".path ];
               environment = {
                 POSTGRES_USER = "wallabag";
                 SYMFONY__ENV__DATABASE_HOST = "host.containers.internal";
