@@ -1201,9 +1201,11 @@ in
 
             notify = {
               enable = true;
-              fps = 60;
-              maxWidth = 80;
-              maxHeight = 5;
+              settings = {
+                fps = 60;
+                max_width = 80;
+                max_height = 5;
+              };
             };
 
             nvim-autopairs.enable = true;
