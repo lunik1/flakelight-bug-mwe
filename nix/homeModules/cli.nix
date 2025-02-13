@@ -74,6 +74,8 @@ in
           lunik1-nur.trash-d
         ];
 
+      shell.enableZshIntegration = true;
+
       sessionVariables = {
         ET_NO_TELEMETRY = "1";
         RSYNC_CHECKSUM_LIST = "xxh3 xxh128 xxh64 sha1 md5 md4 none";
@@ -139,7 +141,6 @@ in
       atuin = {
         enable = true;
         flags = [ "--disable-up-arrow" ];
-        enableZshIntegration = true;
         settings = {
           dialect = "uk";
           update_check = false;
@@ -225,12 +226,10 @@ in
       };
       dircolors = {
         enable = true;
-        enableZshIntegration = true;
         extraConfig = builtins.readFile "${pkgs.lunik1-nur.ls-colors}/share/ls-colors/LS_COLORS";
       };
       direnv = {
         enable = true;
-        enableZshIntegration = true;
         nix-direnv = {
           enable = true;
         };
@@ -238,7 +237,6 @@ in
       lesspipe.enable = true;
       nix-index = {
         enable = true;
-        enableZshIntegration = true;
       };
       nix-index-database.comma.enable = true;
       tealdeer = {

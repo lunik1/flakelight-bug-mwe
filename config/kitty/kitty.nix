@@ -8,7 +8,6 @@
     size = 13.0;
   };
   themeFile = "gruvbox-dark";
-  shellIntegration.enableZshIntegration = true;
   settings = {
     bold_font = "Myosevka Semibold";
     italic_font = "Myosevka Light Italic";
