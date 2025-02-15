@@ -124,7 +124,7 @@
 (def ^:private flake-outputs
   (memoize
    (fn []
-     (-> (try-nix {:out :string :err :string} "flake" "show" "--json")
+     (-> (try-nix {:out :string} "flake" "show" "--json" "--all-systems")
          :out
          (json/parse-string true)))))
 
