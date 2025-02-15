@@ -1188,7 +1188,7 @@ in
                   deadnix.enable = true;
                   markdownlint_cli2.enable = true;
                   statix.enable = config.lunik1.home.lang.nix.enable;
-                  # write_good.enable = true;
+                  write_good.enable = true;
                   yamllint.enable = config.lunik1.home.lang.nix.enable;
                   zsh.enable = true;
                 };
