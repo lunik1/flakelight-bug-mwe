@@ -75,26 +75,10 @@
             device = "/dev/disk/by-uuid/99D0-07B0";
             fsType = "vfat";
           };
-          "/mnt/storage" = {
-            device = "//192.168.0.20/storage";
-            fsType = "cifs";
-            noCheck = true;
-            options = [
-              "x-systemd.automount"
-              "x-systemd.mount-timeout=30"
-              "noauto"
-              "nofail"
-              "_netdev"
-              "credentials=${config.sops.secrets.samba-credentials.path}"
-            ];
-          };
         };
 
         sops.secrets = {
           kopia-repo-url = { };
-          samba-credentials = {
-            sopsFile = ../../secrets/host/tucson/secrets.yaml;
-          };
           kopia-password = {
             sopsFile = ../../secrets/host/tucson/secrets.yaml;
           };
