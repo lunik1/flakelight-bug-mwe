@@ -23,13 +23,9 @@ in
 
   config = mkIf cfg.enable (
     let
-      settings = {
-        withNativeCompilation = true;
-        withGTK3 = cfg.gui;
-        withPgtk = cfg.gui;
-        withXwidgets = cfg.gui && !(config.lunik1.home.sway.enable || pkgs.stdenv.isDarwin);
-      };
-      emacs-package = pkgs.emacs.override settings;
+      emacs-package = pkgs.emacs30-pgtk.overrideAttrs (
+        new: old: { configureFlags = old.configureFlags ++ [ "--disable-gc-mark-trace" ]; }
+      );
     in
     {
       lunik1.home.git.enable = true;
