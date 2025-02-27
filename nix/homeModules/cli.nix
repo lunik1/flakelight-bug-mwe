@@ -63,7 +63,6 @@ in
         ]
         ++ lib.optionals stdenv.isLinux [
           cfspeedtest
-          pb_cli
           parted
           psmisc
           smartmontools
