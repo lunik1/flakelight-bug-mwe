@@ -41,7 +41,7 @@
         };
 
         environment.systemPackages = with pkgs; [
-          matrix-synapse-tools.rust-synapse-compress-state
+          rust-synapse-state-compress
           pgcli
         ];
 
@@ -761,7 +761,7 @@
                 startAt = "Sat *-*-8..14 04:47:00"; # second saturday of the month @ 04:47 am
                 serviceConfig = {
                   ExecStart =
-                    "${lib.getExe' pkgs.matrix-synapse-tools.rust-synapse-compress-state "synapse_auto_compressor"} "
+                    "${lib.getExe' pkgs.rust-synapse-state-compress "synapse_auto_compressor"} "
                     + "-p 'user=matrix-synapse dbname=matrix-synapse host=/run/postgresql' "
                     + "-c 2000 "
                     + "-n 500";
