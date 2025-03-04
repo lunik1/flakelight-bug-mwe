@@ -259,7 +259,7 @@ in
         settings = {
           embed-thumbnail = true;
           add-metadata = true;
-          merge-output-format = "mkv";
+          merge-output-format = "webm/mkv";
           embed-subs = true;
           convert-subs = "ass";
           netrc = true;
