@@ -13,7 +13,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      poetry
+      uv
       (python3.withPackages (ps: with ps; [ black ]))
     ];
   };
