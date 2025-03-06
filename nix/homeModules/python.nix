@@ -14,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       uv
-      (python3.withPackages (ps: with ps; [ black ]))
+      ruff
     ];
   };
 }
