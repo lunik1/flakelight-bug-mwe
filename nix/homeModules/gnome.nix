@@ -48,6 +48,9 @@ in
             gtk-single-instance = true;
             shell-integration = "zsh";
             theme = "GruvboxDark";
+            palette = [
+              "0=#665c54"
+            ];
           }
           // lib.optionalAttrs pkgs.stdenv.isDarwin {
             macos-icon = "custom-style";
