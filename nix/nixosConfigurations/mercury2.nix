@@ -625,7 +625,7 @@
 
           thelounge = {
             enable = true;
-            plugins = with pkgs.theLoungePlugins; [ themes.zenburn ];
+            plugins = with pkgs; [ lunik1-nur.thelounge-theme-zenburn ];
             extraConfig = {
               prefetch = true;
               prefetchStorage = true;
