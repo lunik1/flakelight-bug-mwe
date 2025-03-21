@@ -197,7 +197,7 @@
 
 (defn build-all
   [_]
-  (apply try-nom "build" "--no-link" (outputs)))
+  (apply try-nom "build" "--no-link" "--fallback" (outputs)))
 
 (defn install-home!
   [{{hostname :hostname} :opts}]
@@ -205,7 +205,7 @@
                      (let [hostname (get-hostname)]
                        (println (format "No hostname provided using '%s'" hostname))
                        hostname))]
-    (try-nom "build" "-o" "./result" (home->output hostname))
+    (try-nom "build" "--fallback" "-o" "./result" (home->output hostname))
 
     ;; mimeapps.list has a bad habit of being modified and getting in the way
     (fs/delete-if-exists (format "%s/.config/mimeapps.list" (get-home)))
@@ -243,7 +243,7 @@
       (println "Refusing to populate cache with uncommitted changes.")
       (System/exit 1))
     (as-> (outputs) $
-      (apply try-nom {:out :string} "build" "--no-link" "--json" $)
+      (apply try-nom {:out :string} "build" "--fallback" "--no-link" "--json" $)
       (:out $)
       (json/parse-string $ true)
       (map #(get-in % [:outputs :out]) $)
