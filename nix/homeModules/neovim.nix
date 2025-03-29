@@ -1133,13 +1133,16 @@ in
               cmp.enable = true;
             };
 
-            lualine.enable = true;
+            # lualine.enable = true;
 
             oil.enable = true;
 
             mini = {
               enable = true;
-              modules.icons = { };
+              modules = {
+                icons = { };
+                statusline = { };
+              };
               mockDevIcons = true;
             };
 
@@ -1370,13 +1373,13 @@ in
               };
             };
 
-            vim-matchup = {
-              enable = true;
-              treesitter.enable = true;
-              settings = {
-                surround_enabled = 1;
-              };
-            };
+            # vim-matchup = {
+            #   enable = true;
+            #   treesitter.enable = true;
+            #   settings = {
+            #     surround_enabled = 1;
+            #   };
+            # };
           };
 
           extraConfigLua = ''
