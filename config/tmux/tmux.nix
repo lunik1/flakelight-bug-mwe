@@ -10,7 +10,7 @@
   prefix = "C-a";
   terminal = "tmux-256color";
   plugins = [
-    # tmuxPlugins.tmux-fzf
+    tmuxPlugins.tmux-fzf
     tmuxPlugins.gruvbox
     tmuxPlugins.resurrect
     {
