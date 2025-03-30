@@ -887,6 +887,7 @@ in
             pumheight = 8;
             scrolloff = 5;
             shiftwidth = 4;
+            showmode = false;
             sidescrolloff = 10;
             signcolumn = "yes";
             smartcase = true;
