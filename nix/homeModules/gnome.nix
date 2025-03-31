@@ -90,6 +90,8 @@ in
           "image/tiff" = [ "org.gnome.Loupe.desktop" ];
           "image/vnd.microsoft.icon" = [ "org.gnome.Loupe.desktop" ];
           "image/webp" = [ "org.gnome.Loupe.desktop" ];
+
+          "application/zip" = "org.gnome.FileRoller.desktop";
         };
       };
     };
