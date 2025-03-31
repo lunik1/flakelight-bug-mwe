@@ -92,6 +92,8 @@ in
           "image/webp" = [ "org.gnome.Loupe.desktop" ];
 
           "application/zip" = "org.gnome.FileRoller.desktop";
+
+          "application/pdf" = "org.gnome.Papers.desktop";
         };
       };
     };
