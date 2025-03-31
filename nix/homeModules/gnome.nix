@@ -72,11 +72,26 @@ in
     };
 
     # disable gnome-keyring's ssh agent
-    xdg.configFile = {
-      "autostart/gnome-keyring-ssh.desktop".text = ''
-        ${lib.fileContents "${pkgs.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
-          Hidden=true
-      '';
+    xdg = {
+      configFile = {
+        "autostart/gnome-keyring-ssh.desktop".text = ''
+          ${lib.fileContents "${pkgs.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
+            Hidden=true
+        '';
+      };
+      mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "image/avif" = [ "org.gnome.Loupe.desktop" ];
+          "image/bmp" = [ "org.gnome.Loupe.desktop" ];
+          "image/gif" = [ "org.gnome.Loupe.desktop" ];
+          "image/jpeg" = [ "org.gnome.Loupe.desktop" ];
+          "image/png" = [ "org.gnome.Loupe.desktop" ];
+          "image/tiff" = [ "org.gnome.Loupe.desktop" ];
+          "image/vnd.microsoft.icon" = [ "org.gnome.Loupe.desktop" ];
+          "image/webp" = [ "org.gnome.Loupe.desktop" ];
+        };
+      };
     };
   };
 }
