@@ -3,6 +3,8 @@
   cachix,
   gitMinimal,
   nix,
+  podman,
+  systemd,
   which,
 }:
 
@@ -11,6 +13,8 @@ writeBabashkaApplication {
     cachix
     gitMinimal
     nix
+    podman
+    systemd
     which
   ];
   name = "ploy";
