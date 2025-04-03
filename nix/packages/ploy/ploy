@@ -99,7 +99,8 @@
 
 (defn- pull-image!
   [image]
-  (try-shell "podman" "pull" image))
+  (println (format "Pulling %s" image))
+  (try-shell "podman" "pull" "-q" image))
 
 (defn- restart-container!
   [container]
