@@ -1124,6 +1124,7 @@ in
                   installRustc = true;
                 };
                 taplo.enable = config.lunik1.home.lang.data.enable;
+                tinymist.enable = true;
                 typos_lsp.enable = true;
                 yamlls.enable = config.lunik1.home.lang.data.enable;
               };
@@ -1357,6 +1358,8 @@ in
                 };
               };
             };
+
+            typst-vim.enable = true;
 
             which-key = {
               enable = true;
