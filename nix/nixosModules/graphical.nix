@@ -64,5 +64,14 @@ in
         };
       };
     };
+
+    system.userActivationScripts = {
+      updateFontCache = {
+        text = ''
+          ${lib.getExe' pkgs.fontconfig "fc-cache"}
+        '';
+        deps = [ ];
+      };
+    };
   };
 }
