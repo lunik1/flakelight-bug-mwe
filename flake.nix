@@ -128,7 +128,7 @@
         devShell = pkgs: {
           inherit (pkgs.outputs'.checks.pre-commit-check) shellHook;
           packages = with pkgs; [
-            outputs'.packages.ploy
+            ploy
 
             cachix
             coreutils
