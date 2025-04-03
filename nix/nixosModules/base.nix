@@ -131,6 +131,11 @@ in
       sandbox = "relaxed";
       auto-optimise-store = true;
 
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+
       # cachix
       substituters = [
         "https://lunik1-nix-config.cachix.org"
