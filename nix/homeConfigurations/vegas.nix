@@ -29,7 +29,7 @@
         };
 
         lunik1.home = {
-          core.enable = true;
+          non-nixos.enable = true;
           cli.enable = true;
 
           emacs = {

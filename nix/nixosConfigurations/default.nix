@@ -4,7 +4,7 @@
   inputs,
   outputs,
   ...
-}:
+}@args:
 
 let
   addCommonCfg =
@@ -13,8 +13,25 @@ let
     // {
       modules =
         prev.modules
-        ++ (with inputs; [ sops-nix.nixosModules.sops ])
+        ++ (with inputs; [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+          }
+          sops-nix.nixosModules.sops
+        ])
         ++ lib.attrValues outputs.nixosModules;
     };
+
+  hmModules =
+    (with inputs; [
+      nix-index-database.hmModules.nix-index
+      nixvim.homeManagerModules.nixvim
+      sops-nix.homeManagerModule
+    ])
+    ++ lib.attrValues outputs.homeModules;
 in
-lib.mapAttrs (_: addCommonCfg) (flakelight.importDir ./.)
+lib.mapAttrs (_name: value: addCommonCfg (value (args // { inherit hmModules; }))) (
+  flakelight.importDir ./.
+)

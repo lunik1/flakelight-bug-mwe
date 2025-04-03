@@ -82,6 +82,24 @@
 
         nixpkgs.config = {
           allowUnfree = true;
+
+          permittedInsecurePackages = [
+            # needed by eddie
+            "dotnet-runtime-6.0.36"
+            "dotnet-runtime-7.0.20"
+            "dotnet-runtime-wrapped-6.0.36"
+            "dotnet-runtime-wrapped-7.0.20"
+            "dotnet-sdk-6.0.428"
+            "dotnet-sdk-7.0.410"
+            "dotnet-sdk-wrapped-6.0.428"
+            "dotnet-sdk-wrapped-7.0.410"
+
+            # needed by feishin
+            "electron-31.7.7"
+
+            # needed by runescape
+            "openssl-1.1.1w"
+          ];
         };
 
         inherit withOverlays;

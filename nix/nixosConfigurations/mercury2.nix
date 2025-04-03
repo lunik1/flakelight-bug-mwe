@@ -1,4 +1,11 @@
 {
+  inputs,
+  outputs,
+  hmModules,
+  ...
+}:
+
+{
   system = "aarch64-linux";
   modules = [
     (
@@ -893,6 +900,26 @@
           network.resolved.enable = true;
           ssh-server.enable = true;
           zswap.enable = true;
+        };
+
+        home-manager.users.corin = {
+          imports = hmModules;
+
+          home = {
+            username = "corin";
+            homeDirectory = "/home/corin";
+            stateVersion = "23.05";
+          };
+
+          lunik1.home = {
+            cli.enable = true;
+
+            git.enable = true;
+            gpg.enable = true;
+            neovim.enable = true;
+
+            lang.nix.enable = true;
+          };
         };
       }
     )
