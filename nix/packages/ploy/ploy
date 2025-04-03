@@ -236,6 +236,16 @@
         (println "Requires super user, aborting.")
         (System/exit 19)))))
 
+(defn deploy-system!
+  [{{host :host target :target} :opts}]
+  (let [target (or target host)]
+    (exit-on-fail
+     (run!
+      check
+      (pipeline (pb {:in :inherit :err :out}
+                    "nixos-rebuild" "switch" "--flake" (format ".#%s" host) "--use-remote-sudo" "--target-host" target)
+                (pb {:out :inherit :err :inherit} "nom"))))))
+
 (defn populate-cache!
   [_]
   (if (uncomitted-changes?)
@@ -301,6 +311,10 @@
            :operation {:default "switch"
                        :alias :p
                        :validate #(contains? #{"switch" "boot" "test" "build"} %)}}}
+   {:cmds ["remote"]
+    :fn deploy-system!
+    :args->opts [:host :target]
+    :spec {:host {:validate #(contains? (hosts) %)}}}
    {:cmds ["update-containers"] :fn update-containers!}
    {:cmds [] :fn default}])
 
