@@ -16,8 +16,11 @@ let
         ++ (with inputs; [
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "hmbackup";
+            };
           }
           sops-nix.nixosModules.sops
         ])
