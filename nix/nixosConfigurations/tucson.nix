@@ -143,7 +143,10 @@
 
         lunik1.system = {
           bluetooth.enable = true;
-          containers.enable = true;
+          containers = {
+            enable = true;
+            updateOnRebuild = false;
+          };
           games = {
             enable = true;
             steam.enable = true;

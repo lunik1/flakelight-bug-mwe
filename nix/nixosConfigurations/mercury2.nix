@@ -888,7 +888,10 @@
         ];
 
         lunik1.system = {
-          containers.enable = true;
+          containers = {
+            enable = true;
+            updateOnRebuild = false;
+          };
           fail2ban.enable = true;
           headless.enable = true;
           kopia-backup = {
