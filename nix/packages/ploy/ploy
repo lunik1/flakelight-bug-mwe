@@ -74,13 +74,6 @@
       :exit
       (not= 0)))
 
-(defn command-exists?
-  [cmd]
-  (-> (process ["which" cmd])
-      deref
-      :exit
-      (= 0)))
-
 (defn- super-user?
   []
   (or (= "root" (System/getProperty "user.name"))
