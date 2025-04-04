@@ -890,7 +890,7 @@
         lunik1.system = {
           containers = {
             enable = true;
-            updateOnRebuild = false;
+            updateOnRebuild = true;
           };
           fail2ban.enable = true;
           headless.enable = true;
