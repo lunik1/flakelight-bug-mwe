@@ -35,7 +35,7 @@ in
     system.activationScripts = lib.optionalAttrs cfg.updateOnRebuild {
       updateContainers = {
         text = ''
-          ${lib.getExe pkgs.ploy} update-containers
+          ${lib.getExe pkgs.update-containers}
         '';
       };
     };
