@@ -320,6 +320,11 @@ in
           fi
         '';
       };
+
+      zsh.shellAliases = {
+        ncdu = "ncdu -t $(nproc)";
+      };
+
     };
 
     sops.secrets = {
