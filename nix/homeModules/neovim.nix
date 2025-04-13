@@ -1136,7 +1136,7 @@ in
               cmp.enable = true;
             };
 
-            # lualine.enable = true;
+            lualine.enable = true;
 
             oil.enable = true;
 
@@ -1144,7 +1144,6 @@ in
               enable = true;
               modules = {
                 icons = { };
-                statusline = { };
               };
               mockDevIcons = true;
             };
