@@ -33,6 +33,7 @@ in
         in
         {
           enable = true;
+          luaLoader.enable = true;
           vimAlias = true;
 
           extraConfigLuaPre = ''
