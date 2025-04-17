@@ -36,6 +36,8 @@ in
           luaLoader.enable = true;
           vimAlias = true;
 
+          dependencies.git.enable = false;
+
           extraConfigLuaPre = ''
             vim.keymap.set('n', '<Space>', '<Nop>', { silent = true, remap = false })
             vim.g.mapleader = ' '
@@ -1009,7 +1011,6 @@ in
 
             gitsigns = {
               enable = true;
-              gitPackage = null;
               settings = {
                 signs = {
                   add.text = "+";
