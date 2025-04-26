@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
 }:
 
@@ -24,7 +25,13 @@ in
   };
 
   config = {
-    nixpkgs.config.permittedInsecurePackages = lib.optionals cfg.runescape.enable [ "openssl-1.1.1w" ];
+    nixpkgs.config =
+      if osConfig.home-manager.useGlobalPkgs or false then
+        null
+      else
+        {
+          permittedInsecurePackages = lib.optionals cfg.runescape.enable [ "openssl-1.1.1w" ];
+        };
 
     home.packages =
       with pkgs;
