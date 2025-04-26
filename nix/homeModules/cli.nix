@@ -277,14 +277,16 @@ in
           conf = "$HOME/nix-config";
           code = "$HOME/code";
         };
-        initExtraFirst = ''
-          source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-          source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
-        '';
-        initExtra = ''
-          source ${../../config/zsh/zshrc.local}
-          source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
-        '';
+        initContent = lib.mkMerge [
+          (lib.mkBefore ''
+            source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+            source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
+          '')
+          ''
+            source ${../../config/zsh/zshrc.local}
+            source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+          ''
+        ];
         envExtra = ''
           if [[ "$TERM" == "foot" ]]
           then
