@@ -22,6 +22,12 @@
 
     systemd.user.startServices = "sd-switch";
 
+    services.home-manager.autoExpire = {
+      enable = true;
+      frequency = "weekly";
+      timestamp = "-14 days";
+    };
+
     sops = {
       age.keyFile = "${config.home.homeDirectory}/.age-key.txt";
       defaultSopsFile = ../../secrets/user/secrets.yaml;
