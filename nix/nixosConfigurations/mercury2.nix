@@ -450,6 +450,25 @@
                     ${internalAuthDetect} = autheliaLocationDetect;
                   };
                 };
+                cinny = {
+                  inherit
+                    quic
+                    forceSSL
+                    sslCertificate
+                    sslTrustedCertificate
+                    sslCertificateKey
+                    ;
+                  serverName = "cinny.${domain}";
+                  extraConfig = basicAuthDetect + noRobots;
+                  locations = {
+                    "/" = {
+                      root = "${pkgs.cinny}";
+                      extraConfig = autheliaConf;
+                    };
+                    ${internalAuth} = autheliaLocation;
+                    ${internalAuthDetect} = autheliaLocationDetect;
+                  };
+                };
                 authelia = {
                   inherit
                     quic
