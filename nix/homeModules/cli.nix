@@ -47,7 +47,6 @@ in
           rmlint
           rsync
           sd
-          streamlink
           stress-ng
           tree
           unar
@@ -238,6 +237,14 @@ in
         enable = true;
       };
       nix-index-database.comma.enable = true;
+      streamlink = {
+        enable = true;
+        settings = {
+          player = "mpv";
+          twitch-disable-ads = true;
+          twitch-low-latency = true;
+        };
+      };
       tealdeer = {
         enable = true;
         settings.updates = {
@@ -348,15 +355,6 @@ in
         "neofetch" = {
           source = ../../config/neofetch/config.conf;
           target = "neofetch/config.conf";
-        };
-        "streamlink" = {
-          target = "streamlink/config";
-          text = ''
-            player=mpv
-
-            twitch-disable-ads
-            twitch-low-latency
-          '';
         };
       };
     };
