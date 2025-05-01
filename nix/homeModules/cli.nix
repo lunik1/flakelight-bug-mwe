@@ -351,12 +351,6 @@ in
           target = "zsh/zsh_cheatsheet.md";
         };
       };
-      configFile = {
-        "neofetch" = {
-          source = ../../config/neofetch/config.conf;
-          target = "neofetch/config.conf";
-        };
-      };
     };
   };
 }
