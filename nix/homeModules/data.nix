@@ -14,7 +14,6 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       # Json
-      jq
       nodePackages_latest.vscode-json-languageserver
 
       # YAML
@@ -28,5 +27,7 @@ in
       # csv
       xan
     ];
+
+    programs.jq.enable = true;
   };
 }
