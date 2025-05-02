@@ -42,7 +42,7 @@ in
         enableSshSupport = true;
         defaultCacheTtl = 86400;
         maxCacheTtl = 86400;
-        pinentryPackage =
+        pinentry.package =
           with pkgs;
           if config.lunik1.home.gnome.enable then
             pinentry-gnome3
