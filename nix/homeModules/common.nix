@@ -23,7 +23,7 @@
     systemd.user.startServices = "sd-switch";
 
     services.home-manager.autoExpire = {
-      enable = true;
+      enable = pkgs.stdenv.isLinux;
       frequency = "weekly";
       timestamp = "-14 days";
     };
