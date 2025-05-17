@@ -50,7 +50,7 @@ in
           else if pkgs.stdenv.isLinux then
             [
               libreoffice-fresh
-              pavucontrol
+              pwvucontrol
               (ventoy.override {
                 withGtk3 = true;
                 defaultGuiType = "gtk3";
