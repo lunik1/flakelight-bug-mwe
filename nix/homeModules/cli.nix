@@ -343,6 +343,38 @@ in
       cachix_auth_token = { };
     };
 
+    systemd.user = {
+      services = {
+        autotrash = lib.mkIf pkgs.stdenv.isLinux {
+          Unit = {
+            Description = "Automatic trash cleaning";
+            After = "multi-user.target";
+          };
+          Service = {
+            Type = "oneshot";
+            ExecStart = "${lib.getExe pkgs.autotrash} -d 14";
+            ProtectSystem = "full";
+            Nice = 19;
+            CPUSchedulingPolicy = "batch";
+            IOSchedulingClass = "best-effort";
+            IOSchedulingPriority = 5;
+          };
+        };
+      };
+
+      timers = {
+        autotrash = lib.mkIf pkgs.stdenv.isLinux {
+          Unit = {
+            Description = "Empty trash every day";
+          };
+          Timer = {
+            OnCalendar = "09:47";
+          };
+          Install.WantedBy = [ "timers.target" ];
+        };
+      };
+    };
+
     xdg = {
       enable = true;
       dataFile = {
