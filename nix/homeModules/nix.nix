@@ -13,7 +13,6 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      nix-init
       nix-prefetch
       nix-update
       # nixops_unstable # does not build, insecure
@@ -26,5 +25,7 @@ in
       nil
       statix
     ];
+
+    programs.nix-init.enable = true;
   };
 }
