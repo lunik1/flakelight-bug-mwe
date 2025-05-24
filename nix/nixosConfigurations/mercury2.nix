@@ -647,6 +647,15 @@
             log.root.level = "WARNING";
           };
 
+          synapse-auto-compressor = {
+            enable = true;
+            startAt = "Sat *-*-8..14 04:47:00";
+            settings = {
+              chunks_to_compress = 500;
+              chunk_size = 2000;
+            };
+          };
+
           netdata = {
             package = pkgs.netdataCloud;
             enable = true;
@@ -782,52 +791,6 @@
               };
               thelounge = {
                 wants = [ "nginx.service" ];
-              };
-              synapse-auto-compressor = {
-                description = "Compress synapse database";
-                requires = [ "postgresql.service" ];
-                after = [ "postgresql.service" ];
-                startAt = "Sat *-*-8..14 04:47:00"; # second saturday of the month @ 04:47 am
-                serviceConfig = {
-                  ExecStart =
-                    "${lib.getExe' pkgs.rust-synapse-state-compress "synapse_auto_compressor"} "
-                    + "-p 'user=matrix-synapse dbname=matrix-synapse host=/run/postgresql' "
-                    + "-c 2000 "
-                    + "-n 500";
-                  User = "matrix-synapse";
-                  Type = "oneshot";
-                  Nice = 15;
-                  IOSchedulingPriority = 7;
-                  CPUSchedulingPolicy = "batch";
-
-                  CapabilityBoundingSet = "";
-                  IPAddressDeny = "0.0.0.0/0 ::0";
-                  LockPersonality = true;
-                  MemoryDenyWriteExecute = true;
-                  NoNewPrivileges = true;
-                  PrivateDevices = true;
-                  PrivateNetwork = true;
-                  PrivateTmp = true;
-                  PrivateUsers = true;
-                  ProtectClock = true;
-                  ProtectControlGroups = true;
-                  ProtectHome = true;
-                  ProtectHostname = true;
-                  ProtectKernelLogs = true;
-                  ProtectKernelModules = true;
-                  ProtectKernelTunables = true;
-                  ProtectProc = "invisible";
-                  ProtectSystem = "strict";
-                  RemoveIPC = true;
-                  RestrictAddressFamilies = "AF_UNIX";
-                  RestrictNamespaces = true;
-                  RestrictRealtime = true;
-                  RestrictSUIDSGID = true;
-                  SystemCallArchitectures = "native";
-                  SystemCallErrorNumber = "EPERM";
-                  SystemCallFilter = "@system-service";
-                  UMask = "0177";
-                };
               };
               syncthing.serviceConfig.RuntimeDirectory = "syncthing";
               tt-rss = {
