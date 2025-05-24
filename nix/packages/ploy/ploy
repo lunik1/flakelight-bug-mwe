@@ -174,7 +174,7 @@
 
         (exit-on-fail
          (run! check
-               (pipeline (pb {:err :out} "nixos-rebuild" operation "--flake" (format "/etc/nixos#%s" hostname))
+               (pipeline (pb {:err :out} "nixos-rebuild-ng" operation "--flake" (format "/etc/nixos#%s" hostname))
                          (pb {:out :inherit :err :inherit} "nom")))))
       (do
         (println "Requires super user, aborting.")
@@ -187,7 +187,7 @@
      (run!
       check
       (pipeline (pb {:in :inherit :err :out}
-                    "nixos-rebuild" "switch" "--flake" (format ".#%s" host) "--use-remote-sudo" "--target-host" target)
+                    "nixos-rebuild-ng" "switch" "--flake" (format ".#%s" host) "--sudo" "--ask-sudo-password" "--target-host" target)
                 (pb {:out :inherit :err :inherit} "nom"))))))
 
 (defn populate-cache!
