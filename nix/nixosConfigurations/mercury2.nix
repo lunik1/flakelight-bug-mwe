@@ -49,7 +49,6 @@
 
         environment.systemPackages = with pkgs; [
           rust-synapse-state-compress
-          pgcli
         ];
 
         fileSystems = {
@@ -898,6 +897,8 @@
             homeDirectory = "/home/corin";
             stateVersion = "23.05";
           };
+
+          programs.pgcli.enable = true;
 
           lunik1.home = {
             cli.enable = true;
