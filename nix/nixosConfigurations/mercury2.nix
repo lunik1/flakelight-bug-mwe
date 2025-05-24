@@ -647,7 +647,10 @@
             log.root.level = "WARNING";
           };
 
-          netdata.enable = true;
+          netdata = {
+            package = pkgs.netdataCloud;
+            enable = true;
+          };
 
           thelounge = {
             enable = true;
