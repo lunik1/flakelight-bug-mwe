@@ -29,18 +29,15 @@ in
 
     # GNOME
     services = {
-      displayManager.defaultSession = "gnome";
-      xserver = {
-        enable = true;
-        desktopManager.gnome.enable = true;
-        displayManager = {
-          gdm = {
-            enable = true;
-            wayland = true;
-            autoSuspend = false;
-          };
+      displayManager = {
+        defaultSession = "gnome";
+        gdm = {
+          enable = true;
+          wayland = true;
+          autoSuspend = false;
         };
       };
+      desktopManager.gnome.enable = true;
       gnome = {
         gnome-user-share.enable = false;
         games.enable = false;
