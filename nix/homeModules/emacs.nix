@@ -23,9 +23,13 @@ in
 
   config = mkIf cfg.enable (
     let
-      emacs-package = pkgs.emacs30-pgtk.overrideAttrs (
-        new: old: { configureFlags = old.configureFlags ++ [ "--disable-gc-mark-trace" ]; }
-      );
+      emacs-package =
+        if pkgs.stdenv.isDarwin then
+          pkgs.emacs-30
+        else
+          pkgs.emacs30-pgtk.overrideAttrs (
+            new: old: { configureFlags = old.configureFlags ++ [ "--disable-gc-mark-trace" ]; }
+          );
     in
     {
       lunik1.home.git.enable = true;
