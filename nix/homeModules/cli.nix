@@ -266,7 +266,7 @@ in
         settings = {
           embed-thumbnail = true;
           add-metadata = true;
-          merge-output-format = "mkv";
+          preset-alias = "mkv";
           embed-subs = true;
           convert-subs = "ass";
           netrc = true;
