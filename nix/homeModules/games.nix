@@ -11,17 +11,18 @@ let
 in
 {
   options.lunik1.home.games = {
-    saves.enable = lib.mkEnableOption "tools to manage game saves";
-    emu.enable = lib.mkEnableOption "emulation";
     cli.enable = lib.mkEnableOption "terminal games";
-    freeciv.enable = lib.mkEnableOption "Freeciv";
+    dcss.enable = lib.mkEnableOption "Dungeon Crawl Stone Soup";
     df.enable = lib.mkEnableOption "Dwarf Fortress";
+    emu.enable = lib.mkEnableOption "emulation";
+    freeciv.enable = lib.mkEnableOption "Freeciv";
+    itch.enable = lib.mkEnableOption "itch.io";
     minecraft.enable = lib.mkEnableOption "Minecraft";
     openrct2.enable = lib.mkEnableOption "Roller Coaster Tycoon 2";
-    wesnoth.enable = lib.mkEnableOption "The Battle for Wesnoth";
-    dcss.enable = lib.mkEnableOption "Dungeon Crawl Stone Soup";
     osu.enable = lib.mkEnableOption "osu";
     runescape.enable = lib.mkEnableOption "RuneScape 3";
+    saves.enable = lib.mkEnableOption "tools to manage game saves";
+    wesnoth.enable = lib.mkEnableOption "The Battle for Wesnoth";
   };
 
   config = {
@@ -59,6 +60,9 @@ in
         ++ lib.optional cfg.freeciv.enable (
           if config.lunik1.home.kde.enable then freeciv_qt else freeciv_gtk
         )
+        ++ lib.optionals cfg.itch.enable [
+          itch
+        ]
         ++ lib.optional cfg.df.enable dwarf-fortress-packages.dwarf-fortress-full
         ++ lib.optional cfg.minecraft.enable (
           if config.lunik1.home.kde.enable then prismlauncher-qt5 else prismlauncher

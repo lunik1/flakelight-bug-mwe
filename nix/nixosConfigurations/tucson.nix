@@ -210,6 +210,7 @@
 
             games = {
               emu.enable = true;
+              itch.enable = true;
               minecraft.enable = true;
               osu.enable = true;
               saves.enable = true;
