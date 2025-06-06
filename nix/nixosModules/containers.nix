@@ -32,11 +32,38 @@ in
       defaultNetwork.settings.dns_enabled = true;
     };
 
-    system.activationScripts = lib.optionalAttrs cfg.updateOnRebuild {
-      updateContainers = {
-        text = ''
-          ${lib.getExe pkgs.update-containers}
-        '';
+    systemd.services.update-containers = lib.optionalAttrs cfg.updateOnRebuild {
+      description = "Update containers after activation";
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "nixos-activation.target"
+        "podman.service"
+      ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${lib.getExe pkgs.update-containers}";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateTmp = true;
+        ProtectProc = "invisible";
+        ProtectHome = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallErrorNumber = "EPERM";
       };
     };
   };
