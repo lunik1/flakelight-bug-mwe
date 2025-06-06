@@ -61,7 +61,6 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         RestrictRealtime = true;
-        RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         SystemCallErrorNumber = "EPERM";
       };
