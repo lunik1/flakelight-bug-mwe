@@ -270,7 +270,7 @@ in
           embed-subs = true;
           convert-subs = "ass";
           netrc = true;
-          external-downloader = "${pkgs.aria2}/bin/aria2c";
+          concurrent-fragments = 8;
         };
       };
       zsh = {
