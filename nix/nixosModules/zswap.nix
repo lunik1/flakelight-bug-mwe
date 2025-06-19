@@ -10,17 +10,6 @@ in
 
   config = lib.mkIf cfg.enable {
     boot = {
-      initrd = {
-        kernelModules = [
-          "zstd"
-          "z3fold"
-        ];
-        preDeviceCommands = ''
-          printf zstd > /sys/module/zswap/parameters/compressor
-          printf z3fold > /sys/module/zswap/parameters/zpool
-        '';
-      };
-
       kernel.sysctl = {
         "vm.swappiness" = 180; # don't @ me
         "vm.page-cluster" = 0;
