@@ -26,6 +26,7 @@ in
           bat-extras.batgrep
           copier
           croc
+          dua
           duf
           emv
           eternal-terminal
@@ -37,7 +38,6 @@ in
           libarchive
           lrzip
           lz4
-          ncdu
           nix-tree
           p7zip
           parallel
@@ -329,11 +329,6 @@ in
           fi
         '';
       };
-
-      zsh.shellAliases = {
-        ncdu = "ncdu -t $(nproc)";
-      };
-
     };
 
     sops.secrets = {
