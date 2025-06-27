@@ -34,7 +34,7 @@
         system.stateVersion = "21.05";
 
         boot = {
-          kernelPackages = pkgs.linuxPackages;
+          kernelPackages = pkgs.linuxPackages_zen;
 
           kernel.sysctl = {
             # https://wiki.archlinux.org/title/Gaming#Tweaking_kernel_parameters_for_response_time_consistency
