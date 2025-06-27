@@ -41,6 +41,7 @@ in
       gnome = {
         gnome-user-share.enable = false;
         games.enable = false;
+        gcr-ssh-agent.enable = false;
         # gnome-online-miners.enable = pkgs.lib.mkForce false;
         rygel.enable = false;
       };
