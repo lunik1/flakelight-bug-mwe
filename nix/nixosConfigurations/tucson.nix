@@ -102,13 +102,16 @@
           };
         };
 
-        nixpkgs.config.hardware = {
-          amdgpu = {
-            initrd.enable = true;
-            opencl.enable = true;
+        nixpkgs.config = {
+          hardware = {
+            amdgpu = {
+              initrd.enable = true;
+              opencl.enable = true;
+            };
+            cpu.amd.updateMicrocode = true;
+            enableAllFirmware = true;
           };
-          cpu.amd.updateMicrocode = true;
-          enableAllFirmware = true;
+          rocmSupport = true;
         };
 
         services = {
