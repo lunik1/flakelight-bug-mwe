@@ -34,6 +34,8 @@ in
         };
       };
 
+      gamescope.capSysNice = true;
+
       steam = lib.mkIf cfg.steam.enable {
         enable = true;
         extraCompatPackages = with pkgs; [ proton-ge-bin ];
