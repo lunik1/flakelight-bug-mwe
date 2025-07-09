@@ -27,7 +27,7 @@ in
       enable = true;
       package = pkgs.beets;
       settings = {
-        plugins = "acousticbrainz badfiles bpd chroma convert deezer discogs duplicates fetchart keyfinder lastgenre lyrics mbsync replaygain scrub web zero embedart";
+        plugins = "badfiles bpd chroma convert deezer discogs duplicates fetchart keyfinder lastgenre lyrics mbsync replaygain scrub web zero embedart";
         import.move = true;
         scrub.auto = true;
         keyfinder = {
