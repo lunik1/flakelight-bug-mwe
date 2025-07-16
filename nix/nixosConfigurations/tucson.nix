@@ -130,6 +130,8 @@
             enable = true;
             mountOnMedia = true;
           };
+
+          scx.enable = true;
         };
 
         systemd = {
