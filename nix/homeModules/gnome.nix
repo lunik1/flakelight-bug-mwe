@@ -32,7 +32,7 @@ in
         };
       };
       ghostty = {
-        enable = true;
+        enable = false;
         enableZshIntegration = true;
         installBatSyntax = true;
         installVimSyntax = true;
@@ -60,12 +60,7 @@ in
             macos-titlebar-style = "native";
           };
       };
-      kitty = lib.mkMerge [
-        ((import ../../config/kitty/kitty.nix) { inherit config lib pkgs; })
-        {
-          settings.linux_display_server = "wayland"; # for window decorations
-        }
-      ];
+      kitty = import ../../config/kitty/kitty.nix pkgs;
       zsh.shellAliases = {
         open = "gio open";
       };
