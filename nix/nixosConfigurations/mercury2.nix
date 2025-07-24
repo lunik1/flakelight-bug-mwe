@@ -239,7 +239,6 @@
 
             recommendedOptimisation = true;
             recommendedTlsSettings = true;
-            recommendedZstdSettings = true;
             recommendedGzipSettings = true;
             recommendedBrotliSettings = true;
             sslProtocols = "TLSv1.2 TLSv1.3";
