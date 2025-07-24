@@ -93,13 +93,12 @@ in
             }
           ];
 
-          clipboard =
-            {
-              providers.wl-copy.enable = true;
-            }
-            // lib.optionalAttrs (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin) {
-              register = "unnamedplus";
-            };
+          clipboard = {
+            providers.wl-copy.enable = true;
+          }
+          // lib.optionalAttrs (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin) {
+            register = "unnamedplus";
+          };
 
           colorschemes.gruvbox.enable = true;
 

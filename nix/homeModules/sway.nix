@@ -415,9 +415,11 @@ in
             "${modifier}+v" = "splith";
             "${modifier}+n" = "exec --no-startup-id ${pkgs.networkmanager_dmenu}/bin/networkmanager_dmenu";
             "${modifier}+Shift+q" = "kill";
-            "${modifier}+Shift+e" = ''exec ${pkgs.sway}/bin/swaynag -t warning -f "Myosevka Proportional" -m "Exit sway?" -b "Yes" "${pkgs.sway}/bin/swaymsg exit"'';
+            "${modifier}+Shift+e" =
+              ''exec ${pkgs.sway}/bin/swaynag -t warning -f "Myosevka Proportional" -m "Exit sway?" -b "Yes" "${pkgs.sway}/bin/swaymsg exit"'';
             "${modifier}+Shift+x" = "${lockCommand}";
-            "${modifier}+p" = "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
+            "${modifier}+p" =
+              "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
             "Print" = "exec --no-startup-id ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +%F-%T).png";
             "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%";
             "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%";

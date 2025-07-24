@@ -122,19 +122,18 @@ in
     programs = {
       aria2 = {
         enable = true;
-        settings =
-          {
-            continue = true;
-            file-allocation = "falloc";
-            max-connection-per-server = 16;
-            min-split-size = "8M";
-            no-file-allocation-limit = "8M";
-            on-download-complete = "exit";
-            split = 32;
-          }
-          // lib.optionalAttrs config.lunik1.home.wsl.enable {
-            ca-certificate = "/etc/ssl/ca-bundle.pem"; # openSUSE location
-          };
+        settings = {
+          continue = true;
+          file-allocation = "falloc";
+          max-connection-per-server = 16;
+          min-split-size = "8M";
+          no-file-allocation-limit = "8M";
+          on-download-complete = "exit";
+          split = 32;
+        }
+        // lib.optionalAttrs config.lunik1.home.wsl.enable {
+          ca-certificate = "/etc/ssl/ca-bundle.pem"; # openSUSE location
+        };
       };
       atuin = {
         enable = true;
