@@ -27,10 +27,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    darwin-emacs = {
-      url = "github:nix-giant/nix-darwin-emacs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-wallpaper = {
       url = "github:lunik1/nix-wallpaper";
       inputs = {
@@ -64,7 +60,6 @@
 
         withOverlays = [
           inputs.wbba.overlays.default
-          inputs.darwin-emacs.overlays.emacs
           (self: super: { lunik1-nur = import inputs.lunik1-nur { pkgs = super; }; })
           (self: super: { nix-wallpaper = super.inputs'.nix-wallpaper.packages.default; })
           (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
