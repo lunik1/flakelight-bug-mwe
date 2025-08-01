@@ -31,10 +31,10 @@ in
         AllowHibernation=no
       '';
 
-      watchdog = {
-        runtimeTime = "30s";
-        rebootTime = "10s";
-        kexecTime = "1m";
+      settings.Manager = {
+        KExecWatchdogSec = "1m";
+        RebootWatchdogSec = "10s";
+        RuntimeWatchdogSec = "30s";
       };
     };
   };
