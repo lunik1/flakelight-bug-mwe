@@ -67,6 +67,17 @@ in
 
     # disable gnome-keyring's ssh agent
     xdg = {
+      configFile = {
+        kitty_ssh = {
+          enable = true;
+          target = "kitty/ssh.conf";
+          text = ''
+            hostname *
+            shell_integration enabled
+            color_scheme Gruvbox Dark Soft
+          '';
+        };
+      };
       mimeApps = {
         enable = true;
         defaultApplications = {
