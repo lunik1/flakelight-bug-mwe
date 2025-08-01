@@ -24,7 +24,6 @@ in
         ]
         ++ lib.optionals stdenv.isLinux [
           bitwarden
-          eddie
           gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
