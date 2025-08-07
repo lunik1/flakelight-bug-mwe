@@ -42,7 +42,7 @@ in
           rclone
         ]
         ++ lib.optionals cfg.emu.enable [
-          ryujinx
+          ryubing
           (retroarch.withCores (cores: [
             libretro.beetle-psx
             libretro.bsnes-mercury
