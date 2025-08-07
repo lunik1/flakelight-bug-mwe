@@ -15,7 +15,7 @@ let
         prev.modules
         ++ (with inputs; [
           nix-index-database.homeModules.nix-index
-          nixvim.homeManagerModules.nixvim
+          nixvim.homeModules.nixvim
           sops-nix.homeManagerModule
         ])
         ++ lib.attrValues outputs.homeModules;
