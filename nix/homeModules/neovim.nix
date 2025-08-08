@@ -94,7 +94,7 @@ in
           ];
 
           clipboard = {
-            providers.wl-copy.enable = true;
+            providers.wl-copy.enable = !pkgs.stdenv.isDarwin;
           }
           // lib.optionalAttrs (config.lunik1.home.gui.enable || pkgs.stdenv.isDarwin) {
             register = "unnamedplus";
