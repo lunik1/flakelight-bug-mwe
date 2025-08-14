@@ -187,6 +187,14 @@
             ];
           };
 
+          programs.yt-dlp = {
+            enable = true;
+            settings = {
+              proxy = "192.168.0.20:3128";
+              concurrent-fragments = lib.mkForce 32;
+            };
+          };
+
           # Secrets
           sops.secrets.cachix_auth_token = { };
 

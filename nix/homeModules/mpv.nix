@@ -112,9 +112,6 @@ in
 
           # IPC
           input-ipc-server = "/tmp/mpvsocket";
-
-          # ytdl
-          ytdl-raw-options = "cookies-from-browser=firefox";
         }
         // optionalAttrs (profile == "potato") {
           vo = "gpu";
