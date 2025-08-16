@@ -150,6 +150,7 @@
           bluetooth.enable = true;
           containers = {
             enable = true;
+            autoPrune = false;
             updateOnRebuild = false;
           };
           games = {

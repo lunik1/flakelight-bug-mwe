@@ -13,6 +13,7 @@ in
 {
   options.lunik1.system.containers = {
     enable = lib.mkEnableOption "containerisation";
+    autoPrune = lib.mkEnableOption "periodically prune Podman resources";
     updateOnRebuild = lib.mkEnableOption "updating containers on nixos-rebuild";
   };
 
@@ -27,6 +28,7 @@ in
 
     virtualisation.podman = {
       enable = true;
+      autoPrune.enable = true;
       dockerCompat = true;
       dockerSocket.enable = true;
       defaultNetwork.settings.dns_enabled = true;
