@@ -56,7 +56,7 @@
        (map (comp
              second
              first
-             #(re-seq #"^podman-(\w+).service$" %)
+             #(re-seq #"^podman-(?!prune)(\w+).service$" %)
              first
              #(str/split % #"\s+")))
        (remove nil?)))
