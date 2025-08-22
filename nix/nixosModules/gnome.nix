@@ -56,6 +56,7 @@ in
           dconf-editor
           gnome-tweaks
           papers
+          read-it-later
         ]
         ++ (with pkgs.gnomeExtensions; [
           appindicator
