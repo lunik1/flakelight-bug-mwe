@@ -188,11 +188,14 @@
             ];
           };
 
-          programs.yt-dlp = {
-            enable = true;
-            settings = {
-              proxy = "192.168.0.20:3128";
-              concurrent-fragments = lib.mkForce 32;
+          programs = {
+            mpv.config.ytdl-raw-options = "proxy=[http://192.168.0.20:3128]";
+            yt-dlp = {
+              enable = true;
+              settings = {
+                proxy = "192.168.0.20:3128";
+                concurrent-fragments = lib.mkForce 32;
+              };
             };
           };
 
