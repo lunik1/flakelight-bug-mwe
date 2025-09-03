@@ -901,12 +901,19 @@
           ];
         };
 
-        users.users.nginx.extraGroups = [
-          "acme"
-          "matrix-synapse"
-          "syncthing"
-          config.services.authelia.instances.${domain}.group
-        ];
+        users = {
+          users.nginx = {
+            isSystemUser = true;
+            group = "nginx";
+            extraGroups = [
+              "acme"
+              "matrix-synapse"
+              "syncthing"
+              config.services.authelia.instances.${domain}.group
+            ];
+          };
+          groups.nginx = { };
+        };
 
         lunik1.system = {
           containers = {
