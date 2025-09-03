@@ -24,6 +24,7 @@
 
         anonymousoverflowPort = 13131;
         breezeWikiPort = 10416;
+        minifluxPort = 1272;
         quetrePort = 3000;
         rssHubPort = 1200;
         wallabagPort = 4109;
@@ -131,6 +132,11 @@
                   owner = autheliaUser;
                   restartUnits = [ "authelia-${domain}.service" ];
                 };
+                authelia-jwks-key = {
+                  sopsFile = mercury2SopsFile;
+                  owner = autheliaUser;
+                  restartUnits = [ "authelia-${domain}.service" ];
+                };
                 authelia-encryption-key = {
                   sopsFile = mercury2SopsFile;
                   owner = autheliaUser;
@@ -145,6 +151,15 @@
                   sopsFile = mercury2SopsFile;
                   owner = autheliaUser;
                   restartUnits = [ "authelia-${domain}.service" ];
+                };
+                miniflux-admin-password = {
+                  sopsFile = mercury2SopsFile;
+                };
+                miniflux-admin-user = {
+                  sopsFile = mercury2SopsFile;
+                };
+                miniflux-oidc-secret = {
+                  sopsFile = mercury2SopsFile;
                 };
                 kopia-repo-url = { };
                 kopia-password = {
@@ -175,6 +190,11 @@
               };
               "anonymousoverflow.env".content = ''
                 JWT_SIGNING_SECRET=${anonymousoverflow-jwt-signing-secret}
+              '';
+              miniflux-admin-credentials.content = ''
+                ADMIN_USERNAME=${miniflux-admin-user}
+                ADMIN_PASSWORD=${miniflux-admin-password}
+                OAUTH2_CLIENT_SECRET=${miniflux-oidc-secret}
               '';
               "wallabag.env".content = ''
                 POSTGRES_PASSWORD=${wallabag-postgres-password}
@@ -225,12 +245,45 @@
                   level = "info";
                   format = "text";
                 };
+                identity_providers.oidc = {
+                  jwks = {
+                    # key provided by extra settings file
+                    # see https://github.com/NixOS/nixpkgs/pull/299309#issuecomment-2108501250
+                    algorithm = "RS256";
+                    use = "sig";
+                  };
+                  clients = [
+                    {
+                      client_id = "miniflux";
+                      client_name = "Miniflux";
+                      client_secret = "$pbkdf2-sha512$310000$CsT7PqW7JXAkYumwQ8LZPQ$0MA4LMAjwLe5idkHRvLqLF2VRgvfF2twUGqYy82yXTpgMQlvPhTaS1ozPV.TihJatBuNRFt4Xu2uBlfe8li.6A";
+                      public = false;
+                      authorization_policy = "one_factor";
+                      require_pkce = "false";
+                      redirect_uris = [
+                        "https://miniflux.${domain}/oauth2/oidc/callback"
+                      ];
+                      scopes = [
+                        "openid"
+                        "profile"
+                        "email"
+                      ];
+                      response_types = [ "code" ];
+                      grant_types = [ "authorization_code" ];
+                      token_endpoint_auth_method = "client_secret_basic";
+                    }
+                  ];
+                };
               };
               secrets = with config.sops.secrets; {
                 storageEncryptionKeyFile = authelia-encryption-key.path;
                 sessionSecretFile = authelia-session-secret.path;
                 jwtSecretFile = authelia-jwt-key.path;
               };
+              environmentVariables = {
+                X_AUTHELIA_CONFIG_FILTERS = "template";
+              };
+              settingsFiles = [ ../../resources/authelia/extra.yaml ];
             };
           };
 
@@ -428,24 +481,6 @@
                   extraConfig = noRobots;
                   locations."/".root = "/srv/www";
                 };
-                ${config.services.tt-rss.virtualHost} = {
-                  inherit
-                    quic
-                    forceSSL
-                    sslCertificate
-                    sslTrustedCertificate
-                    sslCertificateKey
-                    ;
-                  serverName = "tt-rss.${domain}";
-                  extraConfig = basicAuthDetect + noRobots;
-                  locations = {
-                    "/" = {
-                      extraConfig = autheliaConf;
-                    };
-                    ${internalAuth} = autheliaLocation;
-                    ${internalAuthDetect} = autheliaLocationDetect;
-                  };
-                };
                 cinny = {
                   inherit
                     quic
@@ -495,6 +530,10 @@
                 atuin = mkProxyVirtualHost {
                   serverName = "atuin.${domain}";
                   proxyPass = localhost config.services.atuin.port;
+                };
+                miniflux = mkProxyVirtualHost {
+                  serverName = "miniflux.${domain}";
+                  proxyPass = localhost minifluxPort;
                 };
                 synapse = mkProxyVirtualHost {
                   serverName = "synapse.${domain}";
@@ -669,18 +708,26 @@
             };
           };
 
-          tt-rss = {
+          miniflux = {
             enable = true;
-            selfUrlPath = "https://tt-rss.${domain}";
-            singleUserMode = true;
-            plugins = [
-              "auth_internal"
-              "cache_starred_images"
-              "toggle_sidebar"
-            ];
-            pluginPackages = [ pkgs.tt-rss-plugin-readability ];
-            logDestination = "sql";
-            database.createLocally = true;
+            createDatabaseLocally = true;
+            adminCredentialsFile = config.sops.templates.miniflux-admin-credentials.path;
+            config = {
+              BASE_URL = "https://miniflux.${domain}";
+              WORKER_POOL_SIZE = 4;
+              HTTP_CLIENT_TIMEOUT = 60;
+              LISTEN_ADDR = "0.0.0.0:${toString minifluxPort}";
+              OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://auth.${domain}";
+              OAUTH2_CLIENT_ID = "miniflux";
+              OAUTH2_OIDC_PROVIDER_NAME = "Authelia";
+              OAUTH2_PROVIDER = "oidc";
+              OAUTH2_REDIRECT_URL = "https://miniflux.${domain}/oauth2/oidc/callback";
+              POLLING_FREQUENCY = 15;
+              POLLING_PARSING_ERROR_LIMIT = 10;
+              PORT = minifluxPort;
+              SCHEDULER_ROUND_ROBIN_MIN_INTERVAL = 15;
+              # OAUTH2_USER_CREATION = 1;
+            };
           };
 
           syncthing = {
@@ -777,20 +824,13 @@
                 requires = [ "nginx.service" ];
                 after = requires;
               };
-              php-fpm-tt-rss = rec {
-                partOf = [ "rss.target" ];
-                wants = [
-                  "nginx.service"
-                  "podman-rsshub.service"
-                ];
-                after = wants;
-              };
               thelounge = {
                 wants = [ "nginx.service" ];
               };
               syncthing.serviceConfig.RuntimeDirectory = "syncthing";
-              tt-rss = {
+              miniflux = {
                 partOf = [ "rss.target" ];
+                # EnvironmentFile = config.sops.templates."miniflux.env".path;
               };
 
               podman-anonymousoverflow = {
