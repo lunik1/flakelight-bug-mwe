@@ -22,7 +22,6 @@
 
         autheliaSocket = "http://unix:///run/authelia/authelia.sock";
 
-        anonymousoverflowPort = 13131;
         breezeWikiPort = 10416;
         minifluxPort = 1272;
         quetrePort = 3000;
@@ -123,10 +122,6 @@
                   sopsFile = mercury2SopsFile;
                   owner = "acme";
                 };
-                anonymousoverflow-jwt-signing-secret = {
-                  sopsFile = mercury2SopsFile;
-                  restartUnits = [ "podman-anonymousoverflow.service" ];
-                };
                 authelia-jwt-key = {
                   sopsFile = mercury2SopsFile;
                   owner = autheliaUser;
@@ -188,9 +183,6 @@
                   PORKBUN_SECRET_API_KEY=${porkbun-secret-api-key}
                 '';
               };
-              "anonymousoverflow.env".content = ''
-                JWT_SIGNING_SECRET=${anonymousoverflow-jwt-signing-secret}
-              '';
               miniflux-admin-credentials.content = ''
                 ADMIN_USERNAME=${miniflux-admin-user}
                 ADMIN_PASSWORD=${miniflux-admin-password}
@@ -550,10 +542,6 @@
                 };
 
                 # authelia-protected virtual hosts
-                anonymousoverflow = mkAuthenticatedProxyVirtualHost {
-                  serverName = "anonymousoverflow.${domain}";
-                  proxyPass = localhost anonymousoverflowPort;
-                };
                 breezewiki = mkAuthenticatedProxyVirtualHost {
                   serverName = "breezewiki.${domain}";
                   proxyPass = localhost breezeWikiPort;
@@ -745,14 +733,6 @@
             mkPodmanContainer = flake.outputs.lib.mkPodmanContainer config.time.timeZone;
           in
           {
-            anonymousoverflow = mkPodmanContainer {
-              image = "ghcr.io/httpjamesm/anonymousoverflow:release";
-              ports = [ "${toString anonymousoverflowPort}:8080" ];
-              environmentFiles = [ config.sops.templates."anonymousoverflow.env".path ];
-              environment = {
-                APP_URL = "https://anonymousoverflow.${domain}";
-              };
-            };
 
             breezewiki = mkPodmanContainer {
               image = "quay.io/pussthecatorg/breezewiki";
@@ -834,10 +814,6 @@
                 # EnvironmentFile = config.sops.templates."miniflux.env".path;
               };
 
-              podman-anonymousoverflow = {
-                wants = [ "nginx.service" ];
-                partOf = [ "privacy-frontends.target" ];
-              };
               podman-breezewiki = {
                 wants = [ "nginx.service" ];
                 partOf = [ "privacy-frontends.target" ];
