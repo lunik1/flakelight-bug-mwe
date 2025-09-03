@@ -288,6 +288,7 @@
           };
 
           nginx = {
+            enable = true;
             package = pkgs.angieQuic;
 
             recommendedOptimisation = true;
@@ -903,8 +904,6 @@
 
         users = {
           users.nginx = {
-            isSystemUser = true;
-            group = "nginx";
             extraGroups = [
               "acme"
               "matrix-synapse"
@@ -912,7 +911,6 @@
               config.services.authelia.instances.${domain}.group
             ];
           };
-          groups.nginx = { };
         };
 
         lunik1.system = {
