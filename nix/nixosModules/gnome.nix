@@ -54,6 +54,7 @@ in
           blanket
           cartridges
           dconf-editor
+          delfin
           gnome-tweaks
           papers
           read-it-later

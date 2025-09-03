@@ -27,7 +27,7 @@ in
           gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
-          jellyfin-media-player
+          # jellyfin-media-player  # insecure (depends on qtwebengine)
           qdirstat
           signal-desktop
           thunderbird
