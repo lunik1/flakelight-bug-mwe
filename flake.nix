@@ -84,12 +84,6 @@
           allowUnfree = true;
 
           permittedInsecurePackages = [
-            # needed by feishin
-            "electron-31.7.7"
-
-            # needed by runescape
-            "openssl-1.1.1w"
-
             # ventoy
             # https://github.com/NixOS/nixpkgs/pull/405547
             "ventoy-gtk3-1.1.07"
