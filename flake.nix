@@ -92,7 +92,7 @@
 
             # ventoy
             # https://github.com/NixOS/nixpkgs/pull/405547
-            "ventoy-gtk3-1.1.05"
+            "ventoy-gtk3-1.1.07"
           ];
         };
 
