@@ -1,5 +1,5 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ nodePackages_latest.dockerfile-language-server-nodejs ];
+  home.packages = with pkgs; [ dockerfile-language-server ];
 }

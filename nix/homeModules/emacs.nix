@@ -35,7 +35,7 @@ in
           with pkgs;
           [
             beancount-language-server
-            dockerfile-language-server-nodejs
+            dockerfile-language-server
             fd
             glslang
             gnuplot
