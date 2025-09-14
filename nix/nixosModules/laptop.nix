@@ -35,8 +35,10 @@ in
 
       # Lid switch
       logind = {
-        lidSwitch = "hybrid-sleep";
-        lidSwitchExternalPower = "suspend";
+        settings.Login = {
+          lidSwitch = "hybrid-sleep";
+          lidSwitchExternalPower = "suspend";
+        };
       };
 
       # Power management
