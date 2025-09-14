@@ -24,6 +24,7 @@ in
         ]
         ++ lib.optionals stdenv.isLinux [
           bitwarden
+          floorp-bin
           gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
@@ -68,11 +69,7 @@ in
       feh.enable = pkgs.stdenv.isLinux;
       firefox = {
         enable = pkgs.stdenv.isLinux;
-        package = pkgs.floorp.override {
-          cfg.nativeMessagingHosts.packages =
-            lib.optionals config.lunik1.kde.enable [ pkgs.plasma5Packages.plasma-browser-integration ]
-            ++ lib.optionals config.lunik1.gnome.enable [ pkgs.gnome-browser-connector ];
-        };
+        package = null;
         profiles.corin = {
           isDefault = true;
           settings = {
