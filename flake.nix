@@ -69,18 +69,6 @@
               viAlias = true;
             };
           })
-          # fix for https://github.com/NixOS/nixpkgs/pull/444018
-          (self: super: {
-            hm = super.hm.overrideAttrs (super': {
-              patches = super'.patches ++ [
-                (self.fetchpatch2 {
-                  name = "really-fix-building-on-arm.patch";
-                  url = "https://github.com/johnrichardrinehart/hm/commit/f3947be0720bfd9ce3312478d64cd35a619c5eae.patch";
-                  hash = "sha256-etKCfcTlX9bGEwBKqawC0CEoB8Y2FGE6Sr8Ae0ihvuM=";
-                })
-              ];
-            });
-          })
         ];
       in
       {
