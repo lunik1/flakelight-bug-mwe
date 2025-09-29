@@ -18,8 +18,8 @@ in
         with pkgs;
         [
           bleachbit
+          pinta
           vesktop
-          gimp
           lunik1-nur.myosevka.aile
         ]
         ++ lib.optionals stdenv.isLinux [
