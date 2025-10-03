@@ -18,7 +18,6 @@ in
         with pkgs;
         [
           bleachbit
-          pinta
           vesktop
           lunik1-nur.myosevka.aile
         ]
@@ -29,6 +28,7 @@ in
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
           # jellyfin-media-player  # insecure (depends on qtwebengine)
+          pinta
           qdirstat
           signal-desktop
           thunderbird
