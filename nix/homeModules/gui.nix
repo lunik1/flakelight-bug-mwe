@@ -23,7 +23,6 @@ in
         ]
         ++ lib.optionals stdenv.isLinux [
           bitwarden
-          floorp-bin
           gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
@@ -67,9 +66,10 @@ in
 
     programs = {
       feh.enable = pkgs.stdenv.isLinux;
-      firefox = {
-        enable = pkgs.stdenv.isLinux;
-        package = null;
+      floorp = {
+        enable = true;
+        enableGnomeExtensions = config.lunik1.home.gnome.enable;
+        languagePacks = [ "en-GB" ];
         profiles.corin = {
           isDefault = true;
           settings = {
