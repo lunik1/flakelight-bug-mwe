@@ -143,6 +143,7 @@ in
 
     xdg = lib.mkIf pkgs.stdenv.isLinux {
       enable = true;
+
       mime.enable = true;
       mimeApps = {
         enable = true;
@@ -283,6 +284,11 @@ in
           "application/x-mswrite" = [ "writer.desktop" ];
           "application/x-starwriter" = [ "writer.desktop" ];
         };
+      };
+
+      terminal-exec = {
+        enable = true;
+        settings.default = [ "kitty.desktop" ];
       };
     };
   };
