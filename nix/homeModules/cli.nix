@@ -221,10 +221,6 @@ in
           color_theme = "${pkgs.btop}/share/btop/themes/gruvbox_dark.theme";
         };
       };
-      dircolors = {
-        enable = true;
-        extraConfig = builtins.readFile "${pkgs.lunik1-nur.ls-colors}/share/ls-colors/LS_COLORS";
-      };
       direnv = {
         enable = true;
         nix-direnv = {
@@ -252,6 +248,10 @@ in
         };
       };
       tmux = import ../../config/tmux/tmux.nix { inherit (pkgs) tmuxPlugins; };
+      vivid = {
+        enable = true;
+        activeTheme = "gruvbox-dark";
+      };
       fd.enable = true;
       fzf = rec {
         enable = true;
