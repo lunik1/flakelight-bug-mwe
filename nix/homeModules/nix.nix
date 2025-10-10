@@ -13,6 +13,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      nix-fast-build
       nix-prefetch
       nix-update
       # nixops_unstable # does not build, insecure
