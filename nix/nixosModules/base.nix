@@ -194,6 +194,12 @@ in
 
     nscd.enableNsncd = true;
 
+    angrr = {
+      enable = true;
+      enableNixGcIntegration = true;
+      period = "10weeks";
+    };
+
     journald.extraConfig = ''
       Storage=persistent
       SystemMaxUse=1G
