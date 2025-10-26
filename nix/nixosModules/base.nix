@@ -200,6 +200,8 @@ in
       period = "10weeks";
     };
 
+    userborn.enable = true;
+
     journald.extraConfig = ''
       Storage=persistent
       SystemMaxUse=1G
