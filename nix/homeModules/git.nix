@@ -32,16 +32,17 @@ in
     };
 
     programs = {
+      delta = {
+        enable = true;
+        enableGitIntegration = true;
+        options = {
+          syntax-theme = "gruvbox-dark";
+          features = "line-numbers";
+        };
+      };
       git = {
         enable = true;
         package = pkgs.gitSVN;
-        delta = {
-          enable = true;
-          options = {
-            syntax-theme = "gruvbox-dark";
-            features = "line-numbers";
-          };
-        };
         ignores = [
           "$RECYCLE.BIN/"
           "*.cab"
