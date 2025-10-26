@@ -1150,11 +1150,12 @@ in
 
             navbuddy = {
               enable = true;
-              keymapsSilent = true;
-              lsp.autoAttach = true;
-              mappings = {
-                "<Left>" = "parent";
-                "<Right>" = "children";
+              settings = {
+                lsp.auto_attach = true;
+                mappings = {
+                  "<Left>" = "parent";
+                  "<Right>" = "children";
+                };
               };
             };
 
@@ -1247,113 +1248,115 @@ in
 
             treesitter-textobjects = {
               enable = true;
-              move = {
-                enable = true;
-                setJumps = true;
-                gotoNextStart = {
-                  "]a" = {
-                    query = "@parameter.inner";
+              settings = {
+                move = {
+                  enable = true;
+                  set_jumps = true;
+                  goto_next_start = {
+                    "]a" = {
+                      query = "@parameter.inner";
+                    };
+                    "]C" = {
+                      query = "@class.outer";
+                    };
+                    "]c" = {
+                      query = "@comment.inner";
+                    };
+                    "]F" = {
+                      query = "@call.inner";
+                    };
+                    "]f" = {
+                      query = "@function.outer";
+                    };
+                    "]k" = {
+                      query = "@block.outer";
+                    };
+                    "]l" = {
+                      query = "@loop.outer";
+                    };
+                    "]v" = {
+                      query = "@conditional.outer";
+                    };
                   };
-                  "]C" = {
-                    query = "@class.outer";
-                  };
-                  "]c" = {
-                    query = "@comment.inner";
-                  };
-                  "]F" = {
-                    query = "@call.inner";
-                  };
-                  "]f" = {
-                    query = "@function.outer";
-                  };
-                  "]k" = {
-                    query = "@block.outer";
-                  };
-                  "]l" = {
-                    query = "@loop.outer";
-                  };
-                  "]v" = {
-                    query = "@conditional.outer";
+                  goto_previous_start = {
+                    "[a" = {
+                      query = "@parameter.inner";
+                    };
+                    "[C" = {
+                      query = "@class.outer";
+                    };
+                    "[c" = {
+                      query = "@comment.inner";
+                    };
+                    "[F" = {
+                      query = "@call.inner";
+                    };
+                    "[f" = {
+                      query = "@function.outer";
+                    };
+                    "[k" = {
+                      query = "@block.outer";
+                    };
+                    "[l" = {
+                      query = "@loop.outer";
+                    };
+                    "[v" = {
+                      query = "@conditional.outer";
+                    };
                   };
                 };
-                gotoPreviousStart = {
-                  "[a" = {
-                    query = "@parameter.inner";
-                  };
-                  "[C" = {
-                    query = "@class.outer";
-                  };
-                  "[c" = {
-                    query = "@comment.inner";
-                  };
-                  "[F" = {
-                    query = "@call.inner";
-                  };
-                  "[f" = {
-                    query = "@function.outer";
-                  };
-                  "[k" = {
-                    query = "@block.outer";
-                  };
-                  "[l" = {
-                    query = "@loop.outer";
-                  };
-                  "[v" = {
-                    query = "@conditional.outer";
-                  };
-                };
-              };
-              select = {
-                enable = true;
-                lookahead = true;
-                keymaps = {
-                  aA = {
-                    query = "@parameter.outer";
-                  };
-                  iA = {
-                    query = "@parameter.inner";
-                  };
-                  aC = {
-                    query = "@class.outer";
-                  };
-                  iC = {
-                    query = "@class.inner";
-                  };
-                  ac = {
-                    query = "@comment.outer";
-                  };
-                  ic = {
-                    query = "@comment.inner";
-                  };
-                  af = {
-                    query = "@function.outer";
-                  };
-                  "if" = {
-                    query = "@function.inner";
-                  };
-                  aF = {
-                    query = "@call.outer";
-                  };
-                  iF = {
-                    query = "@call.inner";
-                  };
-                  ak = {
-                    query = "@block.outer";
-                  };
-                  ik = {
-                    query = "@block.inner";
-                  };
-                  al = {
-                    query = "@loop.outer";
-                  };
-                  il = {
-                    query = "@loop.inner";
-                  };
-                  av = {
-                    query = "@conditional.outer";
-                  };
-                  iv = {
-                    query = "@conditional.inner";
+                select = {
+                  enable = true;
+                  lookahead = true;
+                  keymaps = {
+                    aA = {
+                      query = "@parameter.outer";
+                    };
+                    iA = {
+                      query = "@parameter.inner";
+                    };
+                    aC = {
+                      query = "@class.outer";
+                    };
+                    iC = {
+                      query = "@class.inner";
+                    };
+                    ac = {
+                      query = "@comment.outer";
+                    };
+                    ic = {
+                      query = "@comment.inner";
+                    };
+                    af = {
+                      query = "@function.outer";
+                    };
+                    "if" = {
+                      query = "@function.inner";
+                    };
+                    aF = {
+                      query = "@call.outer";
+                    };
+                    iF = {
+                      query = "@call.inner";
+                    };
+                    ak = {
+                      query = "@block.outer";
+                    };
+                    ik = {
+                      query = "@block.inner";
+                    };
+                    al = {
+                      query = "@loop.outer";
+                    };
+                    il = {
+                      query = "@loop.inner";
+                    };
+                    av = {
+                      query = "@conditional.outer";
+                    };
+                    iv = {
+                      query = "@conditional.inner";
+                    };
                   };
                 };
               };
