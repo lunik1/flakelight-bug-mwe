@@ -107,9 +107,11 @@ in
           "*.DS_Store"
         ];
         lfs.enable = true;
-        userEmail = "ch.gpg@themaw.xyz";
-        userName = "lunik1";
-        extraConfig = {
+        settings = {
+          user = {
+            email = "ch.gpg@themaw.xyz";
+            name = "lunik1";
+          };
           init.defaultBranch = "master";
           commit.verbose = true;
           pull.rebase = "true";
