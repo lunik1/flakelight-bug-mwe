@@ -22,7 +22,7 @@ in
           bashInteractive
           bzip2
           cpio
-          curlHTTP3
+          curl
           diffutils
           findutils
           gawk
