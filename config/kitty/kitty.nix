@@ -18,6 +18,8 @@
     clipboard_control = "write-clipboard write-primary read-clipboard read-primary";
     cursor_blink_interval = "0.5";
     cursor_stop_blinking_after = 15;
+    cursor_trail = 1;
+    cursor_trail_decay = "0.05 0.3";
     enable_audio_bell = false;
     scrollback_lines = 5000;
     scrollback_fill_enlarged_window = true;
