@@ -20,7 +20,7 @@ in
         montserrat
         noto-fonts
         noto-fonts-cjk-sans
-        noto-fonts-emoji
+        noto-fonts-color-emoji
         sarasa-gothic
         source-code-pro
         source-sans-pro

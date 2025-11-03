@@ -39,7 +39,7 @@ in
       packages = with pkgs; [
         julia-mono
         material-design-icons
-        noto-fonts-emoji
+        noto-fonts-color-emoji
         sarasa-gothic
 
         lunik1-nur.myosevka.mono
