@@ -22,7 +22,7 @@ in
           lunik1-nur.myosevka.aile
         ]
         ++ lib.optionals stdenv.isLinux [
-          bitwarden
+          bitwarden-desktop
           gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
