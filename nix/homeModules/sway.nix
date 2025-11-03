@@ -256,7 +256,7 @@ in
                 };
                 format = "{icon}";
                 on-click = "${pkgs.blueman}/bin/blueman-manager";
-                on-click-right = "${pkgs.utillinux}/bin/rfkill toggle bluetooth";
+                on-click-right = "${pkgs.util-linux}/bin/rfkill toggle bluetooth";
               };
               battery = {
                 format = "{icon}";
