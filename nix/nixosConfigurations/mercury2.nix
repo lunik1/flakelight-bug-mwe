@@ -48,7 +48,7 @@
         };
 
         environment.systemPackages = with pkgs; [
-          rust-synapse-state-compress
+          rust-synapse-compress-state
         ];
 
         fileSystems = {
@@ -673,6 +673,7 @@
 
           synapse-auto-compressor = {
             enable = true;
+            package = pkgs.rust-synapse-compress-state; # remove once nicpkgs#455644 is merged
             startAt = "Sat *-*-8..14 04:47:00";
             settings = {
               chunks_to_compress = 500;
