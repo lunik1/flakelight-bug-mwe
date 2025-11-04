@@ -147,6 +147,11 @@
                   owner = autheliaUser;
                   restartUnits = [ "authelia-${domain}.service" ];
                 };
+                authelia-corin-email = {
+                  sopsFile = mercury2SopsFile;
+                  owner = autheliaUser;
+                  restartUnits = [ "authelia-${domain}.service" ];
+                };
                 miniflux-admin-password = {
                   sopsFile = mercury2SopsFile;
                 };
@@ -174,6 +179,7 @@
                       corin:
                           displayname: "Corin"
                           password: "${authelia-corin-password}"
+                          email: "${authelia-corin-email}"
                 '';
               };
               "acme.env" = {
@@ -254,6 +260,25 @@
                       require_pkce = "false";
                       redirect_uris = [
                         "https://miniflux.${domain}/oauth2/oidc/callback"
+                      ];
+                      scopes = [
+                        "openid"
+                        "profile"
+                        "email"
+                      ];
+                      response_types = [ "code" ];
+                      grant_types = [ "authorization_code" ];
+                      token_endpoint_auth_method = "client_secret_basic";
+                    }
+                    {
+                      client_id = "beszel";
+                      client_name = "Beszel";
+                      client_secret = "$pbkdf2-sha512$310000$DnnW0oYkRLD9ZPWFScszPQ$JfjbYqqq4yaZ0zossLw9Uc7GIuVKMmKSmR2XJqQkvwfO4hxpDwVaYcRXA1M.As7a0/jMC6mAFvoTzeV.R.Qzyg";
+                      public = false;
+                      authorization_policy = "one_factor";
+                      require_pkce = "false";
+                      redirect_uris = [
+                        "https://beszel.${domain}/api/oauth2-redirect"
                       ];
                       scopes = [
                         "openid"
@@ -524,6 +549,10 @@
                   serverName = "atuin.${domain}";
                   proxyPass = localhost config.services.atuin.port;
                 };
+                beszel = mkProxyVirtualHost {
+                  serverName = "beszel.${domain}";
+                  proxyPass = localhost config.services.beszel.hub.port;
+                };
                 miniflux = mkProxyVirtualHost {
                   serverName = "miniflux.${domain}";
                   proxyPass = localhost minifluxPort;
@@ -559,6 +588,24 @@
                   proxyPass = "http://unix:${config.services.syncthing.guiAddress}";
                 };
               };
+          };
+
+          beszel = {
+            hub = {
+              enable = true;
+              host = "0.0.0.0";
+              environment = {
+                DISABLE_PASSWORD_AUTH = "true";
+                SHARE_ALL_SYSTEMS = "true";
+                # USER_CREATION = "true";
+              };
+            };
+            agent = {
+              enable = true;
+              environment = {
+                KEY = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGyN6C37Yx8Eu5bEivviT3iN1bDsRWaKLih3GRWwZPoY";
+              };
+            };
           };
 
           postgresql =
@@ -792,6 +839,15 @@
               };
               nginx = {
                 wants = [ "authelia-${domain}.service" ];
+              };
+              beszel-agent = {
+                wants = [ "beszel-hub.service" ];
+              };
+              beszel-hub = {
+                wants = [
+                  "nginx.service"
+                  "authelia-${domain}.service"
+                ];
               };
               matrix-synapse = rec {
                 requires = [ "nginx.service" ];
