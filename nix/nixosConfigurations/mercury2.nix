@@ -546,10 +546,6 @@
                   serverName = "breezewiki.${domain}";
                   proxyPass = localhost breezeWikiPort;
                 };
-                netdata = mkAuthenticatedProxyVirtualHost {
-                  serverName = "netdata.${domain}";
-                  proxyPass = localhost 19999;
-                };
                 quetre = mkAuthenticatedProxyVirtualHost {
                   serverName = "quetre.${domain}";
                   proxyPass = localhost quetrePort;
@@ -679,11 +675,6 @@
               chunks_to_compress = 500;
               chunk_size = 2000;
             };
-          };
-
-          netdata = {
-            package = pkgs.netdataCloud;
-            enable = true;
           };
 
           thelounge = {
