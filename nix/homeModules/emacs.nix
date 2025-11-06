@@ -26,7 +26,14 @@ in
       emacs-package =
         with pkgs;
         (if stdenv.isDarwin then emacs-macport else emacs30-pgtk).overrideAttrs (
-          new: old: { configureFlags = old.configureFlags ++ [ "--disable-gc-mark-trace" ]; }
+          new: old: {
+            configureFlags = old.configureFlags ++ [ "--disable-gc-mark-trace" ];
+            buildFlags =
+              (old.buildFlags or [ ])
+              ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+                "-DFD_SETSIZE=10000 -DDARWIN_UNLIMITED_SELECT"
+              ];
+          }
         );
     in
     {
