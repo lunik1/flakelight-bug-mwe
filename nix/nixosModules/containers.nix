@@ -26,12 +26,15 @@ in
       };
     };
 
-    virtualisation.podman = {
-      enable = true;
-      autoPrune.enable = true;
-      dockerCompat = true;
-      dockerSocket.enable = true;
-      defaultNetwork.settings.dns_enabled = true;
+    virtualisation = {
+      podman = {
+        enable = true;
+        autoPrune.enable = true;
+        dockerCompat = true;
+        dockerSocket.enable = true;
+        defaultNetwork.settings.dns_enabled = true;
+      };
+      containers.containersConf.settings.tz = "local";
     };
 
     systemd.services.update-containers = lib.optionalAttrs cfg.updateOnRebuild {

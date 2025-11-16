@@ -847,10 +847,6 @@
             };
           };
 
-        virtualisation.containers.containersConf.settings = {
-          tz = "local";
-        };
-
         systemd = {
           services = {
             "authelia-${domain}.service" = {
