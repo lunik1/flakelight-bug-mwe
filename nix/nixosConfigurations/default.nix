@@ -23,6 +23,7 @@ let
             };
           }
           sops-nix.nixosModules.sops
+          quadlet-nix.nixosModules.quadlet
         ])
         ++ lib.attrValues outputs.nixosModules;
     };

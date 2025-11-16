@@ -166,7 +166,7 @@
                 };
                 wallabag-postgres-password = {
                   sopsFile = mercury2SopsFile;
-                  restartUnits = [ "podman-wallabag.service" ];
+                  restartUnits = [ "wallabag.service" ];
                 };
               };
 
@@ -762,128 +762,127 @@
           };
         };
 
-        virtualisation.oci-containers.containers =
+        virtualisation.quadlet =
           let
-            mkPodmanContainer = flake.outputs.lib.mkPodmanContainer config.time.timeZone;
+            inherit (config.virtualisation.quadlet) networks;
           in
           {
-
-            breezewiki = mkPodmanContainer {
-              image = "quay.io/pussthecatorg/breezewiki";
-              ports = [ "${toString breezeWikiPort}:${toString breezeWikiPort}" ];
-              volumes = [ "breezewiki:/config:rw" ];
-              environment = {
-                BW_CANONICAL_ORIGIN = "https://breezewiki.${domain}";
-                BW_PORT = toString breezeWikiPort;
-              };
+            networks = {
+              rss = { };
             };
 
-            rsshub = mkPodmanContainer {
-              image = "diygod/rsshub:chromium-bundled";
-              ports = [ "${toString rssHubPort}:1200" ];
-              volumes = [ "${config.services.redis.servers.rsshub.unixSocket}:/run/redis/redis.sock" ];
-              environment = {
-                NODE_ENV = "production";
-                CACHE_TYPE = "redis";
-                REDIS_URL = "unix:///run/redis/redis.sock";
-              };
-              extraOptions = [ "--network=rss" ];
+            volumes = {
+              breezewiki = { };
+              wallabag_images = { };
             };
 
-            wallabag = mkPodmanContainer {
-              image = "wallabag/wallabag";
-              environmentFiles = [ config.sops.templates."wallabag.env".path ];
-              environment = {
-                POSTGRES_USER = "wallabag";
-                SYMFONY__ENV__DATABASE_HOST = "host.containers.internal";
-                SYMFONY__ENV__DATABASE_DRIVER = "pdo_pgsql";
-                SYMFONY__ENV__DATABASE_PORT = toString config.services.postgresql.settings.port;
-                SYMFONY__ENV__DATABASE_NAME = "wallabag";
-                SYMFONY__ENV__DATABASE_USER = "wallabag";
-                SYMFONY__ENV__REDIS_SCHEME = "unix";
-                SYMFONY__ENV__REDIS_PATH = "/run/redis/redis.sock";
-                SYMFONY__ENV__DOMAIN_NAME = "https://wallabag.${domain}";
+            containers = {
+              breezewiki = {
+                containerConfig = {
+                  image = "quay.io/pussthecatorg/breezewiki";
+                  publishPorts = [ "${toString breezeWikiPort}:${toString breezeWikiPort}" ];
+                  environments = {
+                    BW_CANONICAL_ORIGIN = "https://breezewiki.${domain}";
+                    BW_PORT = toString breezeWikiPort;
+                  };
+                  volumes = [ "breezewiki:/config:rw" ];
+                };
+                unitConfig = {
+                  Wants = [ "nginx.service" ];
+                  PartOf = [ "privacy-frontends.target" ];
+                };
               };
-              volumes = [
-                "/run/postgresql:/run/postgresql"
-                "${config.services.redis.servers.wallabag.unixSocket}:/run/redis/redis.sock"
-                "wallabag-images:/var/www/wallabag/web/assets/images"
-              ];
-              ports = [ "${builtins.toString wallabagPort}:80" ];
-              extraOptions = [ "--network=rss" ];
+
+              rsshub = {
+                containerConfig = {
+                  image = "diygod/rsshub:chromium-bundled";
+                  publishPorts = [ "${toString rssHubPort}:1200" ];
+                  environments = {
+                    NODE_ENV = "production";
+                    CACHE_TYPE = "redis";
+                    REDIS_URL = "unix:///run/redis/redis.sock";
+                  };
+                  volumes = [ "${config.services.redis.servers.rsshub.unixSocket}:/run/redis/redis.sock" ];
+                  networks = [ networks.rss.ref ];
+                };
+                unitConfig = rec {
+                  After = [ "redis-rsshub.service" ];
+                  Requires = After;
+                  PartOf = [ "rss.target" ];
+                };
+              };
+
+              wallabag = {
+                containerConfig = {
+                  image = "wallabag/wallabag";
+                  publishPorts = [ "${builtins.toString wallabagPort}:80" ];
+                  environments = {
+                    POSTGRES_USER = "wallabag";
+                    SYMFONY__ENV__DATABASE_HOST = "host.containers.internal";
+                    SYMFONY__ENV__DATABASE_DRIVER = "pdo_pgsql";
+                    SYMFONY__ENV__DATABASE_PORT = toString config.services.postgresql.settings.port;
+                    SYMFONY__ENV__DATABASE_NAME = "wallabag";
+                    SYMFONY__ENV__DATABASE_USER = "wallabag";
+                    SYMFONY__ENV__REDIS_SCHEME = "unix";
+                    SYMFONY__ENV__REDIS_PATH = "/run/redis/redis.sock";
+                    SYMFONY__ENV__DOMAIN_NAME = "https://wallabag.${domain}";
+                  };
+                  environmentFiles = [ config.sops.templates."wallabag.env".path ];
+                  volumes = [
+                    "/run/postgresql:/run/postgresql"
+                    "${config.services.redis.servers.wallabag.unixSocket}:/run/redis/redis.sock"
+                    "wallabag-images:/var/www/wallabag/web/assets/images"
+                  ];
+                  networks = [ networks.rss.ref ];
+                };
+                unitConfig = rec {
+                  After = [
+                    "postgresql.service"
+                    "redis-wallabag.service"
+                  ];
+                  Requires = After;
+                  PartOf = [ "rss.target" ];
+                };
+              };
             };
           };
 
+        virtualisation.containers.containersConf.settings = {
+          tz = "local";
+        };
+
         systemd = {
-          services =
-            let
-              mkPodmanVolume = flake.outputs.lib.mkPodmanVolume pkgs.podman;
-              mkPodmanNetwork = flake.outputs.lib.mkPodmanNetwork pkgs.podman;
-            in
-            {
-              "authelia-${domain}.service" = {
-                requires = [ "postgresql.service" ];
-                after = [ "postgresql.service" ];
-                wants = [ "fail2ban.service" ]; # TODO put in fail2ban module
-              };
-              nginx = {
-                wants = [ "authelia-${domain}.service" ];
-              };
-              beszel-agent = {
-                wants = [ "beszel-hub.service" ];
-              };
-              beszel-hub = {
-                wants = [
-                  "nginx.service"
-                  "authelia-${domain}.service"
-                ];
-              };
-              matrix-synapse = rec {
-                requires = [ "nginx.service" ];
-                after = requires;
-              };
-              thelounge = {
-                wants = [ "nginx.service" ];
-              };
-              syncthing.serviceConfig.RuntimeDirectory = "syncthing";
-              miniflux = {
-                partOf = [ "rss.target" ];
-                # EnvironmentFile = config.sops.templates."miniflux.env".path;
-              };
-
-              podman-breezewiki = {
-                wants = [ "nginx.service" ];
-                partOf = [ "privacy-frontends.target" ];
-              };
-              podman-rsshub = {
-                requires = [
-                  "redis-rsshub.service"
-                  "podman-network-rss.service"
-                ];
-                partOf = [ "rss.target" ];
-                after = [
-                  "redis-rsshub.service"
-                  "podman-network-rss.service"
-                ];
-              };
-              podman-wallabag = {
-                requires = [
-                  "postgresql.service"
-                  "podman-network-rss.service"
-                  "podman-volume-wallabag_images.service"
-                ];
-                partOf = [ "rss.target" ];
-                after = [
-                  "postgresql.service"
-                  "podman-network-rss.service"
-                  "podman-volume-wallabag_images.service"
-                ];
-              };
-
-              podman-network-rss = mkPodmanNetwork "rss";
-
-              podman-volume-wallabag_images = mkPodmanVolume "wallabag_images";
+          services = {
+            "authelia-${domain}.service" = {
+              requires = [ "postgresql.service" ];
+              after = [ "postgresql.service" ];
+              wants = [ "fail2ban.service" ]; # TODO put in fail2ban module
             };
+            nginx = {
+              wants = [ "authelia-${domain}.service" ];
+            };
+            beszel-agent = {
+              wants = [ "beszel-hub.service" ];
+            };
+            beszel-hub = {
+              wants = [
+                "nginx.service"
+                "authelia-${domain}.service"
+              ];
+            };
+            matrix-synapse = rec {
+              requires = [ "nginx.service" ];
+              after = requires;
+            };
+            thelounge = {
+              wants = [ "nginx.service" ];
+            };
+            syncthing.serviceConfig.RuntimeDirectory = "syncthing";
+            miniflux = {
+              partOf = [ "rss.target" ];
+              # EnvironmentFile = config.sops.templates."miniflux.env".path;
+            };
+          };
 
           targets = {
             "privacy-frontends" = {

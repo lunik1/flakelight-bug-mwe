@@ -46,6 +46,7 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
   };
 
   outputs =
