@@ -24,7 +24,6 @@
 
         breezeWikiPort = 10416;
         minifluxPort = 1272;
-        quetrePort = 3000;
         rssHubPort = 1200;
         wallabagPort = 4109;
       in
@@ -575,10 +574,6 @@
                   serverName = "breezewiki.${domain}";
                   proxyPass = localhost breezeWikiPort;
                 };
-                quetre = mkAuthenticatedProxyVirtualHost {
-                  serverName = "quetre.${domain}";
-                  proxyPass = localhost quetrePort;
-                };
                 rsshub = mkAuthenticatedProxyVirtualHost {
                   serverName = "rsshub.${domain}";
                   proxyPass = localhost rssHubPort;
@@ -783,12 +778,6 @@
               };
             };
 
-            quetre = mkPodmanContainer {
-              image = "codeberg.org/video-prize-ranch/quetre";
-              volumes = [ "/etc/localtime:/etc/localtime:ro" ];
-              ports = [ "${toString quetrePort}:3000" ];
-            };
-
             rsshub = mkPodmanContainer {
               image = "diygod/rsshub:chromium-bundled";
               ports = [ "${toString rssHubPort}:1200" ];
@@ -863,10 +852,6 @@
               };
 
               podman-breezewiki = {
-                wants = [ "nginx.service" ];
-                partOf = [ "privacy-frontends.target" ];
-              };
-              podman-quetre = {
                 wants = [ "nginx.service" ];
                 partOf = [ "privacy-frontends.target" ];
               };
