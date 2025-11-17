@@ -792,6 +792,10 @@
                     BW_PORT = toString breezeWikiPort;
                   };
                   volumes = [ "breezewiki:/config:rw" ];
+                  tmpfses = [
+                    "/tmp"
+                    "/run"
+                  ];
                 };
                 unitConfig = {
                   Wants = [ "nginx.service" ];
@@ -810,6 +814,10 @@
                     REDIS_URL = "unix:///run/redis/redis.sock";
                   };
                   volumes = [ "${config.services.redis.servers.rsshub.unixSocket}:/run/redis/redis.sock" ];
+                  tmpfses = [
+                    "/tmp"
+                    "/run"
+                  ];
                   networks = [ networks.rss.ref ];
                 };
                 unitConfig = rec {
@@ -840,6 +848,10 @@
                     "/run/postgresql:/run/postgresql"
                     "${config.services.redis.servers.wallabag.unixSocket}:/run/redis/redis.sock"
                     "wallabag-images:/var/www/wallabag/web/assets/images"
+                  ];
+                  tmpfses = [
+                    "/tmp"
+                    "/run"
                   ];
                   networks = [ networks.rss.ref ];
                 };
