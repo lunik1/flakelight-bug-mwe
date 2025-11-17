@@ -767,6 +767,9 @@
             inherit (config.virtualisation.quadlet) networks;
           in
           {
+            enable = true;
+            autoEscape = true;
+
             autoUpdate = {
               enable = true;
               calendar = "*-*-* 05:37:12";
