@@ -767,6 +767,11 @@
             inherit (config.virtualisation.quadlet) networks;
           in
           {
+            autoUpdate = {
+              enable = true;
+              calendar = "*-*-* 05:37:12";
+            };
+
             networks = {
               rss = { };
             };
@@ -780,6 +785,7 @@
               breezewiki = {
                 containerConfig = {
                   image = "quay.io/pussthecatorg/breezewiki";
+                  autoUpdate = "registry";
                   publishPorts = [ "${toString breezeWikiPort}:${toString breezeWikiPort}" ];
                   environments = {
                     BW_CANONICAL_ORIGIN = "https://breezewiki.${domain}";
@@ -795,7 +801,8 @@
 
               rsshub = {
                 containerConfig = {
-                  image = "diygod/rsshub:chromium-bundled";
+                  image = "docker.io/diygod/rsshub:chromium-bundled";
+                  autoUpdate = "registry";
                   publishPorts = [ "${toString rssHubPort}:1200" ];
                   environments = {
                     NODE_ENV = "production";
@@ -814,7 +821,8 @@
 
               wallabag = {
                 containerConfig = {
-                  image = "wallabag/wallabag";
+                  image = "docker.io/wallabag/wallabag";
+                  autoUpdate = "registry";
                   publishPorts = [ "${builtins.toString wallabagPort}:80" ];
                   environments = {
                     POSTGRES_USER = "wallabag";
@@ -918,10 +926,7 @@
         };
 
         lunik1.system = {
-          containers = {
-            enable = true;
-            updateOnRebuild = true;
-          };
+          containers.enable = true;
           fail2ban.enable = true;
           headless.enable = true;
           kopia-backup = {
