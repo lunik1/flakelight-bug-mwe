@@ -115,10 +115,18 @@
         };
 
         services = {
-          # No scheduler for non-rotational disks
-          udev.extraRules = ''
-            ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
-          '';
+          udev.extraRules =
+            # No scheduler for non-rotational disks
+            ''
+              ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+
+            ''
+            +
+            # via(l) keyboards
+            ''
+              KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+              KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+            '';
           hardware = {
             openrgb = {
               enable = true;
