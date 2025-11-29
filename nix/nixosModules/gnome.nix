@@ -65,7 +65,7 @@ in
           hot-edge
           fullscreen-avoider
           gsconnect
-          hibernate-status-button
+          power-off-options
           lock-keys
         ]);
       gnome.excludePackages = with pkgs; [
