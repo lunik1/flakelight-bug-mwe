@@ -305,7 +305,7 @@
 
           nginx = {
             enable = true;
-            package = pkgs.angieQuic;
+            package = pkgs.angie;
 
             recommendedOptimisation = true;
             recommendedTlsSettings = true;
