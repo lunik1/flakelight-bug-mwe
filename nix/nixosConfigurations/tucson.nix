@@ -184,7 +184,7 @@
             stateVersion = "21.05";
             packages = with pkgs; [
               r2modman
-              vial
+              via
             ];
           };
 
