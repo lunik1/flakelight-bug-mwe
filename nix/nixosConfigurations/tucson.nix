@@ -115,18 +115,21 @@
         };
 
         services = {
-          udev.extraRules =
-            # No scheduler for non-rotational disks
-            ''
-              ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+          udev = {
+            extraRules =
+              # No scheduler for non-rotational disks
+              ''
+                ACTION=="add|change", KERNEL=="[sv]d[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
 
-            ''
-            +
-            # via(l) keyboards
-            ''
-              KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
-              KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
-            '';
+              ''
+              +
+              # via(l) keyboards
+              ''
+                KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+                KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+              '';
+            packages = [ pkgs.via ];
+          };
           hardware = {
             openrgb = {
               enable = true;
@@ -149,6 +152,8 @@
             with config.services.hardware.openrgb;
             lib.mkForce "${package}/bin/openrgb --server --server-port ${toString server.port} --profile ${../../resources/io.orp}";
         };
+
+        hardware.keyboard.qmk.enable = true;
 
         powerManagement.resumeCommands = ''
           systemctl restart openrgb.service
@@ -191,8 +196,10 @@
             homeDirectory = "/home/corin";
             stateVersion = "21.05";
             packages = with pkgs; [
+              qmk
               r2modman
               via
+              dos2unix
             ];
           };
 
