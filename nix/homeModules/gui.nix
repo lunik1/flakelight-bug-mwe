@@ -18,7 +18,6 @@ in
         with pkgs;
         [
           bleachbit
-          vesktop
           lunik1-nur.myosevka.aile
         ]
         ++ lib.optionals stdenv.isLinux [
@@ -133,6 +132,42 @@ in
           };
         };
       };
+
+      vesktop = {
+        enable = true;
+        settings = {
+          checkUpdates = false;
+          hardwareAcceleration = true;
+          hardwareVideoAcceleration = true;
+          discordBranch = "stable";
+          disableMinSize = true;
+          staticTitle = true;
+          minimizeToTray = true;
+        };
+        vencord.settings = {
+          autoUpdate = false;
+          autoUpdateNotification = false;
+          notifyAboutUpdates = false;
+          useQuickCss = true;
+          disableMinSize = true;
+          useSystem = true;
+          plugins = {
+            ClearUrls = true;
+            CrashHandler = true;
+            DontRoundMyTimestamps = true;
+            FixYoutubeEmbeds = true;
+            ForceOwnerCrown = true;
+            IgnoreActivites = true;
+            OpenInApp = true;
+            SecretRingToneEnabler = true;
+            SendTimestamps = true;
+            WebKeybinds = true;
+            WebScreenShareFixes = true;
+            YouTubeAdblock = true;
+          };
+        };
+      };
+
       zathura = {
         enable = true;
         options = import ../../config/zathura/zathura.nix;
