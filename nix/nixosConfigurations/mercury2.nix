@@ -938,6 +938,7 @@
               config.services.authelia.instances.${domain}.group
             ];
           };
+          groups.redis-authelia = { };
         };
 
         lunik1.system = {
