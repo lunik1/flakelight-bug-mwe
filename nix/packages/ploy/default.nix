@@ -2,7 +2,7 @@
   writeBabashkaApplication,
   cachix,
   gitMinimal,
-  nix,
+  lix,
   nixos-rebuild-ng,
 }:
 
@@ -10,7 +10,7 @@ writeBabashkaApplication {
   runtimeInputs = [
     cachix
     gitMinimal
-    nix
+    lix
     nixos-rebuild-ng
   ];
   name = "ploy";

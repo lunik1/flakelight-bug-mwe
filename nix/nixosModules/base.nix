@@ -113,6 +113,7 @@ in
     # try to make the system a bit more responsive while nix is operating
     daemonCPUSchedPolicy = "batch";
     daemonIOSchedPriority = 5;
+    package = pkgs.lix;
 
     channel.enable = false;
 

@@ -224,6 +224,7 @@ in
       direnv = {
         enable = true;
         nix-direnv = {
+          package = pkgs.lixPackageSets.stable.nix-direnv;
           enable = true;
         };
       };

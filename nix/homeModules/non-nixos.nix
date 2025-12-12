@@ -55,6 +55,6 @@ in
         ++ lib.optionals stdenv.isDarwin [ coreutils ];
     };
 
-    nix.package = pkgs.nix;
+    nix.package = pkgs.lix;
   };
 }
