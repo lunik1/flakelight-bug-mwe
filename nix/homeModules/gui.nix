@@ -63,6 +63,8 @@ in
       };
     };
 
+    gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+
     programs = {
       feh.enable = pkgs.stdenv.isLinux;
       floorp = {

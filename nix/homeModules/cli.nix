@@ -79,7 +79,32 @@ in
         RSYNC_CHECKSUM_LIST = "xxh3 xxh128 xxh64 sha1 md5 md4 none";
         RSYNC_COMPRESS_LIST = "lz4 zstd zlibx zlib none";
         MANWIDTH = 80;
-      };
+      }
+      // (with config.xdg; {
+        # non-XDG hall of shame
+        AWS_CONFIG_FILE = "${configHome}/aws/config";
+        AWS_SHARED_CREDENTIALS_FILE = "${configHome}/aws/credentials";
+        CARGO_HOME = "${dataHome}/cargo";
+        CUDA_CACHE_PATH = "${cacheHome}/nv";
+        DOCKER_CONFIG = "${configHome}/docker";
+        DUB_HOME = "${cacheHome}/dub";
+        GOPATH = "${dataHome}/go";
+        INPUTRC = "${configHome}/readline/inputrc";
+        IPYTHONDIR = "${configHome}/ipython";
+        JULIA_DEPOT_PATH = "${dataHome}/julia";
+        JUPYTER_CONFIG_DIR = "${configHome}/jupyter";
+        JUPYTER_DATA_DIR = "${dataHome}/jupyter";
+        JUPYTER_RUNTIME_DIR = "$XDG_RUNTIME_DIR/jupyter";
+        LEIN_HOME = "${dataHome}/lein";
+        NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
+        NPM_CONFIG_CACHE = "${cacheHome}/npm";
+        NPM_CONFIG_USERCONFIG = "${configHome}/npm/config";
+        PYTHON_HISTORY = "${stateHome}/python_history";
+        RUSTUP_HOME = "${dataHome}/rustup";
+        SQLITE_HISTORY = "${dataHome}/sqlite_history";
+        TEXMFHOME = "${configHome}/texmf";
+        WINEPREFIX = "${dataHome}/wine";
+      });
 
       # Add a personal aspell dict if it does not already exist
       activation = {

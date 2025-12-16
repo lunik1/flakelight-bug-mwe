@@ -29,6 +29,7 @@ in
       };
       gpg = {
         enable = true;
+        # homedir = "${config.xdg.dataHome}/gnupg";  # breaks commit signing in emacs
         settings = {
           keyserver = "hkps://keyserver.ubuntu.com";
           keyserver-options = "no-honor-keyserver-url";
