@@ -65,6 +65,7 @@
               "dm-snapshot"
               "i2c-dev"
               "i2c-piix4"
+              "sg" # usb blu-ray drive
             ];
           };
 
@@ -196,6 +197,7 @@
             homeDirectory = "/home/corin";
             stateVersion = "21.05";
             packages = with pkgs; [
+              makemkv
               qmk
               r2modman
               via
