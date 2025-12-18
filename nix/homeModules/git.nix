@@ -146,6 +146,7 @@ in
         enable = true;
         settings.git_protocol = "ssh";
       };
+      mergiraf.enable = true;
       zsh = {
         envExtra = with config.sops.secrets; ''
           [ -f "${gh_token.path}" ] \
