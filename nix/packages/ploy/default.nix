@@ -4,7 +4,7 @@
   gitMinimal,
   lix,
   nix-output-monitor,
-  nixos-rebuild-ng,
+  nixos-rebuild,
 }:
 
 writeBabashkaApplication {
@@ -13,7 +13,7 @@ writeBabashkaApplication {
     gitMinimal
     lix
     nix-output-monitor
-    nixos-rebuild-ng
+    nixos-rebuild
   ];
   name = "ploy";
   text = builtins.readFile ./ploy;
