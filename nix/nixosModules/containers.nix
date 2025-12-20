@@ -34,7 +34,10 @@ in
         dockerSocket.enable = true;
         defaultNetwork.settings.dns_enabled = true;
       };
-      containers.containersConf.settings.tz = "local";
+      containers.containersConf.settings = {
+        tz = "local";
+        database_backend = "sqlite";
+      };
     };
 
     systemd.services.update-containers = lib.optionalAttrs cfg.updateOnRebuild {
