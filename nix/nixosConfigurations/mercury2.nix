@@ -24,6 +24,7 @@
 
         breezeWikiPort = 10416;
         minifluxPort = 1272;
+        mkfdPort = 5000;
         rssHubPort = 1200;
         wallabagPort = 4109;
       in
@@ -160,6 +161,15 @@
                 miniflux-oidc-secret = {
                   sopsFile = mercury2SopsFile;
                 };
+                mkfd-passkey = {
+                  sopsFile = mercury2SopsFile;
+                };
+                mkfd-cookie-secret = {
+                  sopsFile = mercury2SopsFile;
+                };
+                mkfd-encryption-key = {
+                  sopsFile = mercury2SopsFile;
+                };
                 kopia-repo-url = { };
                 kopia-password = {
                   sopsFile = mercury2SopsFile;
@@ -192,6 +202,11 @@
                 ADMIN_USERNAME=${miniflux-admin-user}
                 ADMIN_PASSWORD=${miniflux-admin-password}
                 OAUTH2_CLIENT_SECRET=${miniflux-oidc-secret}
+              '';
+              "mkfd.env".content = ''
+                PASSKEY=${mkfd-passkey}
+                COOKIE_SECRET=${mkfd-cookie-secret}
+                ENCRYPTION_KEY=${mkfd-encryption-key}
               '';
               "wallabag.env".content = ''
                 POSTGRES_PASSWORD=${wallabag-postgres-password}
@@ -556,6 +571,10 @@
                   serverName = "miniflux.${domain}";
                   proxyPass = localhost minifluxPort;
                 };
+                mkfd = mkProxyVirtualHost {
+                  serverName = "mkfd.${domain}";
+                  proxyPass = localhost mkfdPort;
+                };
                 synapse = mkProxyVirtualHost {
                   serverName = "synapse.${domain}";
                   proxyPass = "http://unix:${toString (builtins.head config.services.matrix-synapse.settings.listeners).path}";
@@ -803,6 +822,23 @@
                 unitConfig = {
                   Wants = [ "nginx.service" ];
                   PartOf = [ "privacy-frontends.target" ];
+                };
+              };
+
+              mkfd = {
+                containerConfig = {
+                  image = "docker.io/tbosk/mkfd";
+                  autoUpdate = "registry";
+                  publishPorts = [ "${toString mkfdPort}:5000" ];
+                  environmentFiles = [ config.sops.templates."mkfd.env".path ];
+                  tmpfses = [
+                    "/tmp"
+                    "/run"
+                  ];
+                  networks = [ networks.rss.ref ];
+                };
+                unitConfig = {
+                  PartOf = [ "rss.target" ];
                 };
               };
 
