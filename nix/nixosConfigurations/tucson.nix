@@ -216,6 +216,9 @@
                 cookies-from-browser = "firefox";
               };
             };
+            zsh.dirHashes = {
+              dionysus = "/home/corin/code/nix/dionysus2";
+            };
           };
 
           # Secrets
