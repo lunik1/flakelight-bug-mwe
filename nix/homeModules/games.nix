@@ -34,47 +34,53 @@ in
           permittedInsecurePackages = lib.optionals cfg.runescape.enable [ "openssl-1.1.1w" ];
         };
 
-    home.packages =
-      with pkgs;
-      (
-        lib.optionals cfg.saves.enable [
-          ludusavi
-          rclone
-        ]
-        ++ lib.optionals cfg.emu.enable [
-          ryubing
-          (retroarch.withCores (cores: [
-            libretro.beetle-psx
-            libretro.bsnes-mercury
-            libretro.mesen
-            libretro.mgba
-            libretro.nestopia
-            libretro.sameboy
-            libretro.thepowdertoy
-          ]))
-        ]
-        ++ lib.optionals cfg.cli.enable [
-          crawl
-          nethack
-        ]
-        ++ lib.optional cfg.freeciv.enable (
-          if config.lunik1.home.kde.enable then freeciv_qt else freeciv_gtk
+    home = {
+      packages =
+        with pkgs;
+        (
+          lib.optionals cfg.saves.enable [
+            ludusavi
+            rclone
+          ]
+          ++ lib.optionals cfg.emu.enable [
+            ryubing
+          ]
+          ++ lib.optionals cfg.cli.enable [
+            crawl
+            nethack
+          ]
+          ++ lib.optional cfg.freeciv.enable (
+            if config.lunik1.home.kde.enable then freeciv_qt else freeciv_gtk
+          )
+          ++ lib.optionals cfg.itch.enable [
+            itch
+          ]
+          ++ lib.optional cfg.df.enable dwarf-fortress-packages.dwarf-fortress-full
+          ++ lib.optional cfg.minecraft.enable (
+            if config.lunik1.home.kde.enable then prismlauncher-qt5 else prismlauncher
+          )
+          ++ lib.optional cfg.openrct2.enable openrct2
+          ++ lib.optional cfg.wesnoth.enable wesnoth
+          ++ lib.optionals cfg.dcss.enable [
+            crawl
+            crawlTiles
+          ]
         )
-        ++ lib.optionals cfg.itch.enable [
-          itch
-        ]
-        ++ lib.optional cfg.df.enable dwarf-fortress-packages.dwarf-fortress-full
-        ++ lib.optional cfg.minecraft.enable (
-          if config.lunik1.home.kde.enable then prismlauncher-qt5 else prismlauncher
-        )
-        ++ lib.optional cfg.openrct2.enable openrct2
-        ++ lib.optional cfg.wesnoth.enable wesnoth
-        ++ lib.optionals cfg.dcss.enable [
-          crawl
-          crawlTiles
-        ]
-      )
-      ++ lib.optionals cfg.osu.enable [ osu-lazer-bin ]
-      ++ lib.optionals cfg.runescape.enable [ runescape ];
+        ++ lib.optionals cfg.osu.enable [ osu-lazer-bin ]
+        ++ lib.optionals cfg.runescape.enable [ runescape ];
+    };
+
+    programs.retroarch = {
+      inherit (cfg.emu) enable;
+      cores = {
+        beetle-psx.enable = true;
+        bsnes-mercury.enable = true;
+        mesen.enable = true;
+        mgba.enable = true;
+        nestopia.enable = true;
+        sameboy.enable = true;
+        thepowdertoy.enable = true;
+      };
+    };
   };
 }
