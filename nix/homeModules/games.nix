@@ -73,12 +73,13 @@ in
     programs.retroarch = {
       inherit (cfg.emu) enable;
       cores = {
-        beetle-psx.enable = true;
+        
         bsnes-mercury.enable = true;
         mesen.enable = true;
         mgba.enable = true;
         nestopia.enable = true;
         sameboy.enable = true;
+        swanstation.enable = true;
         thepowdertoy.enable = true;
       };
     };
