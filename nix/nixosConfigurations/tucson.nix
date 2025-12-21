@@ -221,6 +221,32 @@
             };
           };
 
+          services.ludusavi = {
+            enable = true;
+            frequency = "*-*-* 19:37";
+            settings = {
+              backup.path = "~/Games/ludusavi-backup";
+              restore.path = "~/Games/ludusavi-backup";
+              roots = [
+                {
+                  store = "steam";
+                  path = "~/.local/share/Steam";
+                }
+              ];
+              cloud = {
+                remote.Custom.id = "tuscson-gamesaves";
+                path = "";
+                synchronize = true;
+              };
+              apps = {
+                rclone = {
+                  path = lib.getExe pkgs.rclone;
+                  arguments = "";
+                };
+              };
+            };
+          };
+
           # Secrets
           sops.secrets.cachix_auth_token = { };
 
