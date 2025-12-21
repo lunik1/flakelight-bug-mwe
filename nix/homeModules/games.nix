@@ -74,9 +74,8 @@ in
       inherit (cfg.emu) enable;
       cores = {
         bsnes-hd.enable = true;
-        mesen.enable = true;
+        mesen.enable = true; # for NES
         mgba.enable = true;
-        nestopia.enable = true;
         sameboy.enable = true;
         swanstation.enable = true;
         thepowdertoy.enable = true;
