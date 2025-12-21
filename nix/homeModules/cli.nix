@@ -40,7 +40,6 @@ in
           lz4
           nix-tree
           p7zip
-          parallel
           q
           rename
           ripgrep
@@ -279,6 +278,10 @@ in
         enable = true;
       };
       nix-index-database.comma.enable = true;
+      parallel = {
+        enable = true;
+        will-cite = true;
+      };
       streamlink = {
         enable = true;
         settings = {
