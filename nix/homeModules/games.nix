@@ -73,8 +73,7 @@ in
     programs.retroarch = {
       inherit (cfg.emu) enable;
       cores = {
-        
-        bsnes-mercury.enable = true;
+        bsnes-hd.enable = true;
         mesen.enable = true;
         mgba.enable = true;
         nestopia.enable = true;
