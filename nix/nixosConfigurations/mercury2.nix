@@ -282,7 +282,7 @@
                       ];
                       response_types = [ "code" ];
                       grant_types = [ "authorization_code" ];
-                      token_endpoint_auth_method = "client_secret_basic";
+                      token_endpoint_auth_method = "client_secret_post";
                     }
                     {
                       client_id = "beszel";
@@ -301,7 +301,7 @@
                       ];
                       response_types = [ "code" ];
                       grant_types = [ "authorization_code" ];
-                      token_endpoint_auth_method = "client_secret_basic";
+                      token_endpoint_auth_method = "client_secret_post";
                     }
                   ];
                 };
