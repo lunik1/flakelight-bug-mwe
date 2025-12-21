@@ -28,7 +28,6 @@ in
           gawk
           getconf
           getent
-          gnugrep
           gnupatch
           gnused
           gnutar
@@ -54,6 +53,8 @@ in
         ]
         ++ lib.optionals stdenv.isDarwin [ coreutils ];
     };
+
+    programs.grep.enable = true;
 
     nix.package = pkgs.lix;
   };
