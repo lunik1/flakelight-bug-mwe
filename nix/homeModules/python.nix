@@ -12,10 +12,13 @@ in
   options.lunik1.home.lang.python.enable = lib.mkEnableOption "Python";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      uv
-      ruff
-    ];
-    programs.ty.enable = true;
+    programs = {
+      ruff = {
+        enable = true;
+        settings = { };
+      };
+      ty.enable = true;
+      uv.enable = true;
+    };
   };
 }
