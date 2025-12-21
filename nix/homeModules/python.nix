@@ -16,5 +16,6 @@ in
       uv
       ruff
     ];
+    programs.ty.enable = true;
   };
 }
