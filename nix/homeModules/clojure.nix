@@ -15,11 +15,13 @@ in
     home = {
       packages = with pkgs; [
         babashka
+        clojure
         rlwrap
       ];
     };
 
     programs.zsh.shellAliases = {
+      rr = ''clojure -Sdeps "{:deps {com.bhauman/rebel-readline {:mvn/version \"[0,)\"}}}" -M -m rebel-readline.main'';
       rbb = "rlwrap bb";
     };
   };
