@@ -196,7 +196,34 @@ in
     angrr = {
       enable = true;
       enableNixGcIntegration = true;
-      period = "10weeks";
+      settings = {
+        temporary-root-policies = {
+          direnv = {
+            path-regex = "/\\.direnv/";
+            period = "60d";
+          };
+          result = {
+            path-regex = "/result[^/]*$";
+            period = "3d";
+          };
+        };
+        profile-policies = {
+          system = {
+            profile-paths = [ "/nix/var/nix/profiles/system" ];
+            keep-since = "14d";
+            keep-booted-system = true;
+            keep-current-system = true;
+          };
+          user = {
+            profile-paths = [
+              "~/.local/state/nix/profiles/profile"
+              "/nix/var/nix/profiles/per-user/root/profile"
+            ];
+            keep-since = "14d";
+          };
+        };
+      };
+      timer.enable = true;
     };
 
     userborn.enable = true;

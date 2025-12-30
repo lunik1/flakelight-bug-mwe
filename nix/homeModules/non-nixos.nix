@@ -54,6 +54,12 @@ in
         ++ lib.optionals stdenv.isDarwin [ coreutils ];
     };
 
+    services.home-manager.autoExpire = {
+      enable = pkgs.stdenv.isLinux;
+      frequency = "weekly";
+      timestamp = "-14 days";
+    };
+
     programs.grep.enable = true;
 
     nix.package = pkgs.lix;
