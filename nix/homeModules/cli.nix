@@ -324,6 +324,7 @@ in
       };
       zsh = {
         enable = true;
+        dotDir = "${config.xdg.configHome}/zsh";
         enableCompletion = true;
         enableVteIntegration = true;
         history = {
