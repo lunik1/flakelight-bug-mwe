@@ -68,7 +68,7 @@ in
         ]
         ++ lib.optionals (stdenv.isLinux && stdenv.isx86_64) [
           lunik1-nur.efficient-compression-tool
-          lunik1-nur.trash-d
+          # lunik1-nur.trash-d # dmd build failure, waiting for #479273
         ];
 
       shell.enableZshIntegration = true;
