@@ -97,7 +97,7 @@
 
         formatters =
           pkgs: with pkgs; {
-            "*.nix" = "${nixfmt-rfc-style}/bin/nixfmt";
+            "*.nix" = "${nixfmt}/bin/nixfmt";
             "*.bb" = "${cljfmt}/bin/cljfmt";
           };
 
@@ -107,7 +107,7 @@
             pkgs.inputs'.pre-commit-hooks.lib.run {
               src = ./.;
               hooks = {
-                nixfmt-rfc-style.enable = true;
+                nixfmt.enable = true;
                 shellcheck.enable = true;
                 statix.enable = true;
               };
@@ -125,7 +125,7 @@
             jq
             nix-info
             nix-output-monitor
-            nixfmt-rfc-style
+            nixfmt
             nixpkgs-lint-community
             nodePackages_latest.prettier
             nodePackages_latest.yaml-language-server

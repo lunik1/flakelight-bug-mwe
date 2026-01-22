@@ -20,7 +20,7 @@ in
         nixos-shell
         nixpkgs-fmt
         nixpkgs-lint-community
-        nixfmt-rfc-style
+        nixfmt
         nurl
         nil
         statix
