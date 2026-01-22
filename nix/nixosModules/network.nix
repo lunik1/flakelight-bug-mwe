@@ -60,11 +60,11 @@ in
     };
     services.resolved = lib.mkIf cfg.resolved.enable {
       enable = true;
-      dnssec = "false";
-      fallbackDns = [ "" ];
-      extraConfig = ''
-        DNSOverTLS=${lib.boolToString cfg.dnsOverTls};
-      '';
+      settings.Resolve = {
+        DNSSEC = false;
+        DNSOverTLS = cfg.dnsOverTls;
+        FallbackDNS = [ "" ];
+      };
     };
   };
 }
