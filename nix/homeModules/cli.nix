@@ -96,8 +96,8 @@ in
         JUPYTER_RUNTIME_DIR = "$XDG_RUNTIME_DIR/jupyter";
         LEIN_HOME = "${dataHome}/lein";
         NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
-        NPM_CONFIG_CACHE = "${cacheHome}/npm";
-        NPM_CONFIG_USERCONFIG = "${configHome}/npm/config";
+        NPM_CONFIG_CACHE = lib.mkOverride 51 "${cacheHome}/npm";
+        NPM_CONFIG_USERCONFIG = lib.mkOverride 51 "${configHome}/npm/config";
         PYTHON_HISTORY = "${stateHome}/python_history";
         RUSTUP_HOME = "${dataHome}/rustup";
         SQLITE_HISTORY = "${dataHome}/sqlite_history";
