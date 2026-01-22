@@ -87,7 +87,7 @@
           permittedInsecurePackages = [
             # ventoy
             # https://github.com/NixOS/nixpkgs/pull/405547
-            "ventoy-gtk3-1.1.07"
+            "ventoy-gtk3-1.1.10"
           ];
         };
 
