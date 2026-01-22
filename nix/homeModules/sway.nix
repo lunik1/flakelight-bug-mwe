@@ -24,9 +24,9 @@ in
         foot
         networkmanager_dmenu
         networkmanagerapplet
+        thunar
         ungoogled-chromium
         wev
-        xfce.thunar
 
         # Fonts
         material-design-icons
