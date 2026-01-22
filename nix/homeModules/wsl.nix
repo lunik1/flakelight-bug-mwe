@@ -20,9 +20,5 @@ in
       ];
       sessionVariables.LIBGL_ALWAYS_INDIRECT = 1;
     };
-
-    programs.zsh.envExtra = lib.mkIf config.programs.zsh.enable ''
-      export DISPLAY=$(${pkgs.gawk}/bin/awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
-    '';
   };
 }
