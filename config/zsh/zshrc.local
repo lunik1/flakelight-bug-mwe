@@ -1,6 +1,18 @@
 # -*- mode: sh; -*-
 # vi:ft=zsh
 
+is_ssh() {
+  [[ -n $SSH_CONNECTION || -n $SSH_CLIENT || -n $SSH_TTY ]]
+}
+
+is_et() {
+  [[ -n $ET_VERSION ]]
+}
+
+is_remote() {
+  is_ssh || is_et
+}
+
 set nonomatch
 
 # Set up thefuck
@@ -138,6 +150,24 @@ if [ "${TERM}" = "xterm-kitty" ]; then
   alias transfer="kitten transfer"
   alias download="kitten transfer --direction download"
   alias upload="kitten transfer --direction upload"
+
+  if ! is_remote; then
+    kitten_choose_files_widget() {
+      local files
+      files=$(kitten choose-files 2>/dev/null) || return
+
+      # normalize newlines -> spaces
+      files=${files//$'\n'/ }
+
+      if [[ -n $files ]]; then
+        LBUFFER+="$files"
+        zle redisplay
+      fi
+    }
+
+    zle -N kitten-choose-files-widget kitten_choose_files_widget
+    bindkey '^T' kitten-choose-files-widget
+  fi
 fi
 
 if [ "${TERM}" = "xterm-kitty" ] || [ "${TERM}" = "xterm-ghostty" ]; then
