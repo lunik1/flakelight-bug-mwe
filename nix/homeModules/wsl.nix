@@ -20,5 +20,8 @@ in
       ];
       sessionVariables.LIBGL_ALWAYS_INDIRECT = 1;
     };
+    programs.zsh.shellAliases = {
+      open = "wsl-open";
+    };
   };
 }
