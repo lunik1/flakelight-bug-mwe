@@ -1,8 +1,6 @@
 # -*- mode: sh; -*-
 # vi:ft=zsh
 
-set nonomatch
-
 # Set up thefuck
 if (( $+commands[thefuck] )); then
   eval $(thefuck --alias yikes)
@@ -415,14 +413,6 @@ function emit-osc-133-d() {
 add-zsh-hook precmd emit-osc-133-d
 add-zsh-hook precmd emit-osc-133-a
 add-zsh-hook preexec emit-osc-133-c
-
-## Options
-
-# warning if file exists ('cat /dev/null > ~/.zshrc')
-setopt NO_clobber
-
-# Allow comments even in interactive shells
-setopt interactivecomments
 
 ## Autoload
 

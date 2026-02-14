@@ -350,6 +350,11 @@ in
           SAVEHIST = 100000;
           WORDCHARS = "\${WORDCHARS:s@/@}";
         };
+        setOptions = [
+          "NO_clobber"
+          "interactivecomments"
+          "nonomatch"
+        ];
         envExtra = ''
           if [[ "$TERM" == "foot" ]]
           then
