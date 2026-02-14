@@ -19,14 +19,6 @@ fi
 # Disable flow control
 stty -ixon
 
-## Environment
-
-WORDCHARS="${WORDCHARS:s@/@}"
-
-# Increase history size 10×
-HISTSIZE=50000
-SAVEHIST=100000
-
 ## Aliases
 
 # Easy access to full zsh manual

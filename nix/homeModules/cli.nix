@@ -322,6 +322,7 @@ in
           concurrent-fragments = 8;
         };
       };
+
       zsh = {
         enable = true;
         dotDir = "${config.xdg.configHome}/zsh";
@@ -344,6 +345,11 @@ in
             source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
           ''
         ];
+        sessionVariables = {
+          HISTSIZE = 50000;
+          SAVEHIST = 100000;
+          WORDCHARS = "\${WORDCHARS:s@/@}";
+        };
         envExtra = ''
           if [[ "$TERM" == "foot" ]]
           then
