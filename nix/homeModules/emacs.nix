@@ -62,6 +62,7 @@ in
             emacs-all-the-icons-fonts
             emacs-lsp-booster
             nerd-fonts.symbols-only
+            symbola
             zip # for org odt export
 
             lunik1-nur.myosevka.mono
