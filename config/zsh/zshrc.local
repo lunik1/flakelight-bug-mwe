@@ -129,8 +129,10 @@ fi
 
 # rsync
 if (( $+commands[rsync] )); then
-  alias rsync='rsync -avzhPHA --no-inc-recursive --info=progress2'
-  alias srsync='rsync --no-inc-recursive --info=progress2 -avzPhHAe ssh'
+  # we use --old-args because zsh 5.9's autocomplete expects that parsing logic
+  # there is a fix usptream, so remove whenever the next zsh comes out
+  alias rsync='rsync --old-args -avzhPHA --no-inc-recursive --info=progress2'
+  alias srsync='rsync --old-args --no-inc-recursive --info=progress2 -avzPhHAe ssh'
 fi
 
 if [ "${TERM}" = "xterm-kitty" ]; then
