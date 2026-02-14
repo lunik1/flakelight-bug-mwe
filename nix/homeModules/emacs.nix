@@ -42,7 +42,6 @@ in
         packages =
           with pkgs;
           [
-            beancount-language-server
             dockerfile-language-server
             fd
             glslang
