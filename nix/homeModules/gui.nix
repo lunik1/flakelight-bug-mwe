@@ -25,7 +25,7 @@ in
           gucharmap
           hunspellDicts.en-gb-ise # needed for libreoffice
           krita
-          # jellyfin-media-player  # insecure (depends on qtwebengine)
+          jellyfin-desktop
           pinta
           qdirstat
           signal-desktop
