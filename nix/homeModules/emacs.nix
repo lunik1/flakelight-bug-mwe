@@ -88,10 +88,18 @@ in
         };
       };
 
-      programs.emacs = {
-        enable = true;
-        package = emacs-package;
-        extraPackages = epkgs: [ epkgs.vterm ];
+      programs = {
+        emacs = {
+          enable = true;
+          package = emacs-package;
+          extraPackages = epkgs: [ epkgs.vterm ];
+        };
+
+        zsh.shellAliases = {
+          doom = "~/.emacs.d/bin/doom";
+          ec = "emacsclient -a '' -t";
+          magit = "emacsclient -a '' -t --eval '(magit)'";
+        };
       };
 
       services = {

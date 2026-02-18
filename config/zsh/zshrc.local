@@ -27,11 +27,6 @@ alias reset='tput reset'
 
 # Emacs
 if (( $+commands[emacs] )); then
-  alias ec="emacsclient -a '' -t"
-  alias magit="emacsclient -a '' -t --eval '(magit)'"
-
-  alias doom='~/.emacs.d/bin/doom'
-
   if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
     alias emacs='emacs & disown'
   fi
