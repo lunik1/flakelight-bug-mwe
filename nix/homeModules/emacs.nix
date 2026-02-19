@@ -98,7 +98,13 @@ in
         zsh.shellAliases = {
           doom = "~/.emacs.d/bin/doom";
           ec = "emacsclient -a '' -t";
-          magit = "emacsclient -a '' -t --eval '(magit)'";
+
+          "dired" = ''emacsclient -a \'\' -t --eval "(dired \"$PWD\")"'';
+          "dired+" = ''emacs -nw --eval "(dired \"$PWD\")"'';
+          "dirvish" = "emacsclient -a '' -t --eval '(dirvish)'";
+          "dirvish+" = "emacs -nw --eval '(dirvish)";
+          "magit" = "emacsclient -a '' -t --eval '(magit)'";
+          "magit+" = "emacs -nw --eval '(magit)'";
         };
       };
 
