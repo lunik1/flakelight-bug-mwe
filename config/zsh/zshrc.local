@@ -36,10 +36,6 @@ fi
 alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
 alias s='sudo $(fc -ln -1)'
 
-if (( $+commands[gpgconf] )); then
-  alias killgpg='gpgconf --kill gpg-agent'
-fi
-
 # easy sedding with perl
 alias pie='perl -pi -e'
 

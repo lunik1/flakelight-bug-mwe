@@ -27,6 +27,7 @@ in
         key = "0x9F1451AC2559C602";
         signByDefault = true;
       };
+
       gpg = {
         enable = true;
         # homedir = "${config.xdg.dataHome}/gnupg";  # breaks commit signing in emacs
@@ -35,6 +36,10 @@ in
           keyserver-options = "no-honor-keyserver-url";
         }
         // lib.optionalAttrs (!config.lunik1.home.gui.enable) { pinentry-mode = "loopback"; };
+      };
+
+      zsh.shellAliases = {
+        killgpg = "gpgconf --kill gpg-agent";
       };
     };
 
