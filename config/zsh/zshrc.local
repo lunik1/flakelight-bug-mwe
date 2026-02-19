@@ -61,12 +61,6 @@ alias tctest='awk '\''BEGIN{
     printf "\n";
 }'\'''
 
-# Julia daemon
-if (( $+commands[julia] )); then
-  alias juliad="julia --startup-file=no -e 'using DaemonMode; serve()'"
-  alias juliac='julia --startup-file=no -e "using DaemonMode; runargs()"'
-fi
-
 # nixpkgs pr check
 if (( $+commands[nix-shell] )); then
   alias nixpkgs-revhead='nix-shell -p nixpkgs-review --run "nixpkgs-review rev HEAD"'
