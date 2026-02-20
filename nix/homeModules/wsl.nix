@@ -18,7 +18,10 @@ in
       packages = with pkgs; [
         wsl-open
       ];
-      sessionVariables.LIBGL_ALWAYS_INDIRECT = 1;
+      sessionVariables = {
+        LIBGL_ALWAYS_INDIRECT = 1;
+        LIBGL_ALWAYS_SOFTWARE = "true";
+      };
     };
     programs.zsh.shellAliases = {
       open = "wsl-open";
