@@ -25,7 +25,7 @@ in
     let
       emacs-package =
         with pkgs;
-        (if stdenv.isDarwin then emacs-macport else emacs30-pgtk).overrideAttrs (
+        (if stdenv.isDarwin then emacs-macport else emacs).overrideAttrs (
           new: old: {
             env = (old.env or { }) // {
               NIX_CFLAGS_COMPILE =

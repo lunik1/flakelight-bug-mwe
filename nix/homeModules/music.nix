@@ -47,7 +47,7 @@ in
           }'';
       };
       mpdris2.enable = cfg.mpd.enable;
-      playerctld.enable = true;
+      playerctld.enable = !config.lunik1.home.gnome.enable;
     };
 
     # TODO add Waybar config

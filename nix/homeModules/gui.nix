@@ -176,7 +176,7 @@ in
       };
     };
 
-    services.playerctld.enable = pkgs.stdenv.isLinux;
+    services.playerctld.enable = pkgs.stdenv.isLinux && !config.lunik1.home.gnome.enable;
 
     xdg = lib.mkIf pkgs.stdenv.isLinux {
       enable = true;

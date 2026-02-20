@@ -182,7 +182,7 @@ in
       };
     };
 
-    services.playerctld.enable = true;
+    services.playerctld.enable = !config.lunik1.home.gnome.enable;
 
     xdg = {
       enable = true;
