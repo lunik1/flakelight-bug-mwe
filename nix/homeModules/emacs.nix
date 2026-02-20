@@ -25,15 +25,24 @@ in
     let
       emacs-package =
         with pkgs;
-        (if stdenv.isDarwin then emacs-macport else emacs).overrideAttrs (
-          new: old: {
+        let
+          base =
+            if stdenv.isDarwin then
+              emacs-macport
+            else if config.lunik1.home.wsl.enable then
+              emacs
+            else
+              emacs-pgtk;
+        in
+        if stdenv.isDarwin then
+          base.overrideAttrs (old: {
             env = (old.env or { }) // {
               NIX_CFLAGS_COMPILE =
-                (old.env.NIX_CFLAGS_COMPILE or "")
-                + lib.optionalString pkgs.stdenv.hostPlatform.isDarwin " -DFD_SETSIZE=10000 -DDARWIN_UNLIMITED_SELECT";
+                (old.env.NIX_CFLAGS_COMPILE or "") + " -DFD_SETSIZE=10000 -DDARWIN_UNLIMITED_SELECT";
             };
-          }
-        );
+          })
+        else
+          base;
     in
     {
       lunik1.home.git.enable = true;
