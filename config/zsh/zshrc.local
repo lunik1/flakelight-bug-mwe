@@ -183,11 +183,6 @@ stty erase "^?"
 
 command mkdir -p ~/.zfunc
 
-# poetry
-if (( $+commands[poetry] )) && [[ ! -a ~/.zfunc/_poetry ]]; then
-  poetry completions zsh > ~/.zfunc/_poetry
-fi
-
 fpath+=~/.zfunc
 
 ## END OF FILE #################################################################
