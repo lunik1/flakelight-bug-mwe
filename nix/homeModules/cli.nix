@@ -84,6 +84,10 @@ in
         # Fixed usptream, so remove on next zsh release.
         RSYNC_OLD_ARGS = 1;
         RSYNC_PROTECT_ARGS = 0;
+
+        # use bat for manpages
+        MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+        MANROFFOPT = "-c";
       }
       // (with config.xdg; {
         # non-XDG hall of shame
@@ -362,6 +366,9 @@ in
           "nonomatch"
         ];
         shellAliases = {
+          bless = "bat --paging=always -p"; # bat-powered less
+          brg = "batgrep";
+          cs = "bat -p ~/.local/share/zsh/zsh_cheatsheet.md";
           pie = "perl -pi -e";
           reset = "tput reset"; # fast reset
           rsync = "rsync -avzhPHA --no-inc-recursive --info=progress2";
