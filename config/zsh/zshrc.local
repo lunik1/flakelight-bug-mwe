@@ -4,12 +4,6 @@
 # Disable flow control
 stty -ixon
 
-# kid gloves
-if (( $+commands[trash] )); then
-  alias rm!=\'rm\'
-  alias rm=trash
-fi
-
 # remove app from quarantine on MacOS
 if [[ $(uname) == 'Darwin' ]]; then
      alias unquarantine='xattr -rd com.apple.quarantine'
