@@ -189,5 +189,3 @@ stty erase "^?"
 command mkdir -p ~/.zfunc
 
 fpath+=~/.zfunc
-
-## END OF FILE #################################################################
