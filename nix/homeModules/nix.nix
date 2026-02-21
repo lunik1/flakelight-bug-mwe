@@ -38,6 +38,7 @@ in
 
       zsh.shellAliases = {
         nixpkgs-revhead = "nixpkgs-review rev HEAD";
+        nfb = "nix-fast-build";
       };
     };
   };

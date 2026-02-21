@@ -17,10 +17,6 @@ if [ "${TERM}" = "xterm-kitty" ] || [ "${TERM}" = "xterm-ghostty" ]; then
   alias show-key="kitten show-key"
 fi
 
-if (( $+commands[nix-fast-build] )); then
-  alias nfb=nix-fast-build
-fi
-
 # different behaviour inside emacs
 # courtesey of elken
 if [ "${INSIDE_EMACS}" = "vterm" ]; then
