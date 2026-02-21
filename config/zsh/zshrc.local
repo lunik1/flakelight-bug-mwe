@@ -51,7 +51,12 @@ function hex() {
 # optimise a pdf
 function pdfopt() {
   # from https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file
-  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dNOPAUSE -dQUIET -dBATCH -dPrinted=false -sOutputFile="$2" "$1"
+  if [[ -n "$1" && -n "$2" && -z "$3" ]]; then
+    gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dNOPAUSE -dQUIET -dBATCH -dPrinted=false -sOutputFile="$2" "$1"
+  else
+    print 'Usage: pdfopt <target> <destination>'
+    return 1
+  fi
 }
 
 # swap files
