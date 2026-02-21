@@ -121,17 +121,14 @@ abk[NN]=">/dev/null 2>&1"
 function myip() {
   local flag
   case "$1" in
-  "-4")
-    flag=""
-    ;;
   "-6")
     flag="-6"
     ;;
   *)
-    flag=""
+    flag="-4"
     ;;
   esac
-  printf $(curl -s "${flag}" "https://icanhazip.com")'\n'
+  print $(curl -s "${flag}" "https://icanhazip.com")
 }
 
 
