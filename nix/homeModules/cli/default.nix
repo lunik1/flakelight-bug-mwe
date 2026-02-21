@@ -307,7 +307,7 @@ in
           auto_update_interval_hours = 24;
         };
       };
-      tmux = import ../../config/tmux/tmux.nix { inherit (pkgs) tmuxPlugins; };
+      tmux = import ../../../config/tmux/tmux.nix { inherit (pkgs) tmuxPlugins; };
       vivid = {
         enable = true;
         activeTheme = "gruvbox-dark";
@@ -514,7 +514,7 @@ in
       enable = true;
       dataFile = {
         "zsh_cheatsheet" = {
-          source = ../../resources/zsh/zsh_cheatsheet.md;
+          source = ../../../resources/zsh/zsh_cheatsheet.md;
           target = "zsh/zsh_cheatsheet.md";
         };
       };
