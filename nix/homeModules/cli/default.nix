@@ -514,7 +514,7 @@ in
       enable = true;
       dataFile = {
         "zsh_cheatsheet" = {
-          source = ../../../resources/zsh/zsh_cheatsheet.md;
+          source = ./zsh_cheatsheet.md;
           target = "zsh/zsh_cheatsheet.md";
         };
       };
