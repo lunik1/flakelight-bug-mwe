@@ -1506,6 +1506,7 @@ in
 
       zsh.shellAliases = rec {
         neogit = "nvim +Neogit";
+        vi = "nvim -u NONE";
         vimdiff = "nvim -d";
         nvimdiff = vimdiff;
         sudoedit = ''VISUAL="nvim -d" sudoedit'';

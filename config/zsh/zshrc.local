@@ -57,15 +57,6 @@ if (( $+commands[bat] )); then
   fi
 fi
 
-# use neovim if it exists
-if (( $+commands[nvim] )); then
-  alias vim='nvim'
-  alias vi='nvim -u NONE'
-  export EDITOR=nvim
-else
-  export EDITOR=vim
-fi
-
 # rsync
 if (( $+commands[rsync] )); then
   # we use --old-args because zsh 5.9's autocomplete expects that parsing logic
