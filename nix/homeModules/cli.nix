@@ -360,6 +360,24 @@ in
           pie = "perl -pi -e";
           reset = "tput reset"; # fast reset
           s = "sudo $(fc -ln -1)";
+
+          # truecolor support test
+          # https://gist.github.com/XVilka/8346728
+          tctest = ''
+            awk 'BEGIN{
+                s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+                for (colnum = 0; colnum<77; colnum++) {
+                    r = 255-(colnum*255/76);
+                    g = (colnum*510/76);
+                    b = (colnum*255/76);
+                    if (g>255) g = 510-g;
+                    print "\033[48;2;%d;%d;%dm", r,g,b;
+                    print "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+                    print "%s\033[0m", substr(s,colnum+1,1);
+                }
+                print "\n";
+            }'
+          '';
         };
         envExtra = ''
           if [[ "$TERM" == "foot" ]]

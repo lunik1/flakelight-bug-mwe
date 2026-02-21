@@ -30,27 +30,6 @@ if (( $+commands[trash] )); then
   alias rm=trash
 fi
 
-# test for truecolour support in terminal
-# https://gist.github.com/XVilka/8346728
-alias tctest='awk '\''BEGIN{
-    s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
-    for (colnum = 0; colnum<77; colnum++) {
-        r = 255-(colnum*255/76);
-        g = (colnum*510/76);
-        b = (colnum*255/76);
-        if (g>255) g = 510-g;
-        printf "\033[48;2;%d;%d;%dm", r,g,b;
-        printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
-        printf "%s\033[0m", substr(s,colnum+1,1);
-    }
-    printf "\n";
-}'\'''
-
-# nixpkgs pr check
-if (( $+commands[nix-shell] )); then
-  alias nixpkgs-revhead='nix-shell -p nixpkgs-review --run "nixpkgs-review rev HEAD"'
-fi
-
 # remove app from quarantine on MacOS
 if [[ $(uname) == 'Darwin' ]]; then
      alias unquarantine='xattr -rd com.apple.quarantine'
