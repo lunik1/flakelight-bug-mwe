@@ -190,26 +190,6 @@ if [ -n "${INSIDE_EMACS}" ]; then
   export EDITOR="false"
 fi
 
-if (( $+commands[pacman] )); then
-  # run pacman as root
-  salias pacman=pacman
-
-  # clean orphan packages with pacman
-  salias deorphan='pacman -Rns $(pacman -Qtdq)'
-
-  # find .pacnew, .pacsave, and pacorig files
-  if (( $+commands[fd] )); then
-    salias pacfiles='fd --xdev ".+\.pac(new|save|orig)" /'
-  else
-    salias pacfiles='find / -xdev -regextype posix-extended -regex ".+\.pac(new|save|orig)"'
-  fi
-
-  # sort installed packages by size
-  if (( $+commands[expac] )); then
-    alias pacsize='expac "%m\t%n" | sort -h'
-  fi
-fi
-
 # find broken symlinks
 alias brokenlinks='find /var -path /proc -prune -o -type l -! -exec test -e {} \; -print'
 
