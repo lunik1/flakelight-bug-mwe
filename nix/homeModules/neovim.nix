@@ -1508,6 +1508,7 @@ in
         neogit = "nvim +Neogit";
         vimdiff = "nvim -d";
         nvimdiff = vimdiff;
+        sudoedit = ''VISUAL="nvim -d" sudoedit'';
       };
 
       neovide = {
