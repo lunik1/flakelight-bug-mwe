@@ -151,7 +151,12 @@ function pdfopt() {
 # swap files
 function swap() {
   local TMPFILE=tmp.$$
-  mv -n "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE "$2"
+  if [[ -n "$1" && -n "$2" && -z "$3" ]]; then
+    mv -n "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE "$2"
+  else
+    print 'Usage: swap <file1> <file2>'
+    return 1
+  fi
 }
 
 ## Prompt
