@@ -398,7 +398,8 @@ in
           # "rm!" = "rm";
           # rm = "trash";
         }
-        // lib.optionals pkgs.stdenv.isDarwin {
+        // lib.optionalAttrs pkgs.stdenv.isDarwin {
+          cp = "gcp";
           unquarantine = "xattr -rd com.apple.quarantine";
         };
         envExtra = ''
