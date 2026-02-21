@@ -4,14 +4,6 @@
 # Disable flow control
 stty -ixon
 
-# Arion
-if (( $+commands[arion] )); then
-  salias adown="arion down"
-  salias apull="ionice -n 5 arion pull"
-  salias aup="ionice -n 5 arion up -d"
-fi
-
-
 if [ "${TERM}" = "xterm-kitty" ]; then
   alias ssh="kitten ssh"
   alias transfer="kitten transfer"
