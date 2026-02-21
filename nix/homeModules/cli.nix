@@ -392,6 +392,14 @@ in
             }'
           '';
         }
+        // lib.optionalAttrs pkgs.stdenv.isLinux {
+          poweroff = "systemctl poweroff";
+          shutdown = "systemctl poweroff";
+          reboot = "systemctl reboot";
+          suspend = "systemctl suspend";
+          hibernate = "systemctl hibernate";
+          hybrid-sleep = "systemctl hybrid-sleep";
+        }
         // lib.optionalAttrs (with pkgs.stdenv; isLinux && isx86_64) {
           # kid gloves
           # disabled until trash-d build fixed
