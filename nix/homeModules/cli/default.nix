@@ -351,7 +351,7 @@ in
             source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
           '')
           ''
-            source ${../../config/zsh/zshrc.local}
+            source ${./.zshrc}
           ''
         ];
         sessionVariables = {
