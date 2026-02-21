@@ -1,14 +1,6 @@
 # -*- mode: sh; -*-
 # vi:ft=zsh
 
-# Set up virtualenvwrapper
-if type virtualenvwrapper.sh > /dev/null 2>&1; then
-  export WORKON_HOME=~/.virtualenvs
-  export PROJECT_HOME=~/code/python
-  mkdir -p ${WORKON_HOME} ${PROJECT_HOME}
-  source virtualenvwrapper.sh
-fi
-
 # Disable flow control
 stty -ixon
 
