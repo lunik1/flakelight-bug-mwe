@@ -17,27 +17,12 @@ fi
 # Disable flow control
 stty -ixon
 
-## Aliases
-
-# Easy access to full zsh manual
-alias manzsh='man zshall'
-
-# Fast reset
-alias reset='tput reset'
-
 # Emacs
 if (( $+commands[emacs] )); then
   if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
     alias emacs='emacs & disown'
   fi
 fi
-
-## get top 10 shell commands:
-alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
-alias s='sudo $(fc -ln -1)'
-
-# easy sedding with perl
-alias pie='perl -pi -e'
 
 # kid gloves
 if (( $+commands[trash] )); then

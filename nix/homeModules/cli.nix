@@ -356,6 +356,11 @@ in
           "interactivecomments"
           "nonomatch"
         ];
+        shellAliases = {
+          pie = "perl -pi -e";
+          reset = "tput reset"; # fast reset
+          s = "sudo $(fc -ln -1)";
+        };
         envExtra = ''
           if [[ "$TERM" == "foot" ]]
           then
