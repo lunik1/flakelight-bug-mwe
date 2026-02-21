@@ -1,11 +1,6 @@
 # -*- mode: sh; -*-
 # vi:ft=zsh
 
-# Set up thefuck
-if (( $+commands[thefuck] )); then
-  eval $(thefuck --alias yikes)
-fi
-
 # Set up virtualenvwrapper
 if type virtualenvwrapper.sh > /dev/null 2>&1; then
   export WORKON_HOME=~/.virtualenvs
