@@ -190,9 +190,6 @@ if [ -n "${INSIDE_EMACS}" ]; then
   export EDITOR="false"
 fi
 
-# find broken symlinks
-alias brokenlinks='find /var -path /proc -prune -o -type l -! -exec test -e {} \; -print'
-
 # diff files with escalated privilege
 alias sudodiff='VISUAL="$EDITOR -d" sudoedit'
 
