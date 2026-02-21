@@ -40,6 +40,7 @@ in
           lz4
           nix-tree
           p7zip
+          perl
           q
           rename
           ripgrep
