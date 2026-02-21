@@ -131,21 +131,6 @@ function myip() {
   print $(curl -s "${flag}" "https://icanhazip.com")
 }
 
-
-# List all occurrences of program in current PATH
-function plap() {
-  emulate -L zsh
-  setopt extended_glob
-
-   if [[ $# = 0 ]] ; then
-       echo "Usage:    $0 program"
-       echo "Example:  $0 zsh"
-       echo "Lists all occurrences of program in the current PATH."
-   else
-       ls -l ${^path}/$1(.*)#(*N)
-   fi
-}
-
 # print hex value of a number
 function hex() {
   emulate -L zsh
