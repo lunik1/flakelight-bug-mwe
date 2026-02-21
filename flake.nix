@@ -108,7 +108,10 @@
               src = ./.;
               hooks = {
                 nixfmt.enable = true;
-                shellcheck.enable = true;
+                shellcheck = {
+                  enable = true;
+                  excludes = [ ".zshrc" ];
+                };
                 statix.enable = true;
               };
             };

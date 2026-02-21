@@ -104,19 +104,27 @@ in
           extraPackages = epkgs: [ epkgs.vterm ];
         };
 
-        zsh.shellAliases = {
-          doom = "~/.emacs.d/bin/doom";
-          ec = "emacsclient -a '' -t";
+        zsh = {
+          initContent = lib.mkMerge [
+            ''
+              source ${./.zshrc}
+            ''
+          ];
 
-          "dired" = ''emacsclient -a \'\' -t --eval "(dired \"$PWD\")"'';
-          "dired+" = ''emacs -nw --eval "(dired \"$PWD\")"'';
-          "dirvish" = "emacsclient -a '' -t --eval '(dirvish)'";
-          "dirvish+" = "emacs -nw --eval '(dirvish)";
-          "magit" = "emacsclient -a '' -t --eval '(magit)'";
-          "magit+" = "emacs -nw --eval '(magit)'";
-        }
-        // lib.optionalAttrs config.lunik1.home.wsl.enable {
-          emacs = "emacs & disown";
+          shellAliases = {
+            doom = "~/.emacs.d/bin/doom";
+            ec = "emacsclient -a '' -t";
+
+            "dired" = ''emacsclient -a \'\' -t --eval "(dired \"$PWD\")"'';
+            "dired+" = ''emacs -nw --eval "(dired \"$PWD\")"'';
+            "dirvish" = "emacsclient -a '' -t --eval '(dirvish)'";
+            "dirvish+" = "emacs -nw --eval '(dirvish)";
+            "magit" = "emacsclient -a '' -t --eval '(magit)'";
+            "magit+" = "emacs -nw --eval '(magit)'";
+          }
+          // lib.optionalAttrs config.lunik1.home.wsl.enable {
+            emacs = "emacs & disown";
+          };
         };
       };
 
