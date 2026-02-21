@@ -79,6 +79,11 @@ in
         RSYNC_CHECKSUM_LIST = "xxh3 xxh128 xxh64 sha1 md5 md4 none";
         RSYNC_COMPRESS_LIST = "lz4 zstd zlibx zlib none";
         MANWIDTH = 80;
+
+        # zsh 5.9's autocomplete expects rsyn's old parsing logic.
+        # Fixed usptream, so remove on next zsh release.
+        RSYNC_OLD_ARGS = 1;
+        RSYNC_PROTECT_ARGS = 0;
       }
       // (with config.xdg; {
         # non-XDG hall of shame
@@ -359,11 +364,8 @@ in
         shellAliases = {
           pie = "perl -pi -e";
           reset = "tput reset"; # fast reset
+          rsync = "rsync -avzhPHA --no-inc-recursive --info=progress2";
           s = "sudo $(fc -ln -1)";
-
-          # we use --old-args because zsh 5.9's autocomplete expects that parsing
-          # logic. Fixed usptream, so remove whenever the next zsh comes out
-          rsync = "rsync --old-args -avzhPHA --no-inc-recursive --info=progress2";
 
           # truecolor support test
           # https://gist.github.com/XVilka/8346728
