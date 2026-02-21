@@ -392,7 +392,7 @@ in
             }'
           '';
         }
-        // lib.optionals (with pkgs.stdenv; isLinux && isx86_64) {
+        // lib.optionalAttrs (with pkgs.stdenv; isLinux && isx86_64) {
           # kid gloves
           # disabled until trash-d build fixed
           # "rm!" = "rm";
