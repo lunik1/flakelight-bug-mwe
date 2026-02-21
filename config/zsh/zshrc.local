@@ -142,15 +142,6 @@ function hex() {
   fi
 }
 
-# Find out which libs define a symbol
-function lcheck() {
-   if [[ -n "$1" ]] ; then
-       nm -go /usr/lib/lib*.a 2>/dev/null | grep ":[[:xdigit:]]\{8\} . .*$1"
-   else
-       echo "Usage: lcheck <function>" >&2
-   fi
-}
-
 # optimise a pdf
 function pdfopt() {
   # from https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file
