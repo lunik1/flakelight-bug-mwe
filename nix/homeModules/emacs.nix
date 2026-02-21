@@ -114,6 +114,9 @@ in
           "dirvish+" = "emacs -nw --eval '(dirvish)";
           "magit" = "emacsclient -a '' -t --eval '(magit)'";
           "magit+" = "emacs -nw --eval '(magit)'";
+        }
+        // lib.optionalAttrs config.lunik1.home.wsl.enable {
+          emacs = "emacs & disown";
         };
       };
 

@@ -4,13 +4,6 @@
 # Disable flow control
 stty -ixon
 
-# Emacs
-if (( $+commands[emacs] )); then
-  if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
-    alias emacs='emacs & disown'
-  fi
-fi
-
 # kid gloves
 if (( $+commands[trash] )); then
   alias rm!=\'rm\'
