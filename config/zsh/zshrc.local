@@ -4,11 +4,6 @@
 # Disable flow control
 stty -ixon
 
-# remove app from quarantine on MacOS
-if [[ $(uname) == 'Darwin' ]]; then
-     alias unquarantine='xattr -rd com.apple.quarantine'
-fi
-
 # Arion
 if (( $+commands[arion] )); then
   salias adown="arion down"

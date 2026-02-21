@@ -397,6 +397,9 @@ in
           # disabled until trash-d build fixed
           # "rm!" = "rm";
           # rm = "trash";
+        }
+        // lib.optionals pkgs.stdenv.isDarwin {
+          unquarantine = "xattr -rd com.apple.quarantine";
         };
         envExtra = ''
           if [[ "$TERM" == "foot" ]]
