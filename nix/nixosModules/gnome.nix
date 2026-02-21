@@ -61,6 +61,7 @@ in
         ++ (with pkgs.gnomeExtensions; [
           appindicator
           dash-to-dock
+          gamemode-shell-extension
           hot-edge
           fullscreen-avoider
           gsconnect
