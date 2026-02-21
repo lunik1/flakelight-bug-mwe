@@ -361,6 +361,10 @@ in
           reset = "tput reset"; # fast reset
           s = "sudo $(fc -ln -1)";
 
+          # we use --old-args because zsh 5.9's autocomplete expects that parsing
+          # logic. Fixed usptream, so remove whenever the next zsh comes out
+          rsync = "rsync --old-args -avzhPHA --no-inc-recursive --info=progress2";
+
           # truecolor support test
           # https://gist.github.com/XVilka/8346728
           tctest = ''

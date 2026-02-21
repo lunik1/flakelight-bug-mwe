@@ -57,14 +57,6 @@ if (( $+commands[bat] )); then
   fi
 fi
 
-# rsync
-if (( $+commands[rsync] )); then
-  # we use --old-args because zsh 5.9's autocomplete expects that parsing logic
-  # there is a fix usptream, so remove whenever the next zsh comes out
-  alias rsync='rsync --old-args -avzhPHA --no-inc-recursive --info=progress2'
-  alias srsync='rsync --old-args --no-inc-recursive --info=progress2 -avzPhHAe ssh'
-fi
-
 if [ "${TERM}" = "xterm-kitty" ]; then
   alias ssh="kitten ssh"
   alias transfer="kitten transfer"
