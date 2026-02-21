@@ -306,11 +306,4 @@ fi
 
 fpath+=~/.zfunc
 
-## Customise highlighting (if enabled)
-if typeset -f fast-theme > /dev/null; then
-  # on NixOS we are spammed with complains about a ro fs, so redirect everything to /dev/null
-  # fast-theme -q default &> /dev/null
-  fast-theme -q XDG:overlay &> /dev/null  # load my theme customisations
-fi
-
 ## END OF FILE #################################################################

@@ -352,7 +352,6 @@ in
           '')
           ''
             source ${../../config/zsh/zshrc.local}
-            source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
           ''
         ];
         sessionVariables = {
@@ -421,6 +420,31 @@ in
           [ -f "${config.sops.secrets.cachix_auth_token.path}" ] \
             && export CACHIX_AUTH_TOKEN=$(<"${config.sops.secrets.cachix_auth_token.path}")
         '';
+        syntaxHighlighting = {
+          enable = true;
+          highlighters = [
+            "brackets"
+            "main"
+          ];
+          styles = {
+            alias = "fg=green,bold";
+            function = "fg=magenta";
+            builtin = "fg=magenta,bold";
+            path = "fg=cyan";
+            precommand = "fg=yellow";
+            back-quoted-argument-unclosed = "fg=red,underline";
+            single-quoted-argument-unclosed = "fg=yellow,underline";
+            double-quoted-argument = "fg=yellow,bold";
+            double-quoted-argument-unclosed = "fg=yellow,underline,bold";
+            dollar-quoted-argument-unclosed = "fg=yellow,underline";
+
+            bracket-level-1 = "fg=magenta";
+            bracket-level-2 = "fg=blue";
+            bracket-level-3 = "fg=green";
+            bracket-level-4 = "fg=yellow";
+            bracket-level-5 = "fg=red";
+          };
+        };
         # Make TRAMP and zsh play nice
         # https://www.emacswiki.org/emacs/TrampMode#h5o-9
         profileExtra = ''
