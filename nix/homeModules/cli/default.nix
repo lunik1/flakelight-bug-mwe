@@ -307,7 +307,7 @@ in
           auto_update_interval_hours = 24;
         };
       };
-      tmux = import ../../../config/tmux/tmux.nix { inherit (pkgs) tmuxPlugins; };
+      tmux = import ./tmux.nix { inherit (pkgs) tmuxPlugins; };
       vivid = {
         enable = true;
         activeTheme = "gruvbox-dark";
