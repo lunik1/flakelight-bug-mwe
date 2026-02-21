@@ -190,9 +190,6 @@ if [ -n "${INSIDE_EMACS}" ]; then
   export EDITOR="false"
 fi
 
-# diff files with escalated privilege
-alias sudodiff='VISUAL="$EDITOR -d" sudoedit'
-
 # shutdown and the like
 if (( $+commands[systemctl] )); then
   alias poweroff='systemctl poweroff'
