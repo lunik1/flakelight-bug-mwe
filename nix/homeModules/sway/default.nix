@@ -300,7 +300,7 @@ in
       };
       zathura = {
         enable = true;
-        options = import ../../../config/zathura/zathura.nix { inherit gruvbox; };
+        options = pkgs.lib.lunik1.configs.zathura { inherit gruvbox; };
       };
     };
 

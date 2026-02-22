@@ -172,9 +172,7 @@ in
 
       zathura = {
         enable = true;
-        options = import ../../config/zathura/zathura.nix {
-          inherit (pkgs.lib.lunik1.colorschemes) gruvbox;
-        };
+        options = with pkgs.lib.lunik1; configs.zathura { inherit (colorschemes) gruvbox; };
       };
     };
 

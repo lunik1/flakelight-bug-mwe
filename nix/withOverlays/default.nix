@@ -15,4 +15,5 @@
     };
   })
   (import ./gruvbox.nix)
+  (import ./configs/zathura.nix)
 ]

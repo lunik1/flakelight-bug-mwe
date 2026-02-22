@@ -1,7 +1,7 @@
 self: super:
 
 {
-  lib = super.lib // {
+  lib = super.lib.recursiveUpdate super.lib {
     lunik1.colorschemes.gruvbox = rec {
       dark = rec {
         black = {
