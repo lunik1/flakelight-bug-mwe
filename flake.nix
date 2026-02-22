@@ -58,19 +58,6 @@
         nixpkgsConfig = {
           allowUnfree = true;
         };
-
-        withOverlays = [
-          inputs.wbba.overlays.default
-          (self: super: { lunik1-nur = import inputs.lunik1-nur { pkgs = super; }; })
-          (self: super: { nix-wallpaper = super.inputs'.nix-wallpaper.packages.default; })
-          (self: super: { yt-dlp = super.yt-dlp.override { withAlias = true; }; })
-          (self: super: {
-            neovim = super.neovim.override {
-              vimAlias = true;
-              viAlias = true;
-            };
-          })
-        ];
       in
       {
         systems = [
@@ -91,9 +78,9 @@
           ];
         };
 
-        inherit withOverlays;
-
-        overlay = foldl' lib.composeExtensions (_: _: { }) withOverlays;
+        overlay = foldl' lib.composeExtensions (_: _: { }) (
+          import ./nix/withOverlays/default.nix { inherit inputs; }
+        );
 
         formatters =
           pkgs: with pkgs; {
