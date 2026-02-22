@@ -111,7 +111,7 @@
           {
             secrets =
               let
-                mercury2SopsFile = ../../secrets/host/mercury2/secrets.yaml;
+                mercury2SopsFile = ../../../secrets/host/mercury2/secrets.yaml;
               in
               {
                 porkbun-api-key = {
@@ -314,7 +314,7 @@
               environmentVariables = {
                 X_AUTHELIA_CONFIG_FILTERS = "template";
               };
-              settingsFiles = [ ../../resources/authelia/extra.yaml ];
+              settingsFiles = [ ../../../resources/authelia/extra.yaml ];
             };
           };
 
