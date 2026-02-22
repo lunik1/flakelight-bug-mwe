@@ -6,7 +6,7 @@
 }:
 
 let
-  gruvbox = import ../../resources/colourschemes/gruvbox.nix;
+  gruvbox = import ../../../resources/colourschemes/gruvbox.nix;
   cfg = config.lunik1.home;
 in
 {
@@ -183,7 +183,7 @@ in
                 on-click-middle = "${pkgs.light}/bin/light -S 0";
               };
               "custom/memory" = {
-                exec = "${pkgs.procps}/bin/free -b | ${pkgs.gawk}/bin/gawk -f ${../../resources/waybar/memory_module.awk}";
+                exec = "${pkgs.procps}/bin/free -b | ${pkgs.gawk}/bin/gawk -f ${../../../resources/waybar/memory_module.awk}";
                 return-type = "json";
                 interval = 5;
               };
@@ -296,11 +296,11 @@ in
             };
           }
         ];
-        style = import ../../config/waybar/style.nix;
+        style = import ../../../config/waybar/style.nix;
       };
       zathura = {
         enable = true;
-        options = import ../../config/zathura/zathura.nix;
+        options = import ../../../config/zathura/zathura.nix;
       };
     };
 
