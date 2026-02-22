@@ -1,0 +1,5 @@
+---
+identity_providers:
+  oidc:
+    jwks:
+      - key: {{secret "/run/secrets/authelia-jwks-key" | mindent 10 "|" | msquote}}

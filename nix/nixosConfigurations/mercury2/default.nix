@@ -314,7 +314,7 @@
               environmentVariables = {
                 X_AUTHELIA_CONFIG_FILTERS = "template";
               };
-              settingsFiles = [ ../../../resources/authelia/extra.yaml ];
+              settingsFiles = [ ./authelia-extra.yaml ];
             };
           };
 
