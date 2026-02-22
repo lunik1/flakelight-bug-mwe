@@ -14,4 +14,5 @@
       viAlias = true;
     };
   })
+  (import ./gruvbox.nix)
 ]

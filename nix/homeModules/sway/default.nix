@@ -6,7 +6,7 @@
 }:
 
 let
-  gruvbox = import ../../../resources/colourschemes/gruvbox.nix;
+  inherit (pkgs.lib.lunik1.colorschemes) gruvbox;
   cfg = config.lunik1.home;
 in
 {
@@ -296,11 +296,11 @@ in
             };
           }
         ];
-        style = import ./waybar/style.nix;
+        style = import ./waybar/style.nix { inherit gruvbox; };
       };
       zathura = {
         enable = true;
-        options = import ../../../config/zathura/zathura.nix;
+        options = import ../../../config/zathura/zathura.nix { inherit gruvbox; };
       };
     };
 

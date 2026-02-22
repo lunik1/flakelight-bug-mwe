@@ -1,6 +1,7 @@
-let
-  gruvbox = import ../../../../resources/colourschemes/gruvbox.nix;
-in
+{
+  gruvbox,
+}:
+
 ''
    * {
       border: none;
