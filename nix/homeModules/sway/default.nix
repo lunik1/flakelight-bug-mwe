@@ -296,7 +296,7 @@ in
             };
           }
         ];
-        style = import ../../../config/waybar/style.nix;
+        style = import ./waybar/style.nix;
       };
       zathura = {
         enable = true;
