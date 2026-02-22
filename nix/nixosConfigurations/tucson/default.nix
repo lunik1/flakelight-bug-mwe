@@ -152,7 +152,7 @@
 
           services.openrgb.serviceConfig.ExecStart =
             with config.services.hardware.openrgb;
-            lib.mkForce "${package}/bin/openrgb --server --server-port ${toString server.port} --profile ${../../../resources/io.orp}";
+            lib.mkForce "${package}/bin/openrgb --server --server-port ${toString server.port} --profile ${./io.orp}";
         };
 
         hardware.keyboard.qmk.enable = true;
