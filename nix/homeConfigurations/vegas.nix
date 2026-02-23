@@ -18,9 +18,6 @@
           dirHashes = {
             win = "/mnt/c/Users/chmic";
           };
-          profileExtra = ''
-            setxkbmap -option compose:ralt
-          '';
         };
 
         nix.settings = {
