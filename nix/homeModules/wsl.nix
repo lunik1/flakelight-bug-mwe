@@ -28,7 +28,7 @@ in
         open = "wsl-open";
       };
 
-      profileExtra = ''
+      loginExtra = ''
         ${lib.getExe pkgs.setxkbmap} -option compose:ralt &> /dev/null
       '';
 
