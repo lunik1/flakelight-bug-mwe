@@ -1,38 +1,9 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    lunik1-nur = {
-      url = "github:lunik1/nur-packages";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-      };
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    wbba.url = "github:sohalt/write-babashka-application";
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-index-database = {
-      url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    nix-wallpaper = {
-      url = "github:lunik1/nix-wallpaper";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-      };
     };
     flakelight = {
       url = "github:nix-community/flakelight";
@@ -40,13 +11,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
   };
 
   outputs =
@@ -54,87 +18,14 @@
     flakelight ./. (
       { lib, inputs, ... }:
       with lib;
-      let
-        nixpkgsConfig = {
-          allowUnfree = true;
-        };
-      in
       {
         systems = [
           "x86_64-linux"
-          "aarch64-linux"
-          "aarch64-darwin"
         ];
 
-        flakelight.builtinFormatters = false;
-
-        nixpkgs.config = {
-          allowUnfree = true;
-
-          permittedInsecurePackages = [
-            # ventoy
-            # https://github.com/NixOS/nixpkgs/pull/405547
-            "ventoy-gtk3-1.1.10"
-          ];
-        };
-
-        overlay = foldl' lib.composeExtensions (_: _: { }) (
-          import ./nix/withOverlays/default.nix { inherit inputs; }
-        );
-
-        formatters =
-          pkgs: with pkgs; {
-            "*.nix" = "${nixfmt}/bin/nixfmt";
-            "*.bb" = "${cljfmt}/bin/cljfmt";
-          };
-
-        checks = {
-          pre-commit-check =
-            pkgs:
-            pkgs.inputs'.pre-commit-hooks.lib.run {
-              src = ./.;
-              hooks = {
-                nixfmt.enable = true;
-                shellcheck = {
-                  enable = true;
-                  excludes = [ ".zshrc" ];
-                };
-                statix.enable = true;
-              };
-            };
-        };
-
-        devShell = pkgs: {
-          inherit (pkgs.outputs'.checks.pre-commit-check) shellHook;
-          packages = with pkgs; [
-            ploy
-
-            cachix
-            coreutils
-            gawk
-            jq
-            nix-info
-            nix-output-monitor
-            nixfmt
-            nixpkgs-lint-community
-            nodePackages_latest.prettier
-            nodePackages_latest.yaml-language-server
-            pre-commit
-            shellcheck
-            sops
-            ssh-to-age
-            statix
-
-            babashka
-            clojure-lsp
-            clj-kondo
-            cljfmt
-          ];
-        };
-
-        outputs.nixpkgsConfig = nixpkgsConfig;
-
-        license = lib.licenses.bsd2Patent;
+        withOverlays = [
+          (self: super: { lib = super.lib.recursiveUpdate super.lib { lunik1.myTrue = true; }; })
+        ];
       }
     );
 }

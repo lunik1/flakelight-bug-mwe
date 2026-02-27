@@ -11,14 +11,7 @@ let
     prev:
     prev
     // {
-      modules =
-        prev.modules
-        ++ (with inputs; [
-          nix-index-database.homeModules.nix-index
-          nixvim.homeModules.nixvim
-          sops-nix.homeManagerModule
-        ])
-        ++ lib.attrValues outputs.homeModules;
+      modules = prev.modules ++ (with inputs; [ ]) ++ lib.attrValues outputs.homeModules or [ ];
     };
 in
 lib.mapAttrs (_: addCommonCfg) (flakelight.importDir ./.)

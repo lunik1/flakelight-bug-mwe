@@ -22,17 +22,12 @@ let
               backupFileExtension = "hmbackup";
             };
           }
-          sops-nix.nixosModules.sops
-          quadlet-nix.nixosModules.quadlet
         ])
-        ++ lib.attrValues outputs.nixosModules;
+        ++ lib.attrValues outputs.nixosModules or { };
     };
 
   hmModules =
     (with inputs; [
-      nix-index-database.homeModules.nix-index
-      nixvim.homeModules.nixvim
-      sops-nix.homeManagerModule
     ])
     ++ lib.attrValues outputs.homeModules;
 in
